@@ -1,0 +1,1 @@
+# BDAS2---Semestr-ln-pr-ce---SK-LHOTA
