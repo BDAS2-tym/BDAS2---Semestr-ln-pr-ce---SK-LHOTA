@@ -1,1 +1,1 @@
-# BDAS2---Semestr-ln-pr-ce---SK-LHOTA
+# BDAS2---Semestralni prace sportovni klub SK-LHOTA
