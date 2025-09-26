@@ -9,4 +9,29 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="coach.png" />
+    <None Remove="contract.png" />
+    <None Remove="graph_icon.png" />
+    <None Remove="left_icon.png" />
+    <None Remove="logout.png" />
+    <None Remove="Logo_SK_Lhota.png" />
+    <None Remove="Logo_SK_Lhota1.png" />
+    <None Remove="player.png" />
+    <None Remove="red_card.png" />
+    <None Remove="training.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="coach.png" />
+    <Resource Include="contract.png" />
+    <Resource Include="graph_icon.png" />
+    <Resource Include="left_icon.png" />
+    <Resource Include="logout.png" />
+    <Resource Include="Logo_SK_Lhota.png" />
+    <Resource Include="player.png" />
+    <Resource Include="red_card.png" />
+    <Resource Include="training.png" />
+  </ItemGroup>
+
 </Project>
