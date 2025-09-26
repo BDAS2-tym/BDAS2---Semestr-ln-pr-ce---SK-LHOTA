@@ -7,11 +7,15 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>Ikona_Programu.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="clock_icon.png" />
     <None Remove="coach.png" />
     <None Remove="contract.png" />
+    <None Remove="date_icon.png" />
     <None Remove="graph_icon.png" />
     <None Remove="left_icon.png" />
     <None Remove="logout.png" />
@@ -23,8 +27,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Ikona_Programu.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="clock_icon.png" />
     <Resource Include="coach.png" />
     <Resource Include="contract.png" />
+    <Resource Include="date_icon.png" />
     <Resource Include="graph_icon.png" />
     <Resource Include="left_icon.png" />
     <Resource Include="logout.png" />
