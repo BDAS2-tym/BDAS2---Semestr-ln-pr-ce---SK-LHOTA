@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HK9jjRaOJlQ=",
+  "dgSpecHash": "0Ic8C/WPC3w=",
   "success": true,
-  "projectFilePath": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\BDAS2_Sem_Prace-Cincibus_Tluchor.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\milan\\.nuget\\packages\\extended.wpf.toolkit\\5.0.0\\extended.wpf.toolkit.5.0.0.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\Aleš Tlučhoř\\Source\\Repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\BDAS2_Sem_Prace-Cincibus_Tluchor.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

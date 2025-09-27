@@ -7,9 +7,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>Ikona_Programu.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <None Remove="Images\Img\Logo_SK_Lhota.png" />
     <None Remove="Images\Img\pozadi_1_dialog_okna.png" />
     <None Remove="Images\Img\pozadi_1_prihlasovaci_okno.png" />
@@ -41,6 +44,44 @@
     <Resource Include="Images\Img\pozadi_3_dialog_okna.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+=======
+    <None Remove="add_icon.png" />
+    <None Remove="clock_icon.png" />
+    <None Remove="coach.png" />
+    <None Remove="contract.png" />
+    <None Remove="date_icon.png" />
+    <None Remove="graph_icon.png" />
+    <None Remove="left_icon.png" />
+    <None Remove="logout.png" />
+    <None Remove="Logo_SK_Lhota.png" />
+    <None Remove="Logo_SK_Lhota1.png" />
+    <None Remove="lupa_icon.png" />
+    <None Remove="player.png" />
+    <None Remove="red_card.png" />
+    <None Remove="remove_icon.png" />
+    <None Remove="training.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Ikona_Programu.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="add_icon.png" />
+    <Resource Include="clock_icon.png" />
+    <Resource Include="coach.png" />
+    <Resource Include="contract.png" />
+    <Resource Include="date_icon.png" />
+    <Resource Include="graph_icon.png" />
+    <Resource Include="left_icon.png" />
+    <Resource Include="logout.png" />
+    <Resource Include="Logo_SK_Lhota.png" />
+    <Resource Include="lupa_icon.png" />
+    <Resource Include="player.png" />
+    <Resource Include="red_card.png" />
+    <Resource Include="remove_icon.png" />
+    <Resource Include="training.png" />
+>>>>>>> 7ed4a76f7a903aaae3bfa1cf0b2cb9bd5ed96059
   </ItemGroup>
 
 </Project>
