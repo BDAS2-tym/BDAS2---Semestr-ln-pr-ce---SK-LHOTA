@@ -1,0 +1,31 @@
+# Visual Studio temporary files, build results, and user-specific files
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider IDE files (optional)
+.idea/
+
+# Visual Studio Code files (optional)
+.vscode/
+
+# Build logs
+*.log
+
+# Packages
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+
+# Resharper files
+_ReSharper*/
+*.DotSettings.user
+
+# Windows files
+Thumbs.db
+Desktop.ini
