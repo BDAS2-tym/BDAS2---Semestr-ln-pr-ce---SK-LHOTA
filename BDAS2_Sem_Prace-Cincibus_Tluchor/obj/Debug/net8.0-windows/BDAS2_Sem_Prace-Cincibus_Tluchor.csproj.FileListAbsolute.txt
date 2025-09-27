@@ -19,3 +19,5 @@ C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_
 C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\BDAS2_Sem_Prace-Cincibus_Tluchor.pdb
 C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\BDAS2_Sem_Prace-Cincibus_Tluchor.genruntimeconfig.cache
 C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\ref\BDAS2_Sem_Prace-Cincibus_Tluchor.dll
+C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\PridejHrace.g.cs
+C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\PridejHrace.baml
