@@ -9,4 +9,38 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\Img\Logo_SK_Lhota.png" />
+    <None Remove="Images\Img\pozadi_1_dialog_okna.png" />
+    <None Remove="Images\Img\pozadi_1_prihlasovaci_okno.png" />
+    <None Remove="Images\Img\pozadi_2_dialog_okna.png" />
+    <None Remove="Images\Img\pozadi_2_prihlasovaci_okno.png" />
+    <None Remove="Images\Img\pozadi_3_dialog_okna.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Img\Logo_SK_Lhota.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Img\pozadi_1_dialog_okna.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Img\pozadi_1_prihlasovaci_okno.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Img\pozadi_2_dialog_okna.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Img\pozadi_2_prihlasovaci_okno.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Img\pozadi_3_dialog_okna.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>

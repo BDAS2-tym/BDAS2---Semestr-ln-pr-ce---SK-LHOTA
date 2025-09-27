@@ -1,0 +1,102 @@
+﻿<Window x:Name="PridejTrenera" x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.MainWindow"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor"
+        mc:Ignorable="d"
+        Title="Přidej trenéra" Height="673" Width="562" WindowStartupLocation="CenterOwner" AutomationProperties.Name="PridejTrenera" FontFamily="Century Gothic" FontSize="14" MinWidth="500" MinHeight="620" MaxWidth="620" MaxHeight="700">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Logo -->
+            <RowDefinition Height="*"/>
+            <!-- Formulář -->
+            <RowDefinition Height="60"/>
+            <!-- Tlačítka -->
+        </Grid.RowDefinitions>
+
+        <!-- Logo sekce -->
+        <Border Grid.Row="0" Padding="10">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/Img/pozadi_1_dialog_okna.png" Stretch="UniformToFill" TileMode="None"/>
+            </Border.Background>
+            <Image x:Name="imgLogo" Source="/Images/Img/Logo_SK_Lhota.png" HorizontalAlignment="Center" Height="100"/>
+        </Border>
+
+        <!-- Formulář -->
+        <Grid Grid.Row="1">
+            <Grid.Background>
+                <ImageBrush Stretch="Fill" ImageSource="/Images/Img/pozadi_2_dialog_okna.png"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ID -->
+            <TextBlock x:Name="tblockId" Grid.Row="0" Grid.Column="0" Text="ID:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
+            <TextBox x:Name="tboxId" Grid.Row="0" Grid.Column="1" Margin="50,18,50,18" TextWrapping="Wrap" MaxLength="10" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1"/>
+
+            <!-- Jméno -->
+            <TextBlock x:Name="tblockJmeno" Grid.Row="1" Grid.Column="0" Text="Jméno:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
+            <TextBox x:Name="tboxJmeno" Grid.Row="1" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="2"/>
+
+            <!-- Příjmení -->
+            <TextBlock x:Name="tblockPrijmeni" Grid.Row="2" Grid.Column="0" Text="Příjmení:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
+            <TextBox x:Name="tboxPrijmeni" Grid.Row="2" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="3"/>
+
+            <!-- Telefonní číslo -->
+            <TextBlock x:Name="tblockTelCislo" Grid.Row="3" Grid.Column="0" Text="Telefonní číslo:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
+            <TextBox x:Name="tboxTelCislo" Grid.Row="3" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="4"/>
+
+            <!-- Trenérská licence -->
+            <TextBlock x:Name="tblockLicence" Grid.Row="4" Grid.Column="0" Text="Trenérská licence:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
+            <TextBox x:Name="tboxLicence" Grid.Row="4" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="5"/>
+
+            <!-- Specializace -->
+            <TextBlock x:Name="tblockSpecializace" Grid.Row="5" Grid.Column="0" Text="Specializace:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
+            <TextBox x:Name="tboxSpecializace" Grid.Row="5" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="6"/>
+
+            <!-- Počet let praxe -->
+            <TextBlock x:Name="tblockPraxe" Grid.Row="6" Grid.Column="0" Text="Počet let praxe:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
+            <xctk:IntegerUpDown x:Name="iudPraxe" Grid.Row="6" Grid.Column="1" Margin="50,18,50,18"
+                    Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="7"/>
+        </Grid>
+
+        <!-- Tlačítka -->
+        <Border Grid.Row="2">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/Img/pozadi_3_dialog_okna.png"/>
+            </Border.Background>
+            <StackPanel Orientation="Horizontal" UseLayoutRounding="False" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button x:Name="btnPridej" Content="Přidej" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="8" Style="{StaticResource HoverFadeButtonStyle}">
+                    
+                </Button>
+                <Button x:Name="btnReset" Content="Reset" Width="100" Padding="5,5,5,5" Margin="100,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="9" Click="btnReset_Click" Style="{StaticResource HoverFadeButtonStyle}">
+                    <Button.Background>
+                        <SolidColorBrush Color="#DDC5D709" Opacity="0.85"/>
+                    </Button.Background>
+                    <Button.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF9AE818"/>
+                            <GradientStop Color="#DD97F60F" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.BorderBrush>
+                </Button>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>
