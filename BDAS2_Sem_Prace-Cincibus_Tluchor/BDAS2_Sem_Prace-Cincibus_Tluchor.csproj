@@ -12,7 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Ikony\Ikona_Hraci.ico" />
     <None Remove="Images\Ikony\Ikona_Okna_Pridani.ico" />
+    <None Remove="Images\Ikony\Ikona_Treneri.ico" />
     <None Remove="Images\Img\Logo_SK_Lhota.png" />
     <None Remove="Images\Img\pozadi_1_dialog_okna.png" />
     <None Remove="Images\Img\pozadi_1_prihlasovaci_okno.png" />
@@ -26,7 +28,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Ikony\Ikona_Hraci.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Ikony\Ikona_Okna_Pridani.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Ikony\Ikona_Treneri.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Img\Logo_SK_Lhota.png">

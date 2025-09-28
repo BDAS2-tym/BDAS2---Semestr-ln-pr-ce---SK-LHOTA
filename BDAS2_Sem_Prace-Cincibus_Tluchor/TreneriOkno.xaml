@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor"
         mc:Ignorable="d"
         Title="Trenéři" 
-        Height="600" Width="1200">
+        Height="600" Width="1200" Icon="/Images/Ikony/Ikona_Treneri.ico">
 
     <Grid>
         <Grid.ColumnDefinitions>
