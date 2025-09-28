@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\App.xaml
-6200281133
+10319921794
 11973461125
-8-1067686457
+12264442867
 203220239682
-AnimationTemplate.xaml;Windows\DialogPridejHrace.xaml;Windows\DialogPridejKontrakt.xaml;Windows\DialogPridejTrenera.xaml;Windows\MainWindow.xaml;Windows\PridejHrace.xaml;
+AnimationTemplate.xaml;HlavniOkno.xaml;HraciOkno.xaml;TreneriOkno.xaml;Windows\DialogPridejHrace.xaml;Windows\DialogPridejKontrakt.xaml;Windows\DialogPridejOpatreni.xaml;Windows\DialogPridejTrenera.xaml;Windows\DialogPridejTrenink.xaml;Windows\MainWindow.xaml;
 
 False
 

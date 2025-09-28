@@ -47,38 +47,38 @@
 
             <!-- ID -->
             <TextBlock x:Name="tblockId" Grid.Row="0" Grid.Column="0" Text="ID:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxId" Grid.Row="0" Grid.Column="1" Margin="50,18,50,18" TextWrapping="Wrap" MaxLength="10" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1"/>
+            <TextBox x:Name="tboxId" Grid.Row="0" Grid.Column="1" Margin="50,18,50,18" TextWrapping="Wrap" MaxLength="10" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Jméno -->
             <TextBlock x:Name="tblockJmeno" Grid.Row="1" Grid.Column="0" Text="Jméno:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxJmeno" Grid.Row="1" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="2"/>
+            <TextBox x:Name="tboxJmeno" Grid.Row="1" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="2" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Příjmení -->
             <TextBlock x:Name="tblockPrijmeni" Grid.Row="2" Grid.Column="0" Text="Příjmení:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxPrijmeni" Grid.Row="2" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="3"/>
+            <TextBox x:Name="tboxPrijmeni" Grid.Row="2" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="30" VerticalContentAlignment="Center" TabIndex="3" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Telefonní číslo -->
             <TextBlock x:Name="tblockTelCislo" Grid.Row="3" Grid.Column="0" Text="Telefonní číslo:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-            <TextBox x:Name="tboxTelCislo" Grid.Row="3" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="4"/>
+            <TextBox x:Name="tboxTelCislo" Grid.Row="3" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="13" VerticalContentAlignment="Center" TabIndex="4" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Pozice na hřišti -->
             <TextBlock x:Name="tblockPozice" Grid.Row="4" Grid.Column="0" Text="Pozice na hřišti:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <ComboBox x:Name="cbPozice" Grid.Column="1" Margin="50,18,50,18" Grid.Row="4" MaxDropDownHeight="230" TabIndex="5"/>
-            
+            <ComboBox x:Name="cbPozice" Grid.Column="1" Margin="50,18,50,18" Grid.Row="4" MaxDropDownHeight="230" TabIndex="5" FontFamily="Century Gothic" FontSize="12"/>
+
             <!-- Počet gólů -->
             <TextBlock x:Name="tblockPocetGolu" Grid.Row="5" Grid.Column="0" Text="Počet vstřelených gólů:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
             <xctk:IntegerUpDown x:Name="iudPocetGolu" Grid.Row="5" Grid.Column="1" Margin="50,18,50,18"
-                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="6"/>
-            
+                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="6" FontFamily="Century Gothic" FontSize="12"/>
+
             <!-- Počet žlutých karet -->
             <TextBlock x:Name="tblockPocetZlutychKaret" Grid.Row="6" Grid.Column="0" Text="Počet žlutých karet:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
             <xctk:IntegerUpDown x:Name="iudPocetZlutychKaret" Grid.Row="6" Grid.Column="1" Margin="50,18,50,18"
-                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="7"/>
-            
+                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="7" FontFamily="Century Gothic" FontSize="12"/>
+
             <!-- Počet červených karet -->
             <TextBlock x:Name="tblockPocetCervenychKaret" Margin="5,5,5,5" Grid.Row="7" TextWrapping="Wrap" Text="Počet červených karet:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Century Gothic"/>
             <xctk:IntegerUpDown x:Name="iudPocetCervenychKaret" Grid.Row="7" Grid.Column="1" Margin="50,17,50,17"
-                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="8"/>
+                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="8" FontFamily="Century Gothic" FontSize="12"/>
         </Grid>
 
         <!-- Tlačítka -->

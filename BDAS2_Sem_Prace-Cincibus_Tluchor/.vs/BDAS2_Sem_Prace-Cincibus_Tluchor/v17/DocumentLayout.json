@@ -1,6 +1,5 @@
 {
   "Version": 1,
-<<<<<<< HEAD
   "WorkspaceRootPath": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\",
   "Documents": [
     {
@@ -8,22 +7,18 @@
       "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejhrace.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejhrace.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejopatreni.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejopatreni.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejkontrakt.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejkontrakt.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejopatreni.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejopatreni.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejhrace.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejhrace.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
-=======
-  "WorkspaceRootPath": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\",
-  "Documents": [],
->>>>>>> 465cb1d2bca6b81e9a294ffb9a2953c4307bb4dc
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -31,19 +26,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-<<<<<<< HEAD
-          "SelectedChildIndex": 6,
-=======
-          "SelectedChildIndex": -1,
->>>>>>> 465cb1d2bca6b81e9a294ffb9a2953c4307bb4dc
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
@@ -51,7 +38,7 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Bookmark",
@@ -59,20 +46,7 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
-            {
-<<<<<<< HEAD
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DialogPridejKontrakt.xaml",
-              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejKontrakt.xaml",
-              "RelativeDocumentMoniker": "Windows\\DialogPridejKontrakt.xaml",
-              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejKontrakt.xaml",
-              "RelativeToolTip": "Windows\\DialogPridejKontrakt.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-28T09:13:56.492Z",
-              "EditorCaption": ""
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
             {
               "$type": "Document",
@@ -83,20 +57,32 @@
               "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\App.xaml",
               "RelativeToolTip": "App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-28T07:46:26.867Z",
+              "WhenOpened": "2025-09-28T13:27:17.868Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DialogPridejHrace.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejHrace.xaml.cs",
-              "RelativeDocumentMoniker": "Windows\\DialogPridejHrace.xaml.cs",
-              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejHrace.xaml.cs",
-              "RelativeToolTip": "Windows\\DialogPridejHrace.xaml.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAowCQAAAAhAAAAAAAAAA==",
+              "Title": "DialogPridejOpatreni.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejOpatreni.xaml.cs",
+              "RelativeDocumentMoniker": "Windows\\DialogPridejOpatreni.xaml.cs",
+              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejOpatreni.xaml.cs",
+              "RelativeToolTip": "Windows\\DialogPridejOpatreni.xaml.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAowCsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T08:47:44.789Z",
+              "WhenOpened": "2025-09-28T13:21:49.185Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DialogPridejOpatreni.xaml",
+              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejOpatreni.xaml",
+              "RelativeDocumentMoniker": "Windows\\DialogPridejOpatreni.xaml",
+              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejOpatreni.xaml",
+              "RelativeToolTip": "Windows\\DialogPridejOpatreni.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-28T13:15:46.914Z",
               "EditorCaption": ""
             },
             {
@@ -110,14 +96,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-09-28T08:40:23.632Z",
               "EditorCaption": ""
-=======
-              "$type": "Bookmark",
-              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
->>>>>>> 465cb1d2bca6b81e9a294ffb9a2953c4307bb4dc
             }
           ]
         }

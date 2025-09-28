@@ -2,22 +2,24 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Update="Windows\DialogPridejHrace.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\DialogPridejKontrakt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\DialogPridejOpatreni.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\DialogPridejTrenera.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DialogPridejTrenink.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\MainWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\PridejHrace.xaml.cs">
-=======
-<<<<<<< HEAD
     <Compile Update="HlavniOkno.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -25,10 +27,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="TreneriOkno.xaml.cs">
-=======
-    <Compile Update="PridejHrace.xaml.cs">
->>>>>>> df53511f18c22d4fbb99527265f1680cd246c043
->>>>>>> 465cb1d2bca6b81e9a294ffb9a2953c4307bb4dc
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
