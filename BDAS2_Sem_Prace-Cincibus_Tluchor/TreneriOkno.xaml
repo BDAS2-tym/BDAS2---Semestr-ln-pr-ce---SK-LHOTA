@@ -1,0 +1,139 @@
+﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.TreneriOkno"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor"
+        mc:Ignorable="d"
+        Title="Trenéři" 
+        Height="600" Width="1200">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- DataGrid Tabulka trenérů vlevo -->
+            <ColumnDefinition Width="*" />
+            <!-- Pravý panel menu -->
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+
+        <!-- DATAGRID TRENÉRŮ S ORANŽOVÝM RÁMEČKEM A SCROLLBARY -->
+        <Border Grid.Column="0"
+        Margin="10"
+        BorderBrush="Orange"
+        BorderThickness="4"
+        CornerRadius="6">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Auto">
+                <DataGrid x:Name="dgHraci"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  FontFamily="Consolas"
+                  HeadersVisibility="Column"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                        <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno}" Width="140"/>
+                        <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni}" Width="150"/>
+                        <DataGridTextColumn Header="Tel. číslo" Binding="{Binding Telefon}" Width="150"/>
+                        <DataGridTextColumn Header="Specializace" Binding="{Binding Pozice}" Width="180"/>
+                        <DataGridTextColumn Header="Počet let praxe" Binding="{Binding Goly}" Width="110"/>
+                        <DataGridTextColumn Header="Trenérská Licence" Binding="{Binding ZluteKarty}" Width="130"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </Border>
+
+
+
+        <!-- PRAVÝ PANEL S TLAČÍTKY -->
+        <Border Grid.Column="1" Background="#77B3FB">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Nadpis -->
+                    <RowDefinition Height="*"/>
+                    <!-- Tlačítka -->
+                </Grid.RowDefinitions>
+
+                <!-- Nadpis -->
+                <TextBlock Text="Trenéři"
+                           Foreground="Black"
+                           FontSize="25"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="0,15"
+                           FontFamily="Century Gothic"/>
+
+                <!-- Tlačítka s ikonami -->
+                <Grid Grid.Row="1" Margin="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Styl pro tlačítka -->
+                    <Grid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#77B3FB"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontFamily" Value="Century Gothic"/>
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Padding" Value="12,4"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#111827"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Resources>
+
+                    <!-- Button Přidej -->
+                    <Button Grid.Row="0" Margin="0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Přidej" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Button Odeber -->
+                    <Button Grid.Row="1" Margin="0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Odeber" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Button Najdi -->
+                    <Button Grid.Row="2" Margin="0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Najdi" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+
+                    <!-- Exit -->
+                    <Button Grid.Row="7" Margin="0,5" Click="BtnZpet_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/left_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Zpět" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
