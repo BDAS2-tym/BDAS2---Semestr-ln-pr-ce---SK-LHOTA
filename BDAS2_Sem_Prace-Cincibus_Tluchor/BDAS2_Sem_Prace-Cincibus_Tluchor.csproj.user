@@ -2,6 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Update="HlavniOkno.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -9,6 +10,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="TreneriOkno.xaml.cs">
+=======
+    <Compile Update="PridejHrace.xaml.cs">
+>>>>>>> df53511f18c22d4fbb99527265f1680cd246c043
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

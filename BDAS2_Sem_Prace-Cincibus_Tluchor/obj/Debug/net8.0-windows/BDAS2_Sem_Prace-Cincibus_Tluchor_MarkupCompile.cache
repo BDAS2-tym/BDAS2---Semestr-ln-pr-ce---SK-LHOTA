@@ -1,5 +1,5 @@
 ﻿BDAS2_Sem_Prace-Cincibus_Tluchor
-1.0.0.0
+
 
 winexe
 C#
@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\App.xaml
-7-218311725
-
-10-1503959725
-203483966224
-AnimationTemplate.xaml;HlavniOkno.xaml;HraciOkno.xaml;MainWindow.xaml;PridejHrace.xaml;PridejTrenera.xaml;TreneriOkno.xaml;
+2141990424
+11973461125
+51831008882
+198-192518753
+MainWindow.xaml;PridejHrace.xaml;
 
 False
 

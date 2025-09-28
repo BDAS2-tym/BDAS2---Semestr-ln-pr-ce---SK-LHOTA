@@ -68,7 +68,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BDAS2_Sem_Prace-Cincibus_Tluchor;V1.0.0.0;component/mainwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BDAS2_Sem_Prace-Cincibus_Tluchor;component/mainwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\MainWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
