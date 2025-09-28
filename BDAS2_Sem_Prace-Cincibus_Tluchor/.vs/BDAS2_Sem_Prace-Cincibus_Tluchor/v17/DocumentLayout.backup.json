@@ -1,5 +1,6 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "WorkspaceRootPath": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\",
   "Documents": [
     {
@@ -19,6 +20,10 @@
       "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
+=======
+  "WorkspaceRootPath": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\",
+  "Documents": [],
+>>>>>>> 465cb1d2bca6b81e9a294ffb9a2953c4307bb4dc
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -26,11 +31,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
             {
               "$type": "Bookmark",
@@ -38,7 +47,7 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
               "$type": "Bookmark",
@@ -46,9 +55,10 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
+<<<<<<< HEAD
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "App.xaml",
@@ -96,6 +106,14 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-09-28T08:40:23.632Z",
               "EditorCaption": ""
+=======
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+>>>>>>> 465cb1d2bca6b81e9a294ffb9a2953c4307bb4dc
             }
           ]
         }

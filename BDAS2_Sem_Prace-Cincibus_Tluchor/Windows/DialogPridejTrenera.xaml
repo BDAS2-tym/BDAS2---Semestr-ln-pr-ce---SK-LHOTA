@@ -1,4 +1,8 @@
+<<<<<<< HEAD:BDAS2_Sem_Prace-Cincibus_Tluchor/Windows/DialogPridejTrenera.xaml
 ﻿<Window x:Name="DialogPridaniTrenera" x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.DialogPridejTrenera"
+=======
+﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.PridejTrenera"
+>>>>>>> 465cb1d2bca6b81e9a294ffb9a2953c4307bb4dc:BDAS2_Sem_Prace-Cincibus_Tluchor/PridejTrenera.xaml
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,7 +10,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Windows"
         mc:Ignorable="d"
+<<<<<<< HEAD:BDAS2_Sem_Prace-Cincibus_Tluchor/Windows/DialogPridejTrenera.xaml
         Title="Přidání trenéra" Height="672" Width="562" MinWidth="562" MinHeight="672" MaxWidth="620" MaxHeight="730" Icon="/Images/Ikony/Ikona_Okna_Pridani.ico">
+=======
+        Title="Přidej trenéra"
+        Height="673"
+        Width="562"
+        WindowStartupLocation="CenterOwner"
+        AutomationProperties.Name="PridejTrenera"
+        FontFamily="Century Gothic"
+        FontSize="14"
+        MinWidth="500"
+        MinHeight="620"
+        MaxWidth="620"
+        MaxHeight="700">
+
+
+>>>>>>> 465cb1d2bca6b81e9a294ffb9a2953c4307bb4dc:BDAS2_Sem_Prace-Cincibus_Tluchor/PridejTrenera.xaml
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
