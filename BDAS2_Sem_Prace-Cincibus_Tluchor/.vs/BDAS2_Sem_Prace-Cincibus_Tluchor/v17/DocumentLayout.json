@@ -1,32 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\treneriokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:treneriokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\treneriokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:treneriokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\hraciokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:hraciokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\hraciokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:hraciokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\hlavniokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:hlavniokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\hlavniokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:hlavniokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -34,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -67,81 +42,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TreneriOkno.xaml",
-              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\TreneriOkno.xaml",
-              "RelativeDocumentMoniker": "TreneriOkno.xaml",
-              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\TreneriOkno.xaml*",
-              "RelativeToolTip": "TreneriOkno.xaml*",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-28T09:24:23.63Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "HraciOkno.xaml",
-              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\HraciOkno.xaml",
-              "RelativeDocumentMoniker": "HraciOkno.xaml",
-              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\HraciOkno.xaml",
-              "RelativeToolTip": "HraciOkno.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-28T09:23:54.021Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TreneriOkno.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\TreneriOkno.xaml.cs",
-              "RelativeDocumentMoniker": "TreneriOkno.xaml.cs",
-              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\TreneriOkno.xaml.cs",
-              "RelativeToolTip": "TreneriOkno.xaml.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T09:19:04.12Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "HlavniOkno.xaml",
-              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\Source\\Repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\HlavniOkno.xaml",
-              "RelativeDocumentMoniker": "HlavniOkno.xaml",
-              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\Source\\Repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\HlavniOkno.xaml",
-              "RelativeToolTip": "HlavniOkno.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-28T09:13:21.701Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HraciOkno.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\HraciOkno.xaml.cs",
-              "RelativeDocumentMoniker": "HraciOkno.xaml.cs",
-              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\HraciOkno.xaml.cs",
-              "RelativeToolTip": "HraciOkno.xaml.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T09:04:19.688Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "HlavniOkno.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\Source\\Repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\HlavniOkno.xaml.cs",
-              "RelativeDocumentMoniker": "HlavniOkno.xaml.cs",
-              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\Source\\Repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\HlavniOkno.xaml.cs",
-              "RelativeToolTip": "HlavniOkno.xaml.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAgwBwAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-27T21:11:14.984Z",
-              "EditorCaption": ""
             }
           ]
         }
