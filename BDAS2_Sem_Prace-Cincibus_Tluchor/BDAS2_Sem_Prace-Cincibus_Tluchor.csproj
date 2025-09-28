@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
+    <None Remove="Images\Ikony\Ikona_Okna_Pridani.ico" />
     <None Remove="Images\Img\Logo_SK_Lhota.png" />
     <None Remove="Images\Img\pozadi_1_dialog_okna.png" />
     <None Remove="Images\Img\pozadi_1_prihlasovaci_okno.png" />
@@ -26,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Ikony\Ikona_Okna_Pridani.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Img\Logo_SK_Lhota.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -44,7 +47,6 @@
     <Resource Include="Images\Img\pozadi_3_dialog_okna.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-=======
     <None Remove="add_icon.png" />
     <None Remove="clock_icon.png" />
     <None Remove="coach.png" />
@@ -81,7 +83,6 @@
     <Resource Include="red_card.png" />
     <Resource Include="remove_icon.png" />
     <Resource Include="training.png" />
->>>>>>> 7ed4a76f7a903aaae3bfa1cf0b2cb9bd5ed96059
   </ItemGroup>
 
 </Project>
