@@ -1,0 +1,213 @@
+﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.KontraktyOkno"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Windows"
+        mc:Ignorable="d"
+        Title="Kontrakty"
+        
+        Height="600" Width="1300" >
+
+    <Grid>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/Img/pozadi_2_dialog_okna.png"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <!-- DataGrid Tabulka vlevo -->
+            <ColumnDefinition Width="*" />
+            <!-- Pravý panel menu s tlačítky -->
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+
+        <!-- DATAGRID S ORANŽOVÝM RÁMEČKEM A SCROLLBARY -->
+        <Border Grid.Column="0"
+        Margin="15,15,15,15"
+        BorderBrush="#FFEDF723"
+        BorderThickness="2"
+        CornerRadius="6">
+
+            <DataGrid x:Name="dgKontrakty"
+                          ItemsSource="{Binding KontraktyData}"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  AutoGenerateColumns="False"                        
+                  IsReadOnly="False"
+                  CanUserAddRows="False"
+                  FontFamily="Century Gothic"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch" BorderBrush="#FFEDF723" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <!-- Pozadí -->
+                        <Setter Property="Background" Value="#FFEDF723"/>
+
+                        <!-- Barva textu -->
+                        <Setter Property="Foreground" Value="Black"/>
+
+                        <!-- Font -->
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="FontFamily" Value="Century Gothic"/>
+
+                        <!-- Vycentrování textu -->
+
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                        <!-- Ohraničení -->
+                        <Setter Property="BorderBrush" Value="#FF1565C0"/>
+                        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+
+
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+
+                <DataGrid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    </LinearGradientBrush>
+                </DataGrid.Background>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Datum od" Binding="{Binding DatumZacatku, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Datum do" Binding="{Binding DatumKonce, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Plat" Binding="{Binding Plat, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Tel.číslo agenta" Binding="{Binding CisloNaAgenta, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+
+                    <DataGridTextColumn Header="Výstupní klauzule" Binding="{Binding VystupniKlauzule}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
+                        <DataGridTextColumn.HeaderStyle>
+                            <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
+                            <Style TargetType="DataGridColumnHeader">
+                                <!-- Pozadí -->
+                                <Setter Property="Background" Value="#FFEDF723"/>
+
+                                <!-- Barva textu -->
+                                <Setter Property="Foreground" Value="Black"/>
+
+                                <!-- Font -->
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+
+                                <!-- Vycentrování textu -->
+
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                                <!-- Ohraničení -->
+                                <Setter Property="BorderBrush" Value="#FF1565C0"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+
+                <!-- Změna barvy pozadí a písma při výběru řádku -->
+                <DataGrid.Resources>
+
+                    <!-- Změna barvy pozadí -->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#fad870"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#fad870"/>
+
+                    <!-- Změna barvy písma-->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                </DataGrid.Resources>
+            </DataGrid>
+
+        </Border>
+
+
+        <!-- PRAVÝ PANEL S TLAČÍTKY -->
+        <Border Grid.Column="1" Background="#77B3FB">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Nadpis -->
+                    <RowDefinition Height="*"/>
+                    <!-- Tlačítka -->
+                </Grid.RowDefinitions>
+
+                <!-- Nadpis -->
+                <TextBlock Text="Kontrakty"
+                           Foreground="Black"
+                           FontSize="25"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="0,15"
+                           FontFamily="Century Gothic"/>
+
+                <!-- Tlačítka s ikonami -->
+                <Grid x:Name="gdTlacitka" Grid.Row="1" Margin="0,0,0,15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Styl pro tlačítka -->
+                    <Grid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#77B3FB"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontFamily" Value="Century Gothic"/>
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Padding" Value="12,4"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#111827"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Resources>
+
+                    <!-- Button Přidej -->
+                    <Button x:Name="btnPridej" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Přidej" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Button Odeber -->
+                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Odeber" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Button Najdi -->
+                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="3" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Najdi" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+
+                    <!-- Exit -->
+                    <Button x:Name="btnZpet" Grid.Row="7" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/left_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Zpět" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

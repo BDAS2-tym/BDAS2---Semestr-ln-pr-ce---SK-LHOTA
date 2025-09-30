@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\kontraktyokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\kontraktyokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\kontraktyokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\kontraktyokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\hlavniokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\hlavniokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\treninkyokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\treninkyokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\treninkyokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\treninkyokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\treneriokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\treneriokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\ale\u0161 tlu\u010Dho\u0159\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\treneriokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\treneriokno.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,40 +66,64 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TreneriOkno.xaml",
-              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\TreneriOkno.xaml",
-              "RelativeDocumentMoniker": "Windows\\TreneriOkno.xaml",
-              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\TreneriOkno.xaml",
-              "RelativeToolTip": "Windows\\TreneriOkno.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-30T14:24:51.245Z",
+              "DocumentIndex": 2,
+              "Title": "HlavniOkno.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\HlavniOkno.xaml.cs",
+              "RelativeDocumentMoniker": "Windows\\HlavniOkno.xaml.cs",
+              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\HlavniOkno.xaml.cs",
+              "RelativeToolTip": "Windows\\HlavniOkno.xaml.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAWwEEAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T15:38:41.444Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TreneriOkno.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\TreneriOkno.xaml.cs",
-              "RelativeDocumentMoniker": "Windows\\TreneriOkno.xaml.cs",
-              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\TreneriOkno.xaml.cs",
-              "RelativeToolTip": "Windows\\TreneriOkno.xaml.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAkwBcAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "KontraktyOkno.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\KontraktyOkno.xaml.cs",
+              "RelativeDocumentMoniker": "Windows\\KontraktyOkno.xaml.cs",
+              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\KontraktyOkno.xaml.cs",
+              "RelativeToolTip": "Windows\\KontraktyOkno.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-30T14:24:46.51Z",
+              "WhenOpened": "2025-09-30T15:37:23.278Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TreninkyOkno.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\TreninkyOkno.xaml.cs",
+              "RelativeDocumentMoniker": "Windows\\TreninkyOkno.xaml.cs",
+              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\TreninkyOkno.xaml.cs",
+              "RelativeToolTip": "Windows\\TreninkyOkno.xaml.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T15:28:01.616Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "KontraktyOkno.xaml",
+              "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\KontraktyOkno.xaml",
+              "RelativeDocumentMoniker": "Windows\\KontraktyOkno.xaml",
+              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\KontraktyOkno.xaml",
+              "RelativeToolTip": "Windows\\KontraktyOkno.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-30T15:31:19.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "TreninkyOkno.xaml",
               "DocumentMoniker": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\TreninkyOkno.xaml",
               "RelativeDocumentMoniker": "Windows\\TreninkyOkno.xaml",
-              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\TreninkyOkno.xaml*",
-              "RelativeToolTip": "Windows\\TreninkyOkno.xaml*",
+              "ToolTip": "C:\\Users\\Ale\u0161 Tlu\u010Dho\u0159\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\TreninkyOkno.xaml",
+              "RelativeToolTip": "Windows\\TreninkyOkno.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-30T13:39:21.302Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-30T15:30:57.224Z"
             }
           ]
         }

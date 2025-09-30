@@ -120,7 +120,7 @@
                     </Button>
 
                     <!-- Kontrakty -->
-                    <Button Grid.Row="3">
+                    <Button Grid.Row="3" Click="BtnKontrakty_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="/contract.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Kontrakty" VerticalAlignment="Center"/>

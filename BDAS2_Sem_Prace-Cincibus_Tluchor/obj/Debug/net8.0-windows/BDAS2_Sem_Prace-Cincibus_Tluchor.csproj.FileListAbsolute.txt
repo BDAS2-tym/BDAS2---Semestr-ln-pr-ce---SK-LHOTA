@@ -57,3 +57,5 @@ C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_
 C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\TreneriOkno.baml
 C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\TreninkyOkno.g.cs
 C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\TreninkyOkno.baml
+C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\KontraktyOkno.g.cs
+C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\KontraktyOkno.baml
