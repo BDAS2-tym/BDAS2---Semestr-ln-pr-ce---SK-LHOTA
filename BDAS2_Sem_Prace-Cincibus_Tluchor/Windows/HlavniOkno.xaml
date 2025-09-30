@@ -4,6 +4,9 @@
         Title="Informační systém SK Lhota"
         WindowStartupLocation="CenterScreen"
         Width="1200" Height="700">
+    <Window.Background>
+        <SolidColorBrush Color="#FFFFF7F7"/>
+    </Window.Background>
 
     <!-- Hlavní rozdělení -->
     <Grid>
@@ -95,17 +98,16 @@
                     </Grid.Resources>
 
                     <!-- Hráči -->
-                    <Button Grid.Row="0" Click="BtnHraci_Click">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="btnHraci" Grid.Row="0" Click="BtnHraci_Click" Style="{StaticResource HoverFadeButtonStyle2}" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/player.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Hráči" VerticalAlignment="Center"/>
-                            
                         </StackPanel>
                     </Button>
 
                     <!-- Trenéři -->
-                    <Button Grid.Row="1" Click="BtnTreneri_Click">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="btnTreneri" Grid.Row="1" Click="BtnTreneri_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/coach.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Trenéři" VerticalAlignment="Center"/>
                         </StackPanel>
@@ -128,32 +130,32 @@
                     </Button>
 
                     <!-- Opatření -->
-                    <Button Grid.Row="4">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="btnOpatreni" Grid.Row="4" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
                             <Image Source="/red_card.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Opatření" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <!-- Graf -->
-                    <Button Grid.Row="5">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="btnGraf" Grid.Row="5" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/graph_icon.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Graf" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <!-- Odhlásit -->
-                    <Button Grid.Row="6">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="btnOdhlasit" Grid.Row="6" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/logout.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Odhlásit" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <!-- Exit -->
-                    <Button Grid.Row="7">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="btnExit" Grid.Row="7" Padding="-5,0,3,0" Margin="-5,0,-5,-5" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/left_icon.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Exit" VerticalAlignment="Center"/>
                         </StackPanel>
@@ -163,7 +165,7 @@
         </Border>
 
         <!-- Obsah -->
-        <Grid Grid.Row="1" Grid.Column="1" Background="#FFFFFF" Margin="20">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
