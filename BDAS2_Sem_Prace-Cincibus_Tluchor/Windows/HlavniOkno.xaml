@@ -51,7 +51,7 @@
 
                 <!-- Logo + název -->
                 <StackPanel Grid.Row="0" Margin="10">
-                    <Image Source="/Logo_SK_Lhota.png"
+                    <Image Source="/Images/Img/Logo_SK_Lhota.png"
                            MinHeight="50" MaxHeight="120"
                            HorizontalAlignment="Center"
                            Stretch="Uniform"/>
@@ -100,7 +100,7 @@
                     <!-- Hráči -->
                     <Button x:Name="btnHraci" Grid.Row="0" Click="BtnHraci_Click" Style="{StaticResource HoverFadeButtonStyle2}" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
-                            <Image Source="/player.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <Image Source="/Images/Img/player.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Hráči" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -108,7 +108,7 @@
                     <!-- Trenéři -->
                     <Button x:Name="btnTreneri" Grid.Row="1" Click="BtnTreneri_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
-                            <Image Source="/coach.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <Image Source="/Images/Img/coach.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Trenéři" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -116,7 +116,7 @@
                     <!-- Tréninky -->
                     <Button Grid.Row="2" Click="BtnTreninky_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Image Source="/training.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <Image Source="/Images/Img/coach.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Tréninky" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -124,7 +124,7 @@
                     <!-- Kontrakty -->
                     <Button Grid.Row="3" Click="BtnKontrakty_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Image Source="/contract.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <Image Source="/Images/Img/contract.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Kontrakty" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -132,7 +132,7 @@
                     <!-- Opatření -->
                     <Button x:Name="btnOpatreni" Grid.Row="4" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
-                            <Image Source="/red_card.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <Image Source="/Images/Img/red_card.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Opatření" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -140,7 +140,7 @@
                     <!-- Graf -->
                     <Button x:Name="btnGraf" Grid.Row="5" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
-                            <Image Source="/graph_icon.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <Image Source="/Images/Img/graph.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Graf" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -148,7 +148,7 @@
                     <!-- Odhlásit -->
                     <Button x:Name="btnOdhlasit" Grid.Row="6" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
-                            <Image Source="/logout.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <Image Source="/Images/Img/logout.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Odhlásit" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -156,7 +156,7 @@
                     <!-- Exit -->
                     <Button x:Name="btnExit" Grid.Row="7" Padding="-5,0,3,0" Margin="-5,0,-5,-5" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
-                            <Image Source="/left_icon.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <Image Source="/Images/Img/left.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Exit" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -182,7 +182,7 @@
                     MaxHeight="180"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
-                    <Image Source="/clock_icon.png" Width="50" Height="50" Margin="0,0,12,0"/>
+                    <Image Source="/Images/Img/clock_icon.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Čas:" FontSize="20" FontWeight="Bold"/>
                         <TextBlock x:Name="txtCas" Text="00:00:00" FontSize="22" FontWeight="Bold"/>
@@ -197,7 +197,7 @@
                     MaxHeight="180"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
-                    <Image Source="/date_icon.png" Width="50" Height="50" Margin="0,0,12,0"/>
+                    <Image Source="/Images/Img/date.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold"/>
                         <TextBlock x:Name="txtDatum" Text="00.00.2025" FontSize="22" FontWeight="Bold"/>
@@ -212,7 +212,7 @@
                     MaxHeight="180"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
-                    <Image Source="/player.png" Width="50" Height="50" Margin="0,0,12,0"/>
+                    <Image Source="/Images/Img/player.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Počet hráčů:" FontSize="20" FontWeight="Bold"/>
                         <TextBlock Text="18" FontSize="22" FontWeight="Bold"/>
@@ -227,7 +227,7 @@
                     MaxHeight="180"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
-                    <Image Source="/coach.png" Width="50" Height="50" Margin="0,0,12,0"/>
+                    <Image Source="/Images/Img/coach.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Počet trenérů:" FontSize="20" FontWeight="Bold"/>
                         <TextBlock Text="10" FontSize="22" FontWeight="Bold"/>
