@@ -5,6 +5,84 @@
              StartupUri="HlavniOkno.xaml">
 
     <Application.Resources>
+
+        <Style x:Key="HoverFadeButtonStyle2" TargetType="Button">
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#77B3FB"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="18,4,18,4"/>
+            <Setter Property="Margin" Value="0, 0, 0, 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="backgroundBrush"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="4">
+                            <ContentPresenter x:Name="contentPresenter"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"
+                  RecognizesAccessKey="True"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <!-- Kliknutí -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="backgroundBrush"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#4b88d1"
+                                                    Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="backgroundBrush"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#77B3FB"
+                                                    Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <!-- Hover animace -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="backgroundBrush"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#4c92e6"
+                                                    Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="backgroundBrush"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#77B3FB"
+                                                    Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Přidání stylu pro hover (zelená a žlutá) nad tlačítkem -->
         <Style x:Key="HoverFadeButtonStyle" TargetType="Button">
             <Setter Property="FontFamily" Value="Century Gothic"/>
             <Setter Property="FontSize" Value="14"/>
@@ -38,7 +116,7 @@
 
                         <!-- Triggery pro události tlačítka -->
                         <ControlTemplate.Triggers>
-                            
+
                             <!-- Clicked animace -->
                             <Trigger Property="IsPressed" Value="True">
                                 <Trigger.EnterActions>
@@ -75,7 +153,7 @@
                                             <ColorAnimation Storyboard.TargetName="backgroundBrush"
                                     Storyboard.TargetProperty="Color"
                                     To="#DDD6E815"
-                                    Duration="0:0:0.4"/>
+                                    Duration="0:0:0.3"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </MultiTrigger.EnterActions>
@@ -85,16 +163,22 @@
                                             <ColorAnimation Storyboard.TargetName="backgroundBrush"
                                     Storyboard.TargetProperty="Color"
                                     To="#DDEFFF44"
-                                    Duration="0:0:0.6"/>
+                                    Duration="0:0:0.5"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </MultiTrigger.ExitActions>
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
-
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- Přidání stylu pro vycentrování v každém řádku DataGridView -->
+        <Style x:Key="CenterCellStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
         </Style>
     </Application.Resources>
 </Application>
