@@ -1,30 +1,31 @@
-﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.TreneriOkno"
+﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.TreninkyOkno"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor"
+        xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Windows"
         mc:Ignorable="d"
-        Title="Trenéři" 
-        d:DataContext="{d:DesignInstance Type=local:TreneriOkno, IsDesignTimeCreatable=True}"
-        Height="600" Width="1200" Icon="/Images/Ikony/Ikona_Treneri.ico">
+        Title="Treninky"
+        
+        Height="600" Width="1300" >
 
     <Grid>
+
         <Grid.Background>
             <ImageBrush ImageSource="/Images/Img/pozadi_2_dialog_okna.png"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <!-- DataGrid Tabulka trenérů vlevo -->
+            <!-- DataGrid Tabulka vlevo -->
             <ColumnDefinition Width="*" />
-            <!-- Pravý panel menu -->
+            <!-- Pravý panel menu s tlačítky -->
             <ColumnDefinition Width="250" />
         </Grid.ColumnDefinitions>
 
-        <!-- DATAGRID TRENÉRŮ S ORANŽOVÝM RÁMEČKEM A SCROLLBARY -->
+        <!-- DATAGRID S ORANŽOVÝM RÁMEČKEM A SCROLLBARY -->
         <Border Grid.Column="0"
-        Margin="20,20,20,20"
+        Margin="15,15,15,15"
         BorderBrush="#FFEDF723"
-        BorderThickness="4"
+        BorderThickness="2"
         CornerRadius="6">
 
             <DataGrid x:Name="dgTreneri"
@@ -36,7 +37,7 @@
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#FFEDF723" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="25" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None">
+                  VerticalAlignment="Stretch" BorderBrush="#FFEDF723" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->
@@ -64,7 +65,6 @@
                 </DataGrid.ColumnHeaderStyle>
 
 
-
                 <DataGrid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFCBCBCB" Offset="1"/>
@@ -73,12 +73,11 @@
                 </DataGrid.Background>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Tel. číslo" Binding="{Binding Telefon, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Specializace" Binding="{Binding Specializace, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Počet let praxe" Binding="{Binding PocetLetPraxe, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Trenérská Licence" Binding="{Binding TrenerLicence, UpdateSourceTrigger=LostFocus}" Width="auto" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
+                    <DataGridTextColumn Header="Datum" Binding="{Binding Datum, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Čas" Binding="{Binding Cas, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Místo" Binding="{Binding Misto, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+          
+                    <DataGridTextColumn Header="Popis" Binding="{Binding Popis}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         <DataGridTextColumn.HeaderStyle>
                             <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
                             <Style TargetType="DataGridColumnHeader">
@@ -121,7 +120,6 @@
         </Border>
 
 
-
         <!-- PRAVÝ PANEL S TLAČÍTKY -->
         <Border Grid.Column="1" Background="#77B3FB">
             <Grid>
@@ -133,7 +131,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Nadpis -->
-                <TextBlock Text="Trenéři"
+                <TextBlock Text="Tréninky"
                            Foreground="Black"
                            FontSize="25"
                            FontWeight="Bold"
@@ -209,5 +207,6 @@
                 </Grid>
             </Grid>
         </Border>
+
     </Grid>
 </Window>

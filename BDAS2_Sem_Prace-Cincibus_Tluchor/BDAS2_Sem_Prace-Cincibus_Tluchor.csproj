@@ -77,6 +77,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="add_icon.png" />
     <Resource Include="clock_icon.png" />
     <Resource Include="coach.png" />

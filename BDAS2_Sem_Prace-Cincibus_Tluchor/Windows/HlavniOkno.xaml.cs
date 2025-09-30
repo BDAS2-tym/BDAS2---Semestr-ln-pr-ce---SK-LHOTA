@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +22,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         private DispatcherTimer timer;
         private HraciOkno hraciOkno;
         private TreneriOkno treneriOkno;
+        private TreninkyOkno treninkyOkno;
 
         public HlavniOkno()
         {
             InitializeComponent();
             this.hraciOkno = new HraciOkno(this);
             this.treneriOkno = new TreneriOkno(this);
+            this.treninkyOkno = new TreninkyOkno(this);
+
             this.timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
@@ -44,6 +48,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             TreneriOkno treneriOkno = new TreneriOkno(this);
             treneriOkno.Show();
+            this.Hide();
+        }
+
+        private void BtnTreninky_Click(object sender, RoutedEventArgs e)
+        {
+            TreninkyOkno treninkyOkno = new TreninkyOkno(this);
+            treninkyOkno.Show();
             this.Hide();
         }
 

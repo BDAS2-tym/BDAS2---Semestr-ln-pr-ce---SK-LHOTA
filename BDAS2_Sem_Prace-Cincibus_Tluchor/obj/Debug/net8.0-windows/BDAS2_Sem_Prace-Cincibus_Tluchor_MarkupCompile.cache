@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\
+C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\
 BDAS2_Sem_Prace_Cincibus_Tluchor
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\App.xaml
-10319921794
+C:\Users\Aleš Tlučhoř\Source\Repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\App.xaml
+10-1763485682
 11973461125
-12264442867
-203220239682
-AnimationTemplate.xaml;HlavniOkno.xaml;HraciOkno.xaml;TreneriOkno.xaml;Windows\DialogPridejHrace.xaml;Windows\DialogPridejKontrakt.xaml;Windows\DialogPridejOpatreni.xaml;Windows\DialogPridejTrenera.xaml;Windows\DialogPridejTrenink.xaml;Windows\MainWindow.xaml;
+12904394036
+203483966224
+AnimationTemplate.xaml;Windows\DialogPridejHrace.xaml;Windows\DialogPridejKontrakt.xaml;Windows\DialogPridejOpatreni.xaml;Windows\DialogPridejTrenera.xaml;Windows\DialogPridejTrenink.xaml;Windows\HlavniOkno.xaml;Windows\HraciOkno.xaml;Windows\TreneriOkno.xaml;Windows\TreninkyOkno.xaml;
 
 False
 

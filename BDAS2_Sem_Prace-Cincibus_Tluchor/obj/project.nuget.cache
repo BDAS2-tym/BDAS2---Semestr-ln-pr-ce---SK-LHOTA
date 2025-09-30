@@ -1,20 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "HK9jjRaOJlQ=",
+  "dgSpecHash": "Y6vSHqkNbMI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\BDAS2_Sem_Prace-Cincibus_Tluchor.csproj",
+  "projectFilePath": "C:\\Users\\Aleš Tlučhoř\\Source\\Repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\BDAS2_Sem_Prace-Cincibus_Tluchor.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\milan\\.nuget\\packages\\extended.wpf.toolkit\\5.0.0\\extended.wpf.toolkit.5.0.0.nupkg.sha512"
+    "C:\\Users\\Aleš Tlučhoř\\.nuget\\packages\\extended.wpf.toolkit\\5.0.0\\extended.wpf.toolkit.5.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "message": "Problem reading the cache file C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
-      "projectPath": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\BDAS2_Sem_Prace-Cincibus_Tluchor.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\BDAS2_Sem_Prace-Cincibus_Tluchor.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

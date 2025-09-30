@@ -15,13 +15,23 @@ using System.Windows.Shapes;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interakční logika pro TreninkyOkno.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TreninkyOkno : Window
     {
-        public MainWindow()
+
+        private HlavniOkno hlavniOkno;
+        public TreninkyOkno(HlavniOkno hlavniOkno)
         {
             InitializeComponent();
+            this.hlavniOkno = hlavniOkno;
         }
+
+        private void BtnZpet_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            hlavniOkno.Show();
+        }
+
     }
 }
