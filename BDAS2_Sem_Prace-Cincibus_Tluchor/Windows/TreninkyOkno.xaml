@@ -28,8 +28,8 @@
         BorderThickness="2"
         CornerRadius="6">
 
-            <DataGrid x:Name="dgTreneri"
-                          ItemsSource="{Binding TreneriData}"
+            <DataGrid x:Name="dgTreninky"
+                          ItemsSource="{Binding TreninkyData}"
                   HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
                   AutoGenerateColumns="False"                        
@@ -52,7 +52,6 @@
                         <Setter Property="FontFamily" Value="Century Gothic"/>
 
                         <!-- Vycentrování textu -->
-
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
 
@@ -60,10 +59,8 @@
                         <Setter Property="BorderBrush" Value="#FF1565C0"/>
                         <Setter Property="BorderThickness" Value="0,0,2,2"/>
 
-
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
-
 
                 <DataGrid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -76,7 +73,7 @@
                     <DataGridTextColumn Header="Datum" Binding="{Binding Datum, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Čas" Binding="{Binding Cas, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Místo" Binding="{Binding Misto, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-          
+
                     <DataGridTextColumn Header="Popis" Binding="{Binding Popis}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         <DataGridTextColumn.HeaderStyle>
                             <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
@@ -93,7 +90,6 @@
                                 <Setter Property="FontFamily" Value="Century Gothic"/>
 
                                 <!-- Vycentrování textu -->
-
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
 
@@ -195,7 +191,6 @@
                             <TextBlock Text="Najdi" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-
 
                     <!-- Exit -->
                     <Button x:Name="btnZpet" Grid.Row="7" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">

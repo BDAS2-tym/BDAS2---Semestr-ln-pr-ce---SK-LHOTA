@@ -4,47 +4,117 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Hráči" Height="600" Width="1200" Icon="/Images/Ikony/Ikona_Hraci.ico">
+        Title="Hráči" 
+        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Hraci.ico">
+
 
     <Grid>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/Img/pozadi_2_dialog_okna.png"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
-            <!-- DataGrid Tabulka hráčů vlevo -->
+            <!-- DataGrid Tabulka vlevo -->
             <ColumnDefinition Width="*" />
-            <!-- Pravý panel menu -->
+            <!-- Pravý panel menu s tlačítky -->
             <ColumnDefinition Width="250" />
         </Grid.ColumnDefinitions>
 
-        <!-- DATAGRID HRÁČŮ S ORANŽOVÝM RÁMEČKEM A SCROLLBARY -->
+        <!-- DATAGRID S ORANŽOVÝM RÁMEČKEM A SCROLLBARY -->
         <Border Grid.Column="0"
-        Margin="10"
-        BorderBrush="Orange"
-        BorderThickness="4"
+        Margin="15,15,15,15"
+        BorderBrush="#FFEDF723"
+        BorderThickness="2"
         CornerRadius="6">
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Auto">
-                <DataGrid x:Name="dgHraci"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
+
+            <DataGrid x:Name="dgHraci"
+                          ItemsSource="{Binding HraciData}"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  AutoGenerateColumns="False"                        
+                  IsReadOnly="False"
                   CanUserAddRows="False"
-                  FontFamily="Consolas"
-                  HeadersVisibility="Column"
+                  FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                        <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno}" Width="140"/>
-                        <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni}" Width="150"/>
-                        <DataGridTextColumn Header="Tel. číslo" Binding="{Binding Telefon}" Width="130"/>
-                        <DataGridTextColumn Header="Pozice na hřišti" Binding="{Binding Pozice}" Width="140"/>
-                        <DataGridTextColumn Header="Góly" Binding="{Binding Goly}" Width="70"/>
-                        <DataGridTextColumn Header="Žluté karty" Binding="{Binding ZluteKarty}" Width="90"/>
-                        <DataGridTextColumn Header="Červené karty" Binding="{Binding CerveneKarty}" Width="100"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </ScrollViewer>
+                  VerticalAlignment="Stretch" BorderBrush="#FFEDF723" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <!-- Pozadí -->
+                        <Setter Property="Background" Value="#FFEDF723"/>
+
+                        <!-- Barva textu -->
+                        <Setter Property="Foreground" Value="Black"/>
+
+                        <!-- Font -->
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="FontFamily" Value="Century Gothic"/>
+
+                        <!-- Vycentrování textu -->
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                        <!-- Ohraničení -->
+                        <Setter Property="BorderBrush" Value="#FF1565C0"/>
+                        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    </LinearGradientBrush>
+                </DataGrid.Background>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Typ člena" Binding="{Binding TypClena, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Telefonní číslo" Binding="{Binding TelCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Pozice" Binding="{Binding Pozice, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+
+                    <DataGridTextColumn Header="Počet gólů" Binding="{Binding PocetGolu}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
+                        <DataGridTextColumn.HeaderStyle>
+                            <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
+                            <Style TargetType="DataGridColumnHeader">
+                                <!-- Pozadí -->
+                                <Setter Property="Background" Value="#FFEDF723"/>
+
+                                <!-- Barva textu -->
+                                <Setter Property="Foreground" Value="Black"/>
+
+                                <!-- Font -->
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+
+                                <!-- Vycentrování textu -->
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                                <!-- Ohraničení -->
+                                <Setter Property="BorderBrush" Value="#FF1565C0"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+
+                <!-- Změna barvy pozadí a písma při výběru řádku -->
+                <DataGrid.Resources>
+
+                    <!-- Změna barvy pozadí -->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#fad870"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#fad870"/>
+
+                    <!-- Změna barvy písma-->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                </DataGrid.Resources>
+            </DataGrid>
+
         </Border>
-
-
 
         <!-- PRAVÝ PANEL S TLAČÍTKY -->
         <Border Grid.Column="1" Background="#77B3FB">
@@ -66,7 +136,7 @@
                            FontFamily="Century Gothic"/>
 
                 <!-- Tlačítka s ikonami -->
-                <Grid Grid.Row="1" Margin="15">
+                <Grid x:Name="gdTlacitka" Grid.Row="1" Margin="0,0,0,15">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -99,39 +169,39 @@
                     </Grid.Resources>
 
                     <!-- Button Přidej -->
-                    <Button Grid.Row="0" Margin="0,5">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                    <Button x:Name="btnPridej" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Přidej" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <!-- Button Odeber -->
-                    <Button Grid.Row="1" Margin="0,5">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <!-- Button Najdi -->
-                    <Button Grid.Row="2" Margin="0,5">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="3" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Najdi" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-
                     <!-- Exit -->
-                    <Button Grid.Row="7" Margin="0,5" Click="BtnZpet_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/left_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                    <Button x:Name="btnZpet" Grid.Row="7" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Zpět" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </Grid>
             </Grid>
         </Border>
+
     </Grid>
 </Window>
