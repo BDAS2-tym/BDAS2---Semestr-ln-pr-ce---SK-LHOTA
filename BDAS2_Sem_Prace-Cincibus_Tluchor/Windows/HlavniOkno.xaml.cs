@@ -23,7 +23,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         private HraciOkno hraciOkno;
         private TreneriOkno treneriOkno;
         private TreninkyOkno treninkyOkno;
-       private KontraktyOkno kontraktyOkno;
+        private KontraktyOkno kontraktyOkno;
+        private OpatreniOkno opatreniOkno;
+        private SponzoriOkno sponzoriOkno;
 
         public HlavniOkno()
         {
@@ -32,6 +34,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             this.treneriOkno = new TreneriOkno(this);
             this.treninkyOkno = new TreninkyOkno(this);
             this.kontraktyOkno = new KontraktyOkno(this);
+            this.opatreniOkno = new OpatreniOkno(this);
+            this.sponzoriOkno = new SponzoriOkno(this);
 
             this.timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -64,6 +68,20 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             KontraktyOkno kontraktyOkno = new KontraktyOkno(this);
             kontraktyOkno.Show();
+            this.Hide();
+        }
+
+        private void BtnOpatreni_Click(object sender, RoutedEventArgs e)
+        {
+            OpatreniOkno opatreniOkno = new OpatreniOkno(this);
+            opatreniOkno.Show();
+            this.Hide();    
+        }
+
+        private void BtnSponzori_Click(object sender, RoutedEventArgs e)
+        {
+            SponzoriOkno sponzoriOkno = new SponzoriOkno(this);
+            sponzoriOkno.Show();
             this.Hide();
         }
 
