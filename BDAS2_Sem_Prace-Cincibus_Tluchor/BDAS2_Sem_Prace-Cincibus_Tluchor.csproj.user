@@ -20,16 +20,22 @@
     <Compile Update="Windows\DialogPridejTrenink.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\MainWindow.xaml.cs">
+    <Compile Update="Windows\HlavniOkno.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="HlavniOkno.xaml.cs">
+    <Compile Update="Windows\HraciOkno.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="HraciOkno.xaml.cs">
+    <Compile Update="Windows\KontraktyOkno.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="TreneriOkno.xaml.cs">
+    <Compile Update="Windows\OpatreniOkno.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\SponzoriOkno.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\TreninkyOkno.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

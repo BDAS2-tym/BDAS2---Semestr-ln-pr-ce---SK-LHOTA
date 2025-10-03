@@ -1,0 +1,13 @@
+﻿# Build artifacts
+bin/
+obj/
+
+# Visual Studio cache
+.vs/
+
+# User-specific
+*.user
+*.suo
+
+# Others
+*.cache

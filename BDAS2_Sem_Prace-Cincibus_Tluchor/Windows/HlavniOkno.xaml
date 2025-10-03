@@ -1,0 +1,266 @@
+﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.HlavniOkno"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Informační systém SK Lhota"
+        WindowStartupLocation="CenterScreen"
+        Width="1200" Height="800">
+    <Window.Background>
+        <SolidColorBrush Color="#FFFFF7F7"/>
+    </Window.Background>
+
+    <!-- Hlavní rozdělení -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- horní pruh -->
+            <RowDefinition Height="*"/>
+            <!-- levé menu + obsah -->
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <!-- levé menu -->
+            <ColumnDefinition Width="*"/>
+            <!-- obsah -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Horní pruh -->
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                Background="#1565C0" Padding="15">
+            <Grid>
+                <TextBlock Text=""
+                           Foreground="White"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"
+                           FontFamily="Century Gothic"/>
+            </Grid>
+        </Border>
+
+        <!-- Levé menu -->
+        <Border Grid.Row="1" Grid.Column="0" Background="#77B3FB">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- logo + název -->
+                    <RowDefinition Height="*"/>
+                    <!-- tlačítka -->
+                </Grid.RowDefinitions>
+
+                <!-- Logo + název -->
+                <StackPanel Grid.Row="0" Margin="10">
+                    <Image Source="/Images/Img/Logo_SK_Lhota.png"
+                           MinHeight="50" MaxHeight="120"
+                           HorizontalAlignment="Center"
+                           Stretch="Uniform"/>
+                    <TextBlock Text="SK Lhota"
+                               Foreground="Black"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Margin="0,10"
+                               HorizontalAlignment="Center"
+                               FontFamily="Century Gothic"/>
+                </StackPanel>
+
+                <!-- Tlačítka -->
+                <Grid Grid.Row="1" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Styl -->
+                    <Grid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#77B3FB"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontFamily" Value="Century Gothic"/>
+                            <Setter Property="FontSize" Value="19"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Padding" Value="12,0"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#111827"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Resources>
+
+                    <!-- Hráči -->
+                    <Button x:Name="btnHraci" Grid.Row="0" Click="BtnHraci_Click" Style="{StaticResource HoverFadeButtonStyle2}" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/player.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Hráči" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Trenéři -->
+                    <Button x:Name="btnTreneri" Grid.Row="1" Click="BtnTreneri_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/coach.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Trenéři" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Tréninky -->
+                    <Button Grid.Row="2" Click="BtnTreninky_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/training.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Tréninky" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Kontrakty -->
+                    <Button Grid.Row="3" Click="BtnKontrakty_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/contract.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Kontrakty" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Opatření -->
+                    <Button x:Name="btnOpatreni" Click="BtnOpatreni_Click"  Grid.Row="4" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/red_card.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Opatření" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Sponzoři -->
+                    <Button x:Name="btnSponzori" Click="BtnSponzori_Click" Grid.Row="5" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/dolar.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Sponzoři" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Soutěže -->
+                    <Button x:Name="btnSouteze" Grid.Row="6" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/trophy.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Soutěže" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Zápasy -->
+                    <Button x:Name="btnZapasy" Grid.Row="7" Padding="-5,0,3,0" Margin="-5,0,-5,-5" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/match.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Zápasy" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Grafy -->
+                    <Button x:Name="btnGrafy" Grid.Row="8" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/graph.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Grafy" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Přihlášení -->
+                    <Button x:Name="btnPrihlaseni" Grid.Row="9" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/login.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Přihlášení" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Odhlášení -->
+                    <Button x:Name="btnOdhlaseni" Grid.Row="10" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/left.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Odhlášení" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Obsah -->
+        <Grid Grid.Row="1" Grid.Column="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Box Čas -->
+            <Border Grid.Row="0" Grid.Column="0" Margin="15"
+                    Background="#FFCC80" CornerRadius="35"
+                    MinWidth="300" MinHeight="150"
+                    MaxHeight="180"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                    <Image Source="/Images/Img/clock_icon.png" Width="50" Height="50" Margin="0,0,12,0"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Čas:" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtCas" Text="00:00:00" FontSize="22" FontWeight="Bold"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Box Datum -->
+            <Border Grid.Row="0" Grid.Column="1" Margin="15"
+                    Background="#FFCC80" CornerRadius="35"
+                    MinWidth="300" MinHeight="150"
+                    MaxHeight="180"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                    <Image Source="/Images/Img/date.png" Width="50" Height="50" Margin="0,0,12,0"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtDatum" Text="00.00.2025" FontSize="22" FontWeight="Bold"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Box Počet hráčů -->
+            <Border Grid.Row="1" Grid.Column="0" Margin="15"
+                    Background="#FFCC80" CornerRadius="35"
+                    MinWidth="300" MinHeight="100"
+                    MaxHeight="180"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                    <Image Source="/Images/Img/player.png" Width="50" Height="50" Margin="0,0,12,0"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Počet hráčů:" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock Text="18" FontSize="22" FontWeight="Bold"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Box Počet trenérů -->
+            <Border Grid.Row="1" Grid.Column="1" Margin="15"
+                    Background="#FFCC80" CornerRadius="35"
+                    MinWidth="300" MinHeight="150"
+                    MaxHeight="180"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                    <Image Source="/Images/Img/coach.png" Width="50" Height="50" Margin="0,0,12,0"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Počet trenérů:" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock Text="10" FontSize="22" FontWeight="Bold"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
