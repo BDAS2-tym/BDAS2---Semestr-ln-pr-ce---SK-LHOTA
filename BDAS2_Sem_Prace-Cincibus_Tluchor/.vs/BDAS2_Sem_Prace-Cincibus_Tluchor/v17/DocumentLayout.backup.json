@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\hlavniokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:hlavniokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\treneriokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:treneriokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\contract.png||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:contract.png||{58961B49-13E0-48C0-9258-13CBC4D40279}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -47,30 +43,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "HlavniOkno.xaml",
-              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\HlavniOkno.xaml",
-              "RelativeDocumentMoniker": "HlavniOkno.xaml",
-              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\HlavniOkno.xaml",
-              "RelativeToolTip": "HlavniOkno.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-30T11:49:53.71Z",
+              "Title": "contract.png",
+              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\contract.png",
+              "RelativeDocumentMoniker": "contract.png",
+              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\contract.png",
+              "RelativeToolTip": "contract.png",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-09-30T12:23:13.798Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "TreneriOkno.xaml",
-              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\TreneriOkno.xaml",
-              "RelativeDocumentMoniker": "TreneriOkno.xaml",
-              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\TreneriOkno.xaml",
-              "RelativeToolTip": "TreneriOkno.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-28T17:43:12.319Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\App.xaml",
               "RelativeDocumentMoniker": "App.xaml",
