@@ -11,6 +11,9 @@
     <Compile Update="Windows\DialogPridejOpatreni.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\DialogPridejSponzora.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\DialogPridejTrenera.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

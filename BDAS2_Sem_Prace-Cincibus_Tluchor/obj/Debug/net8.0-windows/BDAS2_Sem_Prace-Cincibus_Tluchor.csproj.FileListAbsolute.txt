@@ -80,3 +80,5 @@ C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejOpatreni.baml
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejTrenink.g.cs
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejTrenink.baml
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejSponzora.g.cs
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejSponzora.baml
