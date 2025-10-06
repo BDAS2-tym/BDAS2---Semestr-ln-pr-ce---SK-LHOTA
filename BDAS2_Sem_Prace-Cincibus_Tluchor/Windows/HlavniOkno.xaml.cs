@@ -1,97 +1,73 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows;
+using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 {
-
     public partial class HlavniOkno : Window
     {
         private DispatcherTimer timer;
-        private HraciOkno hraciOkno;
-        private TreneriOkno treneriOkno;
-        private TreninkyOkno treninkyOkno;
-        private KontraktyOkno kontraktyOkno;
-        private OpatreniOkno opatreniOkno;
-        private SponzoriOkno sponzoriOkno;
 
         public HlavniOkno()
         {
             InitializeComponent();
-            this.hraciOkno = new HraciOkno(this);
-            this.treneriOkno = new TreneriOkno(this);
-            this.treninkyOkno = new TreninkyOkno(this);
-            this.kontraktyOkno = new KontraktyOkno(this);
-            this.opatreniOkno = new OpatreniOkno(this);
-            this.sponzoriOkno = new SponzoriOkno(this);
 
+            // Timer pro aktuální čas a datum
             this.timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
             timer.Start();
+
+            
         }
+
 
         private void BtnHraci_Click(object sender, RoutedEventArgs e)
         {
-            HraciOkno hraciOkno = new HraciOkno(this);
-            hraciOkno.Show(); 
+            new HraciOkno(this).Show();
             this.Hide();
         }
 
-        private void BtnTreneri_Click(object sender, RoutedEventArgs e) 
+        private void BtnTreneri_Click(object sender, RoutedEventArgs e)
         {
-            TreneriOkno treneriOkno = new TreneriOkno(this);
-            treneriOkno.Show();
+            new TreneriOkno(this).Show();
             this.Hide();
         }
 
         private void BtnTreninky_Click(object sender, RoutedEventArgs e)
         {
-            TreninkyOkno treninkyOkno = new TreninkyOkno(this);
-            treninkyOkno.Show();
+            new TreninkyOkno(this).Show();
             this.Hide();
         }
 
         private void BtnKontrakty_Click(object sender, RoutedEventArgs e)
         {
-            KontraktyOkno kontraktyOkno = new KontraktyOkno(this);
-            kontraktyOkno.Show();
+            new KontraktyOkno(this).Show();
             this.Hide();
         }
 
         private void BtnOpatreni_Click(object sender, RoutedEventArgs e)
         {
-            OpatreniOkno opatreniOkno = new OpatreniOkno(this);
-            opatreniOkno.Show();
-            this.Hide();    
+            new OpatreniOkno(this).Show();
+            this.Hide();
         }
 
         private void BtnSponzori_Click(object sender, RoutedEventArgs e)
         {
-            SponzoriOkno sponzoriOkno = new SponzoriOkno(this);
-            sponzoriOkno.Show();
+            new SponzoriOkno(this).Show();
             this.Hide();
         }
 
+
+        // ------------------- TIMER -------------------
+
         private void Timer_Tick(object sender, EventArgs e)
         {
-            txtCas.Text = DateTime.Now.ToString("HH:mm:ss");   // aktualni cas
-            txtDatum.Text = DateTime.Now.ToString("dd.MM.yyyy"); // aktualni datum
+             txtCas.Text = DateTime.Now.ToString("HH:mm:ss");
+            txtDatum.Text = DateTime.Now.ToString("dd.MM.yyyy");
         }
-
-
-
     }
 }
