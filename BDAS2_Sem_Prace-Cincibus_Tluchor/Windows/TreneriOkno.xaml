@@ -71,29 +71,23 @@
                     </LinearGradientBrush>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding IdClenKlubu, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Tel. číslo" Binding="{Binding Telefon, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Tel. číslo" Binding="{Binding TelefonniCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Specializace" Binding="{Binding Specializace, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Počet let praxe" Binding="{Binding PocetLetPraxe, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header=" Trenérská Licence" Binding="{Binding TrenerLicence, UpdateSourceTrigger=LostFocus}" Width="auto" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
+                    <DataGridTextColumn Header="Trenérská Licence" Binding="{Binding TrenerskaLicence, UpdateSourceTrigger=LostFocus}" Width="auto" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         <DataGridTextColumn.HeaderStyle>
-                            <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
                             <Style TargetType="DataGridColumnHeader">
                                 <!-- Pozadí -->
                                 <Setter Property="Background" Value="#AABBCC"/>
 
                                 <!-- Barva textu -->
                                 <Setter Property="Foreground" Value="Black"/>
-
-                                <!-- Font -->
                                 <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="FontSize" Value="12"/>
                                 <Setter Property="FontFamily" Value="Century Gothic"/>
-
-                                <!-- Vycentrování textu -->
-
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
 
@@ -104,6 +98,7 @@
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
+
 
                 <!-- Změna barvy pozadí a písma při výběru řádku -->
                 <DataGrid.Resources>
