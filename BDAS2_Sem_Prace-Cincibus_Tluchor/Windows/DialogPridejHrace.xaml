@@ -45,17 +45,17 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- ID -->
-            <TextBlock x:Name="tblockId" Grid.Row="0" Grid.Column="0" Text="ID:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxId" Grid.Row="0" Grid.Column="1" Margin="50,18,50,18" TextWrapping="Wrap" MaxLength="10" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12"/>
+            <!-- Rodné číslo -->
+            <TextBlock x:Name="tblockRodneCislo" Grid.Row="0" Grid.Column="0" Text="Rodné číslo:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
+            <TextBox x:Name="tboxRodneCislo" Grid.Row="0" Grid.Column="1" Margin="50,18,50,18" TextWrapping="Wrap" MaxLength="11" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Jméno -->
             <TextBlock x:Name="tblockJmeno" Grid.Row="1" Grid.Column="0" Text="Jméno:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxJmeno" Grid.Row="1" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="2" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBox x:Name="tboxJmeno" Grid.Row="1" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="20" VerticalContentAlignment="Center" TabIndex="2" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Příjmení -->
             <TextBlock x:Name="tblockPrijmeni" Grid.Row="2" Grid.Column="0" Text="Příjmení:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxPrijmeni" Grid.Row="2" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="30" VerticalContentAlignment="Center" TabIndex="3" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBox x:Name="tboxPrijmeni" Grid.Row="2" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="20" VerticalContentAlignment="Center" TabIndex="3" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Telefonní číslo -->
             <TextBlock x:Name="tblockTelCislo" Grid.Row="3" Grid.Column="0" Text="Telefonní číslo:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\App.xaml
-1445452579
-1-14291161
-161787804087
-203220239682
-AnimationTemplate.xaml;Windows\DialogPridejHrace.xaml;Windows\DialogPridejKontrakt.xaml;Windows\DialogPridejOpatreni.xaml;Windows\DialogPridejSponzora.xaml;Windows\DialogPridejTrenera.xaml;Windows\DialogPridejTrenink.xaml;Windows\HlavniOkno.xaml;Windows\HraciOkno.xaml;Windows\KontraktyOkno.xaml;Windows\OpatreniOkno.xaml;Windows\SponzoriOkno.xaml;Windows\TreneriOkno.xaml;Windows\TreninkyOkno.xaml;
+17-1860461654
+23-1337379039
+19876493992
+206242721027
+AnimationTemplate.xaml;Windows\DialogPridejHrace.xaml;Windows\DialogPridejKontrakt.xaml;Windows\DialogPridejOpatreni.xaml;Windows\DialogPridejSoutez.xaml;Windows\DialogPridejSponzora.xaml;Windows\DialogPridejTrenera.xaml;Windows\DialogPridejTrenink.xaml;Windows\DialogPridejVysledekZapasu.xaml;Windows\DialogPridejZapas.xaml;Windows\HlavniOkno.xaml;Windows\HraciOkno.xaml;Windows\KontraktyOkno.xaml;Windows\OpatreniOkno.xaml;Windows\SponzoriOkno.xaml;Windows\TreneriOkno.xaml;Windows\TreninkyOkno.xaml;
 
 False
 

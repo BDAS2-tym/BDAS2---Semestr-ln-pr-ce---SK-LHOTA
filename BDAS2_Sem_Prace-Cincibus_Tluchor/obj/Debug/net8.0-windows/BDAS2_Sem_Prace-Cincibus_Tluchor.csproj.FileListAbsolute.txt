@@ -88,3 +88,12 @@ C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\SponzoriOkno.baml
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\TreneriOkno.baml
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\TreninkyOkno.baml
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejSoutez.g.cs
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejSoutez.baml
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejZapas.g.cs
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejZapas.baml
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejVysledekZapasu.g.cs
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejVysledekZapasu.baml
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\MaterialDesignColors.dll
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\MaterialDesignThemes.Wpf.dll
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll

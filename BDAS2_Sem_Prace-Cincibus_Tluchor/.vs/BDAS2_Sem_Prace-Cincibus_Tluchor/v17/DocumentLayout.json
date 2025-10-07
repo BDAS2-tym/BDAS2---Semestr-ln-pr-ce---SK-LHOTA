@@ -3,20 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejtrenink.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejtrenink.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejtrenink.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejtrenink.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejopatreni.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejopatreni.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejopatreni.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejopatreni.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejhrace.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejhrace.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejtrenera.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejtrenera.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejvysledekzapasu.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejvysledekzapasu.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejzapas.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejzapas.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejsponzora.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejsponzora.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\dialogpridejtrenink.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\dialogpridejtrenink.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|c:\\users\\milan\\source\\repos\\bdas2---semestr-ln-pr-ce---sk-lhota\\bdas2_sem_prace-cincibus_tluchor\\windows\\hlavniokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BF51C177-7A47-463C-95CD-C11CA831AFA2}|BDAS2_Sem_Prace-Cincibus_Tluchor.csproj|solutionrelative:windows\\hlavniokno.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,49 +74,124 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DialogPridejTrenera.xaml",
-              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejTrenera.xaml",
-              "RelativeDocumentMoniker": "Windows\\DialogPridejTrenera.xaml",
-              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejTrenera.xaml",
-              "RelativeToolTip": "Windows\\DialogPridejTrenera.xaml",
+              "DocumentIndex": 4,
+              "Title": "DialogPridejOpatreni.xaml",
+              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejOpatreni.xaml",
+              "RelativeDocumentMoniker": "Windows\\DialogPridejOpatreni.xaml",
+              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejOpatreni.xaml",
+              "RelativeToolTip": "Windows\\DialogPridejOpatreni.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-03T12:19:29.971Z",
+              "WhenOpened": "2025-10-07T13:43:54.614Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "DialogPridejTrenink.xaml",
               "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejTrenink.xaml",
               "RelativeDocumentMoniker": "Windows\\DialogPridejTrenink.xaml",
               "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejTrenink.xaml",
               "RelativeToolTip": "Windows\\DialogPridejTrenink.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-02T16:56:33.716Z"
+              "WhenOpened": "2025-10-07T13:40:20.873Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "DialogPridejHrace.xaml",
               "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejHrace.xaml",
               "RelativeDocumentMoniker": "Windows\\DialogPridejHrace.xaml",
               "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejHrace.xaml",
               "RelativeToolTip": "Windows\\DialogPridejHrace.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-02T16:12:24.747Z",
+              "WhenOpened": "2025-10-07T13:04:45.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\App.xaml",
+              "RelativeDocumentMoniker": "App.xaml",
+              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\App.xaml",
+              "RelativeToolTip": "App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-04T13:19:58.369Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "DialogPridejTrenink.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejTrenink.xaml.cs",
+              "RelativeDocumentMoniker": "Windows\\DialogPridejTrenink.xaml.cs",
+              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejTrenink.xaml.cs",
+              "RelativeToolTip": "Windows\\DialogPridejTrenink.xaml.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwCcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T13:49:30.892Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DialogPridejOpatreni.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejOpatreni.xaml.cs",
+              "RelativeDocumentMoniker": "Windows\\DialogPridejOpatreni.xaml.cs",
+              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejOpatreni.xaml.cs",
+              "RelativeToolTip": "Windows\\DialogPridejOpatreni.xaml.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACgAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T13:49:37.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "DialogPridejSponzora.xaml",
               "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejSponzora.xaml",
               "RelativeDocumentMoniker": "Windows\\DialogPridejSponzora.xaml",
               "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejSponzora.xaml",
               "RelativeToolTip": "Windows\\DialogPridejSponzora.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-02T16:11:57.97Z",
+              "WhenOpened": "2025-10-04T13:18:35.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DialogPridejVysledekZapasu.xaml",
+              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejVysledekZapasu.xaml",
+              "RelativeDocumentMoniker": "Windows\\DialogPridejVysledekZapasu.xaml",
+              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejVysledekZapasu.xaml",
+              "RelativeToolTip": "Windows\\DialogPridejVysledekZapasu.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-07T09:09:31.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DialogPridejZapas.xaml",
+              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejZapas.xaml",
+              "RelativeDocumentMoniker": "Windows\\DialogPridejZapas.xaml",
+              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\DialogPridejZapas.xaml",
+              "RelativeToolTip": "Windows\\DialogPridejZapas.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-06T17:25:42.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "HlavniOkno.xaml",
+              "DocumentMoniker": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\HlavniOkno.xaml",
+              "RelativeDocumentMoniker": "Windows\\HlavniOkno.xaml",
+              "ToolTip": "C:\\Users\\milan\\source\\repos\\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Windows\\HlavniOkno.xaml",
+              "RelativeToolTip": "Windows\\HlavniOkno.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-06T06:41:52.422Z",
               "EditorCaption": ""
             }
           ]

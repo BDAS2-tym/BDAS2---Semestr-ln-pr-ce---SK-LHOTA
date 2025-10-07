@@ -11,6 +11,9 @@
     <Compile Update="Windows\DialogPridejOpatreni.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\DialogPridejSoutez.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\DialogPridejSponzora.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -18,6 +21,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\DialogPridejTrenink.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DialogPridejVysledekZapasu.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DialogPridejZapas.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\HlavniOkno.xaml.cs">

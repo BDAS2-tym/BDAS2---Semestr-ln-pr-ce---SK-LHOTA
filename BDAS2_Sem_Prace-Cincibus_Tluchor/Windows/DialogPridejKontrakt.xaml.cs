@@ -32,11 +32,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
             tboxId.Clear();
-            iudPocetLetKontraktu.Value = 0;
             tboxPlat.Clear();
             tboxTelCisloAgenta.Clear();
             tboxVystupniKlauzule.Clear();
             cbHrac.SelectedItem = null;
+            dpDatumKonceKontraktu.SelectedDate = DateTime.Now;
+            dpDatumZacatkuKontraktu.SelectedDate = DateTime.Now;
         }
     }
 }

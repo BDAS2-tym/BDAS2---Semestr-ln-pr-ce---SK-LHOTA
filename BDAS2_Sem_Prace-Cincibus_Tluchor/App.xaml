@@ -6,7 +6,99 @@
 
 
 <Application.Resources>
+        <!-- Přidání stylu pro hover (světle modrá a oranžová) nad tlačítkem -->
+        <Style x:Key="HoverFadeButtonStyle3" TargetType="Button">
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="86"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <!-- Ohraničení s gradientem -->
+                            <Border x:Name="border"
+                     CornerRadius="3"
+                     BorderThickness="2">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,2">
+                                        <GradientStop Color="#faa63e" Offset="0"/>
+                                        <GradientStop Color="#f58742" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
 
+                                <!-- Pozadí -->
+                                <Border.Background>
+                                    <SolidColorBrush x:Name="backgroundBrush" Color="#6094d2"/>
+                                </Border.Background>
+                            </Border>
+
+                            <!-- Obsah tlačítka -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <!-- Triggery pro události tlačítka -->
+                        <ControlTemplate.Triggers>
+
+                            <!-- Clicked animace -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="backgroundBrush"
+                             Storyboard.TargetProperty="Color"
+                             To="#4e69da"
+                             Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="backgroundBrush"
+                             Storyboard.TargetProperty="Color"
+                             To="#6094d2"
+                             Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <!-- Hover animace -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsPressed" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="backgroundBrush"
+                             Storyboard.TargetProperty="Color"
+                             To="#4e69da"
+                             Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="backgroundBrush"
+                             Storyboard.TargetProperty="Color"
+                             To="#6094d2"
+                             Duration="0:0:0.5"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Přidání stylu pro hover (modrá a transparentní) nad tlačítkem -->
         <Style x:Key="HoverFadeButtonStyle2" TargetType="Button">
             <Setter Property="FontFamily" Value="Century Gothic"/>
             <Setter Property="FontSize" Value="20"/>
@@ -175,11 +267,30 @@
             </Setter>
         </Style>
 
+    
         <!-- Přidání stylu pro vycentrování v každém řádku DataGridView -->
         <Style x:Key="CenterCellStyle" TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+
+        
+        <!-- Přidání stylu pro vytvoření vlastního ToolTipu -->
+        <Style x:Key="ha"  TargetType="ContentControl">
+            <Setter Property="ToolTipService.InitialShowDelay" Value="150"/>
+            <Setter Property="ToolTipService.ShowDuration" Value="7000"/>
+            <Setter Property="ToolTipService.BetweenShowDelay" Value="100"/>
+        </Style>
+
+        <Style x:Key="CustomTooltip"  TargetType="ToolTip">
+            <Setter Property ="HorizontalOffset" Value="5"/>
+            <Setter Property ="VerticalOffset" Value="5"/>
+            <Setter Property ="Background" Value="#FFD5E8F0"/>
+            <Setter Property ="Foreground" Value="Black"/>
+            <Setter Property ="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property ="FontWeight" Value="Medium"/>
         </Style>
     </Application.Resources>
 </Application>
