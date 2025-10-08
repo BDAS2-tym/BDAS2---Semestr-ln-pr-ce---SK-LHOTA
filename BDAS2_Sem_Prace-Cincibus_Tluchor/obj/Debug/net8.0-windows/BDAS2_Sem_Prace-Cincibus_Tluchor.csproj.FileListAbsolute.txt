@@ -94,6 +94,10 @@ C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejZapas.baml
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejVysledekZapasu.g.cs
 C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\obj\Debug\net8.0-windows\Windows\DialogPridejVysledekZapasu.baml
-C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\MaterialDesignColors.dll
-C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\MaterialDesignThemes.Wpf.dll
-C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\Oracle.ManagedDataAccess.dll
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\System.DirectoryServices.Protocols.dll
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\System.Security.Cryptography.Pkcs.dll
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\runtimes\linux\lib\net8.0\System.DirectoryServices.Protocols.dll
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\runtimes\osx\lib\net8.0\System.DirectoryServices.Protocols.dll
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.DirectoryServices.Protocols.dll
+C:\Users\milan\source\repos\BDAS2---Semestr-ln-pr-ce---SK-LHOTA\BDAS2_Sem_Prace-Cincibus_Tluchor\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
