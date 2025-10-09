@@ -77,7 +77,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+              
                     </Grid.RowDefinitions>
 
                     <!-- Styl -->
@@ -172,16 +172,9 @@
                         </StackPanel>
                     </Button>
 
-                    <!-- Přihlášení -->
-                    <Button x:Name="btnPrihlaseni" Grid.Row="9" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
-                            <Image Source="/Images/Img/login.png" Width="26" Height="26" Margin="0,0,10,0"/>
-                            <TextBlock Text="Přihlášení" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
 
                     <!-- Odhlášení -->
-                    <Button x:Name="btnOdhlaseni" Grid.Row="10" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnOdhlaseni" Click="BtnOdhlaseni_Click" Grid.Row="10" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Odhlášení" VerticalAlignment="Center"/>

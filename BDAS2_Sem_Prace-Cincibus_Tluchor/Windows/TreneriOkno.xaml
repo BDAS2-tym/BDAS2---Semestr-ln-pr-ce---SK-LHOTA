@@ -74,6 +74,7 @@
                     <DataGridTextColumn Header="ID" Binding="{Binding IdClenKlubu, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Rodné číslo" Binding="{Binding RodneCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Tel. číslo" Binding="{Binding TelefonniCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Specializace" Binding="{Binding Specializace, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Počet let praxe" Binding="{Binding PocetLetPraxe, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>

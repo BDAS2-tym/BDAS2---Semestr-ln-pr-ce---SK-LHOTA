@@ -14,6 +14,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         int IdClenKlubu { get; set; }
 
         /// <summary>
+        /// Rodné číslo člena klubu
+        /// </summary>
+        long RodneCislo { get; set; }
+
+        /// <summary>
         /// Jméno člena klubu
         /// </summary>
         string Jmeno { get; set; }
@@ -26,7 +31,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Typ člena klubu (hráč nebo trenér)
         /// </summary>
-        TypClena TypClena { get; set; }
+        string TypClena { get; set; }
 
         /// <summary>
         /// Telefonní číslo člena klubu
@@ -34,13 +39,5 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         string TelefonniCislo { get; set; }
     }
 
-    /// <summary>
-    /// Výčtový typ určující člena klubu
-    /// </summary>
-    public enum TypClena
-    {
-
-        Hrac,
-        Trener
-    }
+  
 }

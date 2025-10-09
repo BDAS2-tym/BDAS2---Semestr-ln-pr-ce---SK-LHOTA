@@ -78,7 +78,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             this.Hide();
         }
 
-  
+        private void BtnOdhlaseni_Click(object sender, RoutedEventArgs e)
+        {
+            new PrihlaseniOkno(this).Show();
+            this.Hide();
+
+        }
+
+
 
         // ------------------- TIMER -------------------
 
