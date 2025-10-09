@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BDAS2_Sem_Prace-Cincibus_Tluchor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b3094303960da935e454c7c10ed5fb9b156b83cd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+127da2c856c3b8d5b43adb4d4d4a77b7d8ec59cc")]
 [assembly: System.Reflection.AssemblyProductAttribute("BDAS2_Sem_Prace-Cincibus_Tluchor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BDAS2_Sem_Prace-Cincibus_Tluchor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
