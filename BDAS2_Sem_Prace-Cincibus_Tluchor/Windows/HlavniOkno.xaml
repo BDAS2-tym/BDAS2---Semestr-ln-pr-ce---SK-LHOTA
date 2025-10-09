@@ -149,7 +149,7 @@
                     </Button>
 
                     <!-- Soutěže -->
-                    <Button x:Name="btnSouteze" Grid.Row="6" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnSouteze" Click="BtnSouteze_Click" Grid.Row="6" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/trophy.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Soutěže" VerticalAlignment="Center"/>
@@ -165,7 +165,7 @@
                     </Button>
 
                     <!-- Grafy -->
-                    <Button x:Name="btnGrafy" Grid.Row="8" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnGrafy" Click="BtnGrafy_Click" Grid.Row="8" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/graph.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Grafy" VerticalAlignment="Center"/>
