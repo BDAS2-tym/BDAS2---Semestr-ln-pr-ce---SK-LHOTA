@@ -5,11 +5,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     public partial class PrihlaseniOkno : Window
     {
+        private HlavniOkno hlavniOkno;
+
+        public PrihlaseniOkno(HlavniOkno hlavniOkno)
+        {
+            InitializeComponent();
+            this.hlavniOkno = hlavniOkno;
+        }
 
         public PrihlaseniOkno()
         {
             InitializeComponent();
-
+      
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
