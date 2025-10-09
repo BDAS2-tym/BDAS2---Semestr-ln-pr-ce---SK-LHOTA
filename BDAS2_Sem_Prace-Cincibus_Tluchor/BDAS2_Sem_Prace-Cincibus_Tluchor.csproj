@@ -38,5 +38,13 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Images\Ikony\Ikona_Uzivatel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Ikony\Ikona_Uzivatel.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
 
 </Project>
