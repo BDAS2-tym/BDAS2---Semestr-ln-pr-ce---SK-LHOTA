@@ -39,10 +39,22 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Images\Ikony\Ikona_Prohra.png" />
+    <None Remove="Images\Ikony\Ikona_Remiza.png" />
     <None Remove="Images\Ikony\Ikona_Uzivatel.png" />
+    <None Remove="Images\Ikony\Ikona_Vyhra.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Ikony\Ikona_Prohra.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Ikony\Ikona_Remiza.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Ikony\Ikona_Uzivatel.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Ikony\Ikona_Vyhra.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
