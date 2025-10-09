@@ -123,24 +123,9 @@
                             Grid.Row="1"
                             Orientation="Vertical"
                             Margin="0,35,0,0">
-                    <Image Source="/Images/Img/Logo_SK_Lhota.png"
-                           Width="100" Height="100"/>
-                    <TextBlock Text="SK LHOTA"
-                               Foreground="White"
-                               FontSize="30"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"
-                               HorizontalAlignment="Center"/>
-                    <TextBlock Text="Přihlašovací systém
-                               Informační sportovní fotbalový klub"
-                               Foreground="LightGray"
-                               FontSize="14"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"
-                               TextWrapping="Wrap"
-                               TextAlignment="Center"
-                               Margin="0,5,0,0"/>
-                    <TextBlock Text="Username"
+                    <Image Source="/Images/Ikony/Ikona_Uzivatel.png"
+                           Width="120" Height="120" Margin="0,0,0,45"/>
+                    <TextBlock Text="Přihlašovací jméno"
                                Foreground="DarkGray"
                                FontSize="13"
                                FontWeight="Medium"
@@ -164,7 +149,7 @@
                                         AlignmentX="Left"/>
                         </TextBox.Background>
                     </TextBox>
-                    <TextBlock Text="Password"
+                    <TextBlock Text="Heslo"
                                Foreground="DarkGray"
                                FontSize="13"
                                FontWeight="Medium"
@@ -190,7 +175,7 @@
                     </PasswordBox>
                     <Button x:Name="btnLogin"                          
                             BorderThickness="0"
-                            Content="LOG IN"
+                            Content="PŘIHLÁSIT"
                             Foreground="White"
                             FontSize="12"
                             FontFamily="Montserrat"
@@ -221,7 +206,7 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 Margin="0,15,0,0">
-                        <TextBlock Text="Forgot Password?"
+                        <TextBlock Text="Zapomenuté heslo?"
                                Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
