@@ -41,9 +41,15 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- ID -->
-            <TextBlock x:Name="tblockId" Grid.Row="0" Grid.Column="0" Text="ID:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxId" Grid.Row="0" Grid.Column="1" Margin="50,43,50,43" TextWrapping="Wrap" MaxLength="10" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12"/>
+            <!-- Popis tréninku -->
+            <TextBlock x:Name="tblockPopis" Grid.Row="0" Grid.Column="0" Text="Náplň tréninku:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
+            <RichTextBox x:Name="rtboxPopisTreninku" Grid.Column="1" Margin="50,12,50,12" TabIndex="4" FontFamily="Century Gothic" TextChanged="rtboxPopisTreninku_TextChanged">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text=""/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
 
             <!-- Datum a čas tréninku -->
             <TextBlock x:Name="tblockDatumTreninku" Grid.Row="1" Grid.Column="0" Text="Datum a čas tréninku:" Margin="5" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>

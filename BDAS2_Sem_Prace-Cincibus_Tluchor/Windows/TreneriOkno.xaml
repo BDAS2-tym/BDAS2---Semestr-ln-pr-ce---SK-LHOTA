@@ -20,10 +20,10 @@
             <ColumnDefinition Width="250" />
         </Grid.ColumnDefinitions>
 
-        <!-- DATAGRID S ORANŽOVÝM RÁMEČKEM A SCROLLBARY -->
+        <!-- DATAGRID S RÁMEČKEM A SCROLLBARY -->
         <Border Grid.Column="0"
         Margin="15,15,15,15"
-        BorderBrush="#FFEDF723"
+        BorderBrush="#125C64"
         BorderThickness="2"
         CornerRadius="6">
 
@@ -36,11 +36,11 @@
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#FFEDF723" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None">
+                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->
-                        <Setter Property="Background" Value="#FFEDF723"/>
+                        <Setter Property="Background" Value="#AABBCC"/>
 
                         <!-- Barva textu -->
                         <Setter Property="Foreground" Value="Black"/>
@@ -56,7 +56,7 @@
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
 
                         <!-- Ohraničení -->
-                        <Setter Property="BorderBrush" Value="#FF1565C0"/>
+                        <Setter Property="BorderBrush" Value="#125C64"/>
                         <Setter Property="BorderThickness" Value="0,0,2,2"/>
 
 
@@ -80,14 +80,19 @@
                     <DataGridTextColumn Header="Trenérská Licence" Binding="{Binding TrenerskaLicence, UpdateSourceTrigger=LostFocus}" Width="auto" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="Background" Value="#FFEDF723"/>
+                                <!-- Pozadí -->
+                                <Setter Property="Background" Value="#AABBCC"/>
+
+                                <!-- Barva textu -->
                                 <Setter Property="Foreground" Value="Black"/>
                                 <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="FontSize" Value="12"/>
                                 <Setter Property="FontFamily" Value="Century Gothic"/>
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                <Setter Property="BorderBrush" Value="#FF1565C0"/>
+
+                                <!-- Ohraničení -->
+                                <Setter Property="BorderBrush" Value="#125C64"/>
                                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
                             </Style>
                         </DataGridTextColumn.HeaderStyle>

@@ -1,0 +1,80 @@
+﻿<Window x:Name="DialogPridaniSouteze" x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.DialogPridejSoutez"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Windows"
+        mc:Ignorable="d"
+        Title="Přidání soutěže" Height="672" Width="562" MinWidth="562" MinHeight="672" MaxWidth="620" MaxHeight="730" Icon="/Images/Ikony/Ikona_Okna_Pridani.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Logo -->
+            <RowDefinition Height="*"/>
+            <!-- Formulář -->
+            <RowDefinition Height="60"/>
+            <!-- Tlačítka -->
+        </Grid.RowDefinitions>
+
+        <!-- Logo sekce -->
+        <Border x:Name="borderLogo" Grid.Row="0" Padding="10">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/Img/pozadi_1_dialog_okna.png" Stretch="UniformToFill" TileMode="None"/>
+            </Border.Background>
+            <Image x:Name="imgLogo" Source="/Images/Img/Logo_SK_Lhota.png" HorizontalAlignment="Center" Height="100"/>
+        </Border>
+
+        <!-- Formulář -->
+        <Grid x:Name="gridHodnoty" Grid.Row="1">
+            <Grid.Background>
+                <ImageBrush Stretch="Fill" ImageSource="/Images/Img/pozadi_2_dialog_okna.png"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Soutěž -->
+            <TextBlock x:Name="tblockSoutez" Grid.Row="0" Grid.Column="0" Text="Vyberte soutěž:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
+            <ComboBox x:Name="cbSoutez" Grid.Column="1" Margin="50,63,50,63" TabIndex="4" FontFamily="Century Gothic" FontSize="12"/>
+
+            <!-- Start soutěže -->
+            <TextBlock x:Name="tblockStartSouteze" Grid.Row="1" Text="Start soutěže" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
+            <DatePicker x:Name="dpDatumStartuSouteze" Grid.Row="1" Margin="50,63,50,63" FontFamily="Century Gothic" FontSize="12" TabIndex="2" Grid.Column="1"/>
+
+            <!-- Konec soutěže -->
+            <TextBlock x:Name="tblockKonecSouteze" Grid.Row="2" Text="Konec soutěže" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
+            <DatePicker x:Name="dpDatumKonceSouteze" Grid.Row="2" Margin="50,63,50,63" FontFamily="Century Gothic" FontSize="12" TabIndex="2" Grid.Column="1"/>
+        </Grid>
+
+        <!-- Tlačítka -->
+        <Border x:Name="borderTlacitka" Grid.Row="2">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/Img/pozadi_3_dialog_okna.png"/>
+            </Border.Background>
+            <StackPanel Orientation="Horizontal" UseLayoutRounding="False" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button x:Name="btnPridej" Content="Přidej" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle}">
+
+                </Button>
+                <Button x:Name="btnReset" Content="Reset" Width="100" Padding="5,5,5,5" Margin="100,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="7" Style="{StaticResource HoverFadeButtonStyle}" Click="btnReset_Click">
+                    <Button.Background>
+                        <SolidColorBrush Color="#DDC5D709" Opacity="0.85"/>
+                    </Button.Background>
+                    <Button.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF9AE818"/>
+                            <GradientStop Color="#DD97F60F" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.BorderBrush>
+                </Button>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>

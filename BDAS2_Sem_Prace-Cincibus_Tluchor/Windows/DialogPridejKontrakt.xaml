@@ -32,6 +32,7 @@
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -45,28 +46,33 @@
 
             <!-- ID -->
             <TextBlock x:Name="tblockId" Grid.Row="0" Grid.Column="0" Text="ID:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxId" Grid.Row="0" Grid.Column="1" Margin="50,25,50,25" TextWrapping="Wrap" MaxLength="10" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBox x:Name="tboxId" Grid.Row="0" Grid.Column="1" Margin="50,22,50,22" TextWrapping="Wrap" MaxLength="10" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Počet let kontraktu -->
-            <TextBlock x:Name="tblockPocetLetKontraktu" Grid.Row="1" Grid.Column="0" Text="Počet let platného kontraktu:" Margin="5" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <xctk:IntegerUpDown x:Name="iudPocetLetKontraktu" Grid.Row="1" Grid.Column="1" Margin="50,25,50,25"
-                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="2" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Plat -->
-            <TextBlock x:Name="tblockPlat" Grid.Row="2" Grid.Column="0" Text="Plat (KČ):" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxPlat" Grid.Row="2" Grid.Column="1" Margin="50,25,50,25" MaxLines="10" TextWrapping="Wrap" MaxLength="10" VerticalContentAlignment="Center" TabIndex="3" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBlock x:Name="tblockPlat" Grid.Row="1" Grid.Column="0" Text="Plat (KČ):" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
+            <TextBox x:Name="tboxPlat" Grid.Row="1" Grid.Column="1" Margin="50,22,50,22" MaxLines="10" TextWrapping="Wrap" MaxLength="10" VerticalContentAlignment="Center" TabIndex="3" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Telefonní číslo agenta -->
-            <TextBlock x:Name="tblockTelCisloAgenta" Grid.Row="3" Grid.Column="0" Text="Telefonní číslo agenta:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxTelCisloAgenta" Grid.Row="3" Grid.Column="1" Margin="50,25,50,25" MaxLines="10" TextWrapping="Wrap" MaxLength="13" VerticalContentAlignment="Center" TabIndex="4" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBlock x:Name="tblockTelCisloAgenta" Grid.Row="2" Grid.Column="0" Text="Telefonní číslo agenta:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
+            <TextBox x:Name="tboxTelCisloAgenta" Grid.Row="2" Grid.Column="1" Margin="50,22,50,22" MaxLines="10" TextWrapping="Wrap" MaxLength="13" VerticalContentAlignment="Center" TabIndex="4" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Výstupní klauzule -->
-            <TextBlock x:Name="tblockVystupniKlauzule" Grid.Row="4" Grid.Column="0" Text="Výstupní klauzule hráče (KČ):" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxVystupniKlauzule" Grid.Row="4" Grid.Column="1" Margin="50,25,50,25" MaxLines="10" TextWrapping="Wrap" MaxLength="10" VerticalContentAlignment="Center" TabIndex="5" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBlock x:Name="tblockVystupniKlauzule" Grid.Row="3" Grid.Column="0" Text="Výstupní klauzule hráče (KČ):" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
+            <TextBox x:Name="tboxVystupniKlauzule" Grid.Row="3" Grid.Column="1" Margin="50,22,50,22" MaxLines="10" TextWrapping="Wrap" MaxLength="10" VerticalContentAlignment="Center" TabIndex="5" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Výběr hráče -->
-            <TextBlock x:Name="tblockVyberHrace" Grid.Row="5" Grid.Column="0" Text="Vyberte daného hráče:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-            <ComboBox x:Name="cbHrac" Grid.Column="1" Grid.Row="5" Margin="50,25,50,25" TabIndex="6" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBlock x:Name="tblockVyberHrace" Grid.Row="4" Grid.Column="0" Text="Vyberte daného hráče:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
+            <ComboBox x:Name="cbHrac" Grid.Column="1" Grid.Row="4" Margin="50,22,50,22" TabIndex="6" FontFamily="Century Gothic" FontSize="12"/>
+
+            <!-- Začátek kontraktu -->
+            <TextBlock x:Name="tblockZacatekKontrakty" Grid.Row="6" Text="Konec kontraktu:" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpDatumZacatkuKontraktu" Grid.Row="5" Margin="50,18,50,17" FontFamily="Century Gothic" FontSize="12" TabIndex="2" Grid.Column="1"/>
+
+            <!-- Konec kontraktu -->
+            <TextBlock x:Name="tblockKonecKontraktu" Grid.Row="5" Text="Začátek kontraktu:" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpDatumKonceKontraktu" Grid.Column="1" Grid.Row="6" Margin="50,17,50,18" FontFamily="Century Gothic" FontSize="12" TabIndex="2"/>
         </Grid>
 
         <!-- Tlačítka -->

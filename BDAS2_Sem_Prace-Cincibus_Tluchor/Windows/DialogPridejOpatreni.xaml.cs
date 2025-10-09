@@ -20,8 +20,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     /// </summary>
     public partial class DialogPridejOpatreni : Window
     {
+        private const int MaxLimitZnaku = 20;
 
-        private const int MaxLimitZnaku = 150;
         public DialogPridejOpatreni()
         {
             InitializeComponent();
