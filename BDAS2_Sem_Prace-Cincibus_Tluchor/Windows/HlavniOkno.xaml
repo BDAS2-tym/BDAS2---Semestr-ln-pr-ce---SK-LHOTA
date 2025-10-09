@@ -157,7 +157,7 @@
                     </Button>
 
                     <!-- Zápasy -->
-                    <Button x:Name="btnZapasy" Grid.Row="7" Padding="-5,0,3,0" Margin="-5,0,-5,-5" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnZapasy" Click="BtnZapasy_Click" Grid.Row="7" Padding="-5,0,3,0" Margin="-5,0,-5,-5" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/match.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Zápasy" VerticalAlignment="Center"/>

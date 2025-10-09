@@ -72,6 +72,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             this.Hide();
         }
 
+        private void BtnZapasy_Click(object sender, RoutedEventArgs e)
+        {
+            new ZapasyOkno(this).Show();
+            this.Hide();
+        }
+
+  
 
         // ------------------- TIMER -------------------
 
