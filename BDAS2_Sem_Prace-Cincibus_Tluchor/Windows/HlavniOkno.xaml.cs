@@ -21,7 +21,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             timer.Tick += Timer_Tick;
             timer.Start();
 
-            
         }
 
 
@@ -58,6 +57,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         private void BtnSponzori_Click(object sender, RoutedEventArgs e)
         {
             new SponzoriOkno(this).Show();
+            this.Hide();
+        }
+
+        private void BtnGrafy_Click(object sender, RoutedEventArgs e)
+        {
+            new GrafyOkno(this).Show();
+            this.Hide();
+        }
+
+        private void BtnSouteze_Click(object sender, RoutedEventArgs e)
+        {
+            new SoutezeOkno(this).Show();
             this.Hide();
         }
 

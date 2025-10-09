@@ -15,13 +15,12 @@ using System.Windows.Shapes;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Interakční logika pro GrafyOkno.xaml
+    /// Interakční logika pro SoutezeOkno.xaml
     /// </summary>
-    public partial class GrafyOkno : Window
+    public partial class SoutezeOkno : Window
     {
         private HlavniOkno hlavniOkno;
-
-        public GrafyOkno(HlavniOkno hlavniOkno)
+        public SoutezeOkno(HlavniOkno hlavniOkno)
         {
             InitializeComponent();
             this.hlavniOkno = hlavniOkno;
@@ -29,8 +28,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
             hlavniOkno.Show();
+            this.Close();
         }
     }
 }
