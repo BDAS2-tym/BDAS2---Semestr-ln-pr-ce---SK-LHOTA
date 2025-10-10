@@ -43,6 +43,7 @@
     <None Remove="Images\Ikony\Ikona_Remiza.png" />
     <None Remove="Images\Ikony\Ikona_Uzivatel.png" />
     <None Remove="Images\Ikony\Ikona_Vyhra.png" />
+    <None Remove="Images\Ikony\Ikona_Vyhra1.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Ikony\Ikona_Prohra.png">
@@ -54,7 +55,7 @@
     <Resource Include="Images\Ikony\Ikona_Uzivatel.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\Ikony\Ikona_Vyhra.png">
+    <Resource Include="Images\Ikony\Ikona_Vyhra1.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
