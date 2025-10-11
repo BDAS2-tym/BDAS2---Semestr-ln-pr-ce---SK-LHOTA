@@ -40,11 +40,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Images\Ikony\Ikona_Uzivatel.png" />
+    <None Remove="Images\Ikony\key-icon.png" />
+    <None Remove="Images\Ikony\key1-icon.png" />
+    <None Remove="Images\Ikony\user-icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Ikony\Ikona_Uzivatel.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\Ikony\key1-icon.png" />
+    <Resource Include="Images\Ikony\user-icon.png" />
   </ItemGroup>
 
 </Project>
