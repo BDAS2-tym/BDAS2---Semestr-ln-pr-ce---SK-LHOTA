@@ -48,11 +48,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 {
                     Trener trener = new Trener();
 
-                    // ID člena klubu (NOT NULL) - pokud je NULL, nastavíme 0
-                    if (reader["IDCLENKLUBU"] != DBNull.Value)
-                        trener.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
-                    else
-                        trener.IdClenKlubu = 0;
+                    //// ID člena klubu (NOT NULL) - pokud je NULL, nastavíme 0
+                    //if (reader["IDCLENKLUBU"] != DBNull.Value)
+                    //    trener.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
+                    //else
+                    //    trener.IdClenKlubu = 0;
 
                     // Rodné číslo (NOT NULL) - výchozí hodnota 0L
                     if (reader["RODNE_CISLO"] != DBNull.Value)

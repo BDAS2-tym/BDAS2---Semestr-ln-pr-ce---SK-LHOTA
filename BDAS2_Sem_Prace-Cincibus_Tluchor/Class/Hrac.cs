@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Jedinečné ID člena klubu (hráče)
         /// </summary>
-        public int IdClenKlubu { get; set; }
+        //public int IdClenKlubu { get; set; }
 
         /// <summary>
         /// Rodné číslo hráče
@@ -51,20 +52,29 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         public string PoziceNaHristi { get; set; }
 
+        public int PocetZlutychKaret { get; set; }
+
+        public int PocetCervenychKaret { get; set; }
+
+
+        
+
         public Hrac() { }
 
-        public Hrac(int idClenKlubu, long rodneCislo, string jmeno, string prijmeni,
-             string typClena, string telefonniCislo, int pocetVstrelenychGolu,
+        public Hrac( long rodneCislo, string jmeno, string prijmeni,
+              string telefonniCislo, int pocetVstrelenychGolu, int pocetZlutychKaret, int pocetCervenychKaret,
              string poziceNaHristi)
         {
-            IdClenKlubu = idClenKlubu;
-            RodneCislo = rodneCislo;
-            Jmeno = jmeno;
-            Prijmeni = prijmeni;
-            TypClena = typClena;
-            TelefonniCislo = telefonniCislo;
-            PocetVstrelenychGolu = pocetVstrelenychGolu;
-            PoziceNaHristi = poziceNaHristi;
+            //this.IdClenKlubu = idClenKlubu;
+            this.RodneCislo = rodneCislo;
+            this.Jmeno = jmeno;
+            this.Prijmeni = prijmeni;
+
+            this.TelefonniCislo = telefonniCislo;
+            this.PocetVstrelenychGolu = pocetVstrelenychGolu;
+            this.PoziceNaHristi = poziceNaHristi;
+            this.PocetZlutychKaret = pocetZlutychKaret;
+            this.PocetCervenychKaret = pocetCervenychKaret;
         }
 
 

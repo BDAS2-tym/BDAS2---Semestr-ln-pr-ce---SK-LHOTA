@@ -74,6 +74,8 @@
                     <DataGridTextColumn Header="Telefonní číslo" Binding="{Binding TelefonniCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Pozice" Binding="{Binding PoziceNaHristi, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Rodné číslo" Binding="{Binding RodneCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Žluté karty" Binding="{Binding PocetZlutychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Červené karty" Binding="{Binding PocetCervenychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
 
                     <DataGridTextColumn Header="Počet gólů" Binding="{Binding PocetVstrelenychGolu}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         <DataGridTextColumn.HeaderStyle>
@@ -169,7 +171,7 @@
                     </Grid.Resources>
 
                     <!-- Button Přidej -->
-                    <Button x:Name="btnPridej" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+                    <Button x:Name="btnPridej" Click="btnPridejDialog_Click" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Přidej" VerticalAlignment="Center"/>

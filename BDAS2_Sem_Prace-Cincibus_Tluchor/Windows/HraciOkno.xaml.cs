@@ -1,4 +1,5 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.ObjectModel;
@@ -32,6 +33,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             hlavniOkno.Show();
         }
 
+        private void btnPridejDialog_Click(object sender, RoutedEventArgs e)
+        {
+            DialogPridejHrace dialogPridejHrace = new DialogPridejHrace(HraciData);
+            dialogPridejHrace.ShowDialog();
+        }
+
         private void NactiHrace()
         {
             try
@@ -48,11 +55,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 {
                     Hrac hrac = new Hrac();
 
-                    // IDCLENKLUBU - NOT NULL
-                    if (reader["IDCLENKLUBU"] != DBNull.Value)
-                        hrac.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
-                    else
-                        hrac.IdClenKlubu = 0; // výchozí hodnota
+                    //// IDCLENKLUBU - NOT NULL
+                    //if (reader["IDCLENKLUBU"] != DBNull.Value)
+                    //    hrac.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
+                    //else
+                    //    hrac.IdClenKlubu = 0; // výchozí hodnota
 
                     // RODNE_CISLO - NOT NULL
                     if (reader["RODNE_CISLO"] != DBNull.Value)
@@ -83,6 +90,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                         hrac.PocetVstrelenychGolu = Convert.ToInt32(reader["POCETVSTRELENYCHGOLU"]);
                     else
                         hrac.PocetVstrelenychGolu = 0;
+
+                    // POCETZLUTYCHKARET - může být NULL
+                    if (reader["POCET_ZLUTYCH_KARET"] != DBNull.Value)
+                        hrac.PocetZlutychKaret = Convert.ToInt32(reader["POCET_ZLUTYCH_KARET"]);
+                    else
+                        hrac.PocetZlutychKaret = 0;
+
+                    // POCETCERVENYCHKARET - může být NULL
+                    if (reader["POCET_CERVENYCH_KARET"] != DBNull.Value)
+                        hrac.PocetCervenychKaret = Convert.ToInt32(reader["POCET_CERVENYCH_KARET"]);
+                    else
+                        hrac.PocetCervenychKaret = 0;
 
                     // NAZEV_POZICE - číselník, nesmí být NULL
                     if (reader["NAZEV_POZICE"] != DBNull.Value)
