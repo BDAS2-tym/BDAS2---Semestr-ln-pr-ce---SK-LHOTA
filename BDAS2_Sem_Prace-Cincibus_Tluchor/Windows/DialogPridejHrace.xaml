@@ -47,7 +47,7 @@
 
             <!-- Rodné číslo -->
             <TextBlock x:Name="tblockRodneCislo" Grid.Row="0" Grid.Column="0" Text="Rodné číslo:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxRodneCislo" Grid.Row="0" Grid.Column="1" Margin="50,18,50,18" TextWrapping="Wrap" MaxLength="11" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBox x:Name="tboxRodneCislo" Grid.Row="0" Grid.Column="1" Margin="50,18,50,18" TextWrapping="Wrap" MaxLength="10" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Jméno -->
             <TextBlock x:Name="tblockJmeno" Grid.Row="1" Grid.Column="0" Text="Jméno:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>

@@ -9,8 +9,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
     {
         /// <summary>
         /// Jedinečné ID člena klubu (trenéra)
+        /// V aplikaci s ním přímo nepracujeme, ale v databázi Oracle se používá.
         /// </summary>
-        //public int IdClenKlubu { get; set; }
+        // public int IdClenKlubu { get; set; }
 
         /// <summary>
         /// Rodné číslo trenéra
@@ -28,7 +29,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         public string Prijmeni { get; set; }
 
         /// <summary>
-        /// Typ člena klubu (trenér, hráč)
+        /// Typ člena klubu (např. "Trener", "Hrac")
         /// </summary>
         public string TypClena { get; set; }
 
@@ -53,35 +54,34 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         public int PocetLetPraxe { get; set; }
 
         /// <summary>
-        /// Prázdný konstruktor 
+        /// Výchozí konstruktor
         /// </summary>
         public Trener() { }
 
         /// <summary>
-        /// Konstruktor s parametry pro inicializaci všech vlastností trenéra
+        /// Konstruktor pro inicializaci trenéra se všemi parametry
         /// </summary>
-        /// <param name="idClenKlubu">Jedinečné ID člena klubu (trenéra).</param>
-        /// <param name="jmeno">Jméno trenéra.</param>
-        /// <param name="prijmeni">Příjmení trenéra.</param>
-        /// <param name="rodneCislo">Rodné číslo trenéra.</param>
-        /// <param name="typClena">Typ člena klubu (trenér).</param>
-        /// <param name="telefonniCislo">Telefonní číslo trenéra.</param>
-        /// <param name="trenerskaLicence">Trenérská licence trenéra.</param>
-        /// <param name="specializace">Specializace trenéra.</param>
-        /// <param name="pocetLetPraxe">Počet let praxe trenéra.</param>
-        public Trener( string jmeno, string prijmeni, long rodneCislo,
-                      string typClena, string telefonniCislo, string trenerskaLicence,
-                      string specializace, int pocetLetPraxe)
+        /// <param name="jmeno">Jméno trenéra</param>
+        /// <param name="prijmeni">Příjmení trenéra</param>
+        /// <param name="rodneCislo">Rodné číslo trenéra</param>
+        /// <param name="typClena">Typ člena klubu (trenér)</param>
+        /// <param name="telefonniCislo">Telefonní číslo trenéra</param>
+        /// <param name="trenerskaLicence">Trenérská licence</param>
+        /// <param name="specializace">Specializace trenéra</param>
+        /// <param name="pocetLetPraxe">Počet let praxe trenéra</param>
+        public Trener(string jmeno, string prijmeni, long rodneCislo, string typClena,
+            string telefonniCislo, string trenerskaLicence, string specializace, int pocetLetPraxe)
         {
-         //   IdClenKlubu = idClenKlubu;
-            Jmeno = jmeno;
-            Prijmeni = prijmeni;
-            RodneCislo = rodneCislo;
-            TypClena = typClena;
-            TelefonniCislo = telefonniCislo;
-            TrenerskaLicence = trenerskaLicence;
-            Specializace = specializace;
-            PocetLetPraxe = pocetLetPraxe;
+            // IdClenKlubu = idClenKlubu; // pouze v DB
+            this.Jmeno = jmeno;
+            this.Prijmeni = prijmeni;
+            this.RodneCislo = rodneCislo;
+            this.TypClena = typClena;
+            this.TelefonniCislo = telefonniCislo;
+            this.TrenerskaLicence = trenerskaLicence;
+            this.Specializace = specializace;
+            this.PocetLetPraxe = pocetLetPraxe;
+            this.TypClena = "Trener"; // Defaultně "Trener"
         }
     }
 }

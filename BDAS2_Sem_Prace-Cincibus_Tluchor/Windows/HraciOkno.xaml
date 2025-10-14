@@ -68,7 +68,7 @@
                     </LinearGradientBrush>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding IdClenKlubu, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    
                     <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Telefonní číslo" Binding="{Binding TelefonniCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
@@ -179,7 +179,7 @@
                     </Button>
 
                     <!-- Button Odeber -->
-                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnOdeber" Click="btnOdeber_Click" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>
@@ -187,7 +187,7 @@
                     </Button>
 
                     <!-- Button Najdi -->
-                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="3" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnNajdi" Click="BtnNajdi_Click" Grid.Row="2" Margin="0,8,0,5" TabIndex="3" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Najdi" VerticalAlignment="Center"/>

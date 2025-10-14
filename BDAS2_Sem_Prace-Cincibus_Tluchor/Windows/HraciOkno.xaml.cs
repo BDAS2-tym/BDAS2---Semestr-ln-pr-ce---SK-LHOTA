@@ -39,6 +39,81 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             dialogPridejHrace.ShowDialog();
         }
 
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e) {
+            DialogNajdiHrace dialogNajdiHrace = new DialogNajdiHrace();
+            dialogNajdiHrace.ShowDialog();
+        }
+
+        private void btnOdeber_Click(object sender, RoutedEventArgs e)
+        {
+            Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
+
+            if (vybranyHrac == null)
+            {
+                MessageBox.Show("Prosím vyberte hráče, kterého chcete odebrat! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            /// Zeptáme se uživatele a okamžitě ukončíme, pokud neklikne Ano
+            if (MessageBox.Show(
+                    $"Opravdu chcete odebrat hráče {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni}?",
+                    "Potvrzení odebrání",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                // Zahájení transakce
+                using var transaction = conn.BeginTransaction();
+
+                try
+                {
+                    // Smazání z tabulky HRACI
+                    using (var cmdHrac = new OracleCommand(
+                        "DELETE FROM HRACI WHERE IDCLENKLUBU = " +
+                        "(SELECT IDCLENKLUBU" +
+                        " FROM CLENOVE_KLUBU" +
+                        " WHERE RODNE_CISLO = :rodneCislo)", conn))
+                    {
+                        cmdHrac.Parameters.Add(new OracleParameter("rodneCislo", vybranyHrac.RodneCislo));
+                        cmdHrac.ExecuteNonQuery(); // příkaz pošle databázi a provede ho
+                    }
+
+                    // Smazání z tabulky CLENOVE_KLUBU
+                    using (var cmdClen = new OracleCommand(
+                        "DELETE FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rodneCislo", conn))
+                    {
+                        cmdClen.Parameters.Add(new OracleParameter("rodneCislo", vybranyHrac.RodneCislo));
+                        cmdClen.ExecuteNonQuery(); 
+                    }
+
+                    // Commit transakce
+                    transaction.Commit(); // Všechno proběhlo v pořádku – potvrzení změny natrvalo
+
+                    // Odebrání z ObservableCollection
+                    HraciData.Remove(vybranyHrac);
+
+                    MessageBox.Show("Hráč byl úspěšně odebrán.", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch
+                {
+                    // Pokud dojde k chybě, rollback
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Chyba při odebírání hráče:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void NactiHrace()
         {
             try
@@ -54,12 +129,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 while (reader.Read())
                 {
                     Hrac hrac = new Hrac();
-
-                    //// IDCLENKLUBU - NOT NULL
-                    //if (reader["IDCLENKLUBU"] != DBNull.Value)
-                    //    hrac.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
-                    //else
-                    //    hrac.IdClenKlubu = 0; // výchozí hodnota
 
                     // RODNE_CISLO - NOT NULL
                     if (reader["RODNE_CISLO"] != DBNull.Value)
