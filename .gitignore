@@ -1,7 +1,9 @@
-# Visual Studio temporary files, build results, and user-specific files
-.vs/
+# Build artifacts
 bin/
 obj/
+
+# Visual Studio temporary files, build results, and user-specific files
+.vs/
 *.user
 *.suo
 *.userosscache
@@ -22,10 +24,15 @@ obj/
 *.nuspec
 packages/
 
-# Resharper files
+# ReSharper files
 _ReSharper*/
 *.DotSettings.user
 
 # Windows files
 Thumbs.db
 Desktop.ini
+
+# Others / Cache files
+*.cache
+*.dtbcache.v2
+*.futdcache.v2

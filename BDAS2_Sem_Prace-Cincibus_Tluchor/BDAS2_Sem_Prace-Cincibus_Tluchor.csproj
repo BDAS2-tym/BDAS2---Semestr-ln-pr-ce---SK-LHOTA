@@ -38,13 +38,20 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+
+  <!-- Odstranění z ItemGroup -->
   <ItemGroup>
     <None Remove="Images\Ikony\Ikona_Prohra.png" />
     <None Remove="Images\Ikony\Ikona_Remiza.png" />
     <None Remove="Images\Ikony\Ikona_Uzivatel.png" />
     <None Remove="Images\Ikony\Ikona_Vyhra.png" />
     <None Remove="Images\Ikony\Ikona_Vyhra1.png" />
+    <None Remove="Images\Ikony\key-icon.png" />
+    <None Remove="Images\Ikony\key1-icon.png" />
+    <None Remove="Images\Ikony\user-icon.png" />
   </ItemGroup>
+
+  <!-- Znovu přidání do Resource s CopyToOutputDirectory -->
   <ItemGroup>
     <Resource Include="Images\Ikony\Ikona_Prohra.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -58,6 +65,8 @@
     <Resource Include="Images\Ikony\Ikona_Vyhra1.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\Ikony\key1-icon.png" />
+    <Resource Include="Images\Ikony\user-icon.png" />
   </ItemGroup>
 
 </Project>

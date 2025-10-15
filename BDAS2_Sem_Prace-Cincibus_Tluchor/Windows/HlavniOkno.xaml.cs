@@ -23,7 +23,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
         }
 
-
         private void BtnHraci_Click(object sender, RoutedEventArgs e)
         {
             new HraciOkno(this).Show();
@@ -91,7 +90,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-             txtCas.Text = DateTime.Now.ToString("HH:mm:ss");
+            txtCas.Text = DateTime.Now.ToString("HH:mm:ss");
             txtDatum.Text = DateTime.Now.ToString("dd.MM.yyyy");
         }
     }

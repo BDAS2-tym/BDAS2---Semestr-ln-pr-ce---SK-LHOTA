@@ -35,8 +35,6 @@
                     <GradientStop Color="#C71585" Offset="1"/>
                     <!-- tmavší růžová/magenta -->
 
-
-
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
@@ -144,16 +142,19 @@
                              Margin="0,5,0,0"
                              Padding="20,0,0,0">
                         <TextBox.Background>
-                            <ImageBrush 
-                                        Stretch="None"
-                                        AlignmentX="Left"/>
+                            
+                        <ImageBrush ImageSource="/Images/Ikony/user-icon.png"
+                                    Stretch="None"
+                                    AlignmentX="Left"
+                                    AlignmentY="Center"/>
                         </TextBox.Background>
                     </TextBox>
                     <TextBlock Text="Heslo"
                                Foreground="DarkGray"
                                FontSize="13"
                                FontWeight="Medium"
-                               FontFamily="Montserrat"                             
+                               FontFamily="Montserrat"
+                               
                                Margin="0,15,0,0"/>
                     <PasswordBox x:Name="txtPass"
                              FontSize="13"
@@ -168,9 +169,10 @@
                              Margin="0,5,0,0"
                              Padding="20,0,0,0">
                         <PasswordBox.Background>
-                            <ImageBrush 
-                                        Stretch="None"
-                                        AlignmentX="Left"/>
+                            <ImageBrush ImageSource="/Images/Ikony/key1-icon.png"
+                                Stretch="None"
+                                AlignmentX="Left"
+                                AlignmentY="Center"/>
                         </PasswordBox.Background>
                     </PasswordBox>
                     <Button x:Name="btnLogin"                          

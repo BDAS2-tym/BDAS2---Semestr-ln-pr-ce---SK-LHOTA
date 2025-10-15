@@ -41,22 +41,69 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 using var cmd = new OracleCommand("SELECT * FROM TRENERI_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
 
+                // Vyprázdníme kolekci, aby se nepřidávaly duplicitní záznamy
                 TreneriData.Clear();
 
                 while (reader.Read())
                 {
-                    TreneriData.Add(new Trener
-                    {
-                        IdClenKlubu = reader["IDCLENKLUBU"] != DBNull.Value ? Convert.ToInt32(reader["IDCLENKLUBU"]) : 0,
-                        Jmeno = reader["JMENO"] != DBNull.Value ? reader["JMENO"].ToString() : string.Empty,
-                        Prijmeni = reader["PRIJMENI"] != DBNull.Value ? reader["PRIJMENI"].ToString() : string.Empty,
-                        RodneCislo = reader["RODNE_CISLO"] != DBNull.Value ? Convert.ToInt64(reader["RODNE_CISLO"]) : 0L,
-                        TypClena = reader["TYPCLENA"] != DBNull.Value ? reader["TYPCLENA"].ToString() : string.Empty,
-                        TelefonniCislo = reader["TELEFONNICISLO"] != DBNull.Value ? reader["TELEFONNICISLO"].ToString() : string.Empty,
-                        TrenerskaLicence = reader["TRENERSKALICENCE"] != DBNull.Value ? reader["TRENERSKALICENCE"].ToString() : string.Empty,
-                        Specializace = reader["SPECIALIZACE"] != DBNull.Value ? reader["SPECIALIZACE"].ToString() : string.Empty,
-                        PocetLetPraxe = reader["POCETLETPRAXE"] != DBNull.Value ? Convert.ToInt32(reader["POCETLETPRAXE"]) : 0
-                    });
+                    Trener trener = new Trener();
+
+                    //// ID člena klubu (NOT NULL) - pokud je NULL, nastavíme 0
+                    //if (reader["IDCLENKLUBU"] != DBNull.Value)
+                    //    trener.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
+                    //else
+                    //    trener.IdClenKlubu = 0;
+
+                    // Rodné číslo (NOT NULL) - výchozí hodnota 0L
+                    if (reader["RODNE_CISLO"] != DBNull.Value)
+                        trener.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                    else
+                        trener.RodneCislo = 0L;
+
+                    // Jméno (NOT NULL) - výchozí hodnota prázdný řetězec
+                    if (reader["JMENO"] != DBNull.Value)
+                        trener.Jmeno = reader["JMENO"].ToString();
+                    else
+                        trener.Jmeno = "";
+
+                    // Příjmení (NOT NULL) - výchozí hodnota prázdný řetězec
+                    if (reader["PRIJMENI"] != DBNull.Value)
+                        trener.Prijmeni = reader["PRIJMENI"].ToString();
+                    else
+                        trener.Prijmeni = "";
+
+                    // Typ člena (NOT NULL) - výchozí hodnota prázdný řetězec
+                    if (reader["TYPCLENA"] != DBNull.Value)
+                        trener.TypClena = reader["TYPCLENA"].ToString();
+                    else
+                        trener.TypClena = "";
+
+                    // Telefonní číslo (NOT NULL) - výchozí hodnota prázdný řetězec
+                    if (reader["TELEFONNICISLO"] != DBNull.Value)
+                        trener.TelefonniCislo = reader["TELEFONNICISLO"].ToString();
+                    else
+                        trener.TelefonniCislo = "";
+
+                    // Trenérská licence (NOT NULL) - výchozí hodnota prázdný řetězec
+                    if (reader["TRENERSKALICENCE"] != DBNull.Value)
+                        trener.TrenerskaLicence = reader["TRENERSKALICENCE"].ToString();
+                    else
+                        trener.TrenerskaLicence = "";
+
+                    // Specializace (volitelný sloupec) - výchozí hodnota prázdný řetězec
+                    if (reader["SPECIALIZACE"] != DBNull.Value)
+                        trener.Specializace = reader["SPECIALIZACE"].ToString();
+                    else
+                        trener.Specializace = "";
+
+                    // Počet let praxe (volitelný sloupec) - výchozí hodnota 0
+                    if (reader["POCETLETPRAXE"] != DBNull.Value)
+                        trener.PocetLetPraxe = Convert.ToInt32(reader["POCETLETPRAXE"]);
+                    else
+                        trener.PocetLetPraxe = 0;
+
+                    // Přidáme trenéra do kolekce pro DataGrid
+                    TreneriData.Add(trener);
                 }
             }
             catch (Exception ex)
