@@ -29,6 +29,9 @@
 
             <DataGrid x:Name="dgHraci"
                       ItemsSource="{Binding HraciData}"
+          SelectionMode="Single"
+          SelectionUnit="FullRow"
+    
                   HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
                   AutoGenerateColumns="False"                        

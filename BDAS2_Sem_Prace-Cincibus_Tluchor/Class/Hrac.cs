@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
@@ -7,6 +8,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
     /// </summary>
     public class Hrac : IClenKlubu
     {
+
         /// <summary>
         /// Jedinečné ID člena klubu (hráče).
         /// V aplikaci s ním přímo nepracujeme, ale v databázi Oracle se používá.

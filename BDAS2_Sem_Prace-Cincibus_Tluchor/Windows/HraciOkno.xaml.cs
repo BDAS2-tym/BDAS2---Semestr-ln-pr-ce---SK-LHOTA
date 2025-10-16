@@ -40,7 +40,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         }
 
         private void BtnNajdi_Click(object sender, RoutedEventArgs e) {
-            DialogNajdiHrace dialogNajdiHrace = new DialogNajdiHrace();
+            DialogNajdiHrace dialogNajdiHrace = new DialogNajdiHrace(this);
             dialogNajdiHrace.ShowDialog();
         }
 
