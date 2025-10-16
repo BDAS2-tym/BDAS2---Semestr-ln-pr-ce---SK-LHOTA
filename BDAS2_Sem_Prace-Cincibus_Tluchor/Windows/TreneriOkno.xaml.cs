@@ -54,49 +54,43 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     //else
                     //    trener.IdClenKlubu = 0;
 
-                    // Rodné číslo (NOT NULL) - výchozí hodnota 0L
+                    // Rodné číslo (NOT NULL) 
                     if (reader["RODNE_CISLO"] != DBNull.Value)
                         trener.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
                     else
                         trener.RodneCislo = 0L;
 
-                    // Jméno (NOT NULL) - výchozí hodnota prázdný řetězec
+                    // Jméno (NOT NULL)
                     if (reader["JMENO"] != DBNull.Value)
                         trener.Jmeno = reader["JMENO"].ToString();
                     else
                         trener.Jmeno = "";
 
-                    // Příjmení (NOT NULL) - výchozí hodnota prázdný řetězec
+                    // Příjmení (NOT NULL) 
                     if (reader["PRIJMENI"] != DBNull.Value)
                         trener.Prijmeni = reader["PRIJMENI"].ToString();
                     else
                         trener.Prijmeni = "";
 
-                    // Typ člena (NOT NULL) - výchozí hodnota prázdný řetězec
-                    if (reader["TYPCLENA"] != DBNull.Value)
-                        trener.TypClena = reader["TYPCLENA"].ToString();
-                    else
-                        trener.TypClena = "";
-
-                    // Telefonní číslo (NOT NULL) - výchozí hodnota prázdný řetězec
+                    // Telefonní číslo (NOT NULL) 
                     if (reader["TELEFONNICISLO"] != DBNull.Value)
                         trener.TelefonniCislo = reader["TELEFONNICISLO"].ToString();
                     else
-                        trener.TelefonniCislo = "";
+                        trener.TelefonniCislo = "000000000";
 
-                    // Trenérská licence (NOT NULL) - výchozí hodnota prázdný řetězec
+                    // Trenérská licence (NOT NULL) 
                     if (reader["TRENERSKALICENCE"] != DBNull.Value)
                         trener.TrenerskaLicence = reader["TRENERSKALICENCE"].ToString();
                     else
                         trener.TrenerskaLicence = "";
 
-                    // Specializace (volitelný sloupec) - výchozí hodnota prázdný řetězec
+                    // Specializace (volitelný sloupec) 
                     if (reader["SPECIALIZACE"] != DBNull.Value)
                         trener.Specializace = reader["SPECIALIZACE"].ToString();
                     else
-                        trener.Specializace = "";
+                        trener.Specializace = "Volitelné nezadáno !";
 
-                    // Počet let praxe (volitelný sloupec) - výchozí hodnota 0
+                    // Počet let praxe (volitelný sloupec) 
                     if (reader["POCETLETPRAXE"] != DBNull.Value)
                         trener.PocetLetPraxe = Convert.ToInt32(reader["POCETLETPRAXE"]);
                     else

@@ -71,7 +71,7 @@
                     </LinearGradientBrush>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding IdClenKlubu, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                   
                     <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Rodné číslo" Binding="{Binding RodneCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
@@ -138,7 +138,7 @@
                 <!-- Tlačítka s ikonami -->
                 <Grid x:Name="gdTlacitka" Grid.Row="1" Margin="0,0,0,15">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+         
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
