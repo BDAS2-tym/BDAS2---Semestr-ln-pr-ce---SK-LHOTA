@@ -29,7 +29,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
            
         }
 
-        private void BtnUkonci_Click(object sender, RoutedEventArgs e)
+        private void btnZrusit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
