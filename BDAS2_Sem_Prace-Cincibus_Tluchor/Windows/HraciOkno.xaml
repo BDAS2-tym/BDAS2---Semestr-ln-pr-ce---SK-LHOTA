@@ -7,7 +7,6 @@
         Title="Hráči" 
         Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Hraci.ico">
 
-
     <Grid>
 
         <Grid.Background>
@@ -29,10 +28,13 @@
 
             <DataGrid x:Name="dgHraci"
                       ItemsSource="{Binding HraciData}"
+                      PreviewKeyDown="DgHraci_PreviewKeyDown"
+                      MouseDoubleClick="DgHraci_MouseDoubleClick"
+    
                   HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
                   AutoGenerateColumns="False"                        
-                  IsReadOnly="False"
+                  IsReadOnly="True" 
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
@@ -171,7 +173,7 @@
                     </Grid.Resources>
 
                     <!-- Button Přidej -->
-                    <Button x:Name="btnPridej" Click="btnPridejDialog_Click" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+                    <Button x:Name="btnPridej" Click="BtnPridejDialog_Click" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Přidej" VerticalAlignment="Center"/>
@@ -179,7 +181,7 @@
                     </Button>
 
                     <!-- Button Odeber -->
-                    <Button x:Name="btnOdeber" Click="btnOdeber_Click" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnOdeber" Click="BtnOdeber_Click" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>
@@ -194,8 +196,17 @@
                         </StackPanel>
                     </Button>
 
+
+                    <!-- Button Edituj -->
+                    <Button x:Name="btnEdituj" Click="BtnEdituj_Click" Grid.Row="3" Margin="0,8,0,5" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Edituj" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
                     <!-- Exit -->
-                    <Button x:Name="btnZpet" Grid.Row="7" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnZpet" Grid.Row="4" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Zpět" VerticalAlignment="Center"/>

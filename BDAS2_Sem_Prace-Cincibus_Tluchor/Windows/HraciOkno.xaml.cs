@@ -5,6 +5,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 {
@@ -33,18 +35,43 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             hlavniOkno.Show();
         }
 
-        private void btnPridejDialog_Click(object sender, RoutedEventArgs e)
+        private void BtnPridejDialog_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejHrace dialogPridejHrace = new DialogPridejHrace(HraciData);
             dialogPridejHrace.ShowDialog();
         }
 
-        private void BtnNajdi_Click(object sender, RoutedEventArgs e) {
-            DialogNajdiHrace dialogNajdiHrace = new DialogNajdiHrace();
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e) 
+        {
+            DialogNajdiHrace dialogNajdiHrace = new DialogNajdiHrace(this);
             dialogNajdiHrace.ShowDialog();
         }
 
-        private void btnOdeber_Click(object sender, RoutedEventArgs e)
+        private void BtnEdituj_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void DgHraci_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            
+            Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
+
+            if (vybranyHrac == null)
+            {
+                MessageBox.Show("Prosím vyberte hráče, kterého chcete upravit! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            DialogEditujHrace dialogEditujHrace = new DialogEditujHrace(vybranyHrac, this);
+            dialogEditujHrace.ShowDialog();
+
+            
+
+        }
+
+
+        private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
             Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
 
@@ -53,6 +80,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 MessageBox.Show("Prosím vyberte hráče, kterého chcete odebrat! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
 
             /// Zeptáme se uživatele a okamžitě ukončíme, pokud neklikne Ano
             if (MessageBox.Show(
@@ -152,27 +180,27 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     if (reader["TELEFONNICISLO"] != DBNull.Value)
                         hrac.TelefonniCislo = reader["TELEFONNICISLO"].ToString();
                     else
-                        hrac.TelefonniCislo = "";
+                        hrac.TelefonniCislo = "000000000";
 
-                    // POCETVSTRELENYCHGOLU - může být NULL
+                    // POCETVSTRELENYCHGOLU - NOT NULL
                     if (reader["POCETVSTRELENYCHGOLU"] != DBNull.Value)
                         hrac.PocetVstrelenychGolu = Convert.ToInt32(reader["POCETVSTRELENYCHGOLU"]);
                     else
                         hrac.PocetVstrelenychGolu = 0;
 
-                    // POCETZLUTYCHKARET - může být NULL
+                    // POCETZLUTYCHKARET - NOT NULL
                     if (reader["POCET_ZLUTYCH_KARET"] != DBNull.Value)
                         hrac.PocetZlutychKaret = Convert.ToInt32(reader["POCET_ZLUTYCH_KARET"]);
                     else
                         hrac.PocetZlutychKaret = 0;
 
-                    // POCETCERVENYCHKARET - může být NULL
+                    // POCETCERVENYCHKARET - NOT NULL
                     if (reader["POCET_CERVENYCH_KARET"] != DBNull.Value)
                         hrac.PocetCervenychKaret = Convert.ToInt32(reader["POCET_CERVENYCH_KARET"]);
                     else
                         hrac.PocetCervenychKaret = 0;
 
-                    // NAZEV_POZICE - číselník, nesmí být NULL
+                    // NAZEV_POZICE - číselník, NOT NULL
                     if (reader["NAZEV_POZICE"] != DBNull.Value)
                         hrac.PoziceNaHristi = reader["NAZEV_POZICE"].ToString();
                     else
@@ -186,5 +214,20 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 MessageBox.Show($"Chyba při načítání hráčů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        // Klávesou DELETE nelze smazat hráče z datagridu 
+        private void DgHraci_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                // Zrušení akce mazání
+                e.Handled = true;
+
+                MessageBox.Show("Smazání hráče klávesou Delete není povoleno.",
+                                "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+
     }
 }
