@@ -31,7 +31,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-            tboxId.Clear();
+            tboxRodneCislo.Clear();
             tboxJmeno.Clear();
             tboxPrijmeni.Clear();
             tboxTelCislo.Clear();
