@@ -41,10 +41,35 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             dialogPridejHrace.ShowDialog();
         }
 
-        private void BtnNajdi_Click(object sender, RoutedEventArgs e) {
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e) 
+        {
             DialogNajdiHrace dialogNajdiHrace = new DialogNajdiHrace(this);
             dialogNajdiHrace.ShowDialog();
         }
+
+        private void BtnEdituj_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void DgHraci_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            
+            Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
+
+            if (vybranyHrac == null)
+            {
+                MessageBox.Show("Prosím vyberte hráče, kterého chcete upravit! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            DialogEditujHrace dialogEditujHrace = new DialogEditujHrace(vybranyHrac, this);
+            dialogEditujHrace.ShowDialog();
+
+            
+
+        }
+
 
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
@@ -203,63 +228,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
-  
-
-        private void DgHraciEditovani(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            // Získáme upraveného hráče z řádku
-            if (e.Row.Item is not Hrac upravenyHrac)
-                return;
-
-            try
-            {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
-
-                // Aktualizujeme záznam v databázi podle rodného čísla
-                using var cmd = new OracleCommand(@"
-UPDATE HRACI
-SET 
-    POCETVSTRELENYCHGOLU = :pocetGolu,
-    POCET_ZLUTYCH_KARET = :zlute,
-    POCET_CERVENYCH_KARET = :cervene,
-    ID_POZICE = (SELECT ID_POZICE FROM POZICE WHERE NAZEV_POZICE = :pozice)
-WHERE IDCLENKLUBU = (
-    SELECT IDCLENKLUBU FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rodneCislo
-)
-", conn);
-
-
-                cmd.Parameters.Add(new OracleParameter("pocetGolu", upravenyHrac.PocetVstrelenychGolu));
-                cmd.Parameters.Add(new OracleParameter("zlute", upravenyHrac.PocetZlutychKaret));
-                cmd.Parameters.Add(new OracleParameter("cervene", upravenyHrac.PocetCervenychKaret));
-                cmd.Parameters.Add(new OracleParameter("pozice", upravenyHrac.PoziceNaHristi));
-                cmd.Parameters.Add(new OracleParameter("rodneCislo", upravenyHrac.RodneCislo));
-
-                cmd.ExecuteNonQuery();
-
-                // Změna i v CLENOVE_KLUBU (jméno, příjmení, telefon)
-                using var cmdClen = new OracleCommand(@"
-            UPDATE CLENOVE_KLUBU
-            SET 
-                JMENO = :jmeno,
-                PRIJMENI = :prijmeni,
-                TELEFONNICISLO = :telefon
-            WHERE RODNE_CISLO = :rodneCislo
-        ", conn);
-
-                cmdClen.Parameters.Add(new OracleParameter("jmeno", upravenyHrac.Jmeno));
-                cmdClen.Parameters.Add(new OracleParameter("prijmeni", upravenyHrac.Prijmeni));
-                cmdClen.Parameters.Add(new OracleParameter("telefon", upravenyHrac.TelefonniCislo));
-                cmdClen.Parameters.Add(new OracleParameter("rodneCislo", upravenyHrac.RodneCislo));
-
-                cmdClen.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Chyba při aktualizaci hráče:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
 
     }
 }
