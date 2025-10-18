@@ -65,47 +65,70 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
-            // Získání vybraného hráče z DataGridu
+            // 🟡 1️⃣ Ověření výběru hráče
             Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
-        if (vybranyHrac == null)
+
+            if (vybranyHrac == null)
             {
                 MessageBox.Show(
-                    "Prosím vyberte hráče, kterého chcete odebrat.",
+                    "Prosím, vyberte hráče, kterého chcete odebrat!",
                     "Chyba",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
                 return;
             }
+
+            // 🟡 2️⃣ Potvrzení od uživatele
+            var potvrzeni = MessageBox.Show(
+                $"Opravdu chcete odebrat hráče {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni}?",
+                "Potvrzení odebrání",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (potvrzeni != MessageBoxResult.Yes)
+                return;
+
+            // 🟢 3️⃣ Pokus o smazání z databáze
             try
             {
                 DatabaseHraci.OdeberHrace(vybranyHrac);
 
-                // 5️⃣ Odebrání z ObservableCollection (aktualizuje DataGrid)
+                // 🟢 4️⃣ Aktualizace DataGridu (odebrání z kolekce)
                 HraciData.Remove(vybranyHrac);
 
+                // 🟢 5️⃣ Úspěch
                 MessageBox.Show(
-                    "Hráč byl úspěšně odebrán.",
+                    $"Hráč {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni} byl úspěšně odebrán.",
                     "Úspěch",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show(
+                    "Nepodařilo se odebrat hráče – objekt je prázdný (null).",
+                    "Chyba",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(
+                    $"Chyba databáze při mazání hráče:\n{ex.Message}",
+                    "Databázová chyba",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    $"Chyba při odebírání hráče:\n{ex.Message}",
+                    $"Nastala neočekávaná chyba při mazání hráče:\n{ex.Message}",
                     "Chyba",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
         }
 
-<<<<<<< HEAD
-
-=======
-        /// <summary>
-        /// Metoda načte hráče z databáze přes DatabaseManager a naplní DataGrid
-        /// </summary>
->>>>>>> 0ac408d3385328826fa5414f38582adc7b70be0c
         private void NactiHrace()
         {
             try

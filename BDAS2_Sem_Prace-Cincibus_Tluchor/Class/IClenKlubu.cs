@@ -10,11 +10,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Unikátní identifikátor člena klubu.
         /// </summary>
-<<<<<<< HEAD
+
       //  public int IdClenKlubu { get; set; }
-=======
         int IdClenKlubu { get; set; }
->>>>>>> 0ac408d3385328826fa5414f38582adc7b70be0c
 
         /// <summary>
         /// Rodné číslo člena klubu.

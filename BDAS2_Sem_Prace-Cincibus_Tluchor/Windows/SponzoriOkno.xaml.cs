@@ -81,7 +81,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     else
                     {
                         Sponzor sponzor = new Sponzor();
-                        List<IClenKlubu> sponzorovaniClenove = new List<IClenKlubu>();
+                        List<ClenKlubu> sponzorovaniClenove = new List<ClenKlubu>();
                         List<Soutez> sponzorovaneSouteze = new List<Soutez>();
                         sponzor.SponzorovaniClenove = sponzorovaniClenove;
                         sponzor.SponzorovaneSouteze = sponzorovaneSouteze;

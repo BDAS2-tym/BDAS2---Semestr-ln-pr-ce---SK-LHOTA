@@ -22,7 +22,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Seznam členů klubu, kteří jsou sponzorováni daným sponzorem
         /// </summary>
-        public List<IClenKlubu> SponzorovaniClenove { get; set; }
+        public List<ClenKlubu> SponzorovaniClenove { get; set; }
 
         /// <summary>
         /// Seznam soutěží, které jsou sponzorovány daným sponzorem
@@ -42,7 +42,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <param name="sponzorovanaCastka">Částka, kterou přispěl sponzor</param>
         /// <param name="sponzorovaniClenove">Clenové, kteří jsou sponzorováni daným sponzorem</param>
         /// <param name="sponzorovaneSouteze">Soutěže, které jsou sponzorovány daným sponzorem</param>
-        public Sponzor(int idSponzor, string jmeno, long? sponzorovanaCastka, List<IClenKlubu> sponzorovaniClenove, List<Soutez> sponzorovaneSouteze)
+        public Sponzor(int idSponzor, string jmeno, long? sponzorovanaCastka, List<ClenKlubu> sponzorovaniClenove, List<Soutez> sponzorovaneSouteze)
         {
             IdSponzor = idSponzor;
             Jmeno = jmeno;
