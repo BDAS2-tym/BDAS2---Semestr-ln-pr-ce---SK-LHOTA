@@ -10,9 +10,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Unikátní identifikátor člena klubu.
         /// </summary>
+        public int IdClenKlubu { get; set; }
 
-      //  public int IdClenKlubu { get; set; }
-        int IdClenKlubu { get; set; }
 
         /// <summary>
         /// Rodné číslo člena klubu.
@@ -37,8 +36,30 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Telefonní číslo člena klubu.
         /// </summary>
-        public string TelefonniCislo { get; set; } 
+        public string TelefonniCislo { get; set; }
 
+        /// <summary>
+        /// Prázdný konstruktor
+        /// </summary>
+        public ClenKlubu() { }
 
+        /// <summary>
+        /// Paremetrický konstruktor pro vytvoření objektu ClenKlubu
+        /// </summary>
+        /// <param name="idClenKlubu">ID člena</param>
+        /// <param name="rodneCislo">Rodné číslo člena</param>
+        /// <param name="jmeno">Jméno člena</param>
+        /// <param name="prijmeni">Příjmení člena</param>
+        /// <param name="typClena">Typ člena</param>
+        /// <param name="telefonniCislo">Tel. číslo člena</param>
+        public ClenKlubu(int idClenKlubu, long rodneCislo, string jmeno, string prijmeni, string typClena, string telefonniCislo)
+        {
+            IdClenKlubu = idClenKlubu;
+            RodneCislo = rodneCislo;
+            Jmeno = jmeno;
+            Prijmeni = prijmeni;
+            TypClena = typClena;
+            TelefonniCislo = telefonniCislo;
+        }
     }
 }
