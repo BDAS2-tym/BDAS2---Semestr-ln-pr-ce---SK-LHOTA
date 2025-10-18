@@ -49,113 +49,73 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
+                // --- VALIDACE RODNÉHO ČÍSLA ---
+                if (!long.TryParse(tboxRodneCislo.Text.Trim(), out long rodneCislo))
+                {
+                    MessageBox.Show("Rodné číslo může obsahovat pouze číslice! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Délka rodného čísla (10 číslic)
+                if (rodneCislo.ToString().Length != 10)
+                {
+                    MessageBox.Show("Rodné číslo musí mít 10 číslic bez lomítka! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // --- VALIDACE TEXTOVÝCH POLÍ ---
                 string jmeno = tboxJmeno.Text.Trim();
                 string prijmeni = tboxPrijmeni.Text.Trim();
                 string telCislo = tboxTelCislo.Text.Trim();
                 string pozice = cbPozice.SelectedItem.ToString();
-                string rodneCislo = tboxRodneCislo.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(jmeno) || string.IsNullOrWhiteSpace(prijmeni) || 
+                    string.IsNullOrWhiteSpace(telCislo) || string.IsNullOrWhiteSpace(pozice))
+                {
+                    MessageBox.Show("Prosím vyplňte všechna pole! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // --- VALIDACE ČÍSELNÝCH HODNOT ---
                 int pocetGolu = (int)iudPocetGolu.Value;
                 int pocetZlutychKaret = (int)iudPocetZlutychKaret.Value;
                 int pocetCervenychKaret = (int)iudPocetCervenychKaret.Value;
 
-                if (string.IsNullOrWhiteSpace(jmeno) || string.IsNullOrWhiteSpace(prijmeni) ||
-                    string.IsNullOrWhiteSpace(telCislo) || string.IsNullOrWhiteSpace(pozice))
-                {
-                    MessageBox.Show("Vyplňte prosím všechna povinná pole! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
                 if (pocetGolu < 0 || pocetZlutychKaret < 0 || pocetCervenychKaret < 0)
                 {
-                    MessageBox.Show("Počet gólů ani karet nesmí být záporný! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Počet gólů a karet nesmí být záporný !", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                // --- NASTAVENÍ HODNOT DO EDITOVANEHO HRACE ---
+                editovanyHrac.RodneCislo = rodneCislo;
+                editovanyHrac.Jmeno = jmeno;
+                editovanyHrac.Prijmeni = prijmeni;
+                editovanyHrac.TelefonniCislo = telCislo;
+                editovanyHrac.PoziceNaHristi = pozice;
+                editovanyHrac.PocetVstrelenychGolu = pocetGolu;
+                editovanyHrac.PocetZlutychKaret = pocetZlutychKaret;
+                editovanyHrac.PocetCervenychKaret = pocetCervenychKaret;
 
-                using var transaction = conn.BeginTransaction();
+                // --- UPDATE V DATABÁZI ---
+                DatabaseHraci.UpdateHrac(editovanyHrac);
 
-                try
-                {
-                    // UPDATE tabulka CLENOVE_KLUBU
-                    using (var cmdClen = new OracleCommand(
-                        @"UPDATE CLENOVE_KLUBU  
-                            SET JMENO = :jmeno,
-                            PRIJMENI = :prijmeni,
-                            TELEFONNICISLO = :tel
-                            WHERE RODNE_CISLO = :rodneCislo", conn))
-                    {
-                        cmdClen.Parameters.Add(":jmeno", jmeno);
-                        cmdClen.Parameters.Add(":prijmeni", prijmeni);
-                        cmdClen.Parameters.Add(":tel", telCislo);
-                        cmdClen.Parameters.Add(":rodneCislo", rodneCislo);
-                        cmdClen.ExecuteNonQuery();
-                    }
+                // --- REFRESH DATAGRIDU ---
+                hraciOkno.dgHraci.Items.Refresh();
 
-                    // Získání IDCLENKLUBU podle rodného čísla
-                    int idClenKlubu = Convert.ToInt32(
-                        new OracleCommand(
-                            "SELECT IDCLENKLUBU FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rodne",
-                            conn
-                        )
-                        {
-                            Parameters = { new OracleParameter(":rodne", editovanyHrac.RodneCislo) }
-                        }.ExecuteScalar()
-                    );
-
-                    // UPDATE tabulka HRACI
-                    using (var cmdHrac = new OracleCommand(
-                        @"UPDATE HRACI
-                        SET POZICENAHRISTI = :pozice,
-                        POCETVSTRELENYCHGOLU = :goly,
-                        POCET_ZLUTYCH_KARET = :zlute,
-                        POCET_CERVENYCH_KARET = :cervene
-                        WHERE IDCLENKLUBU = :idClen", conn))
-                    {
-                        cmdHrac.Parameters.Add(":pozice", pozice);
-                        cmdHrac.Parameters.Add(":goly", pocetGolu);
-                        cmdHrac.Parameters.Add(":zlute", pocetZlutychKaret);
-                        cmdHrac.Parameters.Add(":cervene", pocetCervenychKaret);
-                        cmdHrac.Parameters.Add(":idClen", idClenKlubu);
-                        cmdHrac.ExecuteNonQuery();
-                    }
-
-                    transaction.Commit();
-
-                    // Aktualizace Editovaného hráče
-                    editovanyHrac.Jmeno = jmeno;
-                    editovanyHrac.Prijmeni = prijmeni;
-  
-                    editovanyHrac.TelefonniCislo = telCislo;
-                    editovanyHrac.PoziceNaHristi = pozice;
-                    editovanyHrac.PocetVstrelenychGolu = pocetGolu;
-                    editovanyHrac.PocetZlutychKaret = pocetZlutychKaret;
-                    editovanyHrac.PocetCervenychKaret = pocetCervenychKaret;
-
-                    hraciOkno.dgHraci.Items.Refresh(); // refresh datagridu
-
-                    MessageBox.Show("Hráč byl úspěšně upraven.", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.DialogResult = true;
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    MessageBox.Show($"Chyba při ukládání změn:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show("Hráč byl úspěšně upraven! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.DialogResult = true;
+                this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Nastala neočekávaná chyba:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Chyba při ukládání hráče:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
 
-
-        private void BtnReset_Click(object sender, RoutedEventArgs e)
+        private void BtnUkonci_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
             this.Close();
         }
     }

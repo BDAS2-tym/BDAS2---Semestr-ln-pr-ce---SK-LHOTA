@@ -6,14 +6,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
     /// <summary>
     /// Reprezentuje hráče klubu
     /// </summary>
-    public class Hrac : IClenKlubu
+    public class Hrac : ClenKlubu
     {
 
         /// <summary>
         /// Jedinečné ID člena klubu (hráče).
-        /// V aplikaci s ním přímo nepracujeme, ale v databázi Oracle se používá.
         /// </summary>
-        // public int IdClenKlubu { get; set; }
+       // public int IdClenKlubu { get; set; }
 
         /// <summary>
         /// Rodné číslo hráče
@@ -79,6 +78,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         public Hrac(long rodneCislo, string jmeno, string prijmeni, string telefonniCislo, int pocetVstrelenychGolu, 
             int pocetZlutychKaret, int pocetCervenychKaret, string poziceNaHristi)
         {
+  
             this.RodneCislo = rodneCislo;
             this.Jmeno = jmeno;
             this.Prijmeni = prijmeni;

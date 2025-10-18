@@ -30,8 +30,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             tboxTelCislo.Clear();
             cbPozice.SelectedIndex = 0;
             iudPocetCervenychKaret.Value =
-                iudPocetGolu.Value =
-                iudPocetZlutychKaret.Value = 0;
+            iudPocetGolu.Value =
+            iudPocetZlutychKaret.Value = 0;
         }
 
         // Button přidání hráče přes dialog do datagridu a databáze
@@ -59,30 +59,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 int pocetZlutychKaret = (int)iudPocetZlutychKaret.Value;
                 int pocetCervenychKaret = (int)iudPocetCervenychKaret.Value;
 
-                if (rodneCislo <= 0 ||
-                    string.IsNullOrWhiteSpace(jmeno) ||
-                    string.IsNullOrWhiteSpace(prijmeni) ||
-                    string.IsNullOrWhiteSpace(telCislo) ||
-                    string.IsNullOrWhiteSpace(pozice))
+                if (string.IsNullOrWhiteSpace(jmeno) ||string.IsNullOrWhiteSpace(prijmeni) ||
+                    string.IsNullOrWhiteSpace(telCislo) || string.IsNullOrWhiteSpace(pozice))
                 {
-                    MessageBox.Show(
-                        "Prosím vyplňte všechna pole správně.",
-                        "Chyba",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error
-                    );
+                    MessageBox.Show("Prosím vyplňte všechna pole správně.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                // Kontrola délky rodného čísla (6 až 10 číslic bez lomítka)
-                if (rodneCislo.ToString().Length < 6 || rodneCislo.ToString().Length > 10)
+                // Délka rodného čísla (10 číslic)
+                if (rodneCislo.ToString().Length != 10)
                 {
-                    MessageBox.Show(
-                        "Rodné číslo musí mít mezi 6 a 10 číslicemi bez lomítka!",
-                        "Chyba",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error
-                    );
+                    MessageBox.Show("Rodné číslo musí mít 10 číslic bez lomítka! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -98,70 +85,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     return;
                 }
 
-                // --- PRÁCE S DATABÁZÍ ---
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
-
-                // Získání nového ID člena (sekvence)
-                int idClenKlubu = Convert.ToInt32(
-                    new OracleCommand("SELECT SEKV_CLENKLUBU.NEXTVAL FROM DUAL", conn)
-                        .ExecuteScalar()
-                );
-
-                // Vložení do CLENOVE_KLUBU
-                using (var cmdClen = new OracleCommand(
-                    @"INSERT INTO CLENOVE_KLUBU
-                      (idClenKlubu, rodne_cislo, jmeno, prijmeni, telefonniCislo, typClena)
-                      VALUES (:id, :rodne, :jmeno, :prijmeni, :tel, 'Hrac')", conn))
-                {
-                    cmdClen.Parameters.Add(":id", idClenKlubu);
-                    cmdClen.Parameters.Add(":rodne", rodneCislo);
-                    cmdClen.Parameters.Add(":jmeno", jmeno);
-                    cmdClen.Parameters.Add(":prijmeni", prijmeni);
-                    cmdClen.Parameters.Add(":tel", telCislo);
-                    cmdClen.ExecuteNonQuery();
-                }
-
-                // Získání ID pozice
-                int idPozice = Convert.ToInt32(
-                    new OracleCommand(
-                        "SELECT id_pozice FROM POZICE_HRAC WHERE nazev_pozice = :pozice",
-                        conn
-                    )
-                    {
-                        Parameters = { new OracleParameter(":pozice", pozice) }
-                    }
-                    .ExecuteScalar()
-                );
-
-                // Vložení do HRACI
-                using (var cmdHrac = new OracleCommand(
-                    @"INSERT INTO HRACI
-                      (idClenKlubu, pocetVstrelenychGolu, pocet_zlutych_karet, pocet_cervenych_karet, id_pozice)
-                      VALUES (:id, :goly, :zlute, :cervene, :pozice)", conn))
-                {
-                    cmdHrac.Parameters.Add(":id", idClenKlubu);
-                    cmdHrac.Parameters.Add(":goly", pocetGolu);
-                    cmdHrac.Parameters.Add(":zlute", pocetZlutychKaret);
-                    cmdHrac.Parameters.Add(":cervene", pocetCervenychKaret);
-                    cmdHrac.Parameters.Add(":pozice", idPozice);
-                    cmdHrac.ExecuteNonQuery();
-                }
-
-                // Přidání do ObservableCollection
+                // Vytvoření nového hráče
                 Hrac novyHrac = new Hrac(
                     rodneCislo, jmeno, prijmeni, telCislo,
                     pocetGolu, pocetZlutychKaret, pocetCervenychKaret, pozice
                 );
-                HraciData.Add(novyHrac);
 
-                MessageBox.Show(
-                    "Hráč byl úspěšně přidán!",
-                    "Úspěch",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                DatabaseHraci.AddHrac(novyHrac); // Přidání do databáze
+                HraciData.Add(novyHrac);        // Přidání do ObservableCollection pro datagrid
 
+                MessageBox.Show("Hráč byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             catch (FormatException)

@@ -1,43 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
-    public interface IClenKlubu
+    /// <summary>
+    /// Reprezentuje člena klubu (hráče nebo trenéra).
+    /// </summary>
+    public class ClenKlubu
     {
         /// <summary>
-        /// ID člena klubu
+        /// Unikátní identifikátor člena klubu.
         /// </summary>
+<<<<<<< HEAD
+      //  public int IdClenKlubu { get; set; }
+=======
         int IdClenKlubu { get; set; }
+>>>>>>> 0ac408d3385328826fa5414f38582adc7b70be0c
 
         /// <summary>
-        /// Rodné číslo člena klubu
+        /// Rodné číslo člena klubu.
         /// </summary>
-        long RodneCislo { get; set; }
+        public long RodneCislo { get; set; }
 
         /// <summary>
-        /// Jméno člena klubu
+        /// Jméno člena klubu.
         /// </summary>
-        string Jmeno { get; set; }
+        public string Jmeno { get; set; } 
 
         /// <summary>
-        /// Příjmení člena klubu
+        /// Příjmení člena klubu.
         /// </summary>
-        string Prijmeni { get; set; }
+        public string Prijmeni { get; set; } 
 
         /// <summary>
-        /// Typ člena klubu (hráč nebo trenér)
+        /// Typ člena klubu (např. "Hráč" nebo "Trenér").
         /// </summary>
-        string TypClena { get; set; }
+        public string TypClena { get; set; } 
 
         /// <summary>
-        /// Telefonní číslo člena klubu
+        /// Telefonní číslo člena klubu.
         /// </summary>
-        string TelefonniCislo { get; set; }
+        public string TelefonniCislo { get; set; } 
+
+
     }
-
-  
 }

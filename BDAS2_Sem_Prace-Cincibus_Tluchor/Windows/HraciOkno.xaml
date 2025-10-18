@@ -196,15 +196,6 @@
                         </StackPanel>
                     </Button>
 
-
-                    <!-- Button Edituj -->
-                    <Button x:Name="btnEdituj" Click="BtnEdituj_Click" Grid.Row="3" Margin="0,8,0,5" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">
-                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
-                            <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
-                            <TextBlock Text="Edituj" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-
                     <!-- Exit -->
                     <Button x:Name="btnZpet" Grid.Row="4" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">

@@ -5,13 +5,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
     /// <summary>
     /// Reprezentuje trenéra klubu
     /// </summary>
-    public class Trener : IClenKlubu
+    public class Trener : ClenKlubu
     {
         /// <summary>
         /// Jedinečné ID člena klubu (trenéra)
-        /// V aplikaci s ním přímo nepracujeme, ale v databázi Oracle se používá.
         /// </summary>
-        // public int IdClenKlubu { get; set; }
+        //public int IdClenKlubu { get; set; }
 
         /// <summary>
         /// Rodné číslo trenéra
@@ -72,7 +71,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         public Trener(string jmeno, string prijmeni, long rodneCislo, string typClena,
             string telefonniCislo, string trenerskaLicence, string specializace, int pocetLetPraxe)
         {
-            // IdClenKlubu = idClenKlubu; // pouze v DB
             this.Jmeno = jmeno;
             this.Prijmeni = prijmeni;
             this.RodneCislo = rodneCislo;
