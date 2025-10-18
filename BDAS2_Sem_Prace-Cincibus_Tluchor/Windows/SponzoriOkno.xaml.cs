@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows;
+﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
 using Oracle.ManagedDataAccess.Client;
-using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using System;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Documents;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
@@ -22,7 +24,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             NactiSponzory();
         }
-
+        
+        /// <summary>
+        /// Metoda slouží k vrácení se na hlavní okno aplikace
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -30,38 +37,106 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Načte sponzory z databáze přes DatabaseManager a naplní DataGrid
+        /// Metoda načte sponzory z databáze přes DatabaseManager a naplní DataGrid
         /// </summary>
         private void NactiSponzory()
         {
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                using var cmd = new OracleCommand("SELECT * FROM SPONZORI_VIEW", conn);
+                using var reader = cmd.ExecuteReader();
+
+                SponzoriData.Clear();
+
+                while (reader.Read())
                 {
-                    conn.Open();
-
-                    string sql = "SELECT IDSPONZOR, JMENO, SPONZOROVANACASTKA FROM SPONZORI";
-
-                    using (var cmd = new OracleCommand(sql, conn))
-                    using (var reader = cmd.ExecuteReader())
+                    Sponzor? existujiciSponzor = SponzoriData.First(spon => Convert.ToInt32(reader["IDSPONZOR"]) == spon.IdSponzor);
+                    if (existujiciSponzor != null)
                     {
-                        SponzoriData.Clear();
+                        /* TODO */
+                        //IClenKlubu novyClen = new IClenKlubu();
+                        //if (reader["IDCLENKLUBU"] != DBNull.Value || reader["JMENO_CLENA"] != DBNull.Value || reader["PRIJMENI_CLENA"] != DBNull.Value || reader["RODNE_CISLO"] != DBNull.Value)
+                        //{
+                        //    novyClen.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
+                        //    novyClen.Jmeno = reader["JMENO_CLENA"].ToString();
+                        //    novyClen.Prijmeni = reader["PRIJMENI_CLENA"].ToString();
+                        //    novyClen.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                        //    existujiciSponzor.SponzorovaniClenove.Add(novyClen);
+                        //}
 
-                        while (reader.Read())
+                        Soutez novaSoutez = new Soutez();
+                        if (reader["IDSOUTEZ"] != DBNull.Value || reader["STARTDATUM"] != DBNull.Value || reader["KONECDATUM"] != DBNull.Value || reader["NAZEVSOUTEZE"] != DBNull.Value)
                         {
-                            SponzoriData.Add(new Sponzor
-                            {
-                                IdSponzor = reader["IDSPONZOR"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IDSPONZOR"]),
-                                Jmeno = reader["JMENO"] == DBNull.Value ? "" : reader["JMENO"].ToString(),
-                                SponzorovanaCastka = reader["SPONZOROVANACASTKA"] == DBNull.Value ? 0m : Convert.ToDecimal(reader["SPONZOROVANACASTKA"])
-                            });
+                            novaSoutez.IdSoutez = Convert.ToInt32(reader["IDSOUTEZ"]);
+                            novaSoutez.StartDatum = DateOnly.ParseExact(reader["STARTDATUM"].ToString(), "dd-MM-yy", CultureInfo.InvariantCulture);
+                            novaSoutez.KonecDatum = DateOnly.ParseExact(reader["KONECDATUM"].ToString(), "dd-MM-yy", CultureInfo.InvariantCulture);
+                            novaSoutez.TypSouteze = reader["NAZEVSOUTEZE"].ToString();
+                            existujiciSponzor.SponzorovaneSouteze.Add(novaSoutez);
                         }
+                    }
+
+                    else
+                    {
+                        Sponzor sponzor = new Sponzor();
+                        List<IClenKlubu> sponzorovaniClenove = new List<IClenKlubu>();
+                        List<Soutez> sponzorovaneSouteze = new List<Soutez>();
+                        sponzor.SponzorovaniClenove = sponzorovaniClenove;
+                        sponzor.SponzorovaneSouteze = sponzorovaneSouteze;
+
+                        // IDSPONZORA - NOT NULL
+                        if (reader["IDSPONZOR"] != DBNull.Value)
+                            sponzor.IdSponzor = Convert.ToInt32(reader["IDSPONZOR"]);
+                        else
+                            sponzor.IdSponzor = 0;
+
+                        // JMENO_SPONZORA - NOT NULL
+                        if (reader["JMENO_SPONZORA"] != DBNull.Value)
+                                sponzor.Jmeno = (reader["JMENO_SPONZORA"]).ToString();
+                        else
+                            sponzor.Jmeno = "";
+
+                        // SPONZOROVANACASTKA - NULL
+                        if (reader["SPONZOROVANACASTKA"] != DBNull.Value)
+                            sponzor.SponzorovanaCastka = Convert.ToInt64(reader["SPONZOROVANACASTKA"]);
+                        else
+                            sponzor.SponzorovanaCastka = 0L;
+
+                        /* TODO */
+                        // Přidání hodnot k atributům u člena
+                        // Aby se člen přidal, nesmí být žádná z načtených hodnot NULL
+                        //IClenKlubu clen = new IClenKlubu();
+                        //if (reader["IDCLENKLUBU"] != DBNull.Value || reader["JMENO_CLENA"] != DBNull.Value || reader["PRIJMENI_CLENA"] != DBNull.Value || reader["RODNE_CISLO"] != DBNull.Value)
+                        //{
+                        //    clen.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
+                        //    clen.Jmeno = reader["JMENO_CLENA"].ToString();
+                        //    clen.Prijmeni = reader["PRIJMENI_CLENA"].ToString();
+                        //    clen.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                        //    sponzorovaniClenove.Add(clen);
+                        //}
+
+                        // Přidání hodnot k atributům u soutěže
+                        // Aby se soutěž přidala, nesmí být žádná z načtených hodnot NULL
+                        Soutez soutez = new Soutez();
+                        if(reader["IDSOUTEZ"] != DBNull.Value || reader["STARTDATUM"] != DBNull.Value || reader["KONECDATUM"] != DBNull.Value || reader["NAZEVSOUTEZE"] != DBNull.Value)
+                        {
+                            soutez.IdSoutez = Convert.ToInt32(reader["IDSOUTEZ"]);
+                            soutez.StartDatum = DateOnly.ParseExact(reader["STARTDATUM"].ToString(), "dd-MM-yy", CultureInfo.InvariantCulture);
+                            soutez.KonecDatum = DateOnly.ParseExact(reader["KONECDATUM"].ToString(), "dd-MM-yy", CultureInfo.InvariantCulture);
+                            soutez.TypSouteze = reader["NAZEVSOUTEZE"].ToString();
+                            sponzorovaneSouteze.Add(soutez);
+                        }
+
+                        SponzoriData.Add(sponzor);
                     }
                 }
             }
+
             catch (Exception ex)
             {
-                MessageBox.Show($"Chyba při načítání sponzorů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Chyba při načítání hráčů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

@@ -5,7 +5,7 @@
              StartupUri="Windows/HlavniOkno.xaml">
 
 
-<Application.Resources>
+    <Application.Resources>
         <!-- Přidání stylu pro hover (světle modrá a oranžová) nad tlačítkem -->
         <Style x:Key="HoverFadeButtonStyle3" TargetType="Button">
             <Setter Property="FontFamily" Value="Century Gothic"/>
