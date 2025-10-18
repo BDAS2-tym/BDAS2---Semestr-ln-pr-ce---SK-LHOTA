@@ -138,35 +138,73 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             if (hrac == null)
                 throw new ArgumentNullException(nameof(hrac), "Objekt hráče nesmí být null.");
 
-            using var conn = GetConnection();
+            using var conn = DatabaseManager.GetConnection();
             conn.Open();
-
             using var transaction = conn.BeginTransaction();
 
             try
             {
-                // ✅ Jednoduché mazání — díky ON DELETE CASCADE se smaže i z HRACI
-                using var cmd = new OracleCommand(
-                    "DELETE FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rodneCislo", conn);
-                cmd.Transaction = transaction;
-                cmd.Parameters.Add(":rodneCislo", OracleDbType.Decimal).Value = hrac.RodneCislo;
+                // Získání ID člena podle rodného čísla
+                int idClenKlubu;
+                using (var cmdId = new OracleCommand(
+                    "SELECT IDCLENKLUBU FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rodneCislo", conn))
+                {
+                    cmdId.Transaction = transaction;
+                    cmdId.Parameters.Add(":rodneCislo", OracleDbType.Decimal).Value = hrac.RodneCislo;
+                    object result = cmdId.ExecuteScalar();
 
-                int radky = cmd.ExecuteNonQuery();
+                    if (result == null)
+                        throw new Exception($"Člen s rodným číslem {hrac.RodneCislo} nebyl nalezen.");
+                    idClenKlubu = Convert.ToInt32(result);
+                }
 
-                if (radky == 0)
-                    throw new Exception($"Hráč s rodným číslem {hrac.RodneCislo} nebyl nalezen v databázi.");
+                //  Smazání vazeb ze SPONZORI_CLENOVE (vazební tabulka sponzor–člen)
+                using (var cmdSponzor = new OracleCommand(
+                    "DELETE FROM SPONZORI_CLENOVE WHERE IDCLENKLUBU = :idClen", conn))
+                {
+                    cmdSponzor.Transaction = transaction;
+                    cmdSponzor.Parameters.Add(":idClen", OracleDbType.Int32).Value = idClenKlubu;
+                    cmdSponzor.ExecuteNonQuery();
+                }
+
+                // Smazání z HRACI_KONTRAKTY (vazební tabulka hráč–kontrakt)
+                using (var cmdVazba = new OracleCommand(
+                    "DELETE FROM HRACI_KONTRAKTY WHERE IDCLENKLUBU = :idClen", conn))
+                {
+                    cmdVazba.Transaction = transaction;
+                    cmdVazba.Parameters.Add(":idClen", OracleDbType.Int32).Value = idClenKlubu;
+                    cmdVazba.ExecuteNonQuery();
+                }
+
+                // Smazání z HRACI (subtyp)
+                using (var cmdHrac = new OracleCommand(
+                    "DELETE FROM HRACI WHERE IDCLENKLUBU = :idClen", conn))
+                {
+                    cmdHrac.Transaction = transaction;
+                    cmdHrac.Parameters.Add(":idClen", OracleDbType.Int32).Value = idClenKlubu;
+                    cmdHrac.ExecuteNonQuery();
+                }
+
+                // Smazání z CLENOVE_KLUBU (supertyp)
+                using (var cmdClen = new OracleCommand(
+                    "DELETE FROM CLENOVE_KLUBU WHERE IDCLENKLUBU = :idClen", conn))
+                {
+                    cmdClen.Transaction = transaction;
+                    cmdClen.Parameters.Add(":idClen", OracleDbType.Int32).Value = idClenKlubu;
+                    cmdClen.ExecuteNonQuery();
+                }
 
                 transaction.Commit();
+            }
+            catch (OracleException ex)
+            {
+                transaction.Rollback();
+                throw new Exception($"Databázová chyba při mazání hráče: {ex.Message}", ex);
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
-                MessageBox.Show(
-                    $"Chyba při mazání hráče z databáze:\n{ex.Message}",
-                    "Chyba",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                throw;
+                throw new Exception($"Chyba při mazání hráče: {ex.Message}", ex);
             }
         }
 
@@ -176,4 +214,5 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 
 
     }
+
 }
