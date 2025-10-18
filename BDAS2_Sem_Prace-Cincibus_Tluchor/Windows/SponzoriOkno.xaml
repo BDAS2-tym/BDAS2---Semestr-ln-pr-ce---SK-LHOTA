@@ -69,10 +69,10 @@
                     </LinearGradientBrush>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding IdSponzor, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-
-                    <DataGridTextColumn Header="Sponzorovaná částka" Binding="{Binding SponzorovanaCastka}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
+                    <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Sponzorovaná částka" Binding="{Binding SponzorovanaCastka, UpdateSourceTrigger=LostFocus}" Width="*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn FontFamily="Century Gothic" Header="Sponzorovaní členové" Width="*" Binding="{Binding SponzorovaniClenove, UpdateSourceTrigger=LostFocus}"/>
+                    <DataGridTextColumn FontFamily="Century Gothic" Header="Sponzorované soutěže" Width="*" Binding="{Binding SponzorovaneSouteze, UpdateSourceTrigger=LostFocus}">
                         <DataGridTextColumn.HeaderStyle>
                             <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
                             <Style TargetType="DataGridColumnHeader">
