@@ -21,8 +21,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             cbPozice.SelectedIndex = 0; // Výchozí hodnota "Brankář"
         }
 
-        // Button pro Reset všech polí
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
             tboxRodneCislo.Clear();
             tboxJmeno.Clear();
@@ -35,18 +34,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         // Button přidání hráče přes dialog do datagridu a databáze
-        private void btnPridej_Click(object sender, RoutedEventArgs e)
+        private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 // --- VALIDACE VSTUPŮ ---
                 if (!long.TryParse(tboxRodneCislo.Text, out long rodneCislo))
                 {
-                    MessageBox.Show(
-                        "Rodné číslo může obsahovat pouze číslice.",
-                        "Chyba",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error
+                    MessageBox.Show("Rodné číslo může obsahovat pouze číslice.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error
                     );
                     return;
                 }
@@ -76,11 +71,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 // Kontrola záporných hodnot počtů gólů a karet
                 if (pocetGolu < 0 || pocetZlutychKaret < 0 || pocetCervenychKaret < 0)
                 {
-                    MessageBox.Show(
-                        "Počet gólů a karet nesmí být záporné hodnoty!",
-                        "Chyba",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error
+                    MessageBox.Show("Počet gólů a karet nesmí být záporné hodnoty!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error
                     );
                     return;
                 }

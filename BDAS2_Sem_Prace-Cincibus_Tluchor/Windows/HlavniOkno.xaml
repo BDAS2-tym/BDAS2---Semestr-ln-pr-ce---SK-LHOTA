@@ -235,7 +235,7 @@
                     <Image Source="/Images/Img/player.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Počet hráčů:" FontSize="20" FontWeight="Bold"/>
-                        <TextBlock Text="18" FontSize="22" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtPocetHracu" Text="0" FontSize="22" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -250,7 +250,7 @@
                     <Image Source="/Images/Img/coach.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Počet trenérů:" FontSize="20" FontWeight="Bold"/>
-                        <TextBlock Text="10" FontSize="22" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtPocetTreneru" Text="0" FontSize="22" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

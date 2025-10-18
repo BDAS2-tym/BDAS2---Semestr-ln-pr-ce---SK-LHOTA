@@ -1,10 +1,11 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows;
 using Oracle.ManagedDataAccess.Client;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Automation.Peers;
-using System.Data.SqlClient;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 {
@@ -28,7 +29,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             this.Close();
             hlavniOkno.Show();
+        }
 
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiTrenera dialogNajdiTrenera = new DialogNajdiTrenera(this);
+            dialogNajdiTrenera.ShowDialog();
+        }
+
+        private void BtnPridejDialog_Click(object sender, RoutedEventArgs e)
+        {
+            DialogPridejTrenera dialogPridejTrenera = new DialogPridejTrenera(TreneriData);
+            dialogPridejTrenera.ShowDialog();
         }
 
         private void NactiTrenery()
