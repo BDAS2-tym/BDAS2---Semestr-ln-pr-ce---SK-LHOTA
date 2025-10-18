@@ -47,11 +47,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             dialogNajdiHrace.ShowDialog();
         }
 
-        private void BtnEdituj_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void DgHraci_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             
@@ -66,81 +61,44 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             DialogEditujHrace dialogEditujHrace = new DialogEditujHrace(vybranyHrac, this);
             dialogEditujHrace.ShowDialog();
 
-            
-
         }
-
 
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
+            // Získání vybraného hráče z DataGridu
             Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
-
-            if (vybranyHrac == null)
+        if (vybranyHrac == null)
             {
-                MessageBox.Show("Prosím vyberte hráče, kterého chcete odebrat! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "Prosím vyberte hráče, kterého chcete odebrat.",
+                    "Chyba",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
                 return;
             }
-
-
-            /// Zeptáme se uživatele a okamžitě ukončíme, pokud neklikne Ano
-            if (MessageBox.Show(
-                    $"Opravdu chcete odebrat hráče {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni}?",
-                    "Potvrzení odebrání",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) != MessageBoxResult.Yes)
-            {
-                return;
-            }
-
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                DatabaseHraci.OdeberHrace(vybranyHrac);
 
-                // Zahájení transakce
-                using var transaction = conn.BeginTransaction();
+                // 5️⃣ Odebrání z ObservableCollection (aktualizuje DataGrid)
+                HraciData.Remove(vybranyHrac);
 
-                try
-                {
-                    // Smazání z tabulky HRACI
-                    using (var cmdHrac = new OracleCommand(
-                        "DELETE FROM HRACI WHERE IDCLENKLUBU = " +
-                        "(SELECT IDCLENKLUBU" +
-                        " FROM CLENOVE_KLUBU" +
-                        " WHERE RODNE_CISLO = :rodneCislo)", conn))
-                    {
-                        cmdHrac.Parameters.Add(new OracleParameter("rodneCislo", vybranyHrac.RodneCislo));
-                        cmdHrac.ExecuteNonQuery(); // příkaz pošle databázi a provede ho
-                    }
-
-                    // Smazání z tabulky CLENOVE_KLUBU
-                    using (var cmdClen = new OracleCommand(
-                        "DELETE FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rodneCislo", conn))
-                    {
-                        cmdClen.Parameters.Add(new OracleParameter("rodneCislo", vybranyHrac.RodneCislo));
-                        cmdClen.ExecuteNonQuery(); 
-                    }
-
-                    // Commit transakce
-                    transaction.Commit(); // Všechno proběhlo v pořádku – potvrzení změny natrvalo
-
-                    // Odebrání z ObservableCollection
-                    HraciData.Remove(vybranyHrac);
-
-                    MessageBox.Show("Hráč byl úspěšně odebrán.", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch
-                {
-                    // Pokud dojde k chybě, rollback
-                    transaction.Rollback();
-                    throw;
-                }
+                MessageBox.Show(
+                    "Hráč byl úspěšně odebrán.",
+                    "Úspěch",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Chyba při odebírání hráče:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    $"Chyba při odebírání hráče:\n{ex.Message}",
+                    "Chyba",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
+
 
         private void NactiHrace()
         {
@@ -201,8 +159,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                         hrac.PocetCervenychKaret = 0;
 
                     // NAZEV_POZICE - číselník, NOT NULL
-                    if (reader["NAZEV_POZICE"] != DBNull.Value)
-                        hrac.PoziceNaHristi = reader["NAZEV_POZICE"].ToString();
+                    if (reader["POZICENAHRISTI"] != DBNull.Value)
+                        hrac.PoziceNaHristi = reader["POZICENAHRISTI"].ToString();
                     else
                         hrac.PoziceNaHristi = "Neznámá"; // default, pokud by bylo NULL
 
@@ -227,7 +185,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                                 "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
 
     }
 }
