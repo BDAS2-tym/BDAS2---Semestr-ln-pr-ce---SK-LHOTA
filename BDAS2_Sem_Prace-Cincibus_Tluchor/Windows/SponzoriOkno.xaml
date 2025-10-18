@@ -4,10 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Windows"
+        xmlns:conv="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Text_Converters"
         mc:Ignorable="d"
         Title="Sponzoři" 
-        
-               Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Kontrakty.ico" >
+        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Kontrakty.ico">
+
+    <Window.Resources>
+        <conv:SponzorovaniClenoveConverter x:Key="SponzorovaniClenoveConverter"/>
+        <conv:SponzorovaneSoutezeConverter x:Key="SponzorovaneSoutezeConverter"/>
+    </Window.Resources>
 
     <Grid>
 
@@ -37,7 +42,7 @@
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None">
+                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3"  HeadersVisibility="Column" RowHeight="46" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->
@@ -71,33 +76,57 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Sponzorovaná částka" Binding="{Binding SponzorovanaCastka, UpdateSourceTrigger=LostFocus}" Width="*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn FontFamily="Century Gothic" Header="Sponzorovaní členové" Width="*" Binding="{Binding SponzorovaniClenove, UpdateSourceTrigger=LostFocus}"/>
-                    <DataGridTextColumn FontFamily="Century Gothic" Header="Sponzorované soutěže" Width="*" Binding="{Binding SponzorovaneSouteze, UpdateSourceTrigger=LostFocus}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
+                    
+                    <!-- Sponzorovaní členové – vytvoření přes TemplateColumn, kvůli zobrazování více členů -->
+                    <DataGridTemplateColumn Header="Sponzorovaní členové" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="80">
+                                    <ItemsControl ItemsSource="{Binding SponzorovaniClenove}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ., Converter={StaticResource SponzorovaniClenoveConverter}}" FontFamily="Century Gothic" Margin="2,4,2,4" Style="{StaticResource CenterCellStyle}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Sponzorované soutěže – vytvoření přes TemplateColumn, kvůli zobrazování více členů -->
+                    <DataGridTemplateColumn Header="Sponzorované soutěže" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="80">
+                                    <ItemsControl ItemsSource="{Binding SponzorovaneSouteze}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ., Converter={StaticResource SponzorovaneSoutezeConverter}}" FontFamily="Century Gothic" Margin="2,4,2,4" Style="{StaticResource CenterCellStyle}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+
+                        <DataGridTemplateColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
-                                <!-- Pozadí -->
                                 <Setter Property="Background" Value="#AABBCC"/>
-
-                                <!-- Barva textu -->
                                 <Setter Property="Foreground" Value="Black"/>
-
-                                <!-- Font -->
                                 <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="FontSize" Value="12"/>
                                 <Setter Property="FontFamily" Value="Century Gothic"/>
-
-                                <!-- Vycentrování textu -->
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-
-                                <!-- Ohraničení -->
                                 <Setter Property="BorderBrush" Value="#125C64"/>
                                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
                             </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </DataGridTextColumn>
+                        </DataGridTemplateColumn.HeaderStyle>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
+                
+                
 
                 <!-- Změna barvy pozadí a písma při výběru řádku -->
                 <DataGrid.Resources>
