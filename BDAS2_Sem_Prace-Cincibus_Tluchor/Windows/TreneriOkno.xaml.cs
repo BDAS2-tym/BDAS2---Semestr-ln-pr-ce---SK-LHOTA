@@ -30,6 +30,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             this.Close();
             hlavniOkno.Show();
+            hlavniOkno.txtPocetTreneru.Text = DatabaseTreneri.GetPocetTreneru().ToString();
         }
 
         private void BtnNajdi_Click(object sender, RoutedEventArgs e)
@@ -165,7 +166,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     else
                         trener.Specializace = "Volitelné nezadáno !";
 
-                    // Počet let praxe (volitelný sloupec) 
+                    // Počet let praxe (NOT NULL) 
                     if (reader["POCETLETPRAXE"] != DBNull.Value)
                         trener.PocetLetPraxe = Convert.ToInt32(reader["POCETLETPRAXE"]);
                     else
@@ -181,7 +182,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
-        // Klávesou DELETE nelze smazat hráče z datagridu 
+        // Klávesou DELETE nelze smazat trenéra z datagridu 
         private void DgTreneri_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
