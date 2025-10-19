@@ -59,7 +59,7 @@
 
             <!-- Telefonní číslo -->
             <TextBlock x:Name="tblockTelCislo" Grid.Row="3" Grid.Column="0" Text="Telefonní číslo:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-            <TextBox x:Name="tboxTelCislo" Grid.Row="3" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="13" VerticalContentAlignment="Center" TabIndex="4" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBox x:Name="tboxTelCislo" Grid.Row="3" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="12" VerticalContentAlignment="Center" TabIndex="4" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Pozice na hřišti -->
             <TextBlock x:Name="tblockPozice" Grid.Row="4" Grid.Column="0" Text="Pozice na hřišti:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>

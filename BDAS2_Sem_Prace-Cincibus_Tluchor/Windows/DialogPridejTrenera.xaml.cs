@@ -64,20 +64,41 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 string prijmeni = tboxPrijmeni.Text;
                 string telCislo = tboxTelCislo.Text;
                 string licence = tboxLicence.Text;
-                string specializace = tboxSpecializace.Text;
-                int praxe = (int)iudPraxe.Value;
+                string specializace = tboxSpecializace.Text; // Specializace může být prázdná
+                int praxe = (int)iudPraxe.Value; // Hodnota může být null
 
                 if (string.IsNullOrWhiteSpace(jmeno) || string.IsNullOrWhiteSpace(prijmeni) || string.IsNullOrWhiteSpace(telCislo) || 
-                    string.IsNullOrWhiteSpace(licence) || string.IsNullOrWhiteSpace(specializace))
+                    string.IsNullOrWhiteSpace(licence))
                 {
-                    MessageBox.Show("Prosím vyplňte všechna pole správně ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Prosím vyplňte všechna povinná pole správně ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (!telCislo.All(char.IsDigit))
+                {
+                    MessageBox.Show("Telefonní číslo může obsahovat pouze číslice! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Kontrola záporných hodnot počet let praxe
+                if (praxe < 0)
+                {
+                    MessageBox.Show("Počet let praxe je povinný údaj a nesmí být záporný! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error
+                    );
+                    return;
+                }
+
+                // Délka rodného čísla (10 číslic)
+                if (rodneCislo.ToString().Length != 10)
+                {
+                    MessageBox.Show("Rodné číslo musí mít 10 číslic bez lomítka! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 // Vytvoření nového trenéra
                 Trener novyTrener = new Trener(jmeno, prijmeni, rodneCislo, "Trener", telCislo, licence, specializace, praxe);
 
-               // DatabaseHraci.AddTrener(novyTrener); // Přidání do databáze
+                DatabaseTreneri.AddTrener(novyTrener); // Přidání do databáze
 
                 // Přidání trenéra do kolekce
                 TreneriData.Add(novyTrener);
@@ -89,6 +110,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 MessageBox.Show($"Došlo k chybě při přidávání trenéra: {ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
     }
 }

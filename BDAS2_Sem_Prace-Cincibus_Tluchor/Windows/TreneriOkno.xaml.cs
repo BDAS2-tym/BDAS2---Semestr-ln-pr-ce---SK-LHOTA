@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Automation.Peers;
+using System.Windows.Input;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 {
@@ -41,6 +42,68 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             DialogPridejTrenera dialogPridejTrenera = new DialogPridejTrenera(TreneriData);
             dialogPridejTrenera.ShowDialog();
+        }
+
+        private void DgTreneri_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            Trener vybranyTrener = dgTreneri.SelectedItem as Trener;
+
+            if (vybranyTrener == null)
+            {
+                MessageBox.Show("Prosím vyberte trenéra, kterého chcete upravit! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            //DialogEditujHrace dialogEditujHrace = new DialogEditujHrace(vybranyTrener, this);
+            //dialogEditujHrace.ShowDialog();
+
+        }
+
+        private void BtnOdeber_Click(object sender, RoutedEventArgs e)
+        {
+
+            Trener vybranyTrener = dgTreneri.SelectedItem as Trener;
+
+            if (vybranyTrener == null)
+            {
+                MessageBox.Show(
+                    "Prosím, vyberte trenéra, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Potvrzení od uživatele
+            var potvrzeni = MessageBox.Show($"Opravdu chcete odebrat trenéra {vybranyTrener.Jmeno} {vybranyTrener.Prijmeni}?", "Potvrzení odebrání",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (potvrzeni != MessageBoxResult.Yes)
+                return;
+
+            // Smazání z databáze
+            try
+            {
+                DatabaseTreneri.OdeberTrenera(vybranyTrener);
+
+                // Aktualizace DataGridu (odebrání z kolekce)
+                TreneriData.Remove(vybranyTrener);
+
+                // Úspěch
+                MessageBox.Show(
+                    $"Trenér {vybranyTrener.Jmeno} {vybranyTrener.Prijmeni} byl úspěšně odebrán.",
+                    "Úspěch",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Chyba databáze při mazání trenéra:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Nastala neočekávaná chyba při mazání trenéra:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void NactiTrenery()
@@ -115,6 +178,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             catch (Exception ex)
             {
                 MessageBox.Show($"Chyba při načítání trenérů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // Klávesou DELETE nelze smazat hráče z datagridu 
+        private void DgTreneri_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                // Zrušení akce mazání
+                e.Handled = true;
+
+                MessageBox.Show("Smazání trenéra klávesou Delete není povoleno.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

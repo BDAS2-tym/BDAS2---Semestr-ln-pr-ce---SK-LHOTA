@@ -88,8 +88,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
         }
 
-
-
         // ------------------- TIMER -------------------
 
         private void Timer_Tick(object sender, EventArgs e)

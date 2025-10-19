@@ -57,9 +57,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 if (string.IsNullOrWhiteSpace(jmeno) ||string.IsNullOrWhiteSpace(prijmeni) ||
                     string.IsNullOrWhiteSpace(telCislo) || string.IsNullOrWhiteSpace(pozice))
                 {
-                    MessageBox.Show("Prosím vyplňte všechna pole správně.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Prosím vyplňte všechna pole správně ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
+                if (!telCislo.All(char.IsDigit))
+                {
+                    MessageBox.Show("Telefonní číslo může obsahovat pouze číslice! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
 
                 // Délka rodného čísla (10 číslic)
                 if (rodneCislo.ToString().Length != 10)
