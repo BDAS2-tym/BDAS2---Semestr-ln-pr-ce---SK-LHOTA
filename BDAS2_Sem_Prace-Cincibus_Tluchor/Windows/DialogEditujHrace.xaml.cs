@@ -103,7 +103,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 // --- REFRESH DATAGRIDU ---
                 hraciOkno.dgHraci.Items.Refresh();
 
-                MessageBox.Show("Hráč byl úspěšně upraven! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Hráč byl úspěšně editován! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;
                 this.Close();
             }

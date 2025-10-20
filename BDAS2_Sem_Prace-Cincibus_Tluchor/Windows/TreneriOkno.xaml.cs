@@ -52,12 +52,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             if (vybranyTrener == null)
             {
-                MessageBox.Show("Prosím vyberte trenéra, kterého chcete upravit! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Prosím vyberte trenéra, kterého chcete editovat! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            //DialogEditujHrace dialogEditujHrace = new DialogEditujHrace(vybranyTrener, this);
-            //dialogEditujHrace.ShowDialog();
+            DialogEditujTrenera dialogEditujTrenera = new DialogEditujTrenera(vybranyTrener, this);
+            dialogEditujTrenera.ShowDialog();
 
         }
 
