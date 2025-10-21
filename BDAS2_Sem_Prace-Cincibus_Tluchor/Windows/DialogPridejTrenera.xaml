@@ -60,15 +60,15 @@
 
             <!-- Telefonní číslo -->
             <TextBlock x:Name="tblockTelCislo" Grid.Row="3" Grid.Column="0" Text="Telefonní číslo:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-            <TextBox x:Name="tboxTelCislo" Grid.Row="3" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="13" VerticalContentAlignment="Center" TabIndex="4" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBox x:Name="tboxTelCislo" Grid.Row="3" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="12" VerticalContentAlignment="Center" TabIndex="4" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Trenérská licence -->
             <TextBlock x:Name="tblockLicence" Grid.Row="4" Grid.Column="0" Text="Trenérská licence:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-            <TextBox x:Name="tboxLicence" Grid.Row="4" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="30" VerticalContentAlignment="Center" TabIndex="5" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBox x:Name="tboxLicence" Grid.Row="4" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="20" VerticalContentAlignment="Center" TabIndex="5" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Specializace -->
-            <TextBlock x:Name="tblockSpecializace" Grid.Row="5" Grid.Column="0" Text="Specializace:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-            <TextBox x:Name="tboxSpecializace" Grid.Row="5" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="50" VerticalContentAlignment="Center" TabIndex="6" FontFamily="Century Gothic" FontSize="12"/>
+            <TextBlock x:Name="tblockSpecializace" Grid.Row="5" Grid.Column="0" Text="Specializace NEPOVINNÉ:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
+            <TextBox x:Name="tboxSpecializace" Grid.Row="5" Grid.Column="1" Margin="50,18,50,18" MaxLines="10" TextWrapping="Wrap" MaxLength="30" VerticalContentAlignment="Center" TabIndex="6" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Počet let praxe -->
             <TextBlock x:Name="tblockPraxe" Grid.Row="6" Grid.Column="0" Text="Počet let praxe:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
@@ -82,10 +82,10 @@
                 <ImageBrush ImageSource="/Images/Img/pozadi_3_dialog_okna.png"/>
             </Border.Background>
             <StackPanel Orientation="Horizontal" UseLayoutRounding="False" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="btnPridej" Content="Přidej" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="8" Style="{StaticResource HoverFadeButtonStyle}">
+                <Button x:Name="btnPridej" Click="BtnPridej_Click" Content="Přidej" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="8" Style="{StaticResource HoverFadeButtonStyle}">
 
                 </Button>
-                <Button x:Name="btnReset" Content="Reset" Width="100" Padding="5,5,5,5" Margin="100,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="9" Style="{StaticResource HoverFadeButtonStyle}" Click="btnReset_Click">
+                <Button x:Name="btnReset" Content="Reset" Width="100" Padding="5,5,5,5" Margin="100,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="9" Style="{StaticResource HoverFadeButtonStyle}" Click="BtnReset_Click">
                     <Button.Background>
                         <SolidColorBrush Color="#DDC5D709" Opacity="0.85"/>
                     </Button.Background>

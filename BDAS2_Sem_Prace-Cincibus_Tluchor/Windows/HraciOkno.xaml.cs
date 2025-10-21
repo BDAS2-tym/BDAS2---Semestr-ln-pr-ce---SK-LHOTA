@@ -18,7 +18,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         private HlavniOkno hlavniOkno;
 
         //Kolekce hráčů pro DataGrid
-        public ObservableCollection<Hrac> HraciData { get; set; } = new ObservableCollection<Hrac>();
+        public static ObservableCollection<Hrac> HraciData { get; set; } = new ObservableCollection<Hrac>();
 
         public HraciOkno(HlavniOkno hlavniOkno)
         {
@@ -33,6 +33,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             this.Close();
             hlavniOkno.Show();
+            hlavniOkno.txtPocetHracu.Text = DatabaseHraci.GetPocetHracu().ToString();
         }
 
         private void BtnPridejDialog_Click(object sender, RoutedEventArgs e)
@@ -65,67 +66,47 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
-            // 🟡 1️⃣ Ověření výběru hráče
+           
             Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
 
             if (vybranyHrac == null)
             {
                 MessageBox.Show(
-                    "Prosím, vyberte hráče, kterého chcete odebrat!",
-                    "Chyba",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                    "Prosím, vyberte hráče, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // 🟡 2️⃣ Potvrzení od uživatele
-            var potvrzeni = MessageBox.Show(
-                $"Opravdu chcete odebrat hráče {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni}?",
-                "Potvrzení odebrání",
+            // Potvrzení od uživatele
+            var potvrzeni = MessageBox.Show($"Opravdu chcete odebrat hráče {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni}?", "Potvrzení odebrání",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
             if (potvrzeni != MessageBoxResult.Yes)
                 return;
 
-            // 🟢 3️⃣ Pokus o smazání z databáze
+            // smazání z databáze
             try
             {
                 DatabaseHraci.OdeberHrace(vybranyHrac);
 
-                // 🟢 4️⃣ Aktualizace DataGridu (odebrání z kolekce)
+                // Aktualizace DataGridu (odebrání z kolekce)
                 HraciData.Remove(vybranyHrac);
 
-                // 🟢 5️⃣ Úspěch
+                // Úspěch
                 MessageBox.Show(
                     $"Hráč {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni} byl úspěšně odebrán.",
                     "Úspěch",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
-            catch (ArgumentNullException)
-            {
-                MessageBox.Show(
-                    "Nepodařilo se odebrat hráče – objekt je prázdný (null).",
-                    "Chyba",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
+     
             catch (OracleException ex)
             {
-                MessageBox.Show(
-                    $"Chyba databáze při mazání hráče:\n{ex.Message}",
-                    "Databázová chyba",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBox.Show($"Chyba databáze při mazání hráče:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Nastala neočekávaná chyba při mazání hráče:\n{ex.Message}",
-                    "Chyba",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBox.Show($"Nastala neočekávaná chyba při mazání hráče:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -210,8 +191,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 // Zrušení akce mazání
                 e.Handled = true;
 
-                MessageBox.Show("Smazání hráče klávesou Delete není povoleno.",
-                                "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Smazání hráče klávesou Delete není povoleno.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

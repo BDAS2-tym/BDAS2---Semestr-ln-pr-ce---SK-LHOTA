@@ -31,7 +31,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             bool nalezen = false;
 
-            foreach (var hledanyHrac in hraciOkno.HraciData)
+            foreach (var hledanyHrac in HraciOkno.HraciData)
             {
                 if (tboxRodneCislo.Text.Equals(hledanyHrac.RodneCislo.ToString()) && hledanyHrac != null)
                 {
@@ -56,7 +56,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
         }
 
-        private void btnZrusit_Click(object sender, RoutedEventArgs e)
+        private void BtnZrusit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

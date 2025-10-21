@@ -1,4 +1,5 @@
-﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows;
+﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Configuration;
@@ -20,6 +21,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
             timer.Start();
+
+            //Nastavení počtu hráčů při načtení okna
+            txtPocetHracu.Text = DatabaseHraci.GetPocetHracu().ToString();
+
+            //Nastavení počtu trenérů při načtení okna
+            txtPocetTreneru.Text = DatabaseTreneri.GetPocetTreneru().ToString();
 
         }
 
@@ -83,8 +90,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             this.Hide();
 
         }
-
-
 
         // ------------------- TIMER -------------------
 
