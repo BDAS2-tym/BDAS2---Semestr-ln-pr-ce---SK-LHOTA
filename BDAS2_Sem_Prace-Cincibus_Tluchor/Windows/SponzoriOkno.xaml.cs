@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
@@ -20,7 +21,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             InitializeComponent();
             this.hlavniOkno = hlavniOkno;
 
-            DataContext = this; // propojení s DataGridem
+            // Propojení kolekce s DataGridem
+            DataContext = this;
 
             NactiSponzory();
         }
@@ -54,11 +56,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 while (reader.Read())
                 {
                     int idSponzor = Convert.ToInt32(reader["IDSPONZOR"]);
-                    var existujiciSponzor = SponzoriData.FirstOrDefault(s => s.IdSponzor == idSponzor);
+                    Sponzor? existujiciSponzor = SponzoriData.FirstOrDefault(s => s.IdSponzor == idSponzor);
 
                     if (existujiciSponzor == null)
                     {
-                        // Create new sponsor
+                        // Vytvoření nového sponzora
                         existujiciSponzor = new Sponzor
                         {
                             IdSponzor = idSponzor,
@@ -71,7 +73,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         SponzoriData.Add(existujiciSponzor);
                     }
 
-                    // Add member if all fields are non-null
+                    // Přidání člena, pokud nejsou všechny atributy NULL
                     if (reader["IDCLENKLUBU"] != DBNull.Value &&
                         reader["JMENO_CLENA"] != DBNull.Value &&
                         reader["PRIJMENI_CLENA"] != DBNull.Value &&
@@ -85,18 +87,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"])
                         };
 
-                        // Avoid duplicates
+                        // Zamezení duplikací sponzorů
                         if (!existujiciSponzor.SponzorovaniClenove.Any(c => c.IdClenKlubu == clen.IdClenKlubu))
                             existujiciSponzor.SponzorovaniClenove.Add(clen);
                     }
 
-                    // Add competition if all fields are non-null
-                    if (reader["IDSOUTEZ"] != DBNull.Value &&
-                        reader["STARTDATUM"] != DBNull.Value &&
-                        reader["KONECDATUM"] != DBNull.Value &&
-                        reader["NAZEVSOUTEZE"] != DBNull.Value)
+                    // Přidání soutěže, pokud nejsou všechny atributy NULL
+                    if (reader["IDSOUTEZ"] != DBNull.Value && reader["STARTDATUM"] != DBNull.Value && reader["KONECDATUM"] != DBNull.Value && reader["NAZEVSOUTEZE"] != DBNull.Value)
                     {
-                        var soutez = new Soutez
+                        Soutez soutez = new Soutez
                         {
                             IdSoutez = Convert.ToInt32(reader["IDSOUTEZ"]),
                             StartDatum = DateOnly.FromDateTime(Convert.ToDateTime(reader["STARTDATUM"])),
@@ -104,15 +103,36 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             TypSouteze = reader["NAZEVSOUTEZE"].ToString()
                         };
 
+                        // Zamezení duplikací sponzorů
                         if (!existujiciSponzor.SponzorovaneSouteze.Any(s => s.IdSoutez == soutez.IdSoutez))
                             existujiciSponzor.SponzorovaneSouteze.Add(soutez);
                     }
                 }
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show($"Chyba při načítání sponzorů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        // Zamezení zmáčknutí klávesy DELETE, aby nešel smazat sponzor z datagridu 
+        private void DgSponzori_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                // Zrušení akce mazání
+                e.Handled = true;
+
+                MessageBox.Show("Smazání sponzora klávesou Delete není povoleno.",
+                                "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void btnPridej_Click(object sender, RoutedEventArgs e)
+        {
+            DialogPridejSponzora dialogPridejSponzora = new DialogPridejSponzora(SponzoriData);
+            dialogPridejSponzora.ShowDialog();
         }
     }
 }
