@@ -94,7 +94,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <!-- Sponzorované soutěže – vytvoření přes TemplateColumn, kvůli zobrazování více členů -->
+                    <!-- Sponzorované soutěže – vytvoření přes TemplateColumn, kvůli zobrazování více soutěží -->
                     <DataGridTemplateColumn Header="Sponzorované soutěže" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -125,9 +125,7 @@
                         </DataGridTemplateColumn.HeaderStyle>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
-                
-                
-
+               
                 <!-- Změna barvy pozadí a písma při výběru řádku -->
                 <DataGrid.Resources>
 

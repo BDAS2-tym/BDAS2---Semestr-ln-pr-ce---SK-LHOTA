@@ -116,7 +116,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
-        // Zamezení zmáčknutí klávesy DELETE, aby nešel smazat sponzor z datagridu 
+        /// <summary>
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu 
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void DgSponzori_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
@@ -129,6 +133,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Metoda slouží k přidání sponzora do tabulky
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void btnPridej_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejSponzora dialogPridejSponzora = new DialogPridejSponzora(SponzoriData);

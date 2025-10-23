@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,12 +23,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     /// </summary>
     public partial class DialogPridejSponzora : Window
     {
-        private ObservableCollection<Sponzor> SponzoriData;
+        private ObservableCollection<Sponzor> sponzoriData;
+        public ObservableCollection<ClenKlubu> SponzorovaniClenove { get; set; }
+        public ObservableCollection<Soutez> SponzorovaneSouteze { get; set; }
 
         public DialogPridejSponzora(ObservableCollection<Sponzor> sponzoriData)
         {
             InitializeComponent();
-            SponzoriData = sponzoriData;
+            SponzorovaniClenove = new ObservableCollection<ClenKlubu>();
+            SponzorovaneSouteze = new ObservableCollection<Soutez>();
+            this.sponzoriData = sponzoriData;
+
+            // Nastavení DataContextu
+            DataContext = this;
         }
 
         /// <summary>
@@ -61,13 +69,68 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 throw new NonValidDataException("Sponzorovaná částka nemůže být záporná!");
             }
+
+            if(resultCastka > 0 && (SponzorovaniClenove.Count == 0 && SponzorovaneSouteze.Count == 0))
+            {
+                throw new NonValidDataException("Musejí být přiřazeny nějaké sponzorované soutěže nebo členové, protože je vyplněná sponzorovaná částka!");
+            }
+
+            if (resultCastka == 0 && (SponzorovaniClenove.Count > 0 || SponzorovaneSouteze.Count > 0))
+            {
+                throw new NonValidDataException("Sponzorovaní členové nebo soutěže nesmějí být vyplněni, protože sponzorovaná částka je 0 Kč!");
+            }
         }
 
+        /// <summary>
+        /// Metoda slouží k přidání nového sponzora do tabulky a zároveň také do databáze
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void btnPridej_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 ValidujData();
+
+                Sponzor pridanySponzor = new Sponzor();
+                pridanySponzor.Jmeno = tboxJmenoSponzora.Text;
+                pridanySponzor.SponzorovanaCastka = Convert.ToInt64(tboxCastka.Text);
+                pridanySponzor.SponzorovaniClenove = SponzorovaniClenove.ToList();
+                pridanySponzor.SponzorovaneSouteze = SponzorovaneSouteze.ToList();
+
+                DatabaseSponzori.AddSponzor(pridanySponzor);
+
+                int? idSponzor = DatabaseSponzori.GetCurrentId();
+                if(idSponzor == null)
+                {
+                    throw new NullReferenceException("ID sponzora nemůže být NULL! Nastala chyba u spojení s databází...");
+                }
+
+                pridanySponzor.IdSponzor = (int)idSponzor;
+
+                // Přidání všech nově vytvořených vazeb do vazební tabulky SPONZORI_CLENOVE
+                if(pridanySponzor.SponzorovaniClenove.Count > 0)
+                {
+                    foreach (ClenKlubu clen in pridanySponzor.SponzorovaniClenove)
+                    {
+                        DatabaseSponzoriClenove.AddSponzoriClenove(clen, pridanySponzor);
+                    }
+                }
+
+                // Přidání všech nově vytvořených vazeb do vazební tabulky SPONZORI_SOUTEZE
+                if (pridanySponzor.SponzorovaneSouteze.Count > 0) 
+                {
+                    foreach (Soutez soutez in pridanySponzor.SponzorovaneSouteze)
+                    {
+                        DatabaseSponzoriSouteze.AddSponzoriSouteze(soutez, pridanySponzor);
+                    }
+                }
+
+                sponzoriData.Add(pridanySponzor);
+
+                MessageBox.Show($"ID: {pridanySponzor.IdSponzor}", "ID");
+                MessageBox.Show("Sponzor byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
             }
 
             catch (NonValidDataException ex)
@@ -78,6 +141,64 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k přiřazení vazeb mezi sponzorem a členy
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void btnEditujVazbyClenove_Click(object sender, RoutedEventArgs e)
+        {
+            DialogVazebniTabulkaClenove dialogVazebniTabulkaClenove;
+            if(SponzorovaniClenove.Count > 0)
+            {
+                dialogVazebniTabulkaClenove = new DialogVazebniTabulkaClenove(SponzorovaniClenove);
+            }
+
+            else
+            {
+                dialogVazebniTabulkaClenove = new DialogVazebniTabulkaClenove();
+            }
+
+            bool? vysledekDiaOkna = dialogVazebniTabulkaClenove.ShowDialog();
+            if (vysledekDiaOkna == true)
+            {
+                SponzorovaniClenove.Clear();
+                foreach (ClenKlubu clen in dialogVazebniTabulkaClenove.VybraniClenove)
+                {
+                    SponzorovaniClenove.Add(clen);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k přiřazení vazeb mezi sponzorem a soutěžemi
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void btnEditujVazbySouteze_Click(object sender, RoutedEventArgs e)
+        {
+            DialogVazebniTabulkaSouteze dialogVazebniTabulkaSouteze;
+            if (SponzorovaniClenove.Count > 0)
+            {
+                dialogVazebniTabulkaSouteze = new DialogVazebniTabulkaSouteze(SponzorovaneSouteze);
+            }
+
+            else
+            {
+                dialogVazebniTabulkaSouteze = new DialogVazebniTabulkaSouteze();
+            }
+
+            bool? vysledekDiaOkna = dialogVazebniTabulkaSouteze.ShowDialog();
+            if (vysledekDiaOkna == true)
+            {
+                SponzorovaneSouteze.Clear();
+                foreach (Soutez soutez in dialogVazebniTabulkaSouteze.VybraneSouteze)
+                {
+                    SponzorovaneSouteze.Add(soutez);
+                }
             }
         }
     }

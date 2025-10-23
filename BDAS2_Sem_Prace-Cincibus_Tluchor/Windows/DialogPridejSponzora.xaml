@@ -60,100 +60,32 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Border BorderBrush="#FF125C64" BorderThickness="2,2,2,2" Grid.Column="0" Grid.Row="0" Margin="10,0,10,0" CornerRadius="5,5,5,5">
-                                    
 
-                <DataGrid x:Name="gridClenove" FontFamily="Century Gothic" FontSize="10" Grid.RowSpan="1" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="22" HeadersVisibility="Column" ColumnHeaderHeight="18" GridLinesVisibility="None" IsReadOnly="True"
-CanUserAddRows="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Jmeno}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="10" Header="Jméno" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
-                        <DataGridTextColumn Binding="{Binding Prijmeni}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="10" Header="Příjmení" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
-                        <DataGridTextColumn Binding="{Binding RodneCislo}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="10" Header="Rodné číslo" Width="*" ElementStyle="{StaticResource CenterCellStyle}">
-                            <DataGridTextColumn.HeaderStyle>
-                                 <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
-                                <Style TargetType="DataGridColumnHeader">
-                                     <!-- Pozadí --> 
-                                    <Setter Property="Background" Value="#AABBCC"/>
-
-                                     <!-- Barva textu --> 
-                                    <Setter Property="Foreground" Value="Black"/>
-
-                                     <!-- Font --> 
-                                    <Setter Property="FontWeight" Value="Bold"/>
-                                    <Setter Property="FontSize" Value="10"/>
-                                    <Setter Property="FontFamily" Value="Century Gothic"/>
-
-                                     <!-- Vycentrování textu --> 
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-
-                                     <!-- Ohraničení -->
-                                    <Setter Property="BorderBrush" Value="#125C64"/>
-                                    <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                        </DataGridTextColumn>
-                    </DataGrid.Columns>
-
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                             <!-- Pozadí --> 
-                            <Setter Property="Background" Value="#AABBCC"/>
-
-                             <!-- Barva textu --> 
-                            <Setter Property="Foreground" Value="Black"/>
-
-                             <!-- Font --> 
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="FontSize" Value="10"/>
-                            <Setter Property="FontFamily" Value="Century Gothic"/>
-
-                             <!-- Vycentrování textu --> 
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
-
-                             <!-- Ohraničení --> 
-                            <Setter Property="BorderBrush" Value="#125C64"/>
-                            <Setter Property="BorderThickness" Value="0,0,2,2"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-                    <DataGrid.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFCBCBCB" Offset="1"/>
-                            <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                        </LinearGradientBrush>
-                    </DataGrid.Background>
-
-                </DataGrid>
-                </Border>
-                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <Button x:Name="btnEditujVazbyClenove" Content="Edituj" FontFamily="Century Gothic" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0,4,0,4" ScrollViewer.CanContentScroll="True" Style="{StaticResource HoverFadeButtonStyle3}" TabIndex="3"/>
-                </StackPanel>
-                <Border BorderBrush="#FF125C64" BorderThickness="2,2,2,2" Grid.Column="0" Grid.Row="0" Margin="10,141,10,-141" CornerRadius="5,5,5,5">
-                    <DataGrid x:Name="gridSouteze" FontFamily="Century Gothic" FontSize="10" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="22" HeadersVisibility="Column" ColumnHeaderHeight="18" GridLinesVisibility="None" IsReadOnly="True"
-                        CanUserAddRows="False">
+                    <DataGrid x:Name="gridClenove" ItemsSource="{Binding SponzorovaniClenove}" FontFamily="Century Gothic" FontSize="10" Grid.RowSpan="1" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="22" HeadersVisibility="Column" ColumnHeaderHeight="18" GridLinesVisibility="None" IsReadOnly="True"
+                        CanUserAddRows="False" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Nazev}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="10" Header="Soutěž" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
-                            <DataGridTextColumn Binding="{Binding StartDatum}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="10" Header="Začátek" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
-                            <DataGridTextColumn Binding="{Binding KonecDatum}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="10" Header="Konec" Width="*" ElementStyle="{StaticResource CenterCellStyle}">
+                            <DataGridTextColumn Binding="{Binding Jmeno}" FontFamily="Century Gothic" FontSize="10" Header="Jméno" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
+                            <DataGridTextColumn Binding="{Binding Prijmeni}" FontFamily="Century Gothic"  FontSize="10" Header="Příjmení" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
+                            <DataGridTextColumn Binding="{Binding RodneCislo}" FontFamily="Century Gothic" FontSize="10" Header="Rodné číslo" Width="*" ElementStyle="{StaticResource CenterCellStyle}">
                                 <DataGridTextColumn.HeaderStyle>
-                                 <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
-                                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                                     <!-- Pozadí --> 
+                                    <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <!-- Pozadí -->
                                         <Setter Property="Background" Value="#AABBCC"/>
 
-                                     <!-- Barva textu --> 
+                                        <!-- Barva textu -->
                                         <Setter Property="Foreground" Value="Black"/>
 
-                                     <!-- Font --> 
+                                        <!-- Font -->
                                         <Setter Property="FontWeight" Value="Bold"/>
                                         <Setter Property="FontSize" Value="10"/>
                                         <Setter Property="FontFamily" Value="Century Gothic"/>
 
-                                     <!-- Vycentrování textu --> 
+                                        <!-- Vycentrování textu -->
                                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                         <Setter Property="VerticalContentAlignment" Value="Center"/>
 
-                                     <!-- Ohraničení -->
+                                        <!-- Ohraničení -->
                                         <Setter Property="BorderBrush" Value="#125C64"/>
                                         <Setter Property="BorderThickness" Value="0,0,0,2"/>
                                     </Style>
@@ -162,23 +94,24 @@ CanUserAddRows="False">
                         </DataGrid.Columns>
 
                         <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                             <!-- Pozadí --> 
+                            <Style TargetType="DataGridColumnHeader">
+                                
+                                <!-- Pozadí -->
                                 <Setter Property="Background" Value="#AABBCC"/>
 
-                             <!-- Barva textu --> 
+                                <!-- Barva textu -->
                                 <Setter Property="Foreground" Value="Black"/>
 
-                             <!-- Font --> 
+                                <!-- Font -->
                                 <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="FontSize" Value="10"/>
                                 <Setter Property="FontFamily" Value="Century Gothic"/>
 
-                             <!-- Vycentrování textu --> 
+                                <!-- Vycentrování textu -->
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
 
-                             <!-- Ohraničení --> 
+                                <!-- Ohraničení -->
                                 <Setter Property="BorderBrush" Value="#125C64"/>
                                 <Setter Property="BorderThickness" Value="0,0,2,2"/>
                             </Style>
@@ -190,6 +123,100 @@ CanUserAddRows="False">
                             </LinearGradientBrush>
                         </DataGrid.Background>
 
+                        <DataGrid.Resources>
+                            
+                            <!-- Styl pro všechny buňky v řádku -->
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Foreground" Value="Black"/>
+                                <!-- Barva textu -->
+                                <Setter Property="FontSize" Value="10"/>
+                                <!-- Velikost písma -->
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <!-- Typ písma -->
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <!-- Tučné písmo -->
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <!-- Zarovnání -->
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+
+                            <!-- Přebarvení vybraných řádků -->
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                        </DataGrid.Resources>
+                    </DataGrid>
+                </Border>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <Button x:Name="btnEditujVazbyClenove" Content="Edituj" FontFamily="Century Gothic" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0,4,0,4" ScrollViewer.CanContentScroll="True" Style="{StaticResource HoverFadeButtonStyle3}" TabIndex="3" Click="btnEditujVazbyClenove_Click"/>
+                </StackPanel>
+                <Border BorderBrush="#FF125C64" BorderThickness="2,2,2,2" Grid.Column="0" Grid.Row="0" Margin="10,141,10,-141" CornerRadius="5,5,5,5">
+                    <DataGrid x:Name="gridSouteze" ItemsSource="{Binding SponzorovaneSouteze}" FontFamily="Century Gothic" FontSize="10" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="22" HeadersVisibility="Column" ColumnHeaderHeight="18" GridLinesVisibility="None" IsReadOnly="True"
+                        CanUserAddRows="False" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding TypSouteze}" FontFamily="Century Gothic" FontSize="10" Header="Soutěž" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
+                            <DataGridTextColumn Binding="{Binding StartDatum, StringFormat={}{0:dd.MM.yyyy}}" FontFamily="Century Gothic" FontSize="10" Header="Začátek" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
+                            <DataGridTextColumn Binding="{Binding KonecDatum, StringFormat={}{0:dd.MM.yyyy}}" FontFamily="Century Gothic" FontSize="10" Header="Konec" Width="*" ElementStyle="{StaticResource CenterCellStyle}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <!-- Pozadí -->
+                                        <Setter Property="Background" Value="#AABBCC"/>
+
+                                        <!-- Barva textu -->
+                                        <Setter Property="Foreground" Value="Black"/>
+
+                                        <!-- Font -->
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="FontSize" Value="10"/>
+                                        <Setter Property="FontFamily" Value="Century Gothic"/>
+
+                                        <!-- Vycentrování textu -->
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                                        <!-- Ohraničení -->
+                                        <Setter Property="BorderBrush" Value="#125C64"/>
+                                        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <!-- Pozadí -->
+                                <Setter Property="Background" Value="#AABBCC"/>
+
+                                <!-- Barva textu -->
+                                <Setter Property="Foreground" Value="Black"/>
+
+                                <!-- Font -->
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="10"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+
+                                <!-- Vycentrování textu -->
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                                <!-- Ohraničení -->
+                                <Setter Property="BorderBrush" Value="#125C64"/>
+                                <Setter Property="BorderThickness" Value="0,0,2,2"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                                <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                            </LinearGradientBrush>
+                        </DataGrid.Background>
+
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                        </DataGrid.Resources>
                     </DataGrid>
                 </Border>
             </Grid>
@@ -199,7 +226,7 @@ CanUserAddRows="False">
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <Button x:Name="btnEditujVazbySouteze" Content="Edituj" FontFamily="Century Gothic" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0,4,0,4" ScrollViewer.CanContentScroll="True" Style="{StaticResource HoverFadeButtonStyle3}" TabIndex="4"/>
+                    <Button x:Name="btnEditujVazbySouteze" Content="Edituj" FontFamily="Century Gothic" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0,4,0,4" ScrollViewer.CanContentScroll="True" Style="{StaticResource HoverFadeButtonStyle3}" TabIndex="4" Click="btnEditujVazbySouteze_Click"/>
                 </StackPanel>
             </Grid>
         </Grid>
