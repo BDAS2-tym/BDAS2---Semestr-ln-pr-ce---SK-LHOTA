@@ -22,7 +22,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     /// </summary>
     public partial class TreninkyOkno : Window
     {
-     
 
         private HlavniOkno hlavniOkno;
 
@@ -42,6 +41,22 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             this.Close();
             hlavniOkno.Show();
+        }
+
+        private void DgTreninky_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            TreninkView vybranyTrenink = dgTreninky.SelectedItem as TreninkView;
+
+            if (vybranyTrenink == null)
+            {
+                MessageBox.Show("Prosím vyberte trénink, který chcete editovat! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            DialogEditujTrenink dialogEditujTrenink = new DialogEditujTrenink(vybranyTrenink, this);
+            dialogEditujTrenink.ShowDialog();   
+
         }
 
         private void BtnPridej_Click(object sender, RoutedEventArgs e)
@@ -92,11 +107,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 MessageBox.Show($"Nastala neočekávaná chyba při mazání tréninku:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void NactiTreninky()
@@ -153,6 +163,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             catch (Exception ex)
             {
                 MessageBox.Show($"Chyba při načítání tréninku:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // Klávesou DELETE nelze smazat trénink z datagridu 
+        private void DgTreninky_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                // Zrušení akce mazání
+                e.Handled = true;
+
+                MessageBox.Show("Smazání tréninku klávesou Delete není povoleno", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
