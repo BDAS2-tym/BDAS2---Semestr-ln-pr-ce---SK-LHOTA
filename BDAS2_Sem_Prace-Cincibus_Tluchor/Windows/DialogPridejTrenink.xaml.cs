@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +23,89 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     {
         private const int MaxLimitZnaku = 30;
 
-        public DialogPridejTrenink()
+
+        public DialogPridejTrenink(ObservableCollection<Trener> treneri)
         {
             InitializeComponent();
             dtpDatumTreninku.Value = DateTime.Now;
+
+            TreneriOkno.NactiTrenery();
+
+            foreach (var trener in TreneriOkno.TreneriData)
+            {
+               
+                cbTrener.Items.Add($" {trener.Prijmeni} ({trener.RodneCislo.ToString()})");
+
+            }
+
+        }
+
+        private void BtnPridej_Click(object sender, RoutedEventArgs e)
+        {
+            //  Validace vstupů
+            if (cbTrener.SelectedItem == null)
+            {
+                MessageBox.Show("Vyberte trenéra!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (dtpDatumTreninku.Value == null)
+            {
+                MessageBox.Show("Zadejte datum tréninku!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(tboxMistoTreninku.Text))
+            {
+                MessageBox.Show("Zadejte místo tréninku!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string popisTreninku = new TextRange(rtboxPopisTreninku.Document.ContentStart, rtboxPopisTreninku.Document.ContentEnd).Text.Trim();
+
+            if (popisTreninku.Length > MaxLimitZnaku)
+            {
+                MessageBox.Show($"Popis tréninku nesmí přesáhnout {MaxLimitZnaku} znaků ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string vybranyTrener = cbTrener.SelectedItem.ToString();
+            string prijmeniTrenera = vybranyTrener.Split('(')[0].Trim();
+            string rodneCisloString = vybranyTrener.Split('(', ')')[1].Trim();
+
+            if (!long.TryParse(rodneCisloString, out long rodneCisloTrenera))
+            {
+                MessageBox.Show("Neplatný formát rodného čísla trenéra", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Vytvoření nového objektu tréninku
+            TreninkView novyTrenink = new TreninkView
+            {
+                Prijmeni = prijmeniTrenera,
+                RodneCislo = rodneCisloTrenera,
+                Datum = dtpDatumTreninku.Value.Value,
+                Misto = tboxMistoTreninku.Text.Trim(),
+                Popis = popisTreninku
+            };
+
+            try
+            {
+                // Vložení tréninku do databáze
+                DatabaseTreninky.AddTrenink(novyTrenink);
+
+                // Přidej do DataGridu
+                TreninkyOkno.TreninkyData.Add(novyTrenink);
+
+                MessageBox.Show("Trénink byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                this.DialogResult = true;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Chyba při přidávání tréninku: {ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
@@ -32,7 +113,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
             rtboxPopisTreninku.Document.Blocks.Clear();
             dtpDatumTreninku.Value = DateTime.Now;

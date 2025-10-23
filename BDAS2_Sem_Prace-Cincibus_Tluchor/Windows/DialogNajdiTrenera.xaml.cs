@@ -31,7 +31,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             bool nalezen = false;
 
-            foreach (var hledanyTrener in treneriOkno.TreneriData)
+            foreach (var hledanyTrener in TreneriOkno.TreneriData)
             {
                 if (tboxRodneCislo.Text.Equals(hledanyTrener.RodneCislo.ToString()) && hledanyTrener != null)
                 {
