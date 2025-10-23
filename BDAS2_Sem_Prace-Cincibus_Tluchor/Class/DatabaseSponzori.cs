@@ -59,6 +59,35 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         }
 
         /// <summary>
+        /// Metoda slouží k odebrání sponzora z databáze
+        /// </summary>
+        /// <param name="sponzor">Sponzor, kterého chceme přidat do databáze</param>
+        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void OdeberSponzor(Sponzor sponzor)
+        {
+            using var conn = GetConnection();
+            conn.Open();
+
+            using (var cmd = new OracleCommand("PKG_SPONZORI.SP_ODEBER_SPONZOR", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                // Naplníme všechny parametry procedury
+                cmd.Parameters.Add("v_id_sponzor", OracleDbType.Int32).Value = sponzor.IdSponzor;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                catch (OracleException ex)
+                {
+                    throw new Exception($"Chyba při volání procedury SP_ODEBER_SPONZOR: {ex.Message}", ex);
+                }
+            }
+        }
+
+        /// <summary>
         /// Metoda slouží k získání nového ID z databáze
         /// </summary>
         /// <returns>Nové ID</returns>

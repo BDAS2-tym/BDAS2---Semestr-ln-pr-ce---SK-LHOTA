@@ -143,5 +143,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             DialogPridejSponzora dialogPridejSponzora = new DialogPridejSponzora(SponzoriData);
             dialogPridejSponzora.ShowDialog();
         }
+
+        /// <summary>
+        /// Metoda slouží k odebrání sponzora z tabulky
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void btnOdeber_Click(object sender, RoutedEventArgs e)
+        {
+            /* TODO dodělat odebírání sponzorů */
+        }
     }
 }
