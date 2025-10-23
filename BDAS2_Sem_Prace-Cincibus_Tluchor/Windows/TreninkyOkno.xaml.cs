@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +22,20 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     /// </summary>
     public partial class TreninkyOkno : Window
     {
+     
 
         private HlavniOkno hlavniOkno;
+
+        // Kolekce tréninků pro DataGrid
+        public static ObservableCollection<TreninkView> TreninkyData { get; set; } = new ObservableCollection<TreninkView>();
+
         public TreninkyOkno(HlavniOkno hlavniOkno)
         {
             InitializeComponent();
             this.hlavniOkno = hlavniOkno;
+            DataContext = this; // propojení s DataGridem
+            
+            NactiTreninky();
         }
 
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
@@ -33,5 +44,116 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             hlavniOkno.Show();
         }
 
+        private void BtnPridej_Click(object sender, RoutedEventArgs e)
+        {
+            DialogPridejTrenink dialogPridejTrenink = new DialogPridejTrenink(TreneriOkno.TreneriData);
+            dialogPridejTrenink.ShowDialog();
+        }
+
+        private void BtnOdeber_Click(object sender, RoutedEventArgs e)
+        {
+            TreninkView vybranyTrenink = dgTreninky.SelectedItem as TreninkView;
+
+            if (vybranyTrenink == null)
+            {
+                MessageBox.Show("Prosím, vyberte trénink, který chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Potvrzení od uživatele
+            var potvrzeni = MessageBox.Show($"Opravdu chcete odebrat trénink trenéra {vybranyTrenink.Prijmeni} v {vybranyTrenink.Datum}?", "Potvrzení odebrání",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (potvrzeni != MessageBoxResult.Yes)
+                return;
+
+            try
+            {
+                // Smazání z databáze
+                DatabaseTreninky.DeleteTrenink(vybranyTrenink);
+
+                // Aktualizace DataGridu (odebrání z kolekce)
+                TreninkyData.Remove(vybranyTrenink);
+
+                // Úspěch
+                MessageBox.Show(
+                    $"Trénink trenéra {vybranyTrenink.Prijmeni} v {vybranyTrenink.Datum} byl úspěšně odebrán",
+                    "Úspěch",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Chyba databáze při mazání tréninku:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Nastala neočekávaná chyba při mazání tréninku:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void NactiTreninky()
+        {
+            try
+            {
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                using var cmd = new OracleCommand("SELECT * FROM TRENINKY_VIEW", conn);
+                using var reader = cmd.ExecuteReader();
+
+                // Vyprázdníme kolekci, aby se nepřidávaly duplicitní záznamy
+                TreninkyData.Clear();
+
+                while (reader.Read())
+                {
+                    TreninkView trenink = new TreninkView();
+
+                    // Rodné číslo (NOT NULL) 
+                    if (reader["RODNE_CISLO"] != DBNull.Value)
+                        trenink.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                    else
+                        trenink.RodneCislo = 0L;
+
+                    // Příjmení (NOT NULL) 
+                    if (reader["PRIJMENI"] != DBNull.Value)
+                        trenink.Prijmeni = reader["PRIJMENI"].ToString();
+                    else
+                        trenink.Prijmeni = "";
+
+                    // Trénink -> Popis (volitelný sloupec) 
+                    if (reader["POPIS"] != DBNull.Value)
+                        trenink.Popis = reader["POPIS"].ToString();
+                    else
+                        trenink.Popis = "Volitelné nezadáno !";
+
+                    // Místo (NOT NULL)
+                    if (reader["MISTO"] != DBNull.Value)
+                        trenink.Misto = reader["MISTO"].ToString();
+                    else
+                        trenink.Misto = "";
+
+                    // DATUM (NOT NULL)
+                    if (reader["DATUM"] != DBNull.Value)
+                        trenink.Datum = Convert.ToDateTime(reader["DATUM"]);
+                    else
+                        trenink.Datum = DateTime.MinValue;
+
+                    // Přidáme trénink do kolekce pro DataGrid
+                    TreninkyData.Add(trenink);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Chyba při načítání tréninku:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

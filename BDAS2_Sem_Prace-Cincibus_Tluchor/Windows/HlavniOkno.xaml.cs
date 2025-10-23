@@ -27,7 +27,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             //Nastavení počtu trenérů při načtení okna
             txtPocetTreneru.Text = DatabaseTreneri.GetPocetTreneru().ToString();
-
+            
         }
 
         private void BtnHraci_Click(object sender, RoutedEventArgs e)

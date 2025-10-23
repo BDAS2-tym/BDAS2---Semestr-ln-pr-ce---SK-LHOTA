@@ -15,7 +15,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         private HlavniOkno hlavniOkno;
 
         // Kolekce trenérů pro DataGrid
-        public ObservableCollection<Trener> TreneriData { get; set; } = new ObservableCollection<Trener>();
+        public static ObservableCollection<Trener> TreneriData { get; set; } = new ObservableCollection<Trener>();
 
         public TreneriOkno(HlavniOkno hlavniOkno)
         {
@@ -107,7 +107,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
-        private void NactiTrenery()
+        public static void NactiTrenery()
         {
             try
             {
