@@ -38,11 +38,11 @@
                   HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
                   AutoGenerateColumns="False"                        
-                  IsReadOnly="False"
+                  IsReadOnly="True"
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3"  HeadersVisibility="Column" RowHeight="46" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" PreviewKeyDown="DgSponzori_PreviewKeyDown" SelectionMode="Single">
+                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3"  HeadersVisibility="Column" RowHeight="46" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" PreviewKeyDown="DgSponzori_PreviewKeyDown" SelectionMode="Single" MouseDoubleClick="dgSponzori_MouseDoubleClick">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->

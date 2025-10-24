@@ -19,34 +19,54 @@ using System.Windows.Shapes;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Interaction logic for DialogPridejSponzora.xaml
+    /// Interaction logic for DialogEditujSponzora.xaml
     /// </summary>
-    public partial class DialogPridejSponzora : Window
+    public partial class DialogEditujSponzora : Window
     {
-        private ObservableCollection<Sponzor> sponzoriData;
-        public ObservableCollection<ClenKlubu> SponzorovaniClenove { get; set; }
-        public ObservableCollection<Soutez> SponzorovaneSouteze { get; set; }
+        private Sponzor editovanySponzor;
+        private SponzoriOkno sponzoriOkno;
+        private List<ClenKlubu> stareVazbyClenove;
+        private List<Soutez> stareVazbySouteze;
 
-        public DialogPridejSponzora(ObservableCollection<Sponzor> sponzoriData)
+        public ObservableCollection<ClenKlubu> SponzorovaniClenove { get; set; } = new ObservableCollection<ClenKlubu>();
+        public ObservableCollection<Soutez> SponzorovaneSouteze { get; set; } = new ObservableCollection<Soutez>();
+
+        public DialogEditujSponzora(Sponzor editovanySponzor, SponzoriOkno sponzoriOkno)
         {
             InitializeComponent();
-            SponzorovaniClenove = new ObservableCollection<ClenKlubu>();
-            SponzorovaneSouteze = new ObservableCollection<Soutez>();
-            this.sponzoriData = sponzoriData;
-
             // Nastavení DataContextu
             DataContext = this;
+
+            this.editovanySponzor = editovanySponzor;
+            this.sponzoriOkno = sponzoriOkno;
+
+            tboxJmenoSponzora.Text = editovanySponzor.Jmeno;
+            tboxCastka.Text = editovanySponzor.SponzorovanaCastka.ToString();
+            if (editovanySponzor.SponzorovaniClenove.Count > 0)
+            {
+                foreach (ClenKlubu clen in editovanySponzor.SponzorovaniClenove)
+                {
+                    SponzorovaniClenove.Add(clen);
+                }
+            }
+
+            if (editovanySponzor.SponzorovaneSouteze.Count > 0)
+            {
+                foreach (Soutez soutez in editovanySponzor.SponzorovaneSouteze)
+                {
+                    SponzorovaneSouteze.Add(soutez);
+                }
+            } 
         }
 
         /// <summary>
-        /// Metoda vymaže textová pole
+        /// Metoda slouží k zavření dialogového okna
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void btnUkonci_Click(object sender, RoutedEventArgs e)
         {
-            tboxJmenoSponzora.Clear();
-            tboxCastka.Clear();
+            this.Close();
         }
 
         /// <summary>
@@ -60,17 +80,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 throw new NonValidDataException("Sponzor nemůže být NULL ani prázdné!");
             }
 
-            if(!long.TryParse(tboxCastka.Text, out long resultCastka))
+            if (!long.TryParse(tboxCastka.Text, out long resultCastka))
             {
                 throw new FormatException("Sponzorovaná částka není celé číslo!");
             }
 
-            if(resultCastka < 0)
+            if (resultCastka < 0)
             {
                 throw new NonValidDataException("Sponzorovaná částka nemůže být záporná!");
             }
 
-            if(resultCastka > 0 && (SponzorovaniClenove.Count == 0 && SponzorovaneSouteze.Count == 0))
+            if (resultCastka > 0 && (SponzorovaniClenove.Count == 0 && SponzorovaneSouteze.Count == 0))
             {
                 throw new NonValidDataException("Musejí být přiřazeny nějaké sponzorované soutěže nebo členové, protože je vyplněná sponzorovaná částka!");
             }
@@ -82,53 +102,50 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Metoda slouží k přidání nového sponzora do tabulky a zároveň také do databáze
+        /// Metoda slouží k editaci vybraného sponzora z tabulky a zároveň také v databázi
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnPridej_Click(object sender, RoutedEventArgs e)
+        private void btnEdituj_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 ValidujData();
 
-                Sponzor pridanySponzor = new Sponzor();
-                pridanySponzor.Jmeno = tboxJmenoSponzora.Text;
-                pridanySponzor.SponzorovanaCastka = Convert.ToInt64(tboxCastka.Text);
-                pridanySponzor.SponzorovaniClenove = SponzorovaniClenove.ToList();
-                pridanySponzor.SponzorovaneSouteze = SponzorovaneSouteze.ToList();
+                editovanySponzor.Jmeno = tboxJmenoSponzora.Text;
+                editovanySponzor.SponzorovanaCastka = Convert.ToInt64(tboxCastka.Text);
+                editovanySponzor.SponzorovaniClenove = SponzorovaniClenove.ToList();
+                editovanySponzor.SponzorovaneSouteze = SponzorovaneSouteze.ToList();
 
-                DatabaseSponzori.AddSponzor(pridanySponzor);
 
-                int? idSponzor = DatabaseSponzori.GetCurrentId();
-                if(idSponzor == null)
-                {
-                    throw new NullReferenceException("ID sponzora nemůže být NULL! Nastala chyba u spojení s databází...");
-                }
+                // Odebrání všech vazeb SPONZORI_CLENOVE u určitého sponzora
+                DatabaseSponzoriClenove.OdeberVsechnyVazbySponzoriClenove(editovanySponzor);
 
-                pridanySponzor.IdSponzor = (int)idSponzor;
+                // Odebrání všech vazeb SPONZORI_SOUTEZE u určitého sponzora
+                DatabaseSponzoriSouteze.OdeberVsechnyVazbySponzoriSouteze(editovanySponzor);
+
+                DatabaseSponzori.UpdateSponzor(editovanySponzor);
 
                 // Přidání všech nově vytvořených vazeb do vazební tabulky SPONZORI_CLENOVE
-                if(pridanySponzor.SponzorovaniClenove.Count > 0)
+                if (editovanySponzor.SponzorovaniClenove.Count > 0)
                 {
-                    foreach (ClenKlubu clen in pridanySponzor.SponzorovaniClenove)
+                    foreach (ClenKlubu clen in editovanySponzor.SponzorovaniClenove)
                     {
-                        DatabaseSponzoriClenove.AddSponzoriClenove(clen, pridanySponzor);
+                        DatabaseSponzoriClenove.AddSponzoriClenove(clen, editovanySponzor);
                     }
                 }
 
                 // Přidání všech nově vytvořených vazeb do vazební tabulky SPONZORI_SOUTEZE
-                if (pridanySponzor.SponzorovaneSouteze.Count > 0) 
+                if (editovanySponzor.SponzorovaneSouteze.Count > 0)
                 {
-                    foreach (Soutez soutez in pridanySponzor.SponzorovaneSouteze)
+                    foreach (Soutez soutez in editovanySponzor.SponzorovaneSouteze)
                     {
-                        DatabaseSponzoriSouteze.AddSponzoriSouteze(soutez, pridanySponzor);
+                        DatabaseSponzoriSouteze.AddSponzoriSouteze(soutez, editovanySponzor);
                     }
                 }
 
-                sponzoriData.Add(pridanySponzor);
-
-                MessageBox.Show("Sponzor byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                sponzoriOkno.dgSponzori.Items.Refresh();
+                MessageBox.Show("Sponzor byl úspěšně editován! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
 
@@ -151,7 +168,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         private void btnEditujVazbyClenove_Click(object sender, RoutedEventArgs e)
         {
             DialogVazebniTabulkaClenove dialogVazebniTabulkaClenove;
-            if(SponzorovaniClenove.Count > 0)
+            if (SponzorovaniClenove.Count > 0)
             {
                 dialogVazebniTabulkaClenove = new DialogVazebniTabulkaClenove(SponzorovaniClenove);
             }

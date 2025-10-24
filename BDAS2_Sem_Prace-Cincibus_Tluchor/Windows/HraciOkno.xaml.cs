@@ -61,7 +61,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             DialogEditujHrace dialogEditujHrace = new DialogEditujHrace(vybranyHrac, this);
             dialogEditujHrace.ShowDialog();
-
         }
 
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)

@@ -88,6 +88,37 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         }
 
         /// <summary>
+        /// Metoda slouží k editaci sponzora v databázi
+        /// </summary>
+        /// <param name="sponzor">Sponzor, kterého chceme editovat v databázi</param>
+        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void UpdateSponzor(Sponzor sponzor)
+        {
+            using var conn = GetConnection();
+            conn.Open();
+
+            using (var cmd = new OracleCommand("PKG_SPONZORI.SP_UPDATE_SPONZOR", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                // Naplníme všechny parametry procedury
+                cmd.Parameters.Add("v_id_sponzor", OracleDbType.Int32).Value = sponzor.IdSponzor;
+                cmd.Parameters.Add("v_jmeno", OracleDbType.Varchar2).Value = sponzor.Jmeno;
+                cmd.Parameters.Add("v_sponzorovana_castka", OracleDbType.Varchar2).Value = sponzor.SponzorovanaCastka;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                catch (OracleException ex)
+                {
+                    throw new Exception($"Chyba při volání procedury SP_UPDATE_SPONZOR: {ex.Message}", ex);
+                }
+            }
+        }
+
+        /// <summary>
         /// Metoda slouží k získání nového ID z databáze
         /// </summary>
         /// <returns>Nové ID</returns>

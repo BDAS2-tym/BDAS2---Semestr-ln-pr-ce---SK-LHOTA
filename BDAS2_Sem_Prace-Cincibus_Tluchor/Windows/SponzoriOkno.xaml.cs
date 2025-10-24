@@ -4,8 +4,10 @@ using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
@@ -151,7 +153,92 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void btnOdeber_Click(object sender, RoutedEventArgs e)
         {
-            /* TODO dodělat odebírání sponzorů */
+            Sponzor? vybranySponzor = dgSponzori.SelectedItem as Sponzor;
+
+            if(vybranySponzor == null)
+            {
+                MessageBox.Show(
+                    "Prosím, vyberte trenéra, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Potvrzení od uživatele
+            MessageBoxResult potvrzeni = MessageBox.Show($"Opravdu chcete odebrat sponzora {vybranySponzor.Jmeno}?", "Potvrzení odebrání",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if(potvrzeni == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            // Smazání z databáze
+            try
+            {
+                // Odebrání všech vytvořených vazeb z vazební tabulky SPONZORI_CLENOVE
+                if (vybranySponzor.SponzorovaniClenove.Count > 0)
+                {
+                    foreach (ClenKlubu clen in vybranySponzor.SponzorovaniClenove)
+                    {
+                        DatabaseSponzoriClenove.OdeberSponzoriClenove(clen, vybranySponzor);
+                    }
+                }
+
+                // Odebrání všech vytvořených vazeb z vazební tabulky SPONZORI_SOUTEZE
+                if (vybranySponzor.SponzorovaneSouteze.Count > 0)
+                {
+                    foreach (Soutez soutez in vybranySponzor.SponzorovaneSouteze)
+                    {
+                        DatabaseSponzoriSouteze.OdeberSponzoriSouteze(soutez, vybranySponzor);
+                    }
+                }
+
+                DatabaseSponzori.OdeberSponzor(vybranySponzor);
+
+                // Aktualizace DataGridu (odebrání z kolekce)
+                SponzoriData.Remove(vybranySponzor);
+
+                // Úspěch
+                MessageBox.Show(
+                    $"Sponzor {vybranySponzor.Jmeno} byl úspěšně odebrán.",
+                    "Úspěch",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Chyba databáze při mazání sponzora:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Nastala neočekávaná chyba při mazání sponzora:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void dgSponzori_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            // Získání objektu DataGrid a jeho potomků, aby se DoubleClick uplatňoval pouze na řádky a ne na ColumnHeader
+            while (dep != null && !(dep is DataGridRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep is DataGridRow row)
+            {
+                Sponzor? vybranySponzor = (Sponzor)row.Item;
+                if (vybranySponzor == null)
+                {
+                    MessageBox.Show("Prosím vyberte sponzora, kterého chcete upravit! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                DialogEditujSponzora dialogEditujdialogEditujSponzora = new DialogEditujSponzora(vybranySponzor, this);
+                dialogEditujdialogEditujSponzora.ShowDialog();
+            }
         }
     }
 }
