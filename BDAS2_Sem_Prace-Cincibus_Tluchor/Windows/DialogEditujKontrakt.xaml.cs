@@ -3,7 +3,6 @@ using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,41 +14,100 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Xps;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Interaction logic for DialogPridejKontrakt.xaml
+    /// Interaction logic for DialogEditujKontrakt.xaml
     /// </summary>
-    public partial class DialogPridejKontrakt : Window
+    public partial class DialogEditujKontrakt : Window
     {
-        private ObservableCollection<Kontrakt> kontraktyData;
+        private Kontrakt editovanyKontrakt;
+        private KontraktyOkno kontraktyOkno;
         private List<Hrac> hraci = new List<Hrac>();
         private const int MinimalniMzda = 20800;
         private const int MinHraniceTelCisla = 9;
         private const int MaxHraniceTelCisla = 12;
 
-        public DialogPridejKontrakt(ObservableCollection<Kontrakt> kontraktyData)
+        public DialogEditujKontrakt(Kontrakt editovanyKontrakt, KontraktyOkno kontraktyOkno)
         {
             InitializeComponent();
 
-            this.kontraktyData = kontraktyData;
+            // Nastavení DataContextu
+            DataContext = this;
             NaplnCbHrac();
+
+            this.editovanyKontrakt = editovanyKontrakt;
+            this.kontraktyOkno = kontraktyOkno;
+
+            tboxPlat.Text = editovanyKontrakt.Plat.ToString();
+            tboxTelCisloAgenta.Text = editovanyKontrakt.TelCisloNaAgenta;
+            tboxVystupniKlauzule.Text = editovanyKontrakt.VystupniKlauzule.ToString();
+            cbHrac.SelectedItem = hraci.FirstOrDefault(hrac => hrac.IdClenKlubu == editovanyKontrakt.KontraktHrace.IdClenKlubu);
+            dpDatumZacatkuKontraktu.SelectedDate = editovanyKontrakt.DatumZacatku.ToDateTime(TimeOnly.MinValue);
+            dpDatumKonceKontraktu.SelectedDate = editovanyKontrakt.DatumKonce.ToDateTime(TimeOnly.MinValue);
         }
 
         /// <summary>
-        /// Metoda vymaže textová pole a resetuje IntegerUpDown
+        /// Metoda slouží k zavření dialogového okna
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void btnUkonci_Click(object sender, RoutedEventArgs e)
         {
-            tboxPlat.Clear();
-            tboxTelCisloAgenta.Clear();
-            tboxVystupniKlauzule.Clear();
-            cbHrac.SelectedItem = null;
-            dpDatumKonceKontraktu.SelectedDate = DateTime.Now;
-            dpDatumZacatkuKontraktu.SelectedDate = DateTime.Now;
+            this.Close();
+        }
+
+        /// <summary>
+        /// Metoda slouží k nastavení datamu do dpDatumKonce, pokaždé když se změní datum v dpDatumZacatek
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void dpDatumZacatkuKontraktu_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dpDatumZacatkuKontraktu.SelectedDate.HasValue)
+                dpDatumKonceKontraktu.SelectedDate = dpDatumZacatkuKontraktu.SelectedDate.Value.AddYears(1);
+        }
+
+        /// <summary>
+        /// Metoda slouží k editaci vybraného kontrakt z tabulky a zároveň také v databázi
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void btnEdituj_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ValidujData();
+
+                Hrac? vybranyHrac = cbHrac.SelectedItem as Hrac;
+                if(vybranyHrac != null)
+                {
+                    editovanyKontrakt.Plat = Convert.ToInt32(tboxPlat.Text);
+                    editovanyKontrakt.DatumZacatku = DateOnly.FromDateTime(dpDatumZacatkuKontraktu.SelectedDate.Value);
+                    editovanyKontrakt.DatumKonce = DateOnly.FromDateTime(dpDatumKonceKontraktu.SelectedDate.Value);
+                    editovanyKontrakt.TelCisloNaAgenta = tboxTelCisloAgenta.Text;
+                    editovanyKontrakt.VystupniKlauzule = Convert.ToInt32(tboxVystupniKlauzule.Text);
+                    editovanyKontrakt.KontraktHrace = vybranyHrac;
+
+                    DatabaseKontrakty.UpdateKontrakt(editovanyKontrakt);
+                    kontraktyOkno.dgKontrakty.Items.Refresh();
+                    MessageBox.Show("Kontrakt byl úspěšně editován!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+                this.Close();
+            }
+
+            catch (NonValidDataException ex)
+            {
+                MessageBox.Show(ex.Message, "Nevalidní data", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
@@ -58,42 +116,42 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <exception cref="NonValidDataException">Výjimka se vystaví, pokud jsou vstupní data nevalidní</exception>
         private void ValidujData()
         {
-            if(!int.TryParse(tboxPlat.Text, out int resultPlat))
+            if (!int.TryParse(tboxPlat.Text, out int resultPlat))
             {
                 throw new NonValidDataException("Plat není celé číslo!");
             }
 
-            if(resultPlat < MinimalniMzda)
+            if (resultPlat < MinimalniMzda)
             {
                 throw new NonValidDataException($"Plat musí být minimálně ve výši minimální mzdy {MinimalniMzda} !");
             }
 
-            if(tboxTelCisloAgenta.Text.Length < MinHraniceTelCisla || tboxTelCisloAgenta.Text.Length > MaxHraniceTelCisla)
+            if (tboxTelCisloAgenta.Text.Length < MinHraniceTelCisla || tboxTelCisloAgenta.Text.Length > MaxHraniceTelCisla)
             {
                 throw new NonValidDataException($"Telefonní číslo musí být v rozmezí {MinHraniceTelCisla} a {MaxHraniceTelCisla} !");
             }
 
-            if(!tboxTelCisloAgenta.Text.All(char.IsDigit))
+            if (!tboxTelCisloAgenta.Text.All(char.IsDigit))
             {
                 throw new NonValidDataException("Telefonní číslo se musí skládat pouze z číslic!");
             }
 
-            if(!int.TryParse(tboxVystupniKlauzule.Text, out int resultKlauzule))
+            if (!int.TryParse(tboxVystupniKlauzule.Text, out int resultKlauzule))
             {
                 throw new NonValidDataException("Výstupní klauzule není celé číslo!");
             }
 
-            if(resultKlauzule < 0)
+            if (resultKlauzule < 0)
             {
                 throw new NonValidDataException("Výstupní klauzule nemůže být záporná !");
             }
 
-            if(cbHrac.SelectedItem == null)
+            if (cbHrac.SelectedItem == null)
             {
                 throw new NonValidDataException("Vybraný hráč nemůže být NULL!");
             }
 
-            if(dpDatumZacatkuKontraktu.SelectedDate == null || dpDatumKonceKontraktu.SelectedDate == null)
+            if (dpDatumZacatkuKontraktu.SelectedDate == null || dpDatumKonceKontraktu.SelectedDate == null)
             {
                 throw new NonValidDataException("Vybrané datum nemůže být NULL!");
             }
@@ -149,54 +207,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             catch (Exception ex)
             {
                 MessageBox.Show($"Chyba při načítání hráčů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        /// <summary>
-        /// Metoda slouží k nastavení datamu do dpDatumKonce, pokaždé když se změní datum v dpDatumZacatek
-        /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">eventArgs</param>
-        private void dpDatumZacatkuKontraktu_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(dpDatumZacatkuKontraktu.SelectedDate.HasValue)
-                dpDatumKonceKontraktu.SelectedDate = dpDatumZacatkuKontraktu.SelectedDate.Value.AddYears(1);
-        }
-
-        private void btnPridej_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ValidujData();
-
-                Kontrakt pridanyKontrakt = new Kontrakt();
-                Hrac? vybranyHrac = cbHrac.SelectedItem as Hrac;
-                if(vybranyHrac != null)
-                {                  
-                    pridanyKontrakt.KontraktHrace = vybranyHrac;
-                    pridanyKontrakt.IdClena = vybranyHrac.IdClenKlubu;
-                    pridanyKontrakt.DatumZacatku = DateOnly.FromDateTime(dpDatumZacatkuKontraktu.SelectedDate.Value);
-                    pridanyKontrakt.DatumKonce = DateOnly.FromDateTime(dpDatumKonceKontraktu.SelectedDate.Value);
-                    pridanyKontrakt.Plat = Convert.ToInt32(tboxPlat.Text);
-                    pridanyKontrakt.TelCisloNaAgenta = tboxTelCisloAgenta.Text;
-                    pridanyKontrakt.VystupniKlauzule = Convert.ToInt32(tboxVystupniKlauzule.Text);
-                    
-                    DatabaseKontrakty.AddKontrakt(pridanyKontrakt);
-                    kontraktyData.Add(pridanyKontrakt);
-                    MessageBox.Show("Kontrakt byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-              
-                this.Close();
-            }
-
-            catch (NonValidDataException ex)
-            {
-                MessageBox.Show(ex.Message, "Nevalidní data", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error);
             }
         }
     }

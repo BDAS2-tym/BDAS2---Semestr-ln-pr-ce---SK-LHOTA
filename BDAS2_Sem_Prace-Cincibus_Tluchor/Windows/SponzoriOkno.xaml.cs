@@ -158,7 +158,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             if(vybranySponzor == null)
             {
                 MessageBox.Show(
-                    "Prosím, vyberte trenéra, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    "Prosím, vyberte sponzora, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -217,6 +217,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Metoda slouží k zobrazení editovacího dialogu sponzora
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void dgSponzori_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;

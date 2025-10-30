@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Windows"
+        xmlns:conv="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Text_Converters"
         mc:Ignorable="d"
-        Title="Kontrakty" 
-        
+        Title="Kontrakty"         
         Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Kontrakty.ico" >
+
+    <Window.Resources>
+        <conv:KontraktyHraceConverter x:Key="KontraktyHraceConverter"/>
+    </Window.Resources>
 
     <Grid>
 
@@ -33,11 +37,11 @@
                   HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
                   AutoGenerateColumns="False"                        
-                  IsReadOnly="False"
+                  IsReadOnly="True"
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single">
+                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single" MouseDoubleClick="dgKontrakty_MouseDoubleClick_1" PreviewKeyDown="dgKontrakty_PreviewKeyDown">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->
@@ -64,42 +68,40 @@
 
                 <DataGrid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFCBCBCB" Offset="1"/>
                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFE8FFFF" Offset="1"/>
                     </LinearGradientBrush>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Datum od" Binding="{Binding DatumZacatku, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Datum do" Binding="{Binding DatumKonce, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Datum od" Binding="{Binding DatumZacatku, StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Datum do" Binding="{Binding DatumKonce, StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Plat" Binding="{Binding Plat, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Tel.číslo agenta" Binding="{Binding CisloNaAgenta, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Tel.číslo agenta" Binding="{Binding TelCisloNaAgenta, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Výstupní klauzule" Binding="{Binding VystupniKlauzule}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    
+                    <!-- Kontrakt hráče – vytvoření přes TemplateColumn, kvůli zobrazování atributů hráče -->
+                    <DataGridTemplateColumn Header="Hráč" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
 
-                    <DataGridTextColumn Header="Výstupní klauzule" Binding="{Binding VystupniKlauzule}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
-                        <DataGridTextColumn.HeaderStyle>
-                            <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
+                                <TextBlock Text="{Binding KontraktHrace, Converter={StaticResource KontraktyHraceConverter}}" FontFamily="Century Gothic" Margin="2,4,2,4" Style="{StaticResource CenterCellStyle}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+
+                        <DataGridTemplateColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
-                                <!-- Pozadí -->
                                 <Setter Property="Background" Value="#AABBCC"/>
-
-                                <!-- Barva textu -->
                                 <Setter Property="Foreground" Value="Black"/>
-
-                                <!-- Font -->
                                 <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="FontSize" Value="12"/>
                                 <Setter Property="FontFamily" Value="Century Gothic"/>
-
-                                <!-- Vycentrování textu -->
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-
-                                <!-- Ohraničení -->
                                 <Setter Property="BorderBrush" Value="#125C64"/>
                                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
                             </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </DataGridTextColumn>
+                        </DataGridTemplateColumn.HeaderStyle>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
 
                 <!-- Změna barvy pozadí a písma při výběru řádku -->
@@ -169,7 +171,7 @@
                     </Grid.Resources>
 
                     <!-- Button Přidej -->
-                    <Button x:Name="btnPridej" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+                    <Button x:Name="btnPridej" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="btnPridej_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Přidej" VerticalAlignment="Center"/>
@@ -177,7 +179,7 @@
                     </Button>
 
                     <!-- Button Odeber -->
-                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}" Click="btnOdeber_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>

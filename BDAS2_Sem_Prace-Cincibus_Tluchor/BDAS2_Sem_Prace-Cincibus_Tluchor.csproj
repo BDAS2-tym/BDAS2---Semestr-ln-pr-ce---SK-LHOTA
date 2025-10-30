@@ -41,6 +41,7 @@
 
   <!-- Odstranění z ItemGroup -->
   <ItemGroup>
+    <None Remove="Images\Ikony\Ikona_Mail.png" />
     <None Remove="Images\Ikony\Ikona_Prohra.png" />
     <None Remove="Images\Ikony\Ikona_Remiza.png" />
     <None Remove="Images\Ikony\Ikona_Uzivatel.png" />
@@ -53,6 +54,9 @@
 
   <!-- Znovu přidání do Resource s CopyToOutputDirectory -->
   <ItemGroup>
+    <Resource Include="Images\Ikony\Ikona_Mail.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Ikony\Ikona_Prohra.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
