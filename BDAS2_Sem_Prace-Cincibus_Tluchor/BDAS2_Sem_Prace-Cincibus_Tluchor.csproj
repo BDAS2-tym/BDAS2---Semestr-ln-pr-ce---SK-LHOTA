@@ -45,11 +45,17 @@
     <None Remove="Images\Ikony\Ikona_Prohra.png" />
     <None Remove="Images\Ikony\Ikona_Remiza.png" />
     <None Remove="Images\Ikony\Ikona_Uzivatel.png" />
+    <None Remove="Images\Ikony\Ikona_Uzivatel_Username.png" />
     <None Remove="Images\Ikony\Ikona_Vyhra.png" />
     <None Remove="Images\Ikony\Ikona_Vyhra1.png" />
     <None Remove="Images\Ikony\key-icon.png" />
     <None Remove="Images\Ikony\key1-icon.png" />
     <None Remove="Images\Ikony\user-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Ikony\Ikona_Uzivatel_Username.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <!-- Znovu přidání do Resource s CopyToOutputDirectory -->
@@ -71,6 +77,11 @@
     </Resource>
     <Resource Include="Images\Ikony\key1-icon.png" />
     <Resource Include="Images\Ikony\user-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Update="Images\Ikony\Ikona_Grafy.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

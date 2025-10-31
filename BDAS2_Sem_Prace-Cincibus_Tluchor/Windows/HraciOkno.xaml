@@ -65,7 +65,7 @@
 
                 <DataGrid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                        <GradientStop Color="#FFE8FFFF" Offset="0.992"/>
                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
                     </LinearGradientBrush>
                 </DataGrid.Background>

@@ -119,7 +119,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu 
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
+        /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
@@ -132,6 +133,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                 MessageBox.Show("Smazání sponzora klávesou Delete není povoleno.",
                                 "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            // Zrušení výběru řádku při zmáčknutí klávesy Spacebar
+            if (e.Key == Key.Space)
+            {
+                dgSponzori.UnselectAll();
+
+                // Odstranění Focus Rectangle na dané buňce
+                dgSponzori.Focusable = false;
+                Keyboard.ClearFocus();
+                dgSponzori.Focusable = true;
             }
         }
 
