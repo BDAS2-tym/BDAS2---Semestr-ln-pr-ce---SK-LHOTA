@@ -195,7 +195,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgTreninky_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void DgTreninky_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {

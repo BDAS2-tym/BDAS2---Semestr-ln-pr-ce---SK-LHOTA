@@ -5,36 +5,42 @@ using System.Data;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
     /// <summary>
-    /// Třída pro správu uživatelů v databázi.
-    /// Umožňuje přidávání, úpravu, mazání a ověřování uživatelů
+    /// Třída pro správu uživatelů v databázi
+    /// Komunikuje s uloženými procedurami v balíčku PKG_REGISTRACE
+    /// Umožňuje přidávat, upravovat a mazat uživatele
     /// </summary>
     internal static class DatabaseRegistrace
     {
         /// <summary>
-        /// Odstraní uživatele z databáze podle uživatelského jména
+        /// Odstraní uživatele z databáze pomocí procedury PKG_REGISTRACE.SP_DELETE_UZIVATEL
         /// </summary>
-        /// <param name="uzivatel">Objekt uživatele, který má být odstraněn.</param>
+        /// <param name="uzivatel">Objekt uživatele, který se má smazat</param>
         public static void DeleteUzivatel(Uzivatel uzivatel)
         {
             using var conn = DatabaseManager.GetConnection();
             conn.Open();
 
-            // SQL příkaz pro odstranění uživatele podle jména
-            using var cmd = new OracleCommand("DELETE FROM UZIVATELSKE_UCTY WHERE UZIVATELSKEJMENO = :v_uzivatelske_jmeno", conn);
+            // Voláme proceduru z balíčku PKG_REGISTRACE
+            using var cmd = new OracleCommand("PKG_REGISTRACE.SP_DELETE_UZIVATEL", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            // Parametr – uživatelské jméno
             cmd.Parameters.Add("v_uzivatelske_jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
 
             try
             {
-                cmd.ExecuteNonQuery(); // provede smazání
+                cmd.ExecuteNonQuery();
             }
             catch (OracleException ex)
             {
-                throw new Exception($"Chyba při mazání uživatele: {ex.Message}", ex);
+                throw new Exception($"Chyba při volání PKG_REGISTRACE.SP_DELETE_UZIVATEL: {ex.Message}", ex);
             }
         }
 
         /// <summary>
-        /// Vloží nového uživatele do databáze pomocí uložené procedury v balíčku PKG_REGISTRACE.SP_ADD_UZIVATEL.
+        /// Přidá nového uživatele do databáze pomocí uložené procedury PKG_REGISTRACE.SP_ADD_UZIVATEL
         /// </summary>
         /// <param name="uzivatel">Objekt s daty nového uživatele</param>
         public static void AddUzivatel(Uzivatel uzivatel)
@@ -42,11 +48,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             using var conn = DatabaseManager.GetConnection();
             conn.Open();
 
-            // Nejprve zjistíme ID role uživatele podle názvu role
+            // Získáme ID role podle názvu role
             int idRole;
             using (var roleCmd = new OracleCommand("SELECT IDROLE FROM ROLE WHERE LOWER(REPLACE(NAZEVROLE, 'Á', 'A')) = :nazev", conn))
             {
-                // Normalizace názvu role (odstranění diakritiky)
                 string normalizedRole = uzivatel.Role.ToLowerInvariant()
                     .Replace("á", "a").Replace("é", "e").Replace("í", "i")
                     .Replace("ó", "o").Replace("ú", "u").Replace("ý", "y")
@@ -54,21 +59,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 
                 roleCmd.Parameters.Add("nazev", OracleDbType.Varchar2).Value = normalizedRole;
 
-                object result = roleCmd.ExecuteScalar(); // zjištění ID role
-
+                object result = roleCmd.ExecuteScalar();
                 if (result == null)
                     throw new Exception($"Role '{uzivatel.Role}' neexistuje v tabulce ROLE.");
 
                 idRole = Convert.ToInt32(result);
             }
 
-            // Volání uložené procedury pro vložení uživatele
+            // 2Zavoláme uloženou proceduru pro vložení uživatele
             using var cmd = new OracleCommand("PKG_REGISTRACE.SP_ADD_UZIVATEL", conn)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            // Předání všech potřebných parametrů proceduře
             cmd.Parameters.Add("v_uzivatelske_jmeno", OracleDbType.Varchar2, 30).Value = uzivatel.UzivatelskeJmeno;
             cmd.Parameters.Add("v_heslo", OracleDbType.Varchar2, 100).Value = uzivatel.Heslo;
             cmd.Parameters.Add("v_posledni_prihlaseni", OracleDbType.TimeStamp).Value = uzivatel.PosledniPrihlaseni;
@@ -78,17 +81,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 
             try
             {
-                cmd.ExecuteNonQuery(); // vloží uživatele
+                cmd.ExecuteNonQuery();
 
-                // Pokud má uživatel rodné číslo (je člen klubu), najdeme jeho ID a vytvoříme vazbu
+                // 3Pokud má uživatel rodné číslo (je člen klubu), vytvoříme vazbu
                 if (!string.IsNullOrEmpty(uzivatel.RodneCislo))
                 {
                     using var cmdId = new OracleCommand("SELECT IDCLENKLUBU FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rodnecislo", conn);
                     cmdId.Parameters.Add(":rodnecislo", OracleDbType.Varchar2).Value = uzivatel.RodneCislo;
 
                     object idClena = cmdId.ExecuteScalar();
-
-                    // Pokud člen existuje, aktualizujeme vazbu mezi uživatelem a členem klubu
                     if (idClena != null)
                     {
                         using var cmdUpdate = new OracleCommand(@"
@@ -104,25 +105,25 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             }
             catch (OracleException ex)
             {
-                // Ošetření specifické chyby – duplicitní jméno nebo email
                 if (ex.Number == 20003)
                     throw new Exception("Duplicitní uživatelské jméno nebo e-mail!");
                 else
-                    throw new Exception($"Chyba při volání procedury PKG_REGISTRACE.SP_ADD_UZIVATEL: {ex.Message}", ex);
+                    throw new Exception($"Chyba při volání PKG_REGISTRACE.SP_ADD_UZIVATEL: {ex.Message}", ex);
             }
         }
 
         /// <summary>
-        /// Aktualizuje údaje uživatele (včetně možnosti změnit jméno a heslo)
+        /// Aktualizuje údaje uživatele pomocí procedury PKG_REGISTRACE.SP_UPDATE_UZIVATEL
+        /// Pokud heslo není zadáno, použije se původní z databáze
         /// </summary>
-        /// <param name="uzivatel">Nová data uživatele</param>
-        /// <param name="stareJmeno">Původní uživatelské jméno pro identifikaci záznamu</param>
+        /// <param name="uzivatel">Objekt s novými daty uživatele</param>
+        /// <param name="stareJmeno">Původní uživatelské jméno, podle kterého se vyhledá záznam</param>
         public static void UpdateUzivatel(Uzivatel uzivatel, string stareJmeno)
         {
             using var conn = DatabaseManager.GetConnection();
             conn.Open();
 
-            // Pokud nebylo zadáno nové heslo, načteme staré
+            // Pokud není nové heslo → načteme staré
             if (string.IsNullOrEmpty(uzivatel.Heslo))
             {
                 using var cmdOld = new OracleCommand(
@@ -137,30 +138,30 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 }
             }
 
-            // Aktualizační dotaz – změní údaje uživatele podle původního jména
-            using var cmd = new OracleCommand(@"
-                UPDATE UZIVATELSKE_UCTY
-                SET UZIVATELSKEJMENO = :noveJmeno,
-                    EMAIL = :email,
-                    HESLO = :heslo,
-                    SALT = :salt
-                WHERE UZIVATELSKEJMENO = :stareJmeno", conn);
+            // Voláme proceduru pro update
+            using var cmd = new OracleCommand("PKG_REGISTRACE.SP_UPDATE_UZIVATEL", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-            cmd.Parameters.Add(":noveJmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
-            cmd.Parameters.Add(":email", OracleDbType.Varchar2).Value = uzivatel.Email;
-            cmd.Parameters.Add(":heslo", OracleDbType.Varchar2).Value = uzivatel.Heslo;
-            cmd.Parameters.Add(":salt", OracleDbType.Varchar2).Value = uzivatel.Salt;
-            cmd.Parameters.Add(":stareJmeno", OracleDbType.Varchar2).Value = stareJmeno;
+            cmd.Parameters.Add("v_uzivatelske_jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+            cmd.Parameters.Add("v_email", OracleDbType.Varchar2).Value = uzivatel.Email;
+            cmd.Parameters.Add("v_heslo", OracleDbType.Varchar2).Value = uzivatel.Heslo;
+            cmd.Parameters.Add("v_salt", OracleDbType.Varchar2).Value = uzivatel.Salt;
+            cmd.Parameters.Add("v_idrole", OracleDbType.Int32).Value = uzivatel.Role;
 
-            int rows = cmd.ExecuteNonQuery();
-
-            // Pokud se neaktualizoval žádný záznam, uživatel nebyl nalezen
-            if (rows == 0)
-                throw new Exception("Uživatel nebyl nalezen – žádný záznam se neaktualizoval.");
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (OracleException ex)
+            {
+                throw new Exception($"Chyba při volání PKG_REGISTRACE.SP_UPDATE_UZIVATEL: {ex.Message}", ex);
+            }
         }
 
         /// <summary>
-        /// Ověří, zda v databázi existuje člen klubu s daným rodným číslem a typem (hráč/trenér)
+        /// Ověří, zda v databázi existuje člen klubu podle rodného čísla a typu (hráč/trenér)
         /// </summary>
         /// <param name="rodneCislo">Rodné číslo člena klubu</param>
         /// <param name="typClena">Typ člena ("hrac" nebo "trener")</param>
@@ -181,7 +182,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             cmd.Parameters.Add("v_typ_clena", OracleDbType.Varchar2).Value = typClena.ToLowerInvariant();
 
             int existuje = Convert.ToInt32(cmd.ExecuteScalar());
-            return existuje > 0; // Vrátí true, pokud člen existuje
+            return existuje > 0;
         }
     }
 }

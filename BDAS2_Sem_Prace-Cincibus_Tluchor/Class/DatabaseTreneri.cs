@@ -8,9 +8,18 @@ using System.Threading.Tasks;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+    /// <summary>
+    /// Třída pro práci s trenéry v databázi
+    /// Volá uložené procedury v balíčku PKG_TRENERI (přidání, editace, odstranění trenéra)
+    /// a poskytuje pomocné funkce jako zjištění počtu trenérů
+    /// </summary>
     internal static class DatabaseTreneri
     {
 
+        /// <summary>
+        /// Vrátí počet trenérů v databázi
+        /// </summary>
+        /// <returns>Počet trenérů jako celé číslo</returns>
         public static int GetPocetTreneru()
         {
             using var conn = DatabaseManager.GetConnection();
@@ -20,13 +29,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             return Convert.ToInt32(cmd.ExecuteScalar());
         }
 
+        /// <summary>
+        /// Přidá nového trenéra pomocí uložené procedury <b>SP_ADD_TRENERI</b> z balíčku <b>PKG_TRENERI</b>.
+        /// </summary>
+        /// <param name="trener">Objekt trenéra s vyplněnými údaji (rodné číslo, jméno, licence, atd.)</param>
         public static void AddTrener(Trener trener)
         {
 
             using var conn = DatabaseManager.GetConnection();
             conn.Open();
 
-            using (var cmd = new OracleCommand("SP_ADD_TRENERI", conn))
+            using (var cmd = new OracleCommand("PKG_TRENERI.SP_ADD_TRENERI", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -41,22 +54,27 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 
                 try
                 {
+                    // Provede volání uložené procedury v databázi
                     cmd.ExecuteNonQuery();
                 }
                 catch (OracleException ex)
                 {
-                    throw new Exception($"Chyba při volání procedury SP_ADD_TRENERI: {ex.Message}", ex);
+                    throw new Exception($"Chyba při volání procedury SP_ADD_TRENERI v balíčku PKG_TRENERI: {ex.Message}", ex);
                 }
             }
 
         }
 
+        /// <summary>
+        /// Aktualizuje existujícího trenéra pomocí uložené procedury <b>SP_UPDATE_TRENERI</b>
+        /// </summary>
+        /// <param name="trener">Objekt trenéra s novými údaji (např. změna jména nebo praxe)</param>
         public static void UpdateTrener(Trener trener)
         {
             using var conn = DatabaseManager.GetConnection();
             conn.Open();
 
-            using (var cmd = new OracleCommand("SP_UPDATE_TRENERI", conn))
+            using (var cmd = new OracleCommand("PKG_TRENERI.SP_UPDATE_TRENERI", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -71,29 +89,32 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 
                 try
                 {
+                    // Provede volání uložené procedury v databázi
                     cmd.ExecuteNonQuery();
                 }
                 catch (OracleException ex)
                 {
-                    throw new Exception($"Chyba při volání procedury SP_UPDATE_TRENERI: {ex.Message}", ex);
+                    throw new Exception($"Chyba při volání procedury SP_UPDATE_TRENERI v balíčku PKG_TRENERI: {ex.Message}", ex);
                 }
             }
         }
 
+        /// <summary>
+        /// Odstraní trenéra z databáze pomocí uložené procedury <b>SP_ODEBER_TRENERI</b>
+        /// </summary>
+        /// <param name="trener">Objekt trenéra, který má být odstraněn</param>
         public static void OdeberTrenera(Trener trener)
         {
             using var conn = DatabaseManager.GetConnection();
             conn.Open();
 
-            using (var cmd = new OracleCommand("SP_ODEBER_TRENERI", conn))
+            using (var cmd = new OracleCommand("PKG_TRENERI.SP_ODEBER_TRENERI", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("p_rodne_cislo", OracleDbType.Decimal).Value = trener.RodneCislo;
+                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Decimal).Value = trener.RodneCislo;
                 cmd.ExecuteNonQuery();
             }
         }
-
-
 
     }
 }
