@@ -89,5 +89,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             this.PocetCervenychKaret = pocetCervenychKaret;
             this.TypClena = "Hrac"; // Defaultně "Hrac"
         }
+
+        public override string ToString()
+        {
+            return $"{Jmeno} {Prijmeni} RČ: {RodneCislo}";
+        }
     }
 }

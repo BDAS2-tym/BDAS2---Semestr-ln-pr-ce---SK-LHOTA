@@ -39,7 +39,7 @@
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None">
+                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->
@@ -69,7 +69,7 @@
 
                 <DataGrid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                        <GradientStop Color="#FFE8FFFF" Offset="1"/>
                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
                     </LinearGradientBrush>
                 </DataGrid.Background>

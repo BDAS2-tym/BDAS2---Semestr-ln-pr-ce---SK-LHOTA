@@ -38,20 +38,18 @@
                     <RowDefinition Height="*" />
                     <!-- Tabulka -->
                     <RowDefinition Height="Auto" />
-                    <!-- Tlačítko SWITCH -->
+                    <!-- Tlačítko PŘESUŇ -->
                 </Grid.RowDefinitions>
-
 
                 <TextBlock x:Name="tblockVsechny" Grid.Row="0" Text="VŠECHNY SOUTĚŽE" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="0,4,0,6" FontFamily="Century Gothic"/>
 
-
                 <Border Grid.Row ="1" BorderBrush="#FF125C64" BorderThickness="2,2,2,2" Grid.Column="0" CornerRadius="5,5,5,5" Margin="2,0,2,0">
-                    <DataGrid x:Name="gridVsechny" FontFamily="Century Gothic" FontSize="11" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="25" HeadersVisibility="Column" ColumnHeaderHeight="18" GridLinesVisibility="None" IsReadOnly="True"
-                        CanUserAddRows="False">
+                    <DataGrid x:Name="gridVsechny" ItemsSource="{Binding VsechnySouteze}" FontFamily="Century Gothic" FontSize="11" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="25" HeadersVisibility="Column" ColumnHeaderHeight="18" GridLinesVisibility="None" IsReadOnly="True"
+                        CanUserAddRows="False" AutoGenerateColumns="False" PreviewKeyDown="gridVsechny_PreviewKeyDown">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Nazev}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="11" Header="Soutěž" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
-                            <DataGridTextColumn Binding="{Binding StartDatum}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="11" Header="Začátek" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
-                            <DataGridTextColumn Binding="{Binding KonecDatum}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="11" Header="Konec" Width="*" ElementStyle="{StaticResource CenterCellStyle}">
+                            <DataGridTextColumn Binding="{Binding TypSouteze}" FontFamily="Century Gothic" FontSize="11" Header="Soutěž" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
+                            <DataGridTextColumn Binding="{Binding StartDatum, StringFormat={}{0:dd.MM.yyyy}}" FontFamily="Century Gothic" FontSize="11" Header="Začátek" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
+                            <DataGridTextColumn Binding="{Binding KonecDatum, StringFormat={}{0:dd.MM.yyyy}}" FontFamily="Century Gothic" FontSize="11" Header="Konec" Width="*" ElementStyle="{StaticResource CenterCellStyle}">
                                 <DataGridTextColumn.HeaderStyle>
                                     <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
                                     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -102,15 +100,24 @@
                         </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                                <GradientStop Color="#FFE8FFFF" Offset="1"/>
                                 <GradientStop Color="#FFF3F3F3" Offset="0"/>
                             </LinearGradientBrush>
                         </DataGrid.Background>
 
+                        <DataGrid.Resources>
+
+                            <!-- Změna barvy pozadí -->
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#fad870"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#fad870"/>
+
+                            <!-- Změna barvy písma-->
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                        </DataGrid.Resources>
                     </DataGrid>
                 </Border>
 
-                <Button x:Name="btnPresunVsechny" Grid.Row="2" Content="Přesuň" Width="100" Height="30" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource HoverFadeButtonStyle3}" FontSize="14"/>
+                <Button x:Name="btnPresunVsechny" Grid.Row="2" Content="Přesuň" Width="100" Height="30" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource HoverFadeButtonStyle3}" FontSize="14" Click="btnPresunVsechny_Click" TabIndex="1"/>
             </Grid>
         </Border>
 
@@ -124,16 +131,15 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-
                 <TextBlock x:Name="tblockVazby" Grid.Row="0" Text="SPONZOROVANÉ SOUTĚŽE" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="0,4,0,6" FontFamily="Century Gothic"/>
 
                 <Border Grid.Row ="1" BorderBrush="#FF125C64" BorderThickness="2,2,2,2" Grid.Column="0" CornerRadius="5,5,5,5" Margin="2,0,2,0">
-                    <DataGrid x:Name="gridVazby" FontFamily="Century Gothic" FontSize="11" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="25" HeadersVisibility="Column" ColumnHeaderHeight="18" GridLinesVisibility="None" IsReadOnly="True"
-        CanUserAddRows="False">
+                    <DataGrid x:Name="gridVazby" ItemsSource="{Binding VybraneSouteze}" FontFamily="Century Gothic" FontSize="11" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="25" HeadersVisibility="Column" ColumnHeaderHeight="18" GridLinesVisibility="None" IsReadOnly="True"
+        CanUserAddRows="False" AutoGenerateColumns="False" PreviewKeyDown="gridVazby_PreviewKeyDown">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Nazev}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="11" Header="Soutěž" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
-                            <DataGridTextColumn Binding="{Binding StartDatum}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="11" Header="Začátek" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
-                            <DataGridTextColumn Binding="{Binding KonecDatum}" FontFamily="Century Gothic" FontWeight="Bold" FontSize="11" Header="Konec" Width="*" ElementStyle="{StaticResource CenterCellStyle}">
+                            <DataGridTextColumn Binding="{Binding TypSouteze}" FontFamily="Century Gothic" FontSize="11" Header="Soutěž" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
+                            <DataGridTextColumn Binding="{Binding StartDatum, StringFormat={}{0:dd.MM.yyyy}}" FontFamily="Century Gothic" FontSize="11" Header="Začátek" Width="*" ElementStyle="{StaticResource CenterCellStyle}"/>
+                            <DataGridTextColumn Binding="{Binding KonecDatum, StringFormat={}{0:dd.MM.yyyy}}" FontFamily="Century Gothic" FontSize="11" Header="Konec" Width="*" ElementStyle="{StaticResource CenterCellStyle}">
                                 <DataGridTextColumn.HeaderStyle>
                                     <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
                                     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -184,16 +190,25 @@
                         </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                                <GradientStop Color="#FFE8FFFF" Offset="1"/>
                                 <GradientStop Color="#FFF3F3F3" Offset="0"/>
                             </LinearGradientBrush>
                         </DataGrid.Background>
 
+                        <DataGrid.Resources>
+
+                            <!-- Změna barvy pozadí -->
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#fad870"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#fad870"/>
+
+                            <!-- Změna barvy písma-->
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                        </DataGrid.Resources>
                     </DataGrid>
                 </Border>
 
 
-                <Button x:Name="btnPresunVazby" Grid.Row="2" Content="Přesuň" Width="100" Height="30" HorizontalAlignment="Center" Margin="0,8,0,0" Style="{StaticResource HoverFadeButtonStyle3}" FontSize="14"/>
+                <Button x:Name="btnPresunVazby" Grid.Row="2" Content="Přesuň" Width="100" Height="30" HorizontalAlignment="Center" Margin="0,8,0,0" Style="{StaticResource HoverFadeButtonStyle3}" FontSize="14" Click="btnPresunVazby_Click" TabIndex="2"/>
             </Grid>
         </Border>
 
@@ -213,11 +228,11 @@
 
 
             <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,10" Height="49" VerticalAlignment="Top" HorizontalAlignment="Right">
-                <Button x:Name="btnOk" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" FontFamily="Century Gothic" FontSize="16" Padding="5,5,5,5" VerticalContentAlignment="Center" Margin="0,10,50,0" Style="{StaticResource HoverFadeButtonStyle}">OK</Button>
+                <Button x:Name="btnOk" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" FontFamily="Century Gothic" FontSize="16" Padding="5,5,5,5" VerticalContentAlignment="Center" Margin="0,10,50,0" Style="{StaticResource HoverFadeButtonStyle}" Click="btnOk_Click" TabIndex="3">OK</Button>
             </StackPanel>
 
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50">
-                <Button x:Name="btnZrusit" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" FontFamily="Century Gothic" FontSize="16" Padding="5,5,5,5" VerticalContentAlignment="Center" Margin="50,10,0,0" Style="{StaticResource HoverFadeButtonStyle}">Zrušit</Button>
+                <Button x:Name="btnZrusit" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" FontFamily="Century Gothic" FontSize="16" Padding="5,5,5,5" VerticalContentAlignment="Center" Margin="50,10,0,0" Style="{StaticResource HoverFadeButtonStyle}" Click="btnZrusit_Click" TabIndex="4">Zrušit</Button>
             </StackPanel>
 
         </Grid>

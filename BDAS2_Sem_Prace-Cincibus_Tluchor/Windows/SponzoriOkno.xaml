@@ -38,11 +38,11 @@
                   HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
                   AutoGenerateColumns="False"                        
-                  IsReadOnly="False"
+                  IsReadOnly="True"
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3"  HeadersVisibility="Column" RowHeight="46" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None">
+                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3"  HeadersVisibility="Column" RowHeight="46" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" PreviewKeyDown="DgSponzori_PreviewKeyDown" SelectionMode="Single" MouseDoubleClick="dgSponzori_MouseDoubleClick">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->
@@ -69,7 +69,7 @@
 
                 <DataGrid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                        <GradientStop Color="#FFE8FFFF" Offset="1"/>
                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
                     </LinearGradientBrush>
                 </DataGrid.Background>
@@ -94,7 +94,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <!-- Sponzorované soutěže – vytvoření přes TemplateColumn, kvůli zobrazování více členů -->
+                    <!-- Sponzorované soutěže – vytvoření přes TemplateColumn, kvůli zobrazování více soutěží -->
                     <DataGridTemplateColumn Header="Sponzorované soutěže" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -125,9 +125,7 @@
                         </DataGridTemplateColumn.HeaderStyle>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
-                
-                
-
+               
                 <!-- Změna barvy pozadí a písma při výběru řádku -->
                 <DataGrid.Resources>
 
@@ -195,7 +193,7 @@
                     </Grid.Resources>
 
                     <!-- Button Přidej -->
-                    <Button x:Name="btnPridej" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+                    <Button x:Name="btnPridej" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="btnPridej_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Přidej" VerticalAlignment="Center"/>
@@ -203,7 +201,7 @@
                     </Button>
 
                     <!-- Button Odeber -->
-                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}" Click="btnOdeber_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>

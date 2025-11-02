@@ -209,7 +209,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
-        // Klávesou DELETE nelze smazat trenéra z datagridu 
+        /// <summary>
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
+        /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void DgTreneri_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
@@ -218,6 +223,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 e.Handled = true;
 
                 MessageBox.Show("Smazání trenéra klávesou Delete není povoleno.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            // Zrušení výběru řádku při zmáčknutí klávesy Spacebar
+            if (e.Key == Key.Space)
+            {
+                dgTreneri.UnselectAll();
+
+                // Odstranění Focus Rectangle na dané buňce
+                dgTreneri.Focusable = false;
+                Keyboard.ClearFocus();
+                dgTreneri.Focusable = true;
             }
         }
     }

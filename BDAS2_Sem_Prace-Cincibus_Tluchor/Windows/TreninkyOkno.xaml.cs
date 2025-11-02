@@ -189,15 +189,32 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
-        // Klávesou DELETE nelze smazat trénink z datagridu 
-        private void DgTreninky_PreviewKeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
+        /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void dgTreninky_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {
                 // Zrušení akce mazání
                 e.Handled = true;
 
-                MessageBox.Show("Smazání tréninku klávesou Delete není povoleno", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Smazání tréninku klávesou Delete není povoleno.",
+                                "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            // Zrušení výběru řádku při zmáčknutí klávesy Spacebar
+            if (e.Key == Key.Space)
+            {
+                dgTreninky.UnselectAll();
+
+                // Odstranění Focus Rectangle na dané buňce
+                dgTreninky.Focusable = false;
+                Keyboard.ClearFocus();
+                dgTreninky.Focusable = true;
             }
         }
     }

@@ -88,7 +88,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             DialogEditujHrace dialogEditujHrace = new DialogEditujHrace(vybranyHrac, this);
             dialogEditujHrace.ShowDialog();
-
         }
 
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
@@ -210,7 +209,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
-        // Klávesou DELETE nelze smazat hráče z datagridu 
+        /// <summary>
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
+        /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void DgHraci_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
@@ -219,6 +223,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 e.Handled = true;
 
                 MessageBox.Show("Smazání hráče klávesou Delete není povoleno.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            // Zrušení výběru řádku při zmáčknutí klávesy Spacebar
+            if (e.Key == Key.Space)
+            {
+                dgHraci.UnselectAll();
+
+                // Odstranění Focus Rectangle na dané buňce
+                dgHraci.Focusable = false;
+                Keyboard.ClearFocus();
+                dgHraci.Focusable = true;
             }
         }
 

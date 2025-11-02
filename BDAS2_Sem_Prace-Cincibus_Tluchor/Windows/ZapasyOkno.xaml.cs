@@ -31,5 +31,34 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             hlavniOkno.Show();
             this.Close();
         }
+
+        /// <summary>
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
+        /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void dgZapasy_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                // Zrušení akce mazání
+                e.Handled = true;
+
+                MessageBox.Show("Smazání zápasu klávesou Delete není povoleno.",
+                                "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            // Zrušení výběru řádku při zmáčknutí klávesy Spacebar
+            if (e.Key == Key.Space)
+            {
+                dgZapasy.UnselectAll();
+
+                // Odstranění Focus Rectangle na dané buňce
+                dgZapasy.Focusable = false;
+                Keyboard.ClearFocus();
+                dgZapasy.Focusable = true;
+            }
+        }
     }
 }
