@@ -8,8 +8,18 @@ using System.Threading.Tasks;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+    /// <summary>
+    /// Třída pro práci s tréninky v databázi
+    /// Obsahuje metody pro přidání, úpravu a smazání tréninku
+    /// Vše probíhá přes uložené procedury z balíčku PKG_TRENINKY v Oracle databázi
+    /// </summary>
     internal class DatabaseTreninky
     {
+
+        /// <summary>
+        /// Přidá nový trénink do databáze pomocí uložené procedury PKG_TRENINKY.SP_ADD_TRENINK
+        /// </summary>
+        /// <param name="trenink">Objekt tréninku s daty k vložení</param>
         public static void AddTrenink(TreninkView trenink)
         {
             using var conn = DatabaseManager.GetConnection();
@@ -38,6 +48,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             }
         }
 
+        /// <summary>
+        /// Aktualizuje existující trénink trenéra v databázi pomocí uložené procedury PKG_TRENINKY.SP_UPDATE_TRENINK
+        /// </summary>
+        /// <param name="trenink">Objekt tréninku s upravenými daty</param>
         public static void UpdateTrenink(TreninkView trenink)
         {
             using var conn = DatabaseManager.GetConnection();
@@ -66,6 +80,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             }
         }
 
+        /// <summary>
+        /// Odstraní trénink daného trenéra z databáze pomocí uložené procedury PKG_TRENINKY.SP_DELETE_TRENINK
+        /// </summary>
+        /// <param name="trenink">Objekt tréninku s rodným číslem trenéra, podle kterého se trénink maže</param>
         public static void DeleteTrenink(TreninkView trenink)
         {
             using var conn = DatabaseManager.GetConnection();

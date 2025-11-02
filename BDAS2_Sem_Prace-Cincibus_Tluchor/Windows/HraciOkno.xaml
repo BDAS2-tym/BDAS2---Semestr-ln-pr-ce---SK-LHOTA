@@ -70,16 +70,16 @@
                     </LinearGradientBrush>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    
-                    <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Telefonní číslo" Binding="{Binding TelefonniCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Pozice" Binding="{Binding PoziceNaHristi, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Rodné číslo" Binding="{Binding RodneCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Žluté karty" Binding="{Binding PocetZlutychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Červené karty" Binding="{Binding PocetCervenychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
 
-                    <DataGridTextColumn Header="Počet gólů" Binding="{Binding PocetVstrelenychGolu}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
+                    <DataGridTextColumn x:Name="JmenoSloupec" Header="Jméno" Binding="{Binding Jmeno, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="PrijmeniSloupec" Header="Příjmení" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="TelefonniCisloSloupec" Header="Telefonní číslo" Binding="{Binding TelefonniCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="PoziceSloupec" Header="Pozice" Binding="{Binding PoziceNaHristi, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="RodneCisloSloupec" Header="Rodné číslo" Binding="{Binding RodneCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="PocetZlutychKaretSloupec" Header="Žluté karty" Binding="{Binding PocetZlutychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="PocetCervenychKaretSloupec" Header="Červené karty" Binding="{Binding PocetCervenychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+
+                    <DataGridTextColumn x:Name="PocetGoluSloupec" Header="Počet gólů" Binding="{Binding PocetVstrelenychGolu}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         <DataGridTextColumn.HeaderStyle>
                             <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
                             <Style TargetType="DataGridColumnHeader">

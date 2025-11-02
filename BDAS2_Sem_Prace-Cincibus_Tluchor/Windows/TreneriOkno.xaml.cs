@@ -24,6 +24,33 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             DataContext = this; // propojení s DataGridem
 
             NactiTrenery();
+            NastavViditelnostSloupcuProUzivatele();
+        }
+
+        private void NastavViditelnostSloupcuProUzivatele()
+        {
+            // Zjistíme, kdo je přihlášený
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+
+            string role = uzivatel.Role.ToLower();
+
+            // Nejdřív zobrazíme oba sloupce
+            RodneCisloSloupec.Visibility = Visibility.Visible;
+            TelefonniCisloSloupec.Visibility = Visibility.Visible;
+
+            // Pokud je to hráč nebo trenér tyto sloupce a funkce tlačítek schováme
+            if (role == "hrac" || role == "trener")
+            {
+                RodneCisloSloupec.Visibility = Visibility.Collapsed;
+                TelefonniCisloSloupec.Visibility = Visibility.Collapsed;
+
+                btnPridej.IsEnabled = false;
+                btnOdeber.IsEnabled = false;
+                btnNajdi.IsEnabled = false;
+                btnPridej.Opacity = 0.2;
+                btnOdeber.Opacity = 0.2;
+                btnNajdi.Opacity = 0.2;
+            }
         }
 
         private void BtnZpet_Click(object sender, RoutedEventArgs e)

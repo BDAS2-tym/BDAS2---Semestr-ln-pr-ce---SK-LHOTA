@@ -23,7 +23,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     {
         private const int MaxLimitZnaku = 30;
 
-
         public DialogPridejTrenink(ObservableCollection<Trener> treneri)
         {
             InitializeComponent();
@@ -33,11 +32,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             foreach (var trener in TreneriOkno.TreneriData)
             {
-               
                 cbTrener.Items.Add($" {trener.Prijmeni} ({trener.RodneCislo.ToString()})");
-
             }
-
         }
 
         private void BtnPridej_Click(object sender, RoutedEventArgs e)

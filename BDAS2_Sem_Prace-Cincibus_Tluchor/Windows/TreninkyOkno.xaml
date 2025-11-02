@@ -29,15 +29,18 @@
         CornerRadius="6">
 
             <DataGrid x:Name="dgTreninky"
-                          ItemsSource="{Binding TreninkyData}"
+                            ItemsSource="{Binding TreninkyData}"
+                            PreviewKeyDown="DgTreninky_PreviewKeyDown"
+                            MouseDoubleClick="DgTreninky_MouseDoubleClick"
+                      
                   HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
                   AutoGenerateColumns="False"                        
-                  IsReadOnly="False"
+                  IsReadOnly="True"
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single" PreviewKeyDown="dgTreninky_PreviewKeyDown">
+                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single" >
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->
@@ -69,12 +72,12 @@
                     </LinearGradientBrush>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Příjmení Trenéra" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Rodné číslo" Binding="{Binding RodneCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Datum a čas" Binding="{Binding Datum, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Místo" Binding="{Binding Misto, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="PrijmeniSloupec" Header="Příjmení Trenéra" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="RodneCisloSloupec" Header="Rodné číslo" Binding="{Binding RodneCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="DatumSloupec" Header="Datum a čas" Binding="{Binding Datum, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="MistoSloupec" Header="Místo" Binding="{Binding Misto, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
 
-                    <DataGridTextColumn Header="Popis" Binding="{Binding Popis}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
+                    <DataGridTextColumn x:Name="PopisSloupec" Header="Popis" Binding="{Binding Popis}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         <DataGridTextColumn.HeaderStyle>
                             <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
                             <Style TargetType="DataGridColumnHeader">
@@ -181,14 +184,6 @@
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-
-                    <!-- Button Najdi -->
-                    <Button x:Name="btnNajdi" Click="BtnNajdi_Click" Grid.Row="2" Margin="0,8,0,5" TabIndex="3" Style="{StaticResource HoverFadeButtonStyle2}">
-                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
-                            <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
-                            <TextBlock Text="Najdi" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 

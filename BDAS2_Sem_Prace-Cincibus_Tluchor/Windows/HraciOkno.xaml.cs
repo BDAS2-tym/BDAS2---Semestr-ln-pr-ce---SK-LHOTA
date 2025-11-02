@@ -27,6 +27,33 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             DataContext = this; // propojení s DataGridem
 
             NactiHrace();
+            NastavViditelnostSloupcuProUzivatele();
+        }
+
+        private void NastavViditelnostSloupcuProUzivatele()
+        {
+            // Zjistíme, kdo je přihlášený
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+
+            string role = uzivatel.Role.ToLower();
+
+            // Nejdřív zobrazíme oba sloupce
+            RodneCisloSloupec.Visibility = Visibility.Visible;
+            TelefonniCisloSloupec.Visibility = Visibility.Visible;
+
+            // Pokud je to hráč nebo trenér tyto sloupce a funkce tlačítek schováme
+            if (role == "hrac" || role == "trener")
+            {
+                RodneCisloSloupec.Visibility = Visibility.Collapsed;
+                TelefonniCisloSloupec.Visibility = Visibility.Collapsed;
+
+                btnPridej.IsEnabled = false;
+                btnOdeber.IsEnabled = false;
+                btnNajdi.IsEnabled = false; 
+                btnPridej.Opacity = 0.2;
+                btnOdeber.Opacity = 0.2;
+                btnNajdi.Opacity = 0.2;
+            }
         }
 
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
@@ -42,7 +69,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             dialogPridejHrace.ShowDialog();
         }
 
-        private void BtnNajdi_Click(object sender, RoutedEventArgs e) 
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
         {
             DialogNajdiHrace dialogNajdiHrace = new DialogNajdiHrace(this);
             dialogNajdiHrace.ShowDialog();
@@ -50,7 +77,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
         private void DgHraci_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+
             Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
 
             if (vybranyHrac == null)
@@ -65,7 +92,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
-           
+
             Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
 
             if (vybranyHrac == null)
@@ -98,7 +125,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
-     
+
             catch (OracleException ex)
             {
                 MessageBox.Show($"Chyba databáze při mazání hráče:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
