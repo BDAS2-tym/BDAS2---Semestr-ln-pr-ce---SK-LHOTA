@@ -1,23 +1,19 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+    /// <summary>
+    /// Třída pro práci s hráči v databázi
+    /// Obsahuje metody pro načtení počtu hráčů, přidání, úpravu a odstranění hráče
+    /// </summary>
     internal static class DatabaseHraci
     {
-        private static OracleConnection GetConnection()
-        {
-            return DatabaseManager.GetConnection(); // využijeme metodu z DatabaseManager
-
-        }
-
+        /// <summary>
+        /// Vrátí počet hráčů v databázi
+        /// </summary>
+        /// <returns>Počet hráčů jako celé číslo</returns>
         public static int GetPocetHracu()
         {
             using var conn = DatabaseManager.GetConnection();
@@ -27,9 +23,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             return Convert.ToInt32(cmd.ExecuteScalar());
         }
 
+        /// <summary>
+        /// Přidá nového hráče do databáze pomocí uložené procedury SP_ADD_HRAC
+        /// </summary>
+        /// <param name="hrac">Objekt hráče s vyplněnými údaji</param>
         public static void AddHrac(Hrac hrac)
         {
-
             using var conn = DatabaseManager.GetConnection();
             conn.Open();
 
@@ -37,7 +36,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                // Naplníme všechny parametry procedury
+                // Naplnění všech parametrů uložené procedury
                 cmd.Parameters.Add("p_rodne_cislo", OracleDbType.Decimal).Value = hrac.RodneCislo;
                 cmd.Parameters.Add("p_jmeno", OracleDbType.Varchar2).Value = hrac.Jmeno;
                 cmd.Parameters.Add("p_prijmeni", OracleDbType.Varchar2).Value = hrac.Prijmeni;
@@ -56,9 +55,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                     throw new Exception($"Chyba při volání procedury SP_ADD_HRAC: {ex.Message}", ex);
                 }
             }
-
         }
 
+        /// <summary>
+        /// Aktualizuje údaje hráče v databázi pomocí uložené procedury SP_UPDATE_HRAC
+        /// </summary>
+        /// <param name="hrac">Objekt hráče s novými údaji.</param>
         public static void UpdateHrac(Hrac hrac)
         {
             using var conn = DatabaseManager.GetConnection();
@@ -68,7 +70,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                // Naplníme všechny parametry procedury
+                // Naplnění všech parametrů uložené procedury
                 cmd.Parameters.Add("p_rodne_cislo", OracleDbType.Decimal).Value = hrac.RodneCislo;
                 cmd.Parameters.Add("p_jmeno", OracleDbType.Varchar2).Value = hrac.Jmeno;
                 cmd.Parameters.Add("p_prijmeni", OracleDbType.Varchar2).Value = hrac.Prijmeni;
@@ -89,6 +91,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             }
         }
 
+        /// <summary>
+        /// Odstraní hráče z databáze podle rodného čísla pomocí procedury SP_ODEBER_HRACE
+        /// </summary>
+        /// <param name="hrac">Objekt hráče, který se má odstranit.</param>
         public static void OdeberHrace(Hrac hrac)
         {
             using var conn = DatabaseManager.GetConnection();
@@ -101,7 +107,5 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.ExecuteNonQuery();
             }
         }
-
     }
-
 }

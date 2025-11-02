@@ -1,0 +1,280 @@
+﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.RegistraceOkno"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Registrace"
+        Height="700"
+        Width="1000"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+
+    <!-- Hlavní okraj s kulatými rohy -->
+    <Border CornerRadius="12">
+        
+        <!-- Vnitřní rámeček s barevným gradientem a průhledností -->
+        <Border CornerRadius="10" BorderThickness="2" Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Aqua" Offset="0"/>
+                    <GradientStop Color="#DA34AE" Offset="0.75"/>
+                    <GradientStop Color="#8A16C1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+
+            <!-- Pozadí okna s fialovo-růžovým přechodem -->
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#5D1FA3" Offset="0"/>
+                    <GradientStop Color="#2E004B" Offset="0.5"/>
+                    <GradientStop Color="#C71585" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!-- Horní panel s tlačítky minimalizace a zavření -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="REGISTRACE"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontFamily="Montserrat"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0"/>
+
+                    <!-- Tlačítko pro minimalizaci okna -->
+                    <Button x:Name="btnMinimize" BorderThickness="0" Content="-" Foreground="White"
+                            FontSize="16" FontFamily="Montserrat"
+                            Cursor="Hand" Grid.Column="1" Click="BtnMinimize_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Gray"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18" CornerRadius="9" Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <!-- Tlačítko pro zavření okna -->
+                    <Button x:Name="btnClose" BorderThickness="0" Content="X" Foreground="White"
+                            FontSize="12" FontFamily="Montserrat"
+                            Cursor="Hand" Grid.Column="2" Click="BtnClose_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Gray"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18" CornerRadius="9" Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <!-- Tělo formuláře pro registraci -->
+                <StackPanel Width="260" Grid.Row="1" Orientation="Vertical" Margin="0,35,0,0" HorizontalAlignment="Center">
+
+                    <!-- Ikona uživatelské jméno -->
+                    <Image Source="/Images/Ikony/Ikona_Uzivatel.png"
+                           Width="120" Height="120" Margin="0,0,0,30"/>
+
+                    <!-- Pole pro uživatelské jméno -->
+                    <TextBlock Text="Uživatelské jméno" Foreground="DarkGray" FontSize="13"
+                               FontFamily="Montserrat" Margin="0,5,0,0"/>
+                    <TextBox x:Name="txtUser"
+                             FontSize="13" FontFamily="Montserrat" Foreground="White"
+                             CaretBrush="LightGray" BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2" Height="28"
+                             VerticalContentAlignment="Center" Padding="20,0,0,0" Margin="0,5,0,0">
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/Ikony/user-icon.png"
+                                        Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
+                        </TextBox.Background>
+                    </TextBox>
+
+                    <!-- Pole pro e-mail -->
+                    <TextBlock Text="E-mail" Foreground="DarkGray" FontSize="13"
+                               FontFamily="Montserrat" Margin="0,15,0,0"/>
+                    <TextBox x:Name="txtEmail"
+                             FontSize="13" FontFamily="Montserrat" Foreground="White"
+                             CaretBrush="LightGray" BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2" Height="28"
+                             VerticalContentAlignment="Center" Padding="20,0,0,0" Margin="0,5,0,0">
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/Ikony/user-icon.png"
+                            Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
+                        </TextBox.Background>
+                    </TextBox>
+
+                    <!-- Pole pro zadání hesla -->
+                    <TextBlock Text="Heslo" Foreground="DarkGray" FontSize="13" FontFamily="Montserrat" Margin="0,15,0,0"/>
+                    <PasswordBox x:Name="txtPass" FontSize="13" FontFamily="Montserrat" Foreground="White"
+                                 CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,2"
+                                 Height="28" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="20,0,0,0">
+                        <PasswordBox.Background>
+                            <ImageBrush ImageSource="/Images/Ikony/key1-icon.png"
+                                        Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
+                        </PasswordBox.Background>
+                    </PasswordBox>
+
+                    <!-- Pole pro potvrzení hesla -->
+                    <TextBlock Text="Znovu heslo" Foreground="DarkGray" FontSize="13" FontFamily="Montserrat" Margin="0,15,0,0"/>
+                    <PasswordBox x:Name="txtPass2" FontSize="13" FontFamily="Montserrat" Foreground="White"
+                                 CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,2"
+                                 Height="28" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="20,0,0,0">
+                        <PasswordBox.Background>
+                            <ImageBrush ImageSource="/Images/Ikony/key1-icon.png"
+                                        Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
+                        </PasswordBox.Background>
+                    </PasswordBox>
+
+                    <!-- Výběr role uživatele -->
+                    <ComboBox x:Name="cmbRole"
+                                Height="45"
+                                Margin="0,10,0,0"
+                                SelectionChanged="CmbRole_SelectionChanged"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                FontFamily="Montserrat"
+                                Padding="12,0"
+                                BorderThickness="1.5"
+                                BorderBrush="#444"
+                                Foreground="Black"
+                                Background="White"
+                                Cursor="Hand"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center">
+
+                        <!-- Barvy a vzhled rozbalovací nabídky -->
+                        <ComboBox.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="White"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#E0E0E0"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
+                        </ComboBox.Resources>
+
+                        <!-- Styl položek v nabídce -->
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="Padding" Value="10,6"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#F0F0F0"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#E8E8E8"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+
+                        <!-- Nabídka dostupných rolí -->
+                        <ComboBoxItem Content="Uživatel"/>
+                        <ComboBoxItem Content="Hráč"/>
+                        <ComboBoxItem Content="Trenér"/>
+                        <ComboBoxItem Content="Admin"/>
+                    </ComboBox>
+
+                    <!-- Sekce pro zadání rodného čísla, zobrazí se pouze pro hráče nebo trenéra -->
+                    <StackPanel x:Name="panelRodneCislo"
+                                Margin="0,15,0,0"
+                                Visibility="Collapsed">
+
+                        <TextBlock Text="Rodné číslo"
+                               Foreground="DarkGray"
+                               FontSize="15"
+                               FontWeight="Bold"
+                               FontFamily="Montserrat"
+                               Margin="0,0,0,6"/>
+
+                        <Border Background="White"
+                            CornerRadius="6"
+                            BorderBrush="#999"
+                            BorderThickness="1.5"
+                            Padding="6,4">
+                            <TextBox x:Name="txtRodneCislo"
+                             Height="38"
+                             FontSize="16"
+                             FontWeight="Bold"
+                             FontFamily="Montserrat"
+                             Foreground="Black"
+                             Background="White"
+                             BorderThickness="0"
+                             CaretBrush="#444"
+                             VerticalContentAlignment="Center"
+                             PreviewTextInput="TxtRodneCislo_PreviewTextInput"
+                             TextChanged="TxtRodneCislo_TextChanged"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Tlačítko pro registraci uživatele -->
+                    <Button x:Name="btnRegister" Content="REGISTROVAT"
+                            Foreground="White" FontSize="12" FontFamily="Montserrat"
+                            Cursor="Hand" Margin="0,30,0,0" Click="BtnRegister_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#28AEED"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="40" CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <!-- Textový status pro případné chybové zprávy nebo potvrzení -->
+                    <TextBlock x:Name="lblStatus" Text=""
+                               Foreground="White" FontSize="12" FontFamily="Montserrat"
+                               TextAlignment="Center" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

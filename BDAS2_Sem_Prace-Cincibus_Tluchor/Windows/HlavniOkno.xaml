@@ -36,6 +36,16 @@
                            HorizontalAlignment="Center"
                            TextWrapping="Wrap"
                            FontFamily="Century Gothic"/>
+
+                <!-- Zde jméno přihlášeného -->
+                <TextBlock x:Name="txtPrihlasenUzivatel"
+                   Text="Nepřihlášen"
+                   Foreground="White"
+                   FontSize="16"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,20,0"
+                   FontFamily="Century Gothic"/>
             </Grid>
         </Border>
 
@@ -77,7 +87,8 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-              
+                        <RowDefinition Height="*"/>
+
                     </Grid.RowDefinitions>
 
                     <!-- Styl -->
@@ -117,7 +128,7 @@
                     </Button>
 
                     <!-- Tréninky -->
-                    <Button Grid.Row="2" Click="BtnTreninky_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnTreninky" Grid.Row="2" Click="BtnTreninky_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/training.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Tréninky" VerticalAlignment="Center"/>
@@ -125,7 +136,7 @@
                     </Button>
 
                     <!-- Kontrakty -->
-                    <Button Grid.Row="3" Click="BtnKontrakty_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnKontrakty" Grid.Row="3" Click="BtnKontrakty_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/contract.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Kontrakty" VerticalAlignment="Center"/>
@@ -172,6 +183,13 @@
                         </StackPanel>
                     </Button>
 
+                    <!-- Nastavení -->
+                    <Button x:Name="btnNastaveni" Click="BtnNastaveni_Click" Grid.Row="9" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Image Source="/Images/Img/coach.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                            <TextBlock Text="Nastavení" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
 
                     <!-- Odhlášení -->
                     <Button x:Name="btnOdhlaseni" Click="BtnOdhlaseni_Click" Grid.Row="10" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
@@ -249,7 +267,7 @@
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
                     <Image Source="/Images/Img/coach.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="Počet trenérů:" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock Text="Počet trenérů" FontSize="20" FontWeight="Bold"/>
                         <TextBlock x:Name="txtPocetTreneru" Text="0" FontSize="22" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>

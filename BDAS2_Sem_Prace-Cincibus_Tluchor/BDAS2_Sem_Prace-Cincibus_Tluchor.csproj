@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
+    <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.8" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.26.0" />
   </ItemGroup>
 
@@ -49,6 +50,7 @@
     <None Remove="Images\Ikony\key-icon.png" />
     <None Remove="Images\Ikony\key1-icon.png" />
     <None Remove="Images\Ikony\user-icon.png" />
+    <None Remove="Images\Img\hriste.jpeg" />
   </ItemGroup>
 
   <!-- Znovu přidání do Resource s CopyToOutputDirectory -->
@@ -67,6 +69,9 @@
     </Resource>
     <Resource Include="Images\Ikony\key1-icon.png" />
     <Resource Include="Images\Ikony\user-icon.png" />
+    <Resource Include="Images\Img\hriste.jpeg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

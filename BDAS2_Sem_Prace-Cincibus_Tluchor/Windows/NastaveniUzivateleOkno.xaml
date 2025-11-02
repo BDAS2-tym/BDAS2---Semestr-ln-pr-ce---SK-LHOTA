@@ -1,0 +1,187 @@
+﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.NastaveniUzivateleOkno"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Uživatelské účty"
+        Height="600" Width="1300"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+
+        <!-- Pozadí hlavního okna s obrázkem -->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/Img/pozadi_2_dialog_okna.png"/>
+        </Grid.Background>
+
+        <!-- Rozdělení na dvě části: vlevo DataGrid, vpravo panel s tlačítky -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Levá část – DataGrid zobrazující přehled uživatelů -->
+        <Border Grid.Column="0"
+                Margin="15"
+                BorderBrush="#125C64"
+                BorderThickness="2"
+                CornerRadius="6">
+
+            <DataGrid x:Name="dgUzivatele"
+                      ItemsSource="{Binding UzivateleData}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      FontFamily="Century Gothic"
+                      FontSize="12"
+                      AlternatingRowBackground="#FFE0E0E0"
+                      RowBackground="#FFF3F3F3"
+                      RowHeight="30"
+                      HeadersVisibility="Column"
+                      ColumnHeaderHeight="28"
+                      GridLinesVisibility="None"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+
+                <!-- Styl hlavičky tabulky -->
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#AABBCC"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="FontFamily" Value="Century Gothic"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="BorderBrush" Value="#125C64"/>
+                        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <!-- Barevné pozadí tabulky -->
+                <DataGrid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    </LinearGradientBrush>
+                </DataGrid.Background>
+
+                <!-- Definice sloupců DataGridu -->
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Uživatelské jméno" Binding="{Binding UzivatelskeJmeno}" Width="2*" />
+                    <DataGridTextColumn Header="E-mail" Binding="{Binding Email}" Width="2*" />
+                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="1.5*" />
+                    <DataGridTextColumn Header="Poslední přihlášení" Binding="{Binding PosledniPrihlaseni, StringFormat=\{0:dd.MM.yyyy HH:mm\}}" Width="2*" />
+                    <DataGridTextColumn Header="Rodné číslo" Binding="{Binding RodneCislo}" Width="1.5*" />
+
+                    <!-- Sloupec s tlačítkem "Přepnout" pro změnu aktivního uživatele -->
+                    <DataGridTemplateColumn Header="Akce" Width="1.5*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Přepnout"
+                                        Background="#125C64"
+                                        Foreground="White"
+                                        FontFamily="Century Gothic"
+                                        Padding="6,3"
+                                        Margin="3"
+                                        Cursor="Hand"
+                                        Click="BtnPrepnout_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+                <!-- Barvy výběru řádku -->
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#fad870"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#fad870"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                </DataGrid.Resources>
+
+            </DataGrid>
+        </Border>
+
+        <!-- Pravá část – panel s ovládacími tlačítky -->
+        <Border Grid.Column="1" Background="#77B3FB">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Nadpis panelu -->
+                <TextBlock Text="Uživatelské účty"
+                           Foreground="Black"
+                           FontSize="25"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="0,15"
+                           FontFamily="Century Gothic"/>
+
+                <!-- Kontejner pro tlačítka -->
+                <Grid x:Name="gdTlacitka" Grid.Row="1" Margin="0,0,0,15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Základní styl všech tlačítek -->
+                    <Grid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#77B3FB"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontFamily" Value="Century Gothic"/>
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Padding" Value="12,4"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#111827"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Resources>
+
+                    <!-- Tlačítko pro přidání uživatele -->
+                    <Button x:Name="btnPridej" Grid.Row="0" Click="BtnPridej_Click" Margin="0,5" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Přidej" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Tlačítko pro odebrání uživatele -->
+                    <Button x:Name="btnOdeber" Grid.Row="1" Click="BtnOdeber_Click" Margin="0,8,0,5" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Odeber" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Tlačítko pro úpravu vybraného uživatele -->
+                    <Button x:Name="btnEdituj" Grid.Row="2" Click="BtnEdituj_Click" Margin="0,8,0,5" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Edituj" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Tlačítko pro návrat zpět -->
+                    <Button x:Name="btnZpet" Grid.Row="3" Click="BtnZpet_Click" Margin="0,8,0,5" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Zpět" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>
