@@ -54,11 +54,6 @@
     <None Remove="Images\Ikony\user-icon.png" />
     <None Remove="Images\Img\hriste.jpeg" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Ikony\Ikona_Uzivatel_Username.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
 
   <!-- Znovu přidání do Resource s CopyToOutputDirectory -->
   <ItemGroup>

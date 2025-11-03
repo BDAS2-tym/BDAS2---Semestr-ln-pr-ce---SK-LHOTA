@@ -17,7 +17,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <returns>Připojení do Oracle databáze</returns>
         private static OracleConnection GetConnection()
         {
-            return DatabaseManager.GetConnection(); // využijeme metodu z DatabaseManager
+            return DatabaseManager.GetConnection(); // využijeme metodu z DatabaseManage
         }
 
         /// <summary>
@@ -25,11 +25,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         /// <param name="sponzor">Sponzor, kterého chceme přidat do databáze</param>
         /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void AddSponzor(Sponzor sponzor)
+        public static void AddSponzor(OracleConnection conn, Sponzor sponzor)
         {
-            using var conn = GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_SPONZORI.SP_ADD_SPONZOR", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -68,6 +65,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             using var conn = GetConnection();
             conn.Open();
 
+            // Nastavení App user pro zprovoznění logování změn
+            SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             using (var cmd = new OracleCommand("PKG_SPONZORI.SP_ODEBER_SPONZOR", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -97,6 +97,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             using var conn = GetConnection();
             conn.Open();
 
+            // Nastavení App user pro zprovoznění logování změn
+            SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             using (var cmd = new OracleCommand("PKG_SPONZORI.SP_UPDATE_SPONZOR", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -123,10 +126,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         /// <returns>Nové ID</returns>
         /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static int? GetCurrentId()
+        public static int? GetCurrentId(OracleConnection conn)
         {
-            using var conn = GetConnection();
-            conn.Open();
             int? currentId = null;
 
             using (var cmd = new OracleCommand("SELECT sekv_sponzor.currval FROM dual", conn))
@@ -143,6 +144,23 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 {
                     throw new Exception($"Chyba při volání procedury SP_ADD_SPONZOR: {ex.Message}", ex);
                 }
+            }
+        }
+
+
+        /* TODO Toto se musí přidat do každýho DatabaseXXXXX*/ 
+        /// <summary>
+        /// Metoda slouží k nastavení přihlášeného uživatele, aby fungovala logování změn
+        /// </summary>
+        /// <param name="conn">Databázové připojení do Oracle Database</param>
+        /// <param name="prihlasenyUzivatel">Aktuálně přihlášený uživatel</param>
+        public static void SetAppUser(OracleConnection conn, Uzivatel prihlasenyUzivatel)
+        {
+            using (var cmd = new OracleCommand("pkg_user_context.set_user", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("v_user", OracleDbType.Varchar2).Value = prihlasenyUzivatel.UzivatelskeJmeno;
+                cmd.ExecuteNonQuery();
             }
         }
 

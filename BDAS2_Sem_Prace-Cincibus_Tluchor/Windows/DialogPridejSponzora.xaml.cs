@@ -98,31 +98,34 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 pridanySponzor.SponzorovaniClenove = SponzorovaniClenove.ToList();
                 pridanySponzor.SponzorovaneSouteze = SponzorovaneSouteze.ToList();
 
-                DatabaseSponzori.AddSponzor(pridanySponzor);
-
-                int? idSponzor = DatabaseSponzori.GetCurrentId();
-                if(idSponzor == null)
+                using (var conn = DatabaseManager.GetConnection())
                 {
-                    throw new NullReferenceException("ID sponzora nemůže být NULL! Nastala chyba u spojení s databází...");
-                }
+                    conn.Open();
 
-                pridanySponzor.IdSponzor = (int)idSponzor;
+                    // 🔹 Nastavení přihlášeného uživatele pro logování
+                    DatabaseSponzori.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                // Přidání všech nově vytvořených vazeb do vazební tabulky SPONZORI_CLENOVE
-                if(pridanySponzor.SponzorovaniClenove.Count > 0)
-                {
-                    foreach (ClenKlubu clen in pridanySponzor.SponzorovaniClenove)
+                    // 🔹 Přidání sponzora
+                    DatabaseSponzori.AddSponzor(conn, pridanySponzor);
+
+                    // 🔹 Získání ID ze stejné session
+                    int? idSponzor = DatabaseSponzori.GetCurrentId(conn);
+                    if (idSponzor == null)
+                        throw new NullReferenceException("ID sponzora nemůže být NULL! Nastala chyba u spojení s databází...");
+
+                    pridanySponzor.IdSponzor = (int)idSponzor;
+
+                    // 🔹 Vložení vazeb do dalších tabulek
+                    if (pridanySponzor.SponzorovaniClenove.Count > 0)
                     {
-                        DatabaseSponzoriClenove.AddSponzoriClenove(clen, pridanySponzor);
+                        foreach (ClenKlubu clen in pridanySponzor.SponzorovaniClenove)
+                            DatabaseSponzoriClenove.AddSponzoriClenove(clen, pridanySponzor);
                     }
-                }
 
-                // Přidání všech nově vytvořených vazeb do vazební tabulky SPONZORI_SOUTEZE
-                if (pridanySponzor.SponzorovaneSouteze.Count > 0) 
-                {
-                    foreach (Soutez soutez in pridanySponzor.SponzorovaneSouteze)
+                    if (pridanySponzor.SponzorovaneSouteze.Count > 0)
                     {
-                        DatabaseSponzoriSouteze.AddSponzoriSouteze(soutez, pridanySponzor);
+                        foreach (Soutez soutez in pridanySponzor.SponzorovaneSouteze)
+                            DatabaseSponzoriSouteze.AddSponzoriSouteze(soutez, pridanySponzor);
                     }
                 }
 
@@ -131,12 +134,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 MessageBox.Show("Sponzor byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
-
             catch (NonValidDataException ex)
             {
                 MessageBox.Show(ex.Message, "Nevalidní data", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error);
