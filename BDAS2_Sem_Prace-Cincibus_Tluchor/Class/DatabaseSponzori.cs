@@ -24,6 +24,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Metoda slouží k přidání sponzora do databáze
         /// </summary>
         /// <param name="sponzor">Sponzor, kterého chceme přidat do databáze</param>
+        /// <param name="conn">Připojení do Oracle databáze</param>
         /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void AddSponzor(OracleConnection conn, Sponzor sponzor)
         {
@@ -66,7 +67,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             conn.Open();
 
             // Nastavení App user pro zprovoznění logování změn
-            SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
             using (var cmd = new OracleCommand("PKG_SPONZORI.SP_ODEBER_SPONZOR", conn))
             {
@@ -98,7 +99,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             conn.Open();
 
             // Nastavení App user pro zprovoznění logování změn
-            SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
             using (var cmd = new OracleCommand("PKG_SPONZORI.SP_UPDATE_SPONZOR", conn))
             {
@@ -146,23 +147,5 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 }
             }
         }
-
-
-        /* TODO Toto se musí přidat do každýho DatabaseXXXXX*/ 
-        /// <summary>
-        /// Metoda slouží k nastavení přihlášeného uživatele, aby fungovala logování změn
-        /// </summary>
-        /// <param name="conn">Databázové připojení do Oracle Database</param>
-        /// <param name="prihlasenyUzivatel">Aktuálně přihlášený uživatel</param>
-        public static void SetAppUser(OracleConnection conn, Uzivatel prihlasenyUzivatel)
-        {
-            using (var cmd = new OracleCommand("pkg_user_context.set_user", conn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("v_user", OracleDbType.Varchar2).Value = prihlasenyUzivatel.UzivatelskeJmeno;
-                cmd.ExecuteNonQuery();
-            }
-        }
-
     }
 }

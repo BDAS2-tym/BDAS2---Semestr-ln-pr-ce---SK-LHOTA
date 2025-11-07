@@ -136,6 +136,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
+        /// <summary>
+        /// Metoda načte hráče z databáze přes DatabaseManager a naplní DataGrid
+        /// </summary>
         private void NactiHrace()
         {
             try

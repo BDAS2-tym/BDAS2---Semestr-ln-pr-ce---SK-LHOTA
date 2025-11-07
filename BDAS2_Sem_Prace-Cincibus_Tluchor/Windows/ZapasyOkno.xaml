@@ -33,7 +33,7 @@
                   HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
                   AutoGenerateColumns="False"                        
-                  IsReadOnly="False"
+                  IsReadOnly="True"
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
@@ -69,15 +69,14 @@
                     </LinearGradientBrush>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id, UpdateSourceTrigger=LostFocus}" Width="40" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Datum" Binding="{Binding Datum, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Stav zápasu" Binding="{Binding StavZapasu, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Datum a čas" Binding="{Binding Datum, StringFormat={}{0:dd.MM.yyyy HH:mm}, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Domácí" Binding="{Binding DomaciTym, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Hosté" Binding="{Binding HosteTym, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn Header="Soutěž" Binding="{Binding Soutez.TypSouteze, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Výsledek" Binding="{Binding Vysledek, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Žluté karty" Binding="{Binding PocetZlutychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Červené karty" Binding="{Binding PocetCervenychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Góly domácí tým" Binding="{Binding DomaciTymGoly, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Góly hosté tým" Binding="{Binding PocetCervenychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    
-                    <DataGridTextColumn Header="Stav zápasu" Binding="{Binding StavZapasu}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
+
+                    <DataGridTextColumn Header="---" Width="80" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         <DataGridTextColumn.HeaderStyle>
                             <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
                             <Style TargetType="DataGridColumnHeader">
@@ -171,7 +170,7 @@
                     </Grid.Resources>
 
                     <!-- Button Přidej -->
-                    <Button x:Name="btnPridej" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+                    <Button x:Name="btnPridej" Grid.Row="0" Margin="0,5" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="btnPridej_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Přidej" VerticalAlignment="Center"/>

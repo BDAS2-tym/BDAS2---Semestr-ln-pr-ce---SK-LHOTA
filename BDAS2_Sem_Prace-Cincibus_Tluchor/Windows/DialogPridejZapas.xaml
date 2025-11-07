@@ -34,6 +34,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -42,7 +44,7 @@
 
             <!-- Soutěž -->
             <TextBlock x:Name="tblockSoutez" Grid.Row="0" Grid.Column="0" Text="Vyberte soutěž:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <ComboBox x:Name="cbSoutez" Grid.Column="1" Margin="50,63,50,63" TabIndex="1" FontFamily="Century Gothic" FontSize="12"/>
+            <ComboBox x:Name="cbSoutez" Grid.Column="1" Margin="50,31,50,31" TabIndex="1" FontFamily="Century Gothic" FontSize="12" VerticalContentAlignment="Center"/>
 
             <!-- Datum a čas zápasu -->
             <TextBlock x:Name="tblockDatumZapasu" Grid.Row="1" Text="Datum a čas zápasu:" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
@@ -50,12 +52,20 @@
                 Value="{Binding SelectedDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 FormatString="yyyy-dd-MM HH:mm"
                 Watermark="Vyber datum a čas"
-                ShowButtonSpinner="False" Margin="50,63,50,63" TabIndex="2"/>
+                ShowButtonSpinner="False" Margin="50,31,50,31" TabIndex="2" ValueChanged="dtpDatumZapasu_ValueChanged"/>
 
             <!-- Stav zápasu -->
             <TextBlock x:Name="tblockStavZapasu" Grid.Row="2" Text="Stav zápasu:" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <ComboBox x:Name="cbStavZapasu" Grid.Column="1" Margin="50,63,50,63" TabIndex="3" FontFamily="Century Gothic" FontSize="12" Grid.Row="2"/>
-           
+            <ComboBox x:Name="cbStavZapasu" Grid.Column="1" Margin="50,31,50,31" TabIndex="3" FontFamily="Century Gothic" FontSize="12" Grid.Row="2" VerticalContentAlignment="Center" IsHitTestVisible="False"/>
+
+            <!-- Domácí tým -->
+            <TextBox x:Name="tboxDomaciTym" Margin="50,31,50,31" MaxLines="10" TextWrapping="Wrap" MaxLength="30" VerticalContentAlignment="Center" TabIndex="4" FontFamily="Century Gothic" FontSize="12" Grid.Column="1" Grid.Row="3"/>
+            <TextBlock x:Name="tblockDomaciTym" Grid.Row="3" Text="Domácí tým:" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
+
+            <!-- Domácí tým -->
+            <TextBox x:Name="tboxHosteTym" Margin="50,31,50,31" MaxLines="10" TextWrapping="Wrap" MaxLength="30" VerticalContentAlignment="Center" TabIndex="5" FontFamily="Century Gothic" FontSize="12" Grid.Column="1" Grid.Row="4"/>
+            <TextBlock x:Name="tblockHosteTym" Grid.Row="4" Text="Hosté tým:" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
+
         </Grid>
 
         <!-- Tlačítka -->
@@ -64,10 +74,10 @@
                 <ImageBrush ImageSource="/Images/Img/pozadi_3_dialog_okna.png"/>
             </Border.Background>
             <StackPanel Orientation="Horizontal" UseLayoutRounding="False" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="btnPridej" Content="Přidej" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle}">
+                <Button x:Name="btnPridej" Content="Přidej" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="6" Style="{StaticResource HoverFadeButtonStyle}" Click="btnPridej_Click">
 
                 </Button>
-                <Button x:Name="btnReset" Content="Reset" Width="100" Padding="5,5,5,5" Margin="100,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle}" Click="btnReset_Click">
+                <Button x:Name="btnReset" Content="Reset" Width="100" Padding="5,5,5,5" Margin="100,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="7" Style="{StaticResource HoverFadeButtonStyle}" Click="btnReset_Click">
                     <Button.Background>
                         <SolidColorBrush Color="#DDC5D709" Opacity="0.85"/>
                     </Button.Background>

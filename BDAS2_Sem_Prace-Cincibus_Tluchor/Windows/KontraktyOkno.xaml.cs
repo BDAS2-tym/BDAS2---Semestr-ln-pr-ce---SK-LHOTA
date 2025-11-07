@@ -69,7 +69,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 {   
                     Kontrakt kontrakt = new Kontrakt();
 
-                    // RODNE_CISLO - NOT NULL
+                    // IDCLENKLUBU - NOT NULL
                     if (reader["IDCLENKLUBU"] != DBNull.Value)
                         kontrakt.IdClena = Convert.ToInt32(reader["IDCLENKLUBU"]);
 

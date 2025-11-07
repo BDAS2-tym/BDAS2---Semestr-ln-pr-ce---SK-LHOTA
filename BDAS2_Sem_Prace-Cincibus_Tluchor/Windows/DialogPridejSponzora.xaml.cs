@@ -102,30 +102,36 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 {
                     conn.Open();
 
-                    // 🔹 Nastavení přihlášeného uživatele pro logování
-                    DatabaseSponzori.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                    // 🔹 Přidání sponzora
+                    // Přidání sponzora
                     DatabaseSponzori.AddSponzor(conn, pridanySponzor);
 
-                    // 🔹 Získání ID ze stejné session
+                    // Získání ID ze stejné session
                     int? idSponzor = DatabaseSponzori.GetCurrentId(conn);
                     if (idSponzor == null)
+                    {
                         throw new NullReferenceException("ID sponzora nemůže být NULL! Nastala chyba u spojení s databází...");
+                    }
 
                     pridanySponzor.IdSponzor = (int)idSponzor;
 
-                    // 🔹 Vložení vazeb do dalších tabulek
+                    // Vložení vazeb do dalších tabulek
                     if (pridanySponzor.SponzorovaniClenove.Count > 0)
                     {
                         foreach (ClenKlubu clen in pridanySponzor.SponzorovaniClenove)
+                        {
                             DatabaseSponzoriClenove.AddSponzoriClenove(clen, pridanySponzor);
+                        }
                     }
 
                     if (pridanySponzor.SponzorovaneSouteze.Count > 0)
                     {
                         foreach (Soutez soutez in pridanySponzor.SponzorovaneSouteze)
+                        {
                             DatabaseSponzoriSouteze.AddSponzoriSouteze(soutez, pridanySponzor);
+                        }                            
                     }
                 }
 

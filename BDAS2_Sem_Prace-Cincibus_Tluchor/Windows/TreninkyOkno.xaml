@@ -74,7 +74,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="PrijmeniSloupec" Header="Příjmení Trenéra" Binding="{Binding Prijmeni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn x:Name="RodneCisloSloupec" Header="Rodné číslo" Binding="{Binding RodneCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn x:Name="DatumSloupec" Header="Datum a čas" Binding="{Binding Datum, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="DatumSloupec" Header="Datum a čas" Binding="{Binding Datum, StringFormat={}{0:dd.MM.yyyy HH:mm}, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn x:Name="MistoSloupec" Header="Místo" Binding="{Binding Misto, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
 
                     <DataGridTextColumn x:Name="PopisSloupec" Header="Popis" Binding="{Binding Popis}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">

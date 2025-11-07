@@ -32,6 +32,8 @@
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -60,27 +62,35 @@
                     </ToolTip>
                 </TextBlock.ToolTip>
             </TextBlock>
-            <TextBox x:Name="tboxVysledek" Grid.Row="0" Grid.Column="1" Margin="50,31,50,31" TextWrapping="Wrap" MaxLength="5" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12" GotFocus="tboxVysledek_GotFocus" LostFocus="tboxVysledek_LostFocus"/>
+            <TextBox x:Name="tboxVysledek" Grid.Row="0" Grid.Column="1" Margin="50,18,50,18" TextWrapping="Wrap" MaxLength="5" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12" GotFocus="tboxVysledek_GotFocus" LostFocus="tboxVysledek_LostFocus"/>
 
             <!-- Počet žlutých karet -->
             <TextBlock x:Name="tblockPocetZlutychKaret" Grid.Row="1" Grid.Column="0" Text="Počet žlutých karet:" Margin="5" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <xctk:IntegerUpDown x:Name="iudPocetZlutychKaret" Grid.Row="1" Margin="50,31,50,31"
-                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="7" FontFamily="Century Gothic" FontSize="12" Grid.Column="1"/>
+            <xctk:IntegerUpDown x:Name="iudPocetZlutychKaret" Grid.Row="1" Margin="50,18,50,18"
+                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="2" FontFamily="Century Gothic" FontSize="12" Grid.Column="1"/>
 
             <!-- Počet červených karet -->
             <TextBlock x:Name="tblockPocetCervenychKaret" Grid.Row="2" Grid.Column="0" Text="Počet červených karet:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <xctk:IntegerUpDown x:Name="iudPocetCervenychKaret" Grid.Row="2" Margin="50,31,50,31"
-                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="8" FontFamily="Century Gothic" FontSize="12" Grid.Column="1"/>
+            <xctk:IntegerUpDown x:Name="iudPocetCervenychKaret" Grid.Row="2" Margin="50,18,50,18"
+                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="3" FontFamily="Century Gothic" FontSize="12" Grid.Column="1"/>
 
             <!-- Góly domácí -->
             <TextBlock x:Name="tblockPocetGolyDomaci" Grid.Row="3" Grid.Column="0" Text="Počet góly domácí:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <xctk:IntegerUpDown x:Name="iudPocetGolyDomaci" Grid.Row="3" Margin="50,31,50,31"
-                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="8" FontFamily="Century Gothic" FontSize="12" Grid.Column="1"/>
+            <xctk:IntegerUpDown x:Name="iudPocetGolyDomaci" Grid.Row="3" Margin="50,18,50,18"
+                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="4" FontFamily="Century Gothic" FontSize="12" Grid.Column="1"/>
 
             <!-- Góly hosté -->
-            <TextBlock x:Name="tblockPocetGolyHoste" Grid.Row="5" Grid.Column="0" Text="Počet góly hosté:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-            <xctk:IntegerUpDown x:Name="iudPocetGolyHoste" Grid.Row="4" Margin="50,31,50,31"
-                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="8" FontFamily="Century Gothic" FontSize="12" Grid.Column="1"/>
+            <TextBlock x:Name="tblockPocetGolyHoste" Grid.Row="4" Grid.Column="0" Text="Počet góly hosté:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
+            <xctk:IntegerUpDown x:Name="iudPocetGolyHoste" Grid.Row="4" Margin="50,18,50,18"
+                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="5" FontFamily="Century Gothic" FontSize="12" Grid.Column="1"/>
+
+            <!-- Domácí tým -->
+            <TextBlock x:Name="tblockDomaciTym" Grid.Row="5" Grid.Column="0" Text="Domácí tým:" Margin="5" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox x:Name="tboxDomaciTym" Grid.Row="5" Grid.Column="1" Margin="50,18,50,18" TextWrapping="Wrap" MaxLength="30" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12" IsHitTestVisible="False" IsTabStop="False"/>
+
+            <!-- Hosté tým -->
+            <TextBlock x:Name="tblockHosteTym" Grid.Row="6" Grid.Column="0" Text="Hosté tým:" Margin="5" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox x:Name="tboxHosteTym" Grid.Row="6" Grid.Column="1" Margin="50,18,50,18" TextWrapping="Wrap" MaxLength="30" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="1" FontFamily="Century Gothic" FontSize="12" IsHitTestVisible="False" IsTabStop="False"/>
         </Grid>
 
         <!-- Tlačítka -->
@@ -89,7 +99,7 @@
                 <ImageBrush ImageSource="/Images/Img/pozadi_3_dialog_okna.png"/>
             </Border.Background>
             <StackPanel Orientation="Horizontal" UseLayoutRounding="False" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="btnPridej" Content="Přidej" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="6" Style="{StaticResource HoverFadeButtonStyle}">
+                <Button x:Name="btnPridej" Content="Přidej" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="6" Style="{StaticResource HoverFadeButtonStyle}" Click="btnPridej_Click">
 
                 </Button>
                 <Button x:Name="btnReset" Content="Reset" Width="100" Padding="5,5,5,5" Margin="100,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="7" Style="{StaticResource HoverFadeButtonStyle}" Click="btnReset_Click">

@@ -47,5 +47,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             KonecDatum = konecDatum;
             TypSouteze = typSouteze;
         }
+
+        public override string ToString()
+        {
+            return $"{TypSouteze}";
+        }
     }
 }

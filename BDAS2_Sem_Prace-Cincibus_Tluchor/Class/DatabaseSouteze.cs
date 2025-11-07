@@ -20,20 +20,46 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         }
 
         /// <summary>
-        /// Metoda slouží k přidání soutěže do databáze
+        /// Metoda slouží k přidání sponzora do databáze
         /// </summary>
-        /// <param name="soutez">soutěž, kterou chceme přidat do databáze</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void AddSoutez(Soutez soutez)
+        /// <param name="soutez">Soutěž, kterou chceme přidat do databáze</param>
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="Exception">Výjimka se vytypSoutezeí, pokud nastane chyba při volání procedury</exception>
+        public static void AddSoutez(OracleConnection conn, Soutez soutez)
         {
+            using (var cmd = new OracleCommand("PKG_SOUTEZE.SP_ADD_SOUTEZ", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
 
+                // Naplníme všechny parametry procedury
+                TypSouteze typSouteze = new TypSouteze();
+                int indexStavu = typSouteze.TypySoutezi.FirstOrDefault(st => st.Value == soutez.TypSouteze).Key;
+
+                if (indexStavu != 0)
+                {
+                    cmd.Parameters.Add("v_id_typ_souteze", OracleDbType.Int32).Value = indexStavu;
+                }
+
+                cmd.Parameters.Add("v_datum_zacatek", OracleDbType.Date).Value = soutez.StartDatum.ToDateTime(TimeOnly.MinValue);
+                cmd.Parameters.Add("v_datum_konec", OracleDbType.Date).Value = soutez.KonecDatum.ToDateTime(TimeOnly.MinValue);
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                catch (OracleException ex)
+                {
+                    throw new Exception($"Chyba při volání procedury SP_ADD_SOUTEZ: {ex.Message}", ex);
+                }
+            }
         }
 
         /// <summary>
         /// Metoda slouží k odebrání soutěže z databáze
         /// </summary>
         /// <param name="soutez">Soutěž, kterou chceme odebrat z databáze</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        /// <exception cref="Exception">Výjimka se vytypSoutezeí, pokud nastane chyba při volání procedury</exception>
         public static void OdeberSoutez(Soutez soutez)
         {
 
@@ -43,7 +69,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Metoda slouží k editaci souteže v databázi
         /// </summary>
         /// <param name="soutez">Soutěž, kterou chceme editovat v databázi</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        /// <exception cref="Exception">Výjimka se vytypSoutezeí, pokud nastane chyba při volání procedury</exception>
         public static void UpdateSoutez(Soutez soutez)
         {
 
@@ -53,11 +79,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Metoda slouží k získání nového ID z databáze
         /// </summary>
         /// <returns>Nové ID</returns>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static int? GetCurrentId()
+        /// <exception cref="Exception">Výjimka se vytypSoutezeí, pokud nastane chyba při volání procedury</exception>
+        public static int? GetCurrentId(OracleConnection conn)
         {
-            using var conn = GetConnection();
-            conn.Open();
             int? currentId = null;
 
             using (var cmd = new OracleCommand("SELECT sekv_soutez.currval FROM dual", conn))
@@ -75,7 +99,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                     throw new Exception($"Chyba při volání procedury SP_ADD_SOUTEZ: {ex.Message}", ex);
                 }
             }
-        }
 
+        }
     }
 }

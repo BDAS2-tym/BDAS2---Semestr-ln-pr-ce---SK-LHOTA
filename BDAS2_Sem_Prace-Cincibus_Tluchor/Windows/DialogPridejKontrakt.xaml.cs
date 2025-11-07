@@ -163,6 +163,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 dpDatumKonceKontraktu.SelectedDate = dpDatumZacatkuKontraktu.SelectedDate.Value.AddYears(1);
         }
 
+        /// <summary>
+        /// Metoda slouží k přidání nového kontraktu do tabulky a zároveň také do databáze
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void btnPridej_Click(object sender, RoutedEventArgs e)
         {
             try
