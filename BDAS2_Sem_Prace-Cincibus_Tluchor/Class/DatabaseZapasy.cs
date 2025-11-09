@@ -39,11 +39,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 StavZapasu stav = new StavZapasu();
                 int indexStavu = stav.StavyZapasu.FirstOrDefault(st => st.Value == zapas.StavZapasu).Key;
 
-                if (indexStavu != 0)
-                {
-                    cmd.Parameters.Add("v_id_stav", OracleDbType.Int32).Value = indexStavu;
-                }
-
+                cmd.Parameters.Add("v_id_stav", OracleDbType.Int32).Value = indexStavu;
                 cmd.Parameters.Add("v_domaci_tym", OracleDbType.Varchar2).Value = zapas.DomaciTym;
                 cmd.Parameters.Add("v_hoste_tym", OracleDbType.Varchar2).Value = zapas.HosteTym;
 
@@ -60,69 +56,66 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         }
 
         /// <summary>
-        /// Metoda slouží k odebrání sponzora z databáze
+        /// Metoda slouží k odebrání zápasu z databáze
         /// </summary>
-        /// <param name="sponzor">Sponzor, kterého chceme přidat do databáze</param>
+        /// <param name="zapas">Zápas, který chceme odebrat z databáze</param>
+        /// <param name="conn">Připojení do Oracle databáze</param>
         /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void OdeberSponzor(Sponzor sponzor)
+        public static void OdeberZapas(OracleConnection conn, Zapas zapas)
         {
-            //using var conn = GetConnection();
-            //conn.Open();
+            using (var cmd = new OracleCommand("PKG_ZAPASY.SP_ODEBER_ZAPAS", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            //// Nastavení App user pro zprovoznění logování změn
-            //SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+                // Naplníme všechny parametry procedury
+                cmd.Parameters.Add("v_id_zapas", OracleDbType.Int32).Value = zapas.IdZapas;
 
-            //using (var cmd = new OracleCommand("PKG_SPONZORI.SP_ODEBER_SPONZOR", conn))
-            //{
-            //    cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
 
-            //    // Naplníme všechny parametry procedury
-            //    cmd.Parameters.Add("v_id_sponzor", OracleDbType.Int32).Value = sponzor.IdSponzor;
-
-            //    try
-            //    {
-            //        cmd.ExecuteNonQuery();
-            //    }
-
-            //    catch (OracleException ex)
-            //    {
-            //        throw new Exception($"Chyba při volání procedury SP_ODEBER_SPONZOR: {ex.Message}", ex);
-            //    }
-            //}
+                catch (OracleException ex)
+                {
+                    throw new Exception($"Chyba při volání procedury SP_ODEBER_ZAPAS: {ex.Message}", ex);
+                }
+            }
         }
 
         /// <summary>
-        /// Metoda slouží k editaci sponzora v databázi
+        /// Metoda slouží k editaci zápasu v databázi
         /// </summary>
-        /// <param name="sponzor">Sponzor, kterého chceme editovat v databázi</param>
+        /// <param name="zapas">Zápas, který chceme editovat v databázi</param>
+        /// <param name="conn">Připojení do Oracle databáze</param>
         /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void UpdateSponzor(Sponzor sponzor)
+        public static void UpdateZapas(OracleConnection conn, Zapas zapas)
         {
-            //using var conn = GetConnection();
-            //conn.Open();
+            using (var cmd = new OracleCommand("PKG_ZAPASY.SP_UPDATE_ZAPAS", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            //// Nastavení App user pro zprovoznění logování změn
-            //SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+                // Naplníme všechny parametry procedury
+                cmd.Parameters.Add("v_id_zapas", OracleDbType.Int32).Value = zapas.IdZapas;
+                cmd.Parameters.Add("v_datum", OracleDbType.Date).Value = zapas.Datum;
+                cmd.Parameters.Add("v_id_soutez", OracleDbType.Int32).Value = zapas.Soutez.IdSoutez;
 
-            //using (var cmd = new OracleCommand("PKG_SPONZORI.SP_UPDATE_SPONZOR", conn))
-            //{
-            //    cmd.CommandType = CommandType.StoredProcedure;
+                StavZapasu stav = new StavZapasu();
+                int indexStavu = stav.StavyZapasu.FirstOrDefault(st => st.Value == zapas.StavZapasu).Key;
 
-            //    // Naplníme všechny parametry procedury
-            //    cmd.Parameters.Add("v_id_sponzor", OracleDbType.Int32).Value = sponzor.IdSponzor;
-            //    cmd.Parameters.Add("v_jmeno", OracleDbType.Varchar2).Value = sponzor.Jmeno;
-            //    cmd.Parameters.Add("v_sponzorovana_castka", OracleDbType.Varchar2).Value = sponzor.SponzorovanaCastka;
+                cmd.Parameters.Add("v_id_stav", OracleDbType.Int32).Value = indexStavu;
+                cmd.Parameters.Add("v_domaci_tym", OracleDbType.Varchar2).Value = zapas.DomaciTym;
+                cmd.Parameters.Add("v_hoste_tym", OracleDbType.Varchar2).Value = zapas.HosteTym;
 
-            //    try
-            //    {
-            //        cmd.ExecuteNonQuery();
-            //    }
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
 
-            //    catch (OracleException ex)
-            //    {
-            //        throw new Exception($"Chyba při volání procedury SP_UPDATE_SPONZOR: {ex.Message}", ex);
-            //    }
-            //}
+                catch (OracleException ex)
+                {
+                    throw new Exception($"Chyba při volání procedury SP_UPDATE_ZAPAS: {ex.Message}", ex);
+                }
+            }
         }
 
         /// <summary>

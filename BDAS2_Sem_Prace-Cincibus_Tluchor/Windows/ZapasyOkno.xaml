@@ -37,7 +37,7 @@
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single" PreviewKeyDown="dgZapasy_PreviewKeyDown">
+                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single" PreviewKeyDown="dgZapasy_PreviewKeyDown" MouseDoubleClick="dgZapasy_MouseDoubleClick">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->
@@ -74,7 +74,19 @@
                     <DataGridTextColumn Header="Domácí" Binding="{Binding DomaciTym, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Hosté" Binding="{Binding HosteTym, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn Header="Soutěž" Binding="{Binding Soutez.TypSouteze, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
-                    <DataGridTextColumn Header="Výsledek" Binding="{Binding Vysledek, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTemplateColumn Header="Výsledek" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Vysledek}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Cursor="Hand"
+                       Foreground="DarkBlue"
+                       TextDecorations="Underline"
+                       MouseLeftButtonUp="Vysledek_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
                     <DataGridTextColumn Header="---" Width="80" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         <DataGridTextColumn.HeaderStyle>
@@ -178,7 +190,7 @@
                     </Button>
 
                     <!-- Button Odeber -->
-                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}" Click="btnOdeber_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>

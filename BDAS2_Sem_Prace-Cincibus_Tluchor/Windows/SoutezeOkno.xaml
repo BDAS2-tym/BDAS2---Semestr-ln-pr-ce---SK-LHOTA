@@ -37,7 +37,7 @@
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single" PreviewKeyDown="dgSouteze_PreviewKeyDown">
+                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single" PreviewKeyDown="dgSouteze_PreviewKeyDown" MouseDoubleClick="dgSouteze_MouseDoubleClick">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->
@@ -173,7 +173,7 @@
                     </Button>
 
                     <!-- Button Odeber -->
-                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnOdeber" Grid.Row="1" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}" Click="btnOdeber_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>

@@ -23,7 +23,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             TypySoutezi.Add(2, "Pohár");
             TypySoutezi.Add(3, "Divize");
             TypySoutezi.Add(4, "Kraj");
-            TypySoutezi.Add(5, "Okers");
+            TypySoutezi.Add(5, "Okres");
         }
     }
 }

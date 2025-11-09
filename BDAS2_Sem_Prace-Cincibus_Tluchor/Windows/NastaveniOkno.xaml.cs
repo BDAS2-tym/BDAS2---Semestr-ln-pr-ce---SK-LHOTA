@@ -22,9 +22,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         public NastaveniOkno(HlavniOkno hlavniOkno)
         {
             InitializeComponent();
-
-            /* TODO Nakreslit ikony pro systémový katalog (tlačítko + Dialog icon) + možná změnit vnitřní velikosti ikonek binary_file a user
-             * Dodělat odebírání a editaci: soutěží, zápasů a výsledků zápasů*/
         }
         
         private void BtnBinarniObsah_Click(object sender, RoutedEventArgs e)

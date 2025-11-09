@@ -135,5 +135,95 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             DialogPridejSoutez dialogPridejSoutez = new DialogPridejSoutez(SoutezeData);
             dialogPridejSoutez.ShowDialog();
         }
+
+        /// <summary>
+        /// Metoda slouží k odebrání soutěže z tabulky
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void btnOdeber_Click(object sender, RoutedEventArgs e)
+        {
+            Soutez? vybranaSoutez = dgSouteze.SelectedItem as Soutez;
+            if (vybranaSoutez == null)
+            {
+                MessageBox.Show(
+                    "Prosím, vyberte soutěž, kterou chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Potvrzení od uživatele
+            MessageBoxResult potvrzeni = MessageBox.Show($"Opravdu chcete odebrat soutěž " +
+                $"{vybranaSoutez.TypSouteze}?", "Potvrzení odebrání",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (potvrzeni == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            // Smazání z databáze
+            try
+            {
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
+
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Odebrání soutěže
+                    DatabaseSouteze.OdeberSoutez(conn, vybranaSoutez);
+
+                    SoutezeData.Remove(vybranaSoutez);
+                }
+
+                // Úspěch
+                MessageBox.Show(
+                    "Soutěž byla úspěšně odebrána.",
+                    "Úspěch",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Chyba databáze při mazání soutěže:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Nastala neočekávaná chyba při mazání soutěže:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }           
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení editovacího dialogu soutěže
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void dgSouteze_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            // Získání objektu DataGrid a jeho potomků, aby se DoubleClick uplatňoval pouze na řádky a ne na ColumnHeader
+            while (dep != null && !(dep is DataGridRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep is DataGridRow row)
+            {
+                Soutez? vybranaSoutez= (Soutez)row.Item;
+                if (vybranaSoutez == null)
+                {
+                    MessageBox.Show("Prosím vyberte soutěž, kterou chcete upravit! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                DialogEditujSoutez dialogEditujSoutez = new DialogEditujSoutez(vybranaSoutez, this);
+                dialogEditujSoutez.ShowDialog();
+            }
+        }
     }
 }

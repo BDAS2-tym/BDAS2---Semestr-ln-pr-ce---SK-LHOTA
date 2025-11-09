@@ -185,7 +185,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Metoda slouží k zobrazení editovacího dialogu sponzora
+        /// Metoda slouží k zobrazení editovacího dialogu kontraktu
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>

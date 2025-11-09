@@ -19,39 +19,44 @@ using System.Windows.Shapes;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Interaction logic for DialogPridejZapas.xaml
+    /// Interaction logic for DialogEditujZapas.xaml
     /// </summary>
-    public partial class DialogPridejZapas : Window
+    public partial class DialogEditujZapas : Window
     {
-        private ObservableCollection<Zapas> zapasyData;
         private List<VysledekZapasu> vysledkyData;
+        private Zapas editovanyZapas;
+        private ZapasyOkno zapasyOkno;
         private List<Soutez> souteze = new List<Soutez>();
         private List<string> stavyZapasu = new List<string>();
         private const string StavOdehrano = "Odehráno";
         private const string StavBudeSeHrat = "Bude se hrát";
 
-        public DialogPridejZapas(ObservableCollection<Zapas> zapasyData, List<VysledekZapasu> vysledkyData)
+        public DialogEditujZapas(Zapas editovanyZapas, List<VysledekZapasu> vysledkyData, ZapasyOkno zapasyOkno)
         {
             InitializeComponent();
 
-            this.zapasyData = zapasyData;
+            this.editovanyZapas = editovanyZapas;
             this.vysledkyData = vysledkyData;
+            this.zapasyOkno = zapasyOkno;
 
             NaplnCbSoutez();
             NaplnCbStavZapasu();
+
+            cbSoutez.SelectedItem = souteze.FirstOrDefault(soutez => soutez.IdSoutez == editovanyZapas.Soutez.IdSoutez);           
+            cbStavZapasu.SelectedItem = stavyZapasu.FirstOrDefault(typ => typ.Equals(editovanyZapas.StavZapasu, StringComparison.InvariantCultureIgnoreCase));
+            tboxDomaciTym.Text = editovanyZapas.DomaciTym;
+            tboxHosteTym.Text = editovanyZapas.HosteTym;
+            dtpDatumZapasu.Value = editovanyZapas.Datum;
         }
 
         /// <summary>
-        /// Metoda vyresetuje Combobox a DateTimePicker
+        /// Metoda slouží k zavření dialogového okna
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void btnUkonci_Click(object sender, RoutedEventArgs e)
         {
-            cbSoutez.SelectedItem = cbStavZapasu.SelectedItem = null;
-            dtpDatumZapasu.Value = DateTime.Now;
-            tboxDomaciTym.Clear();
-            tboxHosteTym.Clear();
+            this.Close();
         }
 
         /// <summary>
@@ -116,7 +121,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     if (reader["STAVZAPASU"] != DBNull.Value)
                         stavyZapasu.Add(reader["STAVZAPASU"].ToString());
                     else
-                        stavyZapasu.Add("Nenalezeno");                  
+                        stavyZapasu.Add("Nenalezeno");
                 }
 
                 cbStavZapasu.ItemsSource = stavyZapasu;
@@ -134,12 +139,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <exception cref="NonValidDataException">Výjimka se vystaví, pokud jsou vstupní data nevalidní</exception>
         private void ValidujData()
         {
-            if (String.IsNullOrWhiteSpace(tboxHosteTym.Text) || String.IsNullOrWhiteSpace(tboxHosteTym.Text)) 
+            if (String.IsNullOrWhiteSpace(tboxHosteTym.Text) || String.IsNullOrWhiteSpace(tboxHosteTym.Text))
             {
                 throw new NonValidDataException("Domací tým ani tým hostů nemůže být prázdný ani NULL!");
             }
 
-            if(String.Equals(tboxDomaciTym.Text, tboxHosteTym.Text, StringComparison.InvariantCultureIgnoreCase))
+            if (String.Equals(tboxDomaciTym.Text, tboxHosteTym.Text, StringComparison.InvariantCultureIgnoreCase))
             {
                 throw new NonValidDataException("Domácí tým nemůže být stejný jako tým hostů!");
             }
@@ -161,72 +166,104 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Metoda slouží k přidání nového zápasu a výsledku daného zápasu do tabulky a zároveň také do databáze
+        /// Metoda slouží k editaci vybraného zápasu z tabulky a zároveň také v databázi
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnPridej_Click(object sender, RoutedEventArgs e)
+        private void btnEdituj_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 ValidujData();
 
-                Zapas pridanyZapas = new Zapas();
-
                 string? vybranyStavZapasu = cbStavZapasu.SelectedItem as String;
                 Soutez? vybranaSoutez = cbSoutez.SelectedItem as Soutez;
                 if (vybranaSoutez != null && !String.IsNullOrEmpty(vybranyStavZapasu) && dtpDatumZapasu.Value.HasValue)
                 {
-                    pridanyZapas.Soutez = vybranaSoutez;
-                    pridanyZapas.StavZapasu = vybranyStavZapasu;
-                    pridanyZapas.DomaciTym = tboxDomaciTym.Text;
-                    pridanyZapas.HosteTym  = tboxHosteTym.Text;
-                    pridanyZapas.Datum = (DateTime)dtpDatumZapasu.Value;
+                    editovanyZapas.Soutez = vybranaSoutez;
+                    editovanyZapas.StavZapasu = vybranyStavZapasu;
+                    editovanyZapas.DomaciTym = tboxDomaciTym.Text;
+                    editovanyZapas.HosteTym = tboxHosteTym.Text;
+                    editovanyZapas.Datum = (DateTime)dtpDatumZapasu.Value;
 
-                    if (String.Equals(pridanyZapas.StavZapasu, StavOdehrano, StringComparison.InvariantCultureIgnoreCase))
+                    VysledekZapasu? hledanyVysledek = vysledkyData.Find(vys => vys.IdZapasu == editovanyZapas.IdZapas);
+
+                    // Kontrola, zda editovaný zápas nastavený na ODEHRÁNO nemá ještě výsledek --> Otevře se dialog pro přidání výsledku
+                    if (String.Equals(editovanyZapas.StavZapasu, StavOdehrano, StringComparison.InvariantCultureIgnoreCase)
+                        && hledanyVysledek == null)
                     {
                         MessageBox.Show("Budete přesměrováni na dialog pro přidáni výsledku zápasu.", "Přesměrování", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        DialogPridejVysledekZapasu dialogPridejVysledekZapasu = new DialogPridejVysledekZapasu(pridanyZapas);
+                        DialogPridejVysledekZapasu dialogPridejVysledekZapasu = new DialogPridejVysledekZapasu(editovanyZapas);
                         bool? vysledekDiaOkna = dialogPridejVysledekZapasu.ShowDialog();
                         if (vysledekDiaOkna == null || vysledekDiaOkna == false)
                         {
-                            throw new NonValidDataException("Nic nebylo přidáno, protože jste přerušili zadávání výsledku zápasu!");
+                            throw new NonValidDataException("Nic nebylo editováno, protože jste přerušili zadávání výsledku zápasu!");
                         }
 
                         using (var conn = DatabaseManager.GetConnection())
                         {
                             VysledekZapasu pridanyVysledek = dialogPridejVysledekZapasu.PridavanyVysledek;
 
-                            pridanyZapas.Vysledek = pridanyVysledek.Vysledek;
+                            editovanyZapas.Vysledek = pridanyVysledek.Vysledek;
 
                             conn.Open();
 
                             // Nastavení přihlášeného uživatele pro logování
                             DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                            // Přidání zápasu
-                            DatabaseZapasy.AddZapas(conn, pridanyZapas);
+                            // Editování zápasu
+                            DatabaseZapasy.UpdateZapas(conn, editovanyZapas);
 
-                            // Získání ID ze stejné session
-                            int? idZapas = DatabaseZapasy.GetCurrentId(conn);
-                            if (idZapas == null)
-                            {
-                                throw new NullReferenceException("ID zápasu nemůže být NULL! Nastala chyba u spojení s databází...");
-                            }
+                            pridanyVysledek.IdZapasu = editovanyZapas.IdZapas;
+                            pridanyVysledek.Zapas = editovanyZapas;
 
-                            pridanyZapas.IdZapas = (int)idZapas;
-
-                            zapasyData.Add(pridanyZapas);
-                            
-                            pridanyVysledek.IdZapasu = pridanyZapas.IdZapas;
-                            pridanyVysledek.Zapas = pridanyZapas;
-
+                            // Přidání výsledku zápasu
                             DatabaseVysledkyZapasu.AddVysledekZapasu(conn, pridanyVysledek);
 
                             vysledkyData.Add(pridanyVysledek);
 
-                            MessageBox.Show("Zápas a jeho výsledek byly úspěšně přidány!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                            zapasyOkno.dgZapasy.Items.Refresh();
+
+                            MessageBox.Show("Zápas a jeho výsledek byly úspěšně editovány!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+
+                        this.Close();
+                    }
+
+                    // Kontrola, zda editovaný zápas nastavený na BUDE SE HRÁT má už výsledek --> zeptání se na smazání dosavadního výsledku
+                    else if (String.Equals(editovanyZapas.StavZapasu, StavBudeSeHrat, StringComparison.InvariantCultureIgnoreCase)
+                        && hledanyVysledek != null)
+                    {
+                        MessageBoxResult vysledekDiaOkna = MessageBox.Show($"Vámi vybraný zápas má už nastavený výsledek. " +
+                           $"Pokud necháte stav na '{StavBudeSeHrat}' bude výsledek smazán! " +
+                            $"Opravdu chcete zápas nastavit na stav '{StavBudeSeHrat}' ?", "Upozornění", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                        if (vysledekDiaOkna == MessageBoxResult.No || vysledekDiaOkna == MessageBoxResult.None)
+                        {
+                            throw new NonValidDataException("Nic nebylo editováno!");
+                        }
+
+                        using (var conn = DatabaseManager.GetConnection())
+                        {
+                            conn.Open();
+
+                            // Nastavení přihlášeného uživatele pro logování
+                            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                            // Editování zápasu
+                            DatabaseZapasy.UpdateZapas(conn, editovanyZapas);
+
+                            // Odebrání výsledku zápasu
+                            DatabaseVysledkyZapasu.OdeberVysledekZapasu(conn, hledanyVysledek);
+
+                            editovanyZapas.Vysledek = String.Empty;
+
+                            vysledkyData.Remove(hledanyVysledek);
+
+                            zapasyOkno.dgZapasy.Items.Refresh();
+
+                            MessageBox.Show("Zápas byl úšpěšně editován a jeho výsledek smazán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
 
                         this.Close();
@@ -242,24 +279,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
                             // Přidání zápasu
-                            DatabaseZapasy.AddZapas(conn, pridanyZapas);
+                            DatabaseZapasy.UpdateZapas(conn, editovanyZapas);
 
-                            // Získání ID ze stejné session
-                            int? idZapas = DatabaseZapasy.GetCurrentId(conn);
-                            if (idZapas == null)
-                            {
-                                throw new NullReferenceException("ID zápasu nemůže být NULL! Nastala chyba u spojení s databází...");
-                            }
-
-                            pridanyZapas.IdZapas = (int)idZapas;
-
-                            zapasyData.Add(pridanyZapas);
-
-                            MessageBox.Show("Zápas byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("Zápas byl úspěšně editován!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
 
+                        zapasyOkno.dgZapasy.Items.Refresh();
                         this.Close();
-                    }                      
+                    }
                 }
             }
 
@@ -281,7 +308,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e"></param>
         private void dtpDatumZapasu_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if(dtpDatumZapasu.Value == null)
+            if (dtpDatumZapasu.Value == null)
             {
                 return;
             }

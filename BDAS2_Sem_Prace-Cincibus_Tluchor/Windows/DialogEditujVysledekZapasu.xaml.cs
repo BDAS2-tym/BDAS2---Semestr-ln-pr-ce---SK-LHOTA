@@ -18,25 +18,22 @@ using System.Windows.Shapes;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Interaction logic for DialogPridejVysledekZapasu.xaml
+    /// Interaction logic for DialogEditujVysledekZapasu.xaml
     /// </summary>
-    public partial class DialogPridejVysledekZapasu : Window
+    public partial class DialogEditujVysledekZapasu : Window
     {
-        public VysledekZapasu PridavanyVysledek { get; set; } = new VysledekZapasu();
+        public VysledekZapasu EditovanyVysledek { get; set; } = new VysledekZapasu();
 
-        private Zapas pridavanyZapas;
         private const string HintText = "např. 3:2";
+        private Zapas editovanyZapas;
 
-        public DialogPridejVysledekZapasu(Zapas pridavanyZapas)
+        public DialogEditujVysledekZapasu(VysledekZapasu editovanyVysledekZapasu, Zapas editovanyZapas)
         {
             InitializeComponent();
 
-            this.pridavanyZapas = pridavanyZapas;
-            tboxDomaciTym.Text = pridavanyZapas.DomaciTym;
-            tboxHosteTym.Text = pridavanyZapas.HosteTym;
-
-            tboxVysledek.Text = HintText;
-            tboxVysledek.Foreground = Brushes.Gray;
+            EditovanyVysledek = editovanyVysledekZapasu;
+            tboxDomaciTym.Text = editovanyZapas.DomaciTym;
+            tboxHosteTym.Text = editovanyZapas.HosteTym;
 
             /* Vlastní čárkovaná čára pod textem */
             var underline = new TextDecoration
@@ -51,7 +48,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             tblockVysledek.TextDecorations = new TextDecorationCollection { underline };
 
-            tboxVysledek.Text = pridavanyZapas.Vysledek;
+            tboxVysledek.Text = editovanyZapas.Vysledek;
+            this.editovanyZapas = editovanyZapas;
+
+            iudPocetZlutychKaret.Value = editovanyVysledekZapasu.PocetZlutychKaret;
+            iudPocetCervenychKaret.Value = editovanyVysledekZapasu.PocetCervenychKaret;
+            iudPocetGolyDomaci.Value = editovanyVysledekZapasu.PocetGolyDomaci;
+            iudPocetGolyHoste.Value = editovanyVysledekZapasu.PocetGolyHoste;
         }
 
         /// <summary>
@@ -83,34 +86,45 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Metoda vyresetuje textová pole a IntegerUpDown
+        /// Metoda slouží k zavření dialogového okna
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void btnUkonci_Click(object sender, RoutedEventArgs e)
         {
-            tboxVysledek.Clear();
-            tboxVysledek.Text = HintText;
-            tboxVysledek.Foreground = Brushes.Gray;
-            iudPocetCervenychKaret.Value = iudPocetZlutychKaret.Value = iudPocetGolyDomaci.Value = iudPocetGolyHoste.Value = 0;
+            DialogResult = false;
+            this.Close();
         }
 
         /// <summary>
-        /// Metoda slouží k přidání nového výsledku zápasu do tabulky a zároveň také do databáze
+        /// Metoda slouží k editaci vybraného výsledku zápasu z tabulky a zároveň také v databázi
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnPridej_Click(object sender, RoutedEventArgs e)
+        private void btnEdituj_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 ValidujData();
 
-                PridavanyVysledek.Vysledek = tboxVysledek.Text;
-                PridavanyVysledek.PocetGolyDomaci = Convert.ToInt32(iudPocetGolyDomaci.Value);
-                PridavanyVysledek.PocetGolyHoste = Convert.ToInt32(iudPocetGolyHoste.Value);
-                PridavanyVysledek.PocetZlutychKaret = Convert.ToInt32(iudPocetZlutychKaret.Value);
-                PridavanyVysledek.PocetCervenychKaret = Convert.ToInt32(iudPocetCervenychKaret.Value);
+                EditovanyVysledek.Vysledek = tboxVysledek.Text;
+                EditovanyVysledek.PocetGolyDomaci = Convert.ToInt32(iudPocetGolyDomaci.Value);
+                EditovanyVysledek.PocetGolyHoste = Convert.ToInt32(iudPocetGolyHoste.Value);
+                EditovanyVysledek.PocetZlutychKaret = Convert.ToInt32(iudPocetZlutychKaret.Value);
+                EditovanyVysledek.PocetCervenychKaret = Convert.ToInt32(iudPocetCervenychKaret.Value);
+
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
+
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Editování výsledku zápasu
+                    DatabaseVysledkyZapasu.UpdateVysledekZapasu(conn, EditovanyVysledek);
+
+                    MessageBox.Show("Výsledek zápasu byl úspěšně editován!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
 
                 this.DialogResult = true;
                 this.Close();
@@ -124,7 +138,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-            }         
+            }
         }
 
         /// <summary>
@@ -138,7 +152,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 throw new NonValidDataException("Výsledek nemůže být prázdný ani NULL!");
             }
 
-            if(!Regex.IsMatch(tboxVysledek.Text, @"^[0-9]{1,2}:[0-9]{1,2}$"))
+            if (!Regex.IsMatch(tboxVysledek.Text, @"^[0-9]{1,2}:[0-9]{1,2}$"))
             {
                 throw new NonValidDataException("Výsledek není ve validním formátu!");
             }
@@ -159,7 +173,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 throw new NonValidDataException("Góly se musí shodovat ve výsledku a v počtu gólů hosté!");
             }
 
-            if(iudPocetZlutychKaret.Value < 0 || iudPocetCervenychKaret.Value < 0)
+            if (iudPocetZlutychKaret.Value < 0 || iudPocetCervenychKaret.Value < 0)
             {
                 throw new NonValidDataException("Počet žlutých ani červených karet nemůže být záporný!");
             }

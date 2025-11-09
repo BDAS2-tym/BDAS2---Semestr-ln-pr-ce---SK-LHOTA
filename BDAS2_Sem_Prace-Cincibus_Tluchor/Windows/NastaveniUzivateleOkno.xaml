@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Uživatelské účty"
         Height="600" Width="1300"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Icon="/Images/Ikony/Ikona_Uzivatele.ico">
 
     <Grid>
 

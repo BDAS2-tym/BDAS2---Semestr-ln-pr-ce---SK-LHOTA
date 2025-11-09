@@ -233,5 +233,122 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             DialogPridejZapas dialogPridejZapas = new DialogPridejZapas(ZapasyData, VysledkyData);
             dialogPridejZapas.ShowDialog();
         }
+
+        /// <summary>
+        /// Metoda slouží k odebrání zápasu z tabulky
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void btnOdeber_Click(object sender, RoutedEventArgs e)
+        {
+            Zapas? vybranyZapas = dgZapasy.SelectedItem as Zapas;
+            if (vybranyZapas == null)
+            {
+                MessageBox.Show(
+                    "Prosím, vyberte zápas, který chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Potvrzení od uživatele
+            MessageBoxResult potvrzeni = MessageBox.Show($"Opravdu chcete odebrat zápas " +
+                $"{vybranyZapas.DomaciTym} - {vybranyZapas.HosteTym}?", "Potvrzení odebrání",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (potvrzeni == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            // Smazání z databáze
+            try
+            {
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
+
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Odebrání soutěže
+                    DatabaseZapasy.OdeberZapas(conn, vybranyZapas);
+
+                    ZapasyData.Remove(vybranyZapas);
+
+                    VysledekZapasu? vybranyVysledek = VysledkyData.Find(vysledek => vysledek.IdZapasu == vybranyZapas.IdZapas);
+                    if(vybranyVysledek != null)
+                    {
+                        VysledkyData.Remove(vybranyVysledek);
+                    }
+                }
+
+                // Úspěch
+                MessageBox.Show(
+                    "Zápas byl úspěšně odebrán.",
+                    "Úspěch",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Chyba databáze při mazání zápasu:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Nastala neočekávaná chyba při mazání zápasu:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Vysledek_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Získání vybraného zápasu z TextBlocku
+            if (sender is TextBlock tb && tb.DataContext is Zapas vybranyZapas)
+            {
+                //Kontrola, zda kliknutý zápas má výsledek
+                VysledekZapasu? vysledek = VysledkyData.FirstOrDefault(v => v.IdZapasu == vybranyZapas.IdZapas);
+                if(vysledek != null)
+                {
+                    DialogEditujVysledekZapasu dialogEditujVysledekZapasu = new DialogEditujVysledekZapasu(vysledek, vybranyZapas);
+                    dialogEditujVysledekZapasu.ShowDialog();
+
+                    if(dialogEditujVysledekZapasu != null && dialogEditujVysledekZapasu.DialogResult == true)
+                    {
+                        vybranyZapas.Vysledek = dialogEditujVysledekZapasu.EditovanyVysledek.Vysledek;
+                        dgZapasy.Items.Refresh();
+                    }
+                }               
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení editovacího dialogu zápasu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void dgZapasy_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            // Získání objektu DataGrid a jeho potomků, aby se DoubleClick uplatňoval pouze na řádky a ne na ColumnHeader
+            while (dep != null && !(dep is DataGridRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep is DataGridRow row)
+            {
+                Zapas? vybranyZapas = (Zapas)row.Item;
+                if (vybranyZapas == null)
+                {
+                    MessageBox.Show("Prosím vyberte zápas, který chcete upravit! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                DialogEditujZapas dialogEditujZapas = new DialogEditujZapas(vybranyZapas, VysledkyData, this);
+                dialogEditujZapas.ShowDialog();
+            }
+        }
     }
 }
