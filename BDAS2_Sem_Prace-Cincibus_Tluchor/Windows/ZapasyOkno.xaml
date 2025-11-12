@@ -88,31 +88,48 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTextColumn Header="---" Width="80" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
-                        <DataGridTextColumn.HeaderStyle>
-                            <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
+                    <DataGridTemplateColumn Header="---" Width="80">
+                        <DataGridTemplateColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
-                                <!-- Pozadí -->
                                 <Setter Property="Background" Value="#AABBCC"/>
-
-                                <!-- Barva textu -->
                                 <Setter Property="Foreground" Value="Black"/>
-
-                                <!-- Font -->
                                 <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="FontSize" Value="12"/>
                                 <Setter Property="FontFamily" Value="Century Gothic"/>
-
-                                <!-- Vycentrování textu -->
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-
-                                <!-- Ohraničení -->
                                 <Setter Property="BorderBrush" Value="#125C64"/>
                                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
                             </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </DataGridTextColumn>
+                        </DataGridTemplateColumn.HeaderStyle>
+
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Width="22" Height="22" HorizontalAlignment="Center">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Style.Triggers>
+                                                <!-- Ikona výhra -->
+                                                <DataTrigger Binding="{Binding IkonaVysledku}" Value="VYHRA">
+                                                    <Setter Property="Source" Value="/Images/Ikony/Ikona_Vyhra1.png"/>
+                                                </DataTrigger>
+
+                                                <!-- Ikona prohra -->
+                                                <DataTrigger Binding="{Binding IkonaVysledku}" Value="PROHRA">
+                                                    <Setter Property="Source" Value="/Images/Ikony/Ikona_Prohra.png"/>
+                                                </DataTrigger>
+
+                                                <!-- Ikona remíza -->
+                                                <DataTrigger Binding="{Binding IkonaVysledku}" Value="REMIZA">
+                                                    <Setter Property="Source" Value="/Images/Ikony/Ikona_Remiza.png"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
 
                 <!-- Změna barvy pozadí a písma při výběru řádku -->

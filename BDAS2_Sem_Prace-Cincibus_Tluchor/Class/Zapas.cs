@@ -46,6 +46,54 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         public Soutez Soutez { get; set; }
 
         /// <summary>
+        /// Ikona výsledku zápasu, může být Výhra, Prohra, Remíza
+        /// </summary>
+        public string IkonaVysledku
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(Vysledek))
+                {
+                    return "";
+                }
+
+                var casti = Vysledek.Split(':');
+                if (casti.Length != 2)
+                {
+                    return "";
+                }
+
+                int golyDomaci = int.Parse(casti[0]);
+                int golyHoste = int.Parse(casti[1]);
+
+                const string sledovanyTym = "SK Lhota";
+
+                bool jeDomaci = DomaciTym.Equals(sledovanyTym, StringComparison.InvariantCultureIgnoreCase);
+                bool jeHoste = HosteTym.Equals(sledovanyTym, StringComparison.InvariantCultureIgnoreCase);
+
+                if (!jeDomaci && !jeHoste)
+                {
+                    return "";
+                }
+
+                // Logika podle toho, jestli SK Lhota hrála doma nebo venku
+                if (jeDomaci)
+                {
+                    if (golyDomaci > golyHoste) return "VYHRA";
+                    if (golyDomaci < golyHoste) return "PROHRA";
+                }
+
+                else
+                {
+                    if (golyHoste > golyDomaci) return "VYHRA";
+                    if (golyHoste < golyDomaci) return "PROHRA";
+                }
+
+                return "REMIZA";
+            }
+        }
+
+        /// <summary>
         /// Prázdný konstruktor
         /// </summary>
         public Zapas() { }

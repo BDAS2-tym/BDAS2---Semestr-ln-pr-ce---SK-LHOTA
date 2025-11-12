@@ -50,7 +50,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Metoda načte soutezy z databáze přes DatabaseManager a naplní DataGrid
+        /// Metoda načte soutěže z databáze přes DatabaseManager a naplní DataGrid
         /// </summary>
         private void NactiSouteze()
         {
@@ -92,7 +92,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             catch (Exception ex)
             {
-                MessageBox.Show($"Chyba při načítání soutezů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Chyba při načítání soutěží:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -224,6 +224,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 DialogEditujSoutez dialogEditujSoutez = new DialogEditujSoutez(vybranaSoutez, this);
                 dialogEditujSoutez.ShowDialog();
             }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu, který zobrazuje celkové sponzorované částky jednotlivých soutěží
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void btnCastkySoutezi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogSponzorovaneCastkySoutezi castky = new DialogSponzorovaneCastkySoutezi();
+            castky.ShowDialog();
         }
     }
 }
