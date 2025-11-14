@@ -160,14 +160,13 @@
                     </Grid.Resources>
 
                     <!-- Button Najdi -->
-                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="1" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="1" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalAlignment="Left" Width="250">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Najdi" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-
-
+                    
                     <!-- Exit -->
                     <Button x:Name="btnZpet" Grid.Row="7" Margin="0,8,0,5" TabIndex="2" Style="{StaticResource HoverFadeButtonStyle2}" Click="btnZpet_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
