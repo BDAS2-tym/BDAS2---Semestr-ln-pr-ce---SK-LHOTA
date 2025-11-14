@@ -89,8 +89,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     pocetGolu, pocetZlutychKaret, pocetCervenychKaret, pozice
                 );
 
-                DatabaseHraci.AddHrac(novyHrac); // Přidání do databáze
-                HraciData.Add(novyHrac);        // Přidání do ObservableCollection pro datagrid
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
+
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Přidání hráče
+                    DatabaseHraci.AddHrac(conn, novyHrac);
+
+                    HraciData.Add(novyHrac);
+                }
 
                 MessageBox.Show("Hráč byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();

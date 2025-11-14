@@ -106,8 +106,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     uzivatel.Salt = salt;
                 }
 
-                // Aktualizace dat v databázi
-                DatabaseRegistrace.UpdateUzivatel(uzivatel, stareJmeno);
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
+
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Editování soutěže
+                    DatabaseRegistrace.UpdateUzivatel(conn, uzivatel, stareJmeno);
+                }
 
                 MessageBox.Show("Změny byly uloženy.");
                 DialogResult = true; // informuje rodičovské okno o úspěchu

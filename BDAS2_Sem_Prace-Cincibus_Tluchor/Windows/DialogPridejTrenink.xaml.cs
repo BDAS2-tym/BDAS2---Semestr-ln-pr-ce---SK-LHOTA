@@ -87,15 +87,21 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
-                // Vložení tréninku do databáze
-                DatabaseTreninky.AddTrenink(novyTrenink);
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
 
-                // Přidej do DataGridu
-                TreninkyOkno.TreninkyData.Add(novyTrenink);
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                MessageBox.Show("Trénink byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Přidání tréninku
+                    DatabaseTreninky.AddTrenink(conn, novyTrenink);
 
-                this.DialogResult = true;
+                    TreninkyOkno.TreninkyData.Add(novyTrenink);
+
+                    this.DialogResult = true;
+                }
+
                 this.Close();
             }
             catch (Exception ex)

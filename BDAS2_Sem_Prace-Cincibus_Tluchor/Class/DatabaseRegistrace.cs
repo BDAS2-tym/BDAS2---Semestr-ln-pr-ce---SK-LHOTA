@@ -15,11 +15,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Odstraní uživatele z databáze pomocí procedury PKG_REGISTRACE.SP_DELETE_UZIVATEL
         /// </summary>
         /// <param name="uzivatel">Objekt uživatele, který se má smazat</param>
-        public static void DeleteUzivatel(Uzivatel uzivatel)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void DeleteUzivatel(OracleConnection conn, Uzivatel uzivatel)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             // Voláme proceduru z balíčku PKG_REGISTRACE
             using var cmd = new OracleCommand("PKG_REGISTRACE.SP_DELETE_UZIVATEL", conn)
             {
@@ -43,11 +42,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Přidá nového uživatele do databáze pomocí uložené procedury PKG_REGISTRACE.SP_ADD_UZIVATEL
         /// </summary>
         /// <param name="uzivatel">Objekt s daty nového uživatele</param>
-        public static void AddUzivatel(Uzivatel uzivatel)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void AddUzivatel(OracleConnection conn, Uzivatel uzivatel)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             // Získáme ID role podle názvu role
             int idRole;
             using (var roleCmd = new OracleCommand("SELECT IDROLE FROM ROLE WHERE LOWER(REPLACE(NAZEVROLE, 'Á', 'A')) = :nazev", conn))
@@ -66,7 +64,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 idRole = Convert.ToInt32(result);
             }
 
-            // 2Zavoláme uloženou proceduru pro vložení uživatele
+            // Zavoláme uloženou proceduru pro vložení uživatele
             using var cmd = new OracleCommand("PKG_REGISTRACE.SP_ADD_UZIVATEL", conn)
             {
                 CommandType = CommandType.StoredProcedure
@@ -83,7 +81,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             {
                 cmd.ExecuteNonQuery();
 
-                // 3Pokud má uživatel rodné číslo (je člen klubu), vytvoříme vazbu
+                // Pokud má uživatel rodné číslo (je člen klubu), vytvoříme vazbu
                 if (!string.IsNullOrEmpty(uzivatel.RodneCislo))
                 {
                     using var cmdId = new OracleCommand("SELECT IDCLENKLUBU FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rodnecislo", conn);
@@ -118,11 +116,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         /// <param name="uzivatel">Objekt s novými daty uživatele</param>
         /// <param name="stareJmeno">Původní uživatelské jméno, podle kterého se vyhledá záznam</param>
-        public static void UpdateUzivatel(Uzivatel uzivatel, string stareJmeno)
+        /// /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void UpdateUzivatel(OracleConnection conn,Uzivatel uzivatel, string stareJmeno)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             // Pokud není nové heslo → načteme staré
             if (string.IsNullOrEmpty(uzivatel.Heslo))
             {

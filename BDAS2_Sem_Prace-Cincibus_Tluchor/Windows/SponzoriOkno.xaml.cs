@@ -187,28 +187,36 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Smazání z databáze
             try
             {
-                // Odebrání všech vytvořených vazeb z vazební tabulky SPONZORI_CLENOVE
-                if (vybranySponzor.SponzorovaniClenove.Count > 0)
+                using (var conn = DatabaseManager.GetConnection())
                 {
-                    foreach (ClenKlubu clen in vybranySponzor.SponzorovaniClenove)
+                    conn.Open();
+
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Odebrání všech vytvořených vazeb z vazební tabulky SPONZORI_CLENOVE
+                    if (vybranySponzor.SponzorovaniClenove.Count > 0)
                     {
-                        DatabaseSponzoriClenove.OdeberSponzoriClenove(clen, vybranySponzor);
+                        foreach (ClenKlubu clen in vybranySponzor.SponzorovaniClenove)
+                        {
+                            DatabaseSponzoriClenove.OdeberSponzoriClenove(conn, clen, vybranySponzor);
+                        }
                     }
-                }
 
-                // Odebrání všech vytvořených vazeb z vazební tabulky SPONZORI_SOUTEZE
-                if (vybranySponzor.SponzorovaneSouteze.Count > 0)
-                {
-                    foreach (Soutez soutez in vybranySponzor.SponzorovaneSouteze)
+                    // Odebrání všech vytvořených vazeb z vazební tabulky SPONZORI_SOUTEZE
+                    if (vybranySponzor.SponzorovaneSouteze.Count > 0)
                     {
-                        DatabaseSponzoriSouteze.OdeberSponzoriSouteze(soutez, vybranySponzor);
+                        foreach (Soutez soutez in vybranySponzor.SponzorovaneSouteze)
+                        {
+                            DatabaseSponzoriSouteze.OdeberSponzoriSouteze(conn,soutez, vybranySponzor);
+                        }
                     }
+
+                    // Odebrání sponzora
+                    DatabaseSponzori.OdeberSponzor(conn, vybranySponzor);
+
+                    SponzoriData.Remove(vybranySponzor);
                 }
-
-                DatabaseSponzori.OdeberSponzor(vybranySponzor);
-
-                // Aktualizace DataGridu (odebrání z kolekce)
-                SponzoriData.Remove(vybranySponzor);
 
                 // Úspěch
                 MessageBox.Show(

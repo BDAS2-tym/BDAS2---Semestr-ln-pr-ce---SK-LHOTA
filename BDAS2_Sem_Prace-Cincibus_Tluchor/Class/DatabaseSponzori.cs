@@ -9,23 +9,18 @@ using System.Threading.Tasks;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+    /// <summary>
+    /// Třída pro práci se sponzori v databázi
+    /// Obsahuje metody pro získání aktuálního ID z databáze, přidání, úpravu a odstranění sponzora
+    /// </summary>
     internal static class DatabaseSponzori
     {
-        /// <summary>
-        /// Metoda slouží k získání Oracle Connection do databáze
-        /// </summary>
-        /// <returns>Připojení do Oracle databáze</returns>
-        private static OracleConnection GetConnection()
-        {
-            return DatabaseManager.GetConnection(); // využijeme metodu z DatabaseManage
-        }
-
         /// <summary>
         /// Metoda slouží k přidání sponzora do databáze
         /// </summary>
         /// <param name="sponzor">Sponzor, kterého chceme přidat do databáze</param>
         /// <param name="conn">Připojení do Oracle databáze</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void AddSponzor(OracleConnection conn, Sponzor sponzor)
         {
             using (var cmd = new OracleCommand("PKG_SPONZORI.SP_ADD_SPONZOR", conn))
@@ -60,15 +55,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Metoda slouží k odebrání sponzora z databáze
         /// </summary>
         /// <param name="sponzor">Sponzor, kterého chceme přidat do databáze</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void OdeberSponzor(Sponzor sponzor)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void OdeberSponzor(OracleConnection conn, Sponzor sponzor)
         {
-            using var conn = GetConnection();
-            conn.Open();
-
-            // Nastavení App user pro zprovoznění logování změn
-            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-
             using (var cmd = new OracleCommand("PKG_SPONZORI.SP_ODEBER_SPONZOR", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -92,15 +82,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Metoda slouží k editaci sponzora v databázi
         /// </summary>
         /// <param name="sponzor">Sponzor, kterého chceme editovat v databázi</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void UpdateSponzor(Sponzor sponzor)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void UpdateSponzor(OracleConnection conn, Sponzor sponzor)
         {
-            using var conn = GetConnection();
-            conn.Open();
-
-            // Nastavení App user pro zprovoznění logování změn
-            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-
             using (var cmd = new OracleCommand("PKG_SPONZORI.SP_UPDATE_SPONZOR", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;

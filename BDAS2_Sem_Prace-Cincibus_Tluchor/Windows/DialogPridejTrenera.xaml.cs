@@ -98,10 +98,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 // Vytvoření nového trenéra
                 Trener novyTrener = new Trener(jmeno, prijmeni, rodneCislo, "Trener", telCislo, licence, specializace, praxe);
 
-                DatabaseTreneri.AddTrener(novyTrener); // Přidání do databáze
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
 
-                // Přidání trenéra do kolekce
-                TreneriData.Add(novyTrener);
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Přidání trenéra
+                    DatabaseTreneri.AddTrener(conn, novyTrener);
+
+                    TreneriData.Add(novyTrener);
+                }
 
                 MessageBox.Show("Trenér byl úspěšně přidán.", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();

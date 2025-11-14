@@ -19,9 +19,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     /// </summary>
     public partial class NastaveniOkno : Window
     {
+        private readonly HlavniOkno hlavniOkno;
+
         public NastaveniOkno(HlavniOkno hlavniOkno)
         {
             InitializeComponent();
+
+            this.hlavniOkno = hlavniOkno;
         }
         
         private void BtnBinarniObsah_Click(object sender, RoutedEventArgs e)
@@ -49,6 +53,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             HlavniOkno hlavniOkno = new HlavniOkno();
             hlavniOkno.ShowDialog();
+            this.Close();
+        }
+
+        private void btnZmeny_Click(object sender, RoutedEventArgs e)
+        {
+            LogTableOkno logTableOkno = new LogTableOkno(hlavniOkno);
+            logTableOkno.Show();
             this.Close();
         }
     }

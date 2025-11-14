@@ -94,16 +94,24 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 editovanyTrener.TelefonniCislo = telCislo;
                 editovanyTrener.TrenerskaLicence = licence; 
                 editovanyTrener.Specializace = specializace;    
-                editovanyTrener.PocetLetPraxe = pocetLetPraxe;  
+                editovanyTrener.PocetLetPraxe = pocetLetPraxe;
 
-                // --- UPDATE V DATABÁZI ---
-                DatabaseTreneri.UpdateTrener(editovanyTrener);
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
 
-                // --- REFRESH DATAGRIDU ---
-                treneriOkno.dgTreneri.Items.Refresh();
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                MessageBox.Show("Trenér byl úspěšně editován! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.DialogResult = true;
+                    // Editování trenéra
+                    DatabaseTreneri.UpdateTrener(conn, editovanyTrener);
+
+                    treneriOkno.dgTreneri.Items.Refresh();
+
+                    MessageBox.Show("Trenér byl úspěšně editován!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                    DialogResult = true;
+                }
+
                 this.Close();
             }
             catch (Exception ex)

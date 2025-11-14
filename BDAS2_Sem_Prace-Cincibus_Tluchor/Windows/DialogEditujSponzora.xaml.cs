@@ -117,33 +117,43 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 editovanySponzor.SponzorovaniClenove = SponzorovaniClenove.ToList();
                 editovanySponzor.SponzorovaneSouteze = SponzorovaneSouteze.ToList();
 
-
-                // Odebrání všech vazeb SPONZORI_CLENOVE u určitého sponzora
-                DatabaseSponzoriClenove.OdeberVsechnyVazbySponzoriClenove(editovanySponzor);
-
-                // Odebrání všech vazeb SPONZORI_SOUTEZE u určitého sponzora
-                DatabaseSponzoriSouteze.OdeberVsechnyVazbySponzoriSouteze(editovanySponzor);
-
-                DatabaseSponzori.UpdateSponzor(editovanySponzor);
-
-                // Přidání všech nově vytvořených vazeb do vazební tabulky SPONZORI_CLENOVE
-                if (editovanySponzor.SponzorovaniClenove.Count > 0)
+                using (var conn = DatabaseManager.GetConnection())
                 {
-                    foreach (ClenKlubu clen in editovanySponzor.SponzorovaniClenove)
-                    {
-                        DatabaseSponzoriClenove.AddSponzoriClenove(clen, editovanySponzor);
-                    }
-                }
+                    conn.Open();
 
-                // Přidání všech nově vytvořených vazeb do vazební tabulky SPONZORI_SOUTEZE
-                if (editovanySponzor.SponzorovaneSouteze.Count > 0)
-                {
-                    foreach (Soutez soutez in editovanySponzor.SponzorovaneSouteze)
-                    {
-                        DatabaseSponzoriSouteze.AddSponzoriSouteze(soutez, editovanySponzor);
-                    }
-                }
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
+                    // Odebrání všech vazeb SPONZORI_CLENOVE u určitého sponzora
+                    DatabaseSponzoriClenove.OdeberVsechnyVazbySponzoriClenove(conn, editovanySponzor);
+
+                    // Odebrání všech vazeb SPONZORI_SOUTEZE u určitého sponzora
+                    DatabaseSponzoriSouteze.OdeberVsechnyVazbySponzoriSouteze(conn, editovanySponzor);
+
+                    DatabaseSponzori.UpdateSponzor(conn, editovanySponzor);
+
+                    // Přidání všech nově vytvořených vazeb do vazební tabulky SPONZORI_CLENOVE
+                    if (editovanySponzor.SponzorovaniClenove.Count > 0)
+                    {
+                        foreach (ClenKlubu clen in editovanySponzor.SponzorovaniClenove)
+                        {
+                            DatabaseSponzoriClenove.AddSponzoriClenove(conn, clen, editovanySponzor);
+                        }
+                    }
+
+                    // Přidání všech nově vytvořených vazeb do vazební tabulky SPONZORI_SOUTEZE
+                    if (editovanySponzor.SponzorovaneSouteze.Count > 0)
+                    {
+                        foreach (Soutez soutez in editovanySponzor.SponzorovaneSouteze)
+                        {
+                            DatabaseSponzoriSouteze.AddSponzoriSouteze(conn, soutez, editovanySponzor);
+                        }
+                    }
+
+                    sponzoriOkno.dgSponzori.Items.Refresh();
+                    MessageBox.Show("Sponzor byl úspěšně editován! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                
                 sponzoriOkno.dgSponzori.Items.Refresh();
                 MessageBox.Show("Sponzor byl úspěšně editován! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();

@@ -91,9 +91,20 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     editovanyKontrakt.VystupniKlauzule = Convert.ToInt32(tboxVystupniKlauzule.Text);
                     editovanyKontrakt.KontraktHrace = vybranyHrac;
 
-                    DatabaseKontrakty.UpdateKontrakt(editovanyKontrakt);
-                    kontraktyOkno.dgKontrakty.Items.Refresh();
-                    MessageBox.Show("Kontrakt byl úspěšně editován!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                    using (var conn = DatabaseManager.GetConnection())
+                    {
+                        conn.Open();
+
+                        // Nastavení přihlášeného uživatele pro logování
+                        DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                        // Editování soutěže
+                        DatabaseKontrakty.UpdateKontrakt(conn, editovanyKontrakt);
+
+                        kontraktyOkno.dgKontrakty.Items.Refresh();
+
+                        MessageBox.Show("Kontrakt byl úspěšně editován!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
 
                 this.Close();

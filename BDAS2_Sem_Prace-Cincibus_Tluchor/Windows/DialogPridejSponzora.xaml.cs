@@ -122,7 +122,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     {
                         foreach (ClenKlubu clen in pridanySponzor.SponzorovaniClenove)
                         {
-                            DatabaseSponzoriClenove.AddSponzoriClenove(clen, pridanySponzor);
+                            DatabaseSponzoriClenove.AddSponzoriClenove(conn, clen, pridanySponzor);
                         }
                     }
 
@@ -130,7 +130,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     {
                         foreach (Soutez soutez in pridanySponzor.SponzorovaneSouteze)
                         {
-                            DatabaseSponzoriSouteze.AddSponzoriSouteze(soutez, pridanySponzor);
+                            DatabaseSponzoriSouteze.AddSponzoriSouteze(conn, soutez, pridanySponzor);
                         }                            
                     }
                 }

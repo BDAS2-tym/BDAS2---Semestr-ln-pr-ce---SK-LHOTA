@@ -113,10 +113,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             // smazání z databáze
             try
             {
-                DatabaseHraci.OdeberHrace(vybranyHrac);
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
 
-                // Aktualizace DataGridu (odebrání z kolekce)
-                HraciData.Remove(vybranyHrac);
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Odebrání hráče
+                    DatabaseHraci.OdeberHrace(conn, vybranyHrac);
+
+                    HraciData.Remove(vybranyHrac);
+                }
 
                 // Úspěch
                 MessageBox.Show(

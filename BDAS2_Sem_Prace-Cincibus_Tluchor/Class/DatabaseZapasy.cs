@@ -9,23 +9,18 @@ using System.Threading.Tasks;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+    /// <summary>
+    /// Třída pro práci se zápasy v databázi
+    /// Obsahuje metody pro získání aktuálního ID v databázi, přidání, úpravu a odstranění zápasu
+    /// </summary>
     internal static class DatabaseZapasy
     {
-        /// <summary>
-        /// Metoda slouží k získání Oracle Connection do databáze
-        /// </summary>
-        /// <returns>Připojení do Oracle databáze</returns>
-        private static OracleConnection GetConnection()
-        {
-            return DatabaseManager.GetConnection(); // využijeme metodu z DatabaseManage
-        }
-
         /// <summary>
         /// Metoda slouží k přidání zápasu do databáze
         /// </summary>
         /// <param name="zapas">Zápas, který chceme přidat do databáze</param>
         /// <param name="conn">Připojení do Oracle databáze</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void AddZapas(OracleConnection conn, Zapas zapas)
         {
             using (var cmd = new OracleCommand("PKG_ZAPASY.SP_ADD_ZAPAS", conn))
@@ -60,7 +55,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         /// <param name="zapas">Zápas, který chceme odebrat z databáze</param>
         /// <param name="conn">Připojení do Oracle databáze</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void OdeberZapas(OracleConnection conn, Zapas zapas)
         {
             using (var cmd = new OracleCommand("PKG_ZAPASY.SP_ODEBER_ZAPAS", conn))
@@ -87,7 +82,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         /// <param name="zapas">Zápas, který chceme editovat v databázi</param>
         /// <param name="conn">Připojení do Oracle databáze</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void UpdateZapas(OracleConnection conn, Zapas zapas)
         {
             using (var cmd = new OracleCommand("PKG_ZAPASY.SP_UPDATE_ZAPAS", conn))

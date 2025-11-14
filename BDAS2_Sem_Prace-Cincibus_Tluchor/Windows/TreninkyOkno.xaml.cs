@@ -108,11 +108,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
-                // Smazání z databáze
-                DatabaseTreninky.DeleteTrenink(vybranyTrenink);
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
 
-                // Aktualizace DataGridu (odebrání z kolekce)
-                TreninkyData.Remove(vybranyTrenink);
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Odebrání tréninku
+                    DatabaseTreninky.DeleteTrenink(conn, vybranyTrenink);
+
+                    TreninkyData.Remove(vybranyTrenink);
+                }
 
                 // Úspěch
                 MessageBox.Show(

@@ -148,8 +148,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
-                DatabaseRegistrace.DeleteUzivatel(vybranyUzivatel);
-                UzivateleData.Remove(vybranyUzivatel);
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
+
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Odebrání uživatele
+                    DatabaseRegistrace.DeleteUzivatel(conn, vybranyUzivatel);
+
+                    UzivateleData.Remove(vybranyUzivatel);
+                }
 
                 MessageBox.Show($"Uživatel {vybranyUzivatel.UzivatelskeJmeno} byl úspěšně odebrán.", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -160,8 +170,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Vrátí se zpět do okna nastavení
+        /// Metoda slouží k vrácení se na okno nastavení
         /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
             NastaveniOkno nastaveniOkno = new NastaveniOkno(hlavniOkno);
@@ -193,14 +205,29 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Zakáže mazání záznamů klávesou Delete v datagridu
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
+        /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
         /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void DgTreninky_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {
+                // Zrušení akce mazání
                 e.Handled = true;
-                MessageBox.Show("Smazání tréninku klávesou Delete není povoleno", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Smazání uživatele klávesou Delete není povoleno", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            // Zrušení výběru řádku při zmáčknutí klávesy Spacebar
+            if (e.Key == Key.Space)
+            {
+                dgUzivatele.UnselectAll();
+
+                // Odstranění Focus Rectangle na dané buňce
+                dgUzivatele.Focusable = false;
+                Keyboard.ClearFocus();
+                dgUzivatele.Focusable = true;
             }
         }
     }

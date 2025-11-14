@@ -27,11 +27,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Přidá nového hráče do databáze pomocí uložené procedury SP_ADD_HRAC
         /// </summary>
         /// <param name="hrac">Objekt hráče s vyplněnými údaji</param>
-        public static void AddHrac(Hrac hrac)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void AddHrac(OracleConnection conn, Hrac hrac)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_HRACI.SP_ADD_HRAC", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -61,11 +60,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Aktualizuje údaje hráče v databázi pomocí uložené procedury SP_UPDATE_HRAC
         /// </summary>
         /// <param name="hrac">Objekt hráče s novými údaji.</param>
-        public static void UpdateHrac(Hrac hrac)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void UpdateHrac(OracleConnection conn, Hrac hrac)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_HRACI.SP_UPDATE_HRAC", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -95,11 +93,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Odstraní hráče z databáze podle rodného čísla pomocí procedury SP_ODEBER_HRACE
         /// </summary>
         /// <param name="hrac">Objekt hráče, který se má odstranit.</param>
-        public static void OdeberHrace(Hrac hrac)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        public static void OdeberHrace(OracleConnection conn, Hrac hrac)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_HRACI.SP_ODEBER_HRACE", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;

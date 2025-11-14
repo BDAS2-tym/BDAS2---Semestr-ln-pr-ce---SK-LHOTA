@@ -104,14 +104,23 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 editovanyTrenink.Misto = tboxMistoTreninku.Text.Trim();
                 editovanyTrenink.Popis = popisTreninku;
 
-                // UPDATE V DATABÁZI
-                DatabaseTreninky.UpdateTrenink(editovanyTrenink);
 
-                // REFRESH DATAGRIDU
-                treninkyOkno.dgTreninky.Items.Refresh();
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
 
-                MessageBox.Show("Trénink byl úspěšně upraven!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.DialogResult = true;
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Editování soutěže
+                    DatabaseTreninky.UpdateTrenink(conn, editovanyTrenink);
+
+                    treninkyOkno.dgTreninky.Items.Refresh();
+
+                    this.DialogResult = true;
+                    MessageBox.Show("Trénink byl úspěšně upraven!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+               
                 this.Close();
             }
             catch (Exception ex)

@@ -10,28 +10,21 @@ using System.Threading.Tasks;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+    /// <summary>
+    /// Třída pro práci s vazbami sponzori-souteze v databázi
+    /// Obsahuje metody pro přidání a odstranění vazeb sponzori-souteze
+    /// </summary>
     internal static class DatabaseSponzoriSouteze
     {
-        /// <summary>
-        /// Metoda slouží k získání Oracle Connection do databáze
-        /// </summary>
-        /// <returns>Připojení do Oracle databáze</returns>
-        private static OracleConnection GetConnection()
-        {
-            return DatabaseManager.GetConnection(); // využijeme metodu z DatabaseManager
-        }
-
         /// <summary>
         /// Metoda slouží k přidání vazby SPONZORI_SOUTEZE do databáze
         /// </summary>
         /// <param name="soutez">Soutěž, ke které chceme přidat novou vazbu</param>
         /// <param name="sponzor">Sponzor, ke kterému chceme přidat novou vazbu</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void AddSponzoriSouteze(Soutez soutez, Sponzor sponzor)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void AddSponzoriSouteze(OracleConnection conn, Soutez soutez, Sponzor sponzor)
         {
-            using var conn = GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_SPONZORI_SOUTEZE.SP_ADD_SPONZORI_SOUTEZE", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -56,13 +49,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Metoda slouží k odebrání vazby SPONZORI_SOUTEZE z databáze
         /// </summary>
         /// <param name="soutez">Soutěž, u které chceme odebrat danou vazbu</param>
-        /// <param name="sponzor">Sponzor, u kterého chceme odebrat danou vazbu</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void OdeberSponzoriSouteze(Soutez soutez, Sponzor sponzor)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void OdeberSponzoriSouteze(OracleConnection conn, Soutez soutez, Sponzor sponzor)
         {
-            using var conn = GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_SPONZORI_SOUTEZE.SP_ODEBER_SPONZORI_SOUTEZE", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -87,12 +77,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Metoda slouží k odebrání všech vazeb SPONZORI_SOUTEZE u daného sponzora z databáze
         /// </summary>
         /// <param name="sponzor">Sponzor, u kterého chceme odebrat všechny jeho vazby</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void OdeberVsechnyVazbySponzoriSouteze(Sponzor sponzor)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void OdeberVsechnyVazbySponzoriSouteze(OracleConnection conn, Sponzor sponzor)
         {
-            using var conn = GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_SPONZORI_SOUTEZE.SP_ODEBER_VSECHNY_SPONZORI_SOUTEZE", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
