@@ -59,6 +59,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         public int PocetCervenychKaret { get; set; }
 
+        public DateTime DatumOpatreni { get; set; }
+        public int DelkaTrestu { get; set; }
+        public string? DuvodOpatreni { get; set; }
+
+
         /// <summary>
         /// Výchozí konstruktor
         /// </summary>

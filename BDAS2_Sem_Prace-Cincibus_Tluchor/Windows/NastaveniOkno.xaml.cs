@@ -26,9 +26,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         
         private void BtnBinarniObsah_Click(object sender, RoutedEventArgs e)
         {
-            //BinarniObsahOkno binarniObsahOkno = new BinarniObsahOkno();
-            //binarniObsahOkno.Show();
-            //this.Close();
+            BinarniObsahOkno binarniObsahOkno = new BinarniObsahOkno();
+            binarniObsahOkno.Show();
+            this.Close();
         }
 
         private void BtnUzivatele_Click(object sender, RoutedEventArgs e)

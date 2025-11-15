@@ -1,8 +1,10 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
 using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Tools;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
@@ -24,7 +26,37 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             InitializeComponent();
             this.uzivatel = editovanyUzivatel;
             this.stareJmeno = editovanyUzivatel.UzivatelskeJmeno;
+            NactiRoleZDB();
             NaplnFormular();
+        }
+
+        /// <summary>
+        /// Načte dostupné role z tabulky ROLE a naplní combobox
+        /// </summary>
+        private void NactiRoleZDB()
+        {
+            try
+            {
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                using var cmd = new OracleCommand("SELECT IDROLE, NAZEVROLE FROM ROLE ORDER BY IDROLE", conn);
+                using var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    ComboBoxItem item = new ComboBoxItem
+                    {
+                        Content = reader["NAZEVROLE"].ToString(),
+                        Tag = Convert.ToInt32(reader["IDROLE"])
+                    };
+                    cmbRole.Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Chyba při načítání rolí: " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -35,6 +67,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             txtUser.Text = uzivatel.UzivatelskeJmeno;
             txtEmail.Text = uzivatel.Email;
             txtRodneCislo.Text = uzivatel.RodneCislo;
+
+            // Nastavení aktuální role podle názvu
+            foreach (ComboBoxItem item in cmbRole.Items)
+            {
+                if (item.Content.ToString().Equals(uzivatel.Role, StringComparison.OrdinalIgnoreCase))
+                {
+                    cmbRole.SelectedItem = item;
+                    break;
+                }
+            }
         }
 
         /// <summary>
@@ -73,7 +115,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 string rodneCislo = txtRodneCislo.Text.Trim();
                 string heslo = txtHeslo.Text.Trim();
 
-                // Ověření povinných polí
                 if (jmeno == "")
                 {
                     MessageBox.Show("Zadej uživatelské jméno!");
@@ -92,30 +133,61 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     return;
                 }
 
-                // Uložení změn do objektu
                 uzivatel.UzivatelskeJmeno = jmeno;
                 uzivatel.Email = email;
                 uzivatel.RodneCislo = rodneCislo;
 
-                // Pokud bylo zadáno nové heslo, vygeneruje se nový salt a hash
+                // Uložení zvolené role – ID i text
+                if (cmbRole.SelectedItem is ComboBoxItem selectedRole)
+                {
+                    uzivatel.Role = selectedRole.Content.ToString();
+
+                    // aktualizace role v databázi
+                    int idRole = Convert.ToInt32(selectedRole.Tag);
+                    AktualizujRoliUzivatele(uzivatel.UzivatelskeJmeno, idRole);
+                }
+
                 if (heslo != "")
                 {
-                    string salt = PasswordHasher.GenerateSalt(); // salt = náhodný text spojený k heslu
-                    string hash = PasswordHasher.HashPassword(heslo, salt); // hash = otisk hesla + salt
+                    string salt = PasswordHasher.GenerateSalt();
+                    string hash = PasswordHasher.HashPassword(heslo, salt);
                     uzivatel.Heslo = hash;
                     uzivatel.Salt = salt;
                 }
 
-                // Aktualizace dat v databázi
+                // Aktualizace ostatních dat
                 DatabaseRegistrace.UpdateUzivatel(uzivatel, stareJmeno);
 
                 MessageBox.Show("Změny byly uloženy.");
-                DialogResult = true; // informuje rodičovské okno o úspěchu
+                DialogResult = true;
                 Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Chyba: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Aktualizuje ID role daného uživatele v databázi
+        /// </summary>
+        private void AktualizujRoliUzivatele(string uzivatelskeJmeno, int idRole)
+        {
+            try
+            {
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string sql = "UPDATE UZIVATELSKE_UCTY SET IDROLE = :idrole WHERE UZIVATELSKEJMENO = :jmeno";
+                using var cmd = new OracleCommand(sql, conn);
+                cmd.Parameters.Add(":idrole", OracleDbType.Int32).Value = idRole;
+                cmd.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatelskeJmeno;
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Chyba při změně role: " + ex.Message);
             }
         }
 

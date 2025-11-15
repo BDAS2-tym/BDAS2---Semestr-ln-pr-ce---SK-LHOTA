@@ -10,9 +10,7 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
-    <!-- Hlavní rámeček s barevným okrajem a průhledností -->
     <Border CornerRadius="10" BorderThickness="2" Opacity="0.95">
-        <!-- Barevný přechod okraje okna -->
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="Aqua" Offset="0"/>
@@ -21,7 +19,6 @@
             </LinearGradientBrush>
         </Border.BorderBrush>
 
-        <!-- Pozadí okna s barevným gradientem -->
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                 <GradientStop Color="#5D1FA3" Offset="0"/>
@@ -33,23 +30,17 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
-                <!-- Horní lišta s názvem a tlačítky -->
                 <RowDefinition/>
-                <!-- Zbytek okna – formulář -->
             </Grid.RowDefinitions>
 
-            <!-- Horní panel s názvem a ovládacími tlačítky -->
+            <!-- Horní panel -->
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <!-- Název -->
                     <ColumnDefinition Width="35"/>
-                    <!-- Minimalizace -->
                     <ColumnDefinition Width="35"/>
-                    <!-- Zavření -->
                 </Grid.ColumnDefinitions>
 
-                <!-- Název okna -->
                 <TextBlock Text="EDITACE UŽIVATELE"
                            Foreground="LightGray"
                            FontSize="13"
@@ -57,89 +48,49 @@
                            VerticalAlignment="Center"
                            Margin="10,0,0,0"/>
 
-                <!-- Tlačítko minimalizace -->
                 <Button x:Name="btnMinimize" Content="-" Grid.Column="1"
                         BorderThickness="0" Foreground="White"
-                        FontSize="16" Cursor="Hand" Click="BtnMinimize_Click">
-                    <!-- Vzhled tlačítka -->
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="22" Height="22" CornerRadius="11"
-                                    Background="Gray">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                    <!-- Změna barvy při najetí myší -->
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="Gray"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#278BEF"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-
-                <!-- Tlačítko zavření okna -->
+                        FontSize="16" Cursor="Hand" Click="BtnMinimize_Click"/>
                 <Button x:Name="btnClose" Content="X" Grid.Column="2"
                         BorderThickness="0" Foreground="White"
-                        FontSize="12" Cursor="Hand" Click="BtnClose_Click">
-                    <!-- Tvar a styl tlačítka -->
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="22" Height="22" CornerRadius="11"
-                                    Background="Gray">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                    <!-- Barva při přejetí myší -->
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="Gray"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#D84040"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                        FontSize="12" Cursor="Hand" Click="BtnClose_Click"/>
             </Grid>
 
-            <!-- Hlavní formulář pro úpravu uživatele -->
+            <!-- Formulář -->
             <StackPanel Grid.Row="1" Width="280" Orientation="Vertical"
                         HorizontalAlignment="Center" Margin="0,35,0,0">
 
-                <!-- Ikona uživatele -->
                 <Image Source="/Images/Ikony/Ikona_Uzivatel.png"
                        Width="120" Height="120" Margin="0,0,0,30"/>
 
-                <!-- Pole pro uživatelské jméno -->
                 <TextBlock Text="Uživatelské jméno" Foreground="DarkGray" Margin="0,5,0,0"/>
                 <TextBox x:Name="txtUser" Height="28" Foreground="White"
                          BorderThickness="0,0,0,2" BorderBrush="DarkGray" Background="Transparent"/>
 
-                <!-- Pole pro e-mail -->
                 <TextBlock Text="E-mail" Foreground="DarkGray" Margin="0,15,0,0"/>
                 <TextBox x:Name="txtEmail" Height="28" Foreground="White"
                          BorderThickness="0,0,0,2" BorderBrush="DarkGray" Background="Transparent"/>
 
-                <!-- Pole pro nové heslo (může zůstat prázdné) -->
                 <TextBlock Text="Heslo (můžeš změnit)" Foreground="DarkGray" Margin="0,15,0,0"/>
                 <TextBox x:Name="txtHeslo" Height="28" Foreground="White"
                          BorderThickness="0,0,0,2" BorderBrush="DarkGray"
                          Background="Transparent" VerticalContentAlignment="Center"/>
 
-                <!-- Pole pro rodné číslo -->
                 <TextBlock Text="Rodné číslo" Foreground="DarkGray" Margin="0,15,0,0"/>
                 <TextBox x:Name="txtRodneCislo" Height="28" Foreground="White"
                          BorderThickness="0,0,0,2" BorderBrush="DarkGray" Background="Transparent"/>
 
-                <!-- Tlačítko pro uložení změn -->
+                <!-- ComboBox pro roli -->
+                <TextBlock Text="Role" Foreground="DarkGray" Margin="0,15,0,0"/>
+                <ComboBox x:Name="cmbRole"
+                          Height="28"
+                          Foreground="White"
+                          Background="Transparent"
+                          BorderThickness="0,0,0,2"
+                          BorderBrush="DarkGray"
+                          FontFamily="Montserrat"
+                          Cursor="Hand"/>
+
                 <Button x:Name="btnSave" Content="ULOŽIT ZMĚNY" Click="BtnSave_Click"
                         Width="160" Height="40" Margin="0,30,0,0"
                         Background="#462AD8" Foreground="White"
