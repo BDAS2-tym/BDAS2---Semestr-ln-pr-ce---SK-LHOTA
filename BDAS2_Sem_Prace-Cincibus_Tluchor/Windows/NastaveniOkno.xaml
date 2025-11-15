@@ -46,6 +46,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <!-- Styl tlačítek -->
@@ -87,15 +88,23 @@
                     </Button>
 
                     <!-- Button Systémový katalog -->
-                    <Button x:Name="btnSystemovyKatalog" Grid.Row="2" Margin="0,10,0,10" TabIndex="2" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="BtnSystemovyKatalog_Click">
+                    <Button x:Name="btnSystemovyKatalog" Grid.Row="2" Margin="0,10,0,10" TabIndex="3" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="BtnSystemovyKatalog_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/sys_catalog.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Systémový katalog" VerticalAlignment="Center" FontSize="18"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Button Binární obsah -->
-                    <Button x:Name="btnZpet" Grid.Row="3" Margin="0,5,0,10" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="BtnZpet_Click">
+                    <!-- Button Záznamy změn -->
+                    <Button x:Name="btnZmeny" Grid.Row="3" Margin="0,10,0,10" TabIndex="3" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="btnZmeny_Click">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/log_table.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Záznamy změn" VerticalAlignment="Center" FontSize="18"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Button Zpět -->
+                    <Button x:Name="btnZpet" Grid.Row="4" Margin="0,5,0,10" TabIndex="5" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="BtnZpet_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Zpět" VerticalAlignment="Center" FontSize="18"/>

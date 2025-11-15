@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
     /// <summary>
-    /// Třída pro práci s trenéry v databázi
-    /// Volá uložené procedury v balíčku PKG_TRENERI (přidání, editace, odstranění trenéra)
-    /// a poskytuje pomocné funkce jako zjištění počtu trenérů
+    /// Třída pro práci s trenéri v databázi
+    /// Obsahuje metody pro načtení počtu trenérů, přidání, úpravu a odstranění trenéra
     /// </summary>
     internal static class DatabaseTreneri
     {
@@ -33,12 +32,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Přidá nového trenéra pomocí uložené procedury <b>SP_ADD_TRENERI</b> z balíčku <b>PKG_TRENERI</b>.
         /// </summary>
         /// <param name="trener">Objekt trenéra s vyplněnými údaji (rodné číslo, jméno, licence, atd.)</param>
-        public static void AddTrener(Trener trener)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void AddTrener(OracleConnection conn, Trener trener)
         {
-
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_TRENERI.SP_ADD_TRENERI", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -69,11 +66,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Aktualizuje existujícího trenéra pomocí uložené procedury <b>SP_UPDATE_TRENERI</b>
         /// </summary>
         /// <param name="trener">Objekt trenéra s novými údaji (např. změna jména nebo praxe)</param>
-        public static void UpdateTrener(Trener trener)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void UpdateTrener(OracleConnection conn, Trener trener)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_TRENERI.SP_UPDATE_TRENERI", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -103,11 +99,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Odstraní trenéra z databáze pomocí uložené procedury <b>SP_ODEBER_TRENERI</b>
         /// </summary>
         /// <param name="trener">Objekt trenéra, který má být odstraněn</param>
-        public static void OdeberTrenera(Trener trener)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void OdeberTrenera(OracleConnection conn, Trener trener)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_TRENERI.SP_ODEBER_TRENERI", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;

@@ -8,23 +8,18 @@ using System.Threading.Tasks;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+    /// <summary>
+    /// Třída pro práci s výsledkami zápasů v databázi
+    /// Obsahuje metody pro přidání, úpravu a odstranění výsledku zápasu
+    /// </summary>
     public static class DatabaseVysledkyZapasu
     {
-        /// <summary>
-        /// Metoda slouží k získání Oracle Connection do databáze
-        /// </summary>
-        /// <returns>Připojení do Oracle databáze</returns>
-        private static OracleConnection GetConnection()
-        {
-            return DatabaseManager.GetConnection(); // využijeme metodu z DatabaseManage
-        }
-
         /// <summary>
         /// Metoda slouží k přidání výsledku zápasu do databáze
         /// </summary>
         /// <param name="vysledekZapasu">Výsledek, který chceme přidat do databáze</param>
         /// <param name="conn">Připojení do Oracle databáze</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void AddVysledekZapasu(OracleConnection conn, VysledekZapasu vysledekZapasu)
         {
             using (var cmd = new OracleCommand("PKG_VYSLEDKY_ZAPASU.SP_ADD_VYSLEDEK_ZAPASU", conn))
@@ -56,7 +51,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         /// <param name="vysledekZapasu">Výsledek, který chceme odebrat z databáze</param>
         /// <param name="conn">Připojení do Oracle databáze</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void OdeberVysledekZapasu(OracleConnection conn, VysledekZapasu vysledekZapasu)
         {
             using (var cmd = new OracleCommand("PKG_VYSLEDKY_ZAPASU.SP_ODEBER_VYSLEDEK_ZAPASU", conn))
@@ -83,7 +78,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         /// <param name="vysledekZapasu">Výsledek, který chceme editovat v databázi</param>
         /// <param name="conn">Připojení do Oracle databáze</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void UpdateVysledekZapasu(OracleConnection conn, VysledekZapasu vysledekZapasu)
         {
             using (var cmd = new OracleCommand("PKG_VYSLEDKY_ZAPASU.SP_UPDATE_VYSLEDEK_ZAPASU", conn))

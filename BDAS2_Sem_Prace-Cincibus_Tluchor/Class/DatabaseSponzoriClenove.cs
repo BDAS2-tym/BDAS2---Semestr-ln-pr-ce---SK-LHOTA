@@ -8,28 +8,21 @@ using System.Threading.Tasks;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+    /// <summary>
+    /// Třída pro práci s vazbami sponzori-clenove v databázi
+    /// Obsahuje metody pro přidání a odstranění vazeb sponzori-clenove
+    /// </summary>
     internal static class DatabaseSponzoriClenove
     {
-        /// <summary>
-        /// Metoda slouží k získání Oracle Connection do databáze
-        /// </summary>
-        /// <returns>Připojení do Oracle databáze</returns>
-        private static OracleConnection GetConnection()
-        {
-            return DatabaseManager.GetConnection(); // využijeme metodu z DatabaseManager
-        }
-
         /// <summary>
         /// Metoda slouží k přidání vazby SPONZORI_CLENOVE do databáze
         /// </summary>
         /// <param name="clen">Člen, ke kterému chceme přidat novou vazbu</param>
         /// <param name="sponzor">Sponzor, ke kterému chceme přidat novou vazbu</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void AddSponzoriClenove(ClenKlubu clen, Sponzor sponzor)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void AddSponzoriClenove(OracleConnection conn, ClenKlubu clen, Sponzor sponzor)
         {
-            using var conn = GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_SPONZORI_CLENOVE.SP_ADD_SPONZORI_CLENOVE", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -55,12 +48,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         /// <param name="clen">Člen, u kterého chceme odebrat danou vazbu</param>
         /// <param name="sponzor">Sponzor, u kterého chceme odebrat danou vazbu</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void OdeberSponzoriClenove(ClenKlubu clen, Sponzor sponzor)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void OdeberSponzoriClenove(OracleConnection conn, ClenKlubu clen, Sponzor sponzor)
         {
-            using var conn = GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_SPONZORI_CLENOVE.SP_ODEBER_SPONZORI_CLENOVE", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -85,12 +76,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Metoda slouží k odebrání všech vazeb SPONZORI_CLENOVE u daného sponzora z databáze
         /// </summary>
         /// <param name="sponzor">Sponzor, u kterého chceme odebrat všechny jeho vazby</param>
-        /// <exception cref="Exception">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void OdeberVsechnyVazbySponzoriClenove(Sponzor sponzor)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void OdeberVsechnyVazbySponzoriClenove(OracleConnection conn, Sponzor sponzor)
         {
-            using var conn = GetConnection();
-            conn.Open();
-
             using (var cmd = new OracleCommand("PKG_SPONZORI_CLENOVE.SP_ODEBER_VSECHNY_SPONZORI_CLENOVE", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;

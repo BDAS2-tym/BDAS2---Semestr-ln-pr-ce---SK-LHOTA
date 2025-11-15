@@ -97,11 +97,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 editovanyHrac.PocetZlutychKaret = pocetZlutychKaret;
                 editovanyHrac.PocetCervenychKaret = pocetCervenychKaret;
 
-                // --- UPDATE V DATABÁZI ---
-                DatabaseHraci.UpdateHrac(editovanyHrac);
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
 
-                // --- REFRESH DATAGRIDU ---
-                hraciOkno.dgHraci.Items.Refresh();
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Editování hráče
+                    DatabaseHraci.UpdateHrac(conn, editovanyHrac);
+
+                    hraciOkno.dgHraci.Items.Refresh();
+                }
 
                 MessageBox.Show("Hráč byl úspěšně editován! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;

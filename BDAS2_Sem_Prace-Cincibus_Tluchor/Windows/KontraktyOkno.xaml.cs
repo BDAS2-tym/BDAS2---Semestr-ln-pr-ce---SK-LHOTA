@@ -160,10 +160,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Smazání z databáze
             try
             {
-                DatabaseKontrakty.OdeberKontrakt(vybranyKontrakt);
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
 
-                // Aktualizace DataGridu (odebrání z kolekce)
-                KontraktyData.Remove(vybranyKontrakt);
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Odebrání kontraktu
+                    DatabaseKontrakty.OdeberKontrakt(conn, vybranyKontrakt);
+
+                    KontraktyData.Remove(vybranyKontrakt);
+                }
 
                 // Úspěch
                 MessageBox.Show(

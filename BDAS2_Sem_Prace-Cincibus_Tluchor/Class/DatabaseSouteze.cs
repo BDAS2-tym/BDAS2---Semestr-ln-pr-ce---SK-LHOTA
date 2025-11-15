@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+    /// <summary>
+    /// Třída pro práci se soutěžemi v databázi
+    /// Obsahuje metody pro získání aktuálního ID, přidání, úpravu a odstranění soutěže
+    /// </summary>
     internal static class DatabaseSouteze
     {
         /// <summary>

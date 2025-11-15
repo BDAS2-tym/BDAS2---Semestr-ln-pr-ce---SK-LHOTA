@@ -185,9 +185,20 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     pridanyKontrakt.Plat = Convert.ToInt32(tboxPlat.Text);
                     pridanyKontrakt.TelCisloNaAgenta = tboxTelCisloAgenta.Text;
                     pridanyKontrakt.VystupniKlauzule = Convert.ToInt32(tboxVystupniKlauzule.Text);
-                    
-                    DatabaseKontrakty.AddKontrakt(pridanyKontrakt);
-                    kontraktyData.Add(pridanyKontrakt);
+
+                    using (var conn = DatabaseManager.GetConnection())
+                    {
+                        conn.Open();
+
+                        // Nastavení přihlášeného uživatele pro logování
+                        DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                        // Přidání hráče
+                        DatabaseKontrakty.AddKontrakt(conn, pridanyKontrakt);
+
+                        kontraktyData.Add(pridanyKontrakt);
+                    }
+
                     MessageBox.Show("Kontrakt byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
               

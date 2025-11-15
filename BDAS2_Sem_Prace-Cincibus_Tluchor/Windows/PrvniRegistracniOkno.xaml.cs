@@ -88,8 +88,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 novyUzivatel.Role = "Host";
                 novyUzivatel.PosledniPrihlaseni = DateTime.Now;
 
-                // Uložení do databáze
-                DatabaseRegistrace.AddUzivatel(novyUzivatel);
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
+
+                    // Nastavení přihlášeného uživatele pro logování
+                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                    // Přidání uživatele
+                    DatabaseRegistrace.AddUzivatel(conn, novyUzivatel);
+                }
 
                 MessageBox.Show($"Uživatel '{uzivatelskeJmeno}' byl úspěšně registrován jako 'HOST' ", "Registrace úspěšná", MessageBoxButton.OK, MessageBoxImage.Information);
 

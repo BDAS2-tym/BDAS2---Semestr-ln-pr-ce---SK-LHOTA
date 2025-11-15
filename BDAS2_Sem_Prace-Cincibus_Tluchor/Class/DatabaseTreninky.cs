@@ -10,21 +10,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
     /// <summary>
     /// Třída pro práci s tréninky v databázi
-    /// Obsahuje metody pro přidání, úpravu a smazání tréninku
-    /// Vše probíhá přes uložené procedury z balíčku PKG_TRENINKY v Oracle databázi
+    /// Obsahuje metody pro načtení počtu přidání, úpravu a odstranění tréninku
     /// </summary>
     internal class DatabaseTreninky
     {
-
         /// <summary>
         /// Přidá nový trénink do databáze pomocí uložené procedury PKG_TRENINKY.SP_ADD_TRENINK
         /// </summary>
         /// <param name="trenink">Objekt tréninku s daty k vložení</param>
-        public static void AddTrenink(TreninkView trenink)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void AddTrenink(OracleConnection conn, TreninkView trenink)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             // voláme proceduru z balíčku
             using (var cmd = new OracleCommand("PKG_TRENINKY.SP_ADD_TRENINK", conn))
             {
@@ -52,11 +49,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Aktualizuje existující trénink trenéra v databázi pomocí uložené procedury PKG_TRENINKY.SP_UPDATE_TRENINK
         /// </summary>
         /// <param name="trenink">Objekt tréninku s upravenými daty</param>
-        public static void UpdateTrenink(TreninkView trenink)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void UpdateTrenink(OracleConnection conn, TreninkView trenink)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             // voláme proceduru z balíčku
             using (var cmd = new OracleCommand("PKG_TRENINKY.SP_UPDATE_TRENINK", conn))
             {
@@ -84,11 +80,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Odstraní trénink daného trenéra z databáze pomocí uložené procedury PKG_TRENINKY.SP_DELETE_TRENINK
         /// </summary>
         /// <param name="trenink">Objekt tréninku s rodným číslem trenéra, podle kterého se trénink maže</param>
-        public static void DeleteTrenink(TreninkView trenink)
+        /// <param name="conn">Připojení do Oracle databáze</param>
+        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
+        public static void DeleteTrenink(OracleConnection conn, TreninkView trenink)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
-
             // voláme proceduru z balíčku
             using (var cmd = new OracleCommand("PKG_TRENINKY.SP_DELETE_TRENINK", conn))
             {
