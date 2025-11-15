@@ -1,4 +1,5 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class LogTableOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
 
 
         // Kolekce soutěží pro DataGrid (binding v XAML)
@@ -138,7 +140,48 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 dgZaznamy.Focusable = false;
                 Keyboard.ClearFocus();
                 dgZaznamy.Focusable = true;
+            }           
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované záznamy zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void btnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiZaznam dialogNajdiZaznam = new DialogNajdiZaznam(ZaznamyData);
+            bool? vysledekDiaOkna = dialogNajdiZaznam.ShowDialog();            
+
+            if(vysledekDiaOkna == true)
+            {
+                if (dialogNajdiZaznam.VyfiltrovaneZaznamy.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádné záznamy se zadanými filtry.", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgZaznamy.ItemsSource = new ObservableCollection<Zaznam>(dialogNajdiZaznam.VyfiltrovaneZaznamy);               
+                jeVyhledavaniAktivni = true;
             }
-        } 
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgZaznamy.ItemsSource = ZaznamyData;
+                e.Handled = true;
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@
         xmlns:conv="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Text_Converters"
         mc:Ignorable="d"
         Title="Záznamy" 
-        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Log_Table.ico">
+        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Log_Table.ico" PreviewKeyDown="Window_PreviewKeyDown">
 
     <Grid>
 
@@ -118,7 +118,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Nadpis -->
-                <TextBlock Text="Sponzoři"
+                <TextBlock Text="Záznamy změn"
                            Foreground="Black"
                            FontSize="25"
                            FontWeight="Bold"
@@ -160,7 +160,7 @@
                     </Grid.Resources>
 
                     <!-- Button Najdi -->
-                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="1" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalAlignment="Left" Width="250">
+                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="1" Style="{StaticResource HoverFadeButtonStyle2}" Click="btnNajdi_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Najdi" VerticalAlignment="Center"/>
