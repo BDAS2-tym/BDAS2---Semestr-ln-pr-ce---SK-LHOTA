@@ -211,11 +211,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     else
                         hrac.PoziceNaHristi = "Neznámá"; // default, pokud by bylo NULL
 
-                    // DATUMOPATRENI - NOT NULL
+                    // DATUMOPATRENI
                     if (reader["DATUMOPATRENI"] != DBNull.Value)
-                        hrac.DatumOpatreni = Convert.ToDateTime(reader["DATUMOPATRENI"]);
+                    {
+                        DateTime datum = Convert.ToDateTime(reader["DATUMOPATRENI"]).Date;
+                        if (datum == new DateTime(1900, 1, 1) || datum == DateTime.MinValue)
+                            hrac.DatumOpatreniText = "Bez opatření";
+                        else
+                            hrac.DatumOpatreniText = datum.ToString("dd.MM.yyyy");
+                    }
                     else
-                        hrac.DatumOpatreni = DateTime.MinValue;
+                    {
+                        hrac.DatumOpatreniText = "Bez opatření";
+                    }
 
                     // DELKATRESTU - NOT NULL
                     if (reader["DELKATRESTU"] != DBNull.Value)

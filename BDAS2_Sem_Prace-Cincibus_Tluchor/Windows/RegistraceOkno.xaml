@@ -14,11 +14,11 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
-    <!-- Hlavní okraj s kulatými rohy -->
+    <!-- Vnější rámeček -->
     <Border CornerRadius="12">
-        
-        <!-- Vnitřní rámeček s barevným gradientem a průhledností -->
         <Border CornerRadius="10" BorderThickness="2" Opacity="0.95">
+
+            <!-- Okraj -->
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Aqua" Offset="0"/>
@@ -27,7 +27,7 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
 
-            <!-- Pozadí okna s fialovo-růžovým přechodem -->
+            <!-- Pozadí -->
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                     <GradientStop Color="#5D1FA3" Offset="0"/>
@@ -42,7 +42,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <!-- Horní panel s tlačítky minimalizace a zavření -->
+                <!-- Horní panel -->
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -58,7 +58,7 @@
                                VerticalAlignment="Center"
                                Margin="10,0,0,0"/>
 
-                    <!-- Tlačítko pro minimalizaci okna -->
+                    <!-- Minimize -->
                     <Button x:Name="btnMinimize" BorderThickness="0" Content="-" Foreground="White"
                             FontSize="16" FontFamily="Montserrat"
                             Cursor="Hand" Grid.Column="1" Click="BtnMinimize_Click">
@@ -81,7 +81,7 @@
                         </Button.Template>
                     </Button>
 
-                    <!-- Tlačítko pro zavření okna -->
+                    <!-- Close -->
                     <Button x:Name="btnClose" BorderThickness="0" Content="X" Foreground="White"
                             FontSize="12" FontFamily="Montserrat"
                             Cursor="Hand" Grid.Column="2" Click="BtnClose_Click">
@@ -105,14 +105,12 @@
                     </Button>
                 </Grid>
 
-                <!-- Tělo formuláře pro registraci -->
+                <!-- Tělo formuláře -->
                 <StackPanel Width="260" Grid.Row="1" Orientation="Vertical" Margin="0,35,0,0" HorizontalAlignment="Center">
 
-                    <!-- Ikona uživatelské jméno -->
                     <Image Source="/Images/Ikony/Ikona_Uzivatel.png"
                            Width="120" Height="120" Margin="0,0,0,30"/>
 
-                    <!-- Pole pro uživatelské jméno -->
                     <TextBlock Text="Uživatelské jméno" Foreground="DarkGray" FontSize="13"
                                FontFamily="Montserrat" Margin="0,5,0,0"/>
                     <TextBox x:Name="txtUser"
@@ -126,7 +124,6 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <!-- Pole pro e-mail -->
                     <TextBlock Text="E-mail" Foreground="DarkGray" FontSize="13"
                                FontFamily="Montserrat" Margin="0,15,0,0"/>
                     <TextBox x:Name="txtEmail"
@@ -136,11 +133,10 @@
                              VerticalContentAlignment="Center" Padding="20,0,0,0" Margin="0,5,0,0">
                         <TextBox.Background>
                             <ImageBrush ImageSource="/Images/Ikony/user-icon.png"
-                            Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
+                                        Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
                         </TextBox.Background>
                     </TextBox>
 
-                    <!-- Pole pro zadání hesla -->
                     <TextBlock Text="Heslo" Foreground="DarkGray" FontSize="13" FontFamily="Montserrat" Margin="0,15,0,0"/>
                     <PasswordBox x:Name="txtPass" FontSize="13" FontFamily="Montserrat" Foreground="White"
                                  CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,2"
@@ -151,7 +147,6 @@
                         </PasswordBox.Background>
                     </PasswordBox>
 
-                    <!-- Pole pro potvrzení hesla -->
                     <TextBlock Text="Znovu heslo" Foreground="DarkGray" FontSize="13" FontFamily="Montserrat" Margin="0,15,0,0"/>
                     <PasswordBox x:Name="txtPass2" FontSize="13" FontFamily="Montserrat" Foreground="White"
                                  CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,2"
@@ -162,39 +157,34 @@
                         </PasswordBox.Background>
                     </PasswordBox>
 
-                    <!-- Výběr role uživatele -->
+                    <!-- ComboBox Role – světlejší a přehledný -->
+                    <TextBlock Text="Role" Foreground="DarkGray" FontSize="13" FontFamily="Montserrat" Margin="0,15,0,3"/>
                     <ComboBox x:Name="cmbRole"
-                                Height="45"
-                                Margin="0,10,0,0"
-                                SelectionChanged="CmbRole_SelectionChanged"
-                                FontSize="16"
-                                FontWeight="Bold"
-                                FontFamily="Montserrat"
-                                Padding="12,0"
-                                BorderThickness="1.5"
-                                BorderBrush="#444"
-                                Foreground="Black"
-                                Background="White"
-                                Cursor="Hand"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center">
-
-                        <!-- Barvy a vzhled rozbalovací nabídky -->
+                              Height="40"
+                              Margin="0,5,0,0"
+                              SelectionChanged="CmbRole_SelectionChanged"
+                              FontSize="15"
+                              FontWeight="SemiBold"
+                              FontFamily="Montserrat"
+                              BorderBrush="Gray"
+                              BorderThickness="1"
+                              Foreground="Black"
+                              Background="White"
+                              Cursor="Hand"
+                              HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center">
                         <ComboBox.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="White"/>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#E0E0E0"/>
                             <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
                         </ComboBox.Resources>
 
-                        <!-- Styl položek v nabídce -->
                         <ComboBox.ItemContainerStyle>
                             <Style TargetType="ComboBoxItem">
                                 <Setter Property="Foreground" Value="Black"/>
                                 <Setter Property="Background" Value="White"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="FontSize" Value="15"/>
                                 <Setter Property="Padding" Value="10,6"/>
-                                <Setter Property="Cursor" Value="Hand"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="#F0F0F0"/>
@@ -206,25 +196,21 @@
                             </Style>
                         </ComboBox.ItemContainerStyle>
 
-                        <!-- Nabídka dostupných rolí -->
                         <ComboBoxItem Content="Uživatel"/>
                         <ComboBoxItem Content="Hráč"/>
                         <ComboBoxItem Content="Trenér"/>
                         <ComboBoxItem Content="Admin"/>
                     </ComboBox>
 
-                    <!-- Sekce pro zadání rodného čísla, zobrazí se pouze pro hráče nebo trenéra -->
                     <StackPanel x:Name="panelRodneCislo"
                                 Margin="0,15,0,0"
                                 Visibility="Collapsed">
-
                         <TextBlock Text="Rodné číslo"
                                Foreground="DarkGray"
                                FontSize="15"
                                FontWeight="Bold"
                                FontFamily="Montserrat"
                                Margin="0,0,0,6"/>
-
                         <Border Background="White"
                             CornerRadius="6"
                             BorderBrush="#999"
@@ -245,7 +231,6 @@
                         </Border>
                     </StackPanel>
 
-                    <!-- Tlačítko pro registraci uživatele -->
                     <Button x:Name="btnRegister" Content="REGISTROVAT"
                             Foreground="White" FontSize="12" FontFamily="Montserrat"
                             Cursor="Hand" Margin="0,30,0,0" Click="BtnRegister_Click">
@@ -269,7 +254,6 @@
                         </Button.Template>
                     </Button>
 
-                    <!-- Textový status pro případné chybové zprávy nebo potvrzení -->
                     <TextBlock x:Name="lblStatus" Text=""
                                Foreground="White" FontSize="12" FontFamily="Montserrat"
                                TextAlignment="Center" Margin="0,10,0,0"/>

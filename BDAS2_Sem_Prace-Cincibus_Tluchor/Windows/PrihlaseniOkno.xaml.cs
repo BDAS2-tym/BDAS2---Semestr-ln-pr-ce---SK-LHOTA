@@ -134,6 +134,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                                 if (hesloOK)
                                 {
+                                    DatabaseAppUser.SetAppUser(conn, new Uzivatel { UzivatelskeJmeno = uzivatelskeJmeno });
+
                                     // Aktualizace času posledního přihlášení
                                     using (OracleCommand update = new OracleCommand(@"
                                         UPDATE UZIVATELSKE_UCTY

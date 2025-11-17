@@ -84,8 +84,8 @@
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <TextBox x:Name="tboxTelCislo" Grid.Row="3" Grid.Column="1"
-                         Margin="50,18,50,18" MaxLength="13"
-                         FontFamily="Century Gothic" FontSize="12"/>
+                           Margin="50,18,50,18" MaxLength="12"
+                           FontFamily="Century Gothic" FontSize="12"/>
 
                 <!-- Pozice -->
                 <TextBlock Text="Pozice na hřišti:" Grid.Row="4" Grid.Column="0"

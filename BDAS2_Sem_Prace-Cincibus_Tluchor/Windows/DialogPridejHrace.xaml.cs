@@ -3,10 +3,16 @@ using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
+    /// <summary>
+    /// Dialogové okno pro přidání nového hráče
+    /// Umožňuje vyplnit osobní údaje, statistiky, pozici a případné disciplinární opatření
+    /// Po potvrzení vloží hráče do databáze a přidá ho do kolekce zobrazené v DataGridu
+    /// </summary>
     public partial class DialogPridejHrace : Window
     {
         private ObservableCollection<Hrac> HraciData;
@@ -18,14 +24,25 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             // Naplnění ComboBoxu pro pozice hráčů
             cbPozice.ItemsSource = new List<string> { "Brankář", "Obránce", "Záložník", "Útočník" };
+
+            // Výchozí hodnoty statistických čísel
             cbPozice.SelectedIndex = 0;
+            iudPocetCervenychKaret.Value = 0;
+            iudPocetGolu.Value = 0;
+            iudPocetZlutychKaret.Value = 0;
         }
 
+        /// <summary>
+        /// Po zaškrtnutí zobrazí panel s disciplinárním opatřením
+        /// </summary>
         private void chkMaOpatreni_Checked(object sender, RoutedEventArgs e)
         {
             spOpatreni.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Po odškrtnutí skryje panel opatření a smaže vyplněné hodnoty
+        /// </summary>
         private void chkMaOpatreni_Unchecked(object sender, RoutedEventArgs e)
         {
             spOpatreni.Visibility = Visibility.Collapsed;
@@ -34,6 +51,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             tboxDuvodOpatreni.Clear();
         }
 
+        /// <summary>
+        /// Resetuje celý formulář na výchozí stav
+        /// </summary>
         private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
             tboxRodneCislo.Clear();
@@ -47,14 +67,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             chkMaOpatreni.IsChecked = false;
         }
 
+        /// <summary>
+        /// Zpracuje přidání nového hráče – provádí validaci vstupů, vytvoření objektu hráče,
+        /// doplnění disciplinárního opatření, uložení do DB a následné přidání do kolekce
+        /// </summary>
         private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // --- VALIDACE ---
+                // VALIDACE
                 if (!long.TryParse(tboxRodneCislo.Text, out long rodneCislo))
                 {
-                    MessageBox.Show("Rodné číslo může obsahovat pouze číslice.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Rodné číslo může obsahovat pouze číslice", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -71,13 +95,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                 if (telCislo.Any(c => !char.IsDigit(c)))
                 {
-                    MessageBox.Show("Telefonní číslo může obsahovat pouze číslice.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Telefonní číslo může obsahovat pouze číslice", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 if (rodneCislo.ToString().Length != 10)
                 {
-                    MessageBox.Show("Rodné číslo musí mít 10 číslic bez lomítka.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Rodné číslo musí mít 10 číslic bez lomítka", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -87,20 +111,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                 if (pocetGolu < 0 || pocetZlutychKaret < 0 || pocetCervenychKaret < 0)
                 {
-                    MessageBox.Show("Počet gólů a karet nesmí být záporný.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Počet gólů a karet nesmí být záporný", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                // --- VYTVOŘENÍ HRÁČE ---
-                Hrac novyHrac = new Hrac(
-                    rodneCislo, jmeno, prijmeni, telCislo,
-                    pocetGolu, pocetZlutychKaret, pocetCervenychKaret, pozice
+                // Vytvoření nového hráče
+                Hrac novyHrac = new Hrac(rodneCislo, jmeno, prijmeni, telCislo, pocetGolu, pocetZlutychKaret, pocetCervenychKaret, pozice
                 );
 
-                // --- ULOŽENÍ HRÁČE DO DB ---
-                DatabaseHraci.AddHrac(novyHrac);
-
-                // --- POKUD MÁ OPATŘENÍ, PŘIDEJ I TO ---
+                // Pokud má opatření, nastav ho do objektu ještě před uložením 
                 if (chkMaOpatreni.IsChecked == true)
                 {
                     if (dpDatumOpatreni.SelectedDate == null)
@@ -109,18 +128,31 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         return;
                     }
 
-                    DateTime datum = dpDatumOpatreni.SelectedDate.Value;
-                    int delkaTrestu = (int)iudDelkaTrestu.Value;
-                    string duvod = tboxDuvodOpatreni.Text.Trim();
-
-                    // Zavolá uloženou proceduru z PKG_OPATRENI
-                    DatabaseOpatreni.AddOpatreni(datum, delkaTrestu, duvod);
+                    novyHrac.DatumOpatreni = dpDatumOpatreni.SelectedDate.Value;
+                    novyHrac.DelkaTrestu = (int)iudDelkaTrestu.Value;
+                    novyHrac.DuvodOpatreni = tboxDuvodOpatreni.Text.Trim();
+                    novyHrac.DatumOpatreniText = novyHrac.DatumOpatreni.ToString("dd.MM.yyyy");
+                }
+                else
+                {
+                    // Pokud nemá opatření, nastav defaulty
+                    novyHrac.DatumOpatreni = DateTime.MinValue;
+                    novyHrac.DelkaTrestu = 0;
+                    novyHrac.DuvodOpatreni = null;
+                    novyHrac.DatumOpatreniText = "Bez opatření";
                 }
 
-                // --- Přidej hráče do kolekce a aktualizuj DataGrid ---
+                // Uložení hráče do databáze
+                using (var conn = DatabaseManager.GetConnection())
+                {
+                    conn.Open();
+                    DatabaseHraci.AddHrac(conn, novyHrac);
+                }
+
+                // Přidej hráče do kolekce a aktualizuj DataGrid 
                 HraciData.Add(novyHrac);
 
-                MessageBox.Show("Hráč byl úspěšně přidán.", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Hráč byl úspěšně přidán", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             catch (Exception ex)

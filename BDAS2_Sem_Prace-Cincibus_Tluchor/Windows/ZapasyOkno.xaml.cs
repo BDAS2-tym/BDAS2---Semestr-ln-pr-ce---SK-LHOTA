@@ -3,6 +3,7 @@ using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -191,6 +192,30 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             catch (Exception ex)
             {
                 MessageBox.Show($"Chyba při načítání výsledků zápasů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Obsluha tlačítka "Info"
+        /// Zavolá PL/SQL funkci F_STAV_ZAPASU_SHRNUTI a zobrazí její výsledek
+        /// </summary>
+        /// <param name="sender">Odesílatel události (tlačítko Info)</param>
+        /// <param name="e">Argumenty události click</param>
+        private void BtnInfo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string vysledekFunkce = DatabaseZapasy.GetShrnutiStavuZapasu(conn);
+
+                MessageBox.Show(vysledekFunkce, "Přehled stavu zápasů", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Chyba při získání shrnutí zápasů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
