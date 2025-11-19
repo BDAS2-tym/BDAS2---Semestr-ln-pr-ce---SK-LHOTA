@@ -17,10 +17,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         private Uzivatel uzivatel;
         private string stareJmeno;
 
-        /// <summary>
-        /// Konstruktor – přijme uživatele, jehož data se budou upravovat
-        /// </summary>
-        /// <param name="u">Objekt uživatele pro úpravu</param>
         public EditUzivatelOkno(Uzivatel editovanyUzivatel)
         {
             InitializeComponent();
@@ -68,7 +64,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             txtEmail.Text = uzivatel.Email;
             txtRodneCislo.Text = uzivatel.RodneCislo;
 
-            // Nastavení aktuální role podle názvu
+            // Nastaví combobox na aktuální roli
             foreach (ComboBoxItem item in cmbRole.Items)
             {
                 if (item.Content.ToString().Equals(uzivatel.Role, StringComparison.OrdinalIgnoreCase))
@@ -82,8 +78,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <summary>
         /// Ověří formát rodného čísla – musí mít 10 číslic nebo může být prázdné
         /// </summary>
-        /// <param name="rodneCislo">Rodné číslo zadané uživatelem</param>
-        /// <returns>True, pokud je rodné číslo platné, jinak false</returns>
         private bool OverRodneCislo(string rodneCislo)
         {
             if (string.IsNullOrEmpty(rodneCislo))
@@ -92,36 +86,29 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             if (rodneCislo.Length != 10)
                 return false;
 
-            // Každý znak musí být číslo 0–9
-            foreach (char c in rodneCislo)
-            {
-                if (!char.IsDigit(c))
-                    return false;
-            }
-            return true;
+            return rodneCislo.All(char.IsDigit);
         }
 
         /// <summary>
-        /// Zpracuje kliknutí na tlačítko "Uložit změny".
-        /// Ověří vstupy, volitelně vytvoří nové heslo (hash + salt),
-        /// a uloží změny do databáze.
+        /// Tlačítko "Uložit změny"
         /// </summary>
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                // Připravíme data z formuláře
                 string jmeno = txtUser.Text.Trim();
                 string email = txtEmail.Text.Trim();
                 string rodneCislo = txtRodneCislo.Text.Trim();
                 string heslo = txtHeslo.Text.Trim();
 
-                if (jmeno == "")
+                if (string.IsNullOrEmpty(jmeno))
                 {
                     MessageBox.Show("Zadej uživatelské jméno!");
                     return;
                 }
 
-                if (email == "")
+                if (string.IsNullOrEmpty(email))
                 {
                     MessageBox.Show("Zadej e-mail!");
                     return;
@@ -137,17 +124,26 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 uzivatel.Email = email;
                 uzivatel.RodneCislo = rodneCislo;
 
-                // Uložení zvolené role – ID i text
+                // 🔥 Vytvoříme JEDNO připojení pro celou operaci
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                // Nastavíme přihlášeného uživatele pro triggery
+                DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
+                // Pokud uživatel změnil roli – uložíme ji hned
                 if (cmbRole.SelectedItem is ComboBoxItem selectedRole)
                 {
                     uzivatel.Role = selectedRole.Content.ToString();
 
-                    // aktualizace role v databázi
                     int idRole = Convert.ToInt32(selectedRole.Tag);
-                    AktualizujRoliUzivatele(uzivatel.UzivatelskeJmeno, idRole);
+
+                    // ✔ Správné předání připojení
+                    AktualizujRoliUzivatele(conn, uzivatel.UzivatelskeJmeno, idRole);
                 }
 
-                if (heslo != "")
+                // Pokud zadal nové heslo – uděláme hash + salt
+                if (!string.IsNullOrEmpty(heslo))
                 {
                     string salt = PasswordHasher.GenerateSalt();
                     string hash = PasswordHasher.HashPassword(heslo, salt);
@@ -155,20 +151,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     uzivatel.Salt = salt;
                 }
 
-
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
-
-                // NASTAVÍ PŘIHLÁŠENÉHO UŽIVATELE PRO TRIGGERY
-                DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-
-                // Provede update
+                // Aktualizace databáze přes uloženou proceduru
                 DatabaseRegistrace.UpdateUzivatel(conn, uzivatel, stareJmeno);
 
-                MessageBox.Show("Změny byly uloženy");
+                MessageBox.Show("Změny byly uloženy.");
                 DialogResult = true;
                 this.Close();
-
             }
             catch (Exception ex)
             {
@@ -177,17 +165,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Aktualizuje ID role daného uživatele v databázi
+        /// Aktualizuje ID role uživatele — používá EXISTUJÍCÍ spojení
         /// </summary>
-        private void AktualizujRoliUzivatele(string uzivatelskeJmeno, int idRole)
+        private void AktualizujRoliUzivatele(OracleConnection conn, string uzivatelskeJmeno, int idRole)
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
-
                 string sql = "UPDATE UZIVATELSKE_UCTY SET IDROLE = :idrole WHERE UZIVATELSKEJMENO = :jmeno";
                 using var cmd = new OracleCommand(sql, conn);
+
                 cmd.Parameters.Add(":idrole", OracleDbType.Int32).Value = idRole;
                 cmd.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatelskeJmeno;
 
@@ -199,31 +185,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
-        /// <summary>
-        /// Zavře okno po kliknutí na tlačítko "Zavřít"
-        /// </summary>
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void BtnClose_Click(object sender, RoutedEventArgs e) => Close();
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
 
-        /// <summary>
-        /// Minimalizuje okno po kliknutí na tlačítko "-"
-        /// </summary>
-        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        /// <summary>
-        /// Umožní okno tažením myší po pozadí
-        /// </summary>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
-            {
                 DragMove();
-            }
         }
     }
 }
