@@ -62,6 +62,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
             dtpDatumDo.Value = dtpDatumOd.Value = null;
         }
 
+        /// <summary>
+        /// Metoda slouží k vyfiltrování záznamů a nastevení DialogResult na true
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void btnNajdi_Click(object sender, RoutedEventArgs e)
         {
             try

@@ -7,7 +7,7 @@
         xmlns:conv="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Text_Converters"
         mc:Ignorable="d"
         Title="Kontrakty"         
-        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Kontrakty.ico" >
+        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Kontrakty.ico" PreviewKeyDown="Window_PreviewKeyDown" >
 
     <Window.Resources>
         <conv:KontraktyHraceConverter x:Key="KontraktyHraceConverter"/>
@@ -187,7 +187,7 @@
                     </Button>
 
                     <!-- Button Najdi -->
-                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="3" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="3" Style="{StaticResource HoverFadeButtonStyle2}" Click="btnNajdi_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Najdi" VerticalAlignment="Center"/>

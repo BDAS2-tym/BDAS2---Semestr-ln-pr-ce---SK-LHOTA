@@ -1,4 +1,5 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     /// </summary>
     public partial class KontraktyOkno : Window
     {
-
         private readonly HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
 
         // Kolekce kontraktů pro DataGrid (binding v XAML)
         public ObservableCollection<Kontrakt> KontraktyData { get; set; } = new ObservableCollection<Kontrakt>();
@@ -106,7 +107,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         {
                             IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]),
                             Jmeno = reader["JMENO"].ToString(),
-                            Prijmeni = reader["PRIJMENI"].ToString()
+                            Prijmeni = reader["PRIJMENI"].ToString(),
+                            RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"])
                         };
                     }
 
@@ -199,6 +201,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void dgKontrakty_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
+            if (jeVyhledavaniAktivni)
+            {
+                e.Handled = true;
+                return;
+            }
+
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
             // Získání objektu DataGrid a jeho potomků, aby se DoubleClick uplatňoval pouze na řádky a ne na ColumnHeader
@@ -247,6 +255,50 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 dgKontrakty.Focusable = false;
                 Keyboard.ClearFocus();
                 dgKontrakty.Focusable = true;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované kontrakty zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void btnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiKontrakt dialogNajdiKontrakt = new DialogNajdiKontrakt(KontraktyData);
+            bool? vysledekDiaOkna = dialogNajdiKontrakt.ShowDialog();
+
+            if (vysledekDiaOkna == true)
+            {
+                if (dialogNajdiKontrakt.VyfiltrovaneKontrakty.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádné kontrakty se zadanými filtry.", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgKontrakty.ItemsSource = new ObservableCollection<Kontrakt>(dialogNajdiKontrakt.VyfiltrovaneKontrakty);
+                jeVyhledavaniAktivni = true;
+
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgKontrakty.ItemsSource = KontraktyData;
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = true;
+                e.Handled = true;
             }
         }
     }
