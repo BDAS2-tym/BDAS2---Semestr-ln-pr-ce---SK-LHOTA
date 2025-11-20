@@ -135,6 +135,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 }
             }
 
+            // Získáme ID role podle názvu role (např. "Admin" → 1)
+            int idRole;
+            using (var cmdRole = new OracleCommand("SELECT IDROLE FROM ROLE WHERE UPPER(NAZEVROLE) = UPPER(:nazev)", conn))
+            {
+                cmdRole.Parameters.Add(":nazev", OracleDbType.Varchar2).Value = uzivatel.Role;
+                object result = cmdRole.ExecuteScalar();
+                if (result == null)
+                    throw new Exception($"Role '{uzivatel.Role}' nebyla nalezena v tabulce ROLE.");
+                idRole = Convert.ToInt32(result);
+            }
+
             // Voláme proceduru pro update
             using var cmd = new OracleCommand("PKG_REGISTRACE.SP_UPDATE_UZIVATEL", conn)
             {
@@ -145,7 +156,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             cmd.Parameters.Add("v_email", OracleDbType.Varchar2).Value = uzivatel.Email;
             cmd.Parameters.Add("v_heslo", OracleDbType.Varchar2).Value = uzivatel.Heslo;
             cmd.Parameters.Add("v_salt", OracleDbType.Varchar2).Value = uzivatel.Salt;
-            cmd.Parameters.Add("v_idrole", OracleDbType.Int32).Value = uzivatel.Role;
+            cmd.Parameters.Add("v_idrole", OracleDbType.Int32).Value = idRole;
 
             try
             {
@@ -156,6 +167,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 throw new Exception($"Chyba při volání PKG_REGISTRACE.SP_UPDATE_UZIVATEL: {ex.Message}", ex);
             }
         }
+
 
         /// <summary>
         /// Ověří, zda v databázi existuje člen klubu podle rodného čísla a typu (hráč/trenér)

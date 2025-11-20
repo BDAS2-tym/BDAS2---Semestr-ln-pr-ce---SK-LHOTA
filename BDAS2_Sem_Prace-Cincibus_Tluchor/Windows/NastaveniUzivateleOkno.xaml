@@ -6,22 +6,24 @@
         mc:Ignorable="d"
         Title="Uživatelské účty"
         Height="600" Width="1300"
-        WindowStartupLocation="CenterScreen" Icon="/Images/Ikony/Ikona_Uzivatele.ico">
+        WindowStartupLocation="CenterScreen"
+        Icon="/Images/Ikony/Ikona_Uzivatele.ico">
 
     <Grid>
 
-        <!-- Pozadí hlavního okna s obrázkem -->
+        <!-- Pozadí okna -->
         <Grid.Background>
             <ImageBrush ImageSource="/Images/Img/pozadi_2_dialog_okna.png"/>
         </Grid.Background>
 
-        <!-- Rozdělení na dvě části: vlevo DataGrid, vpravo panel s tlačítky -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Levá část – DataGrid zobrazující přehled uživatelů -->
+
+
+        <!-- LEVÁ ČÁST  -->
         <Border Grid.Column="0"
                 Margin="15"
                 BorderBrush="#125C64"
@@ -44,7 +46,7 @@
                       HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto">
 
-                <!-- Styl hlavičky tabulky -->
+                <!-- Styl hlavičky -->
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Background" Value="#AABBCC"/>
@@ -59,55 +61,129 @@
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
 
-                <!-- Barevné pozadí tabulky -->
+                <!-- Pozadí -->
                 <DataGrid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFCBCBCB" Offset="1"/>
                     </LinearGradientBrush>
                 </DataGrid.Background>
 
-                <!-- Definice sloupců DataGridu -->
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Uživatelské jméno" Binding="{Binding UzivatelskeJmeno}" ElementStyle="{StaticResource CenterCellStyle}" Width="2*" />
-                    <DataGridTextColumn Header="E-mail" Binding="{Binding Email}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" />
-                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="1.5*" ElementStyle="{StaticResource CenterCellStyle}" />
-                    <DataGridTextColumn Header="Poslední přihlášení" Binding="{Binding PosledniPrihlaseni, StringFormat=\{0:dd.MM.yyyy HH:mm\}}" ElementStyle="{StaticResource CenterCellStyle}" Width="2*" />
-                    <DataGridTextColumn Header="Rodné číslo" Binding="{Binding RodneCislo}" ElementStyle="{StaticResource CenterCellStyle}" Width="1.5*" />
 
-                    <!-- Sloupec s tlačítkem "Přepnout" pro změnu aktivního uživatele -->
+
+                <!-- SLOUPCE  -->
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Uživatelské jméno"
+                                        Binding="{Binding UzivatelskeJmeno}"
+                                        ElementStyle="{StaticResource CenterCellStyle}"
+                                        Width="2*"/>
+
+                    <DataGridTextColumn Header="E-mail"
+                                        Binding="{Binding Email}"
+                                        ElementStyle="{StaticResource CenterCellStyle}"
+                                        Width="2*"/>
+
+                    <DataGridTextColumn Header="Role"
+                                        Binding="{Binding Role}"
+                                        ElementStyle="{StaticResource CenterCellStyle}"
+                                        Width="1.5*"/>
+
+                    <DataGridTextColumn Header="Poslední přihlášení"
+                                        Binding="{Binding PosledniPrihlaseni, StringFormat=\{0:dd.MM.yyyy HH:mm\}}"
+                                        ElementStyle="{StaticResource CenterCellStyle}"
+                                        Width="2*"/>
+
+                    <DataGridTextColumn Header="Rodné číslo"
+                                        Binding="{Binding RodneCislo}"
+                                        ElementStyle="{StaticResource CenterCellStyle}"
+                                        Width="1.5*"/>
+
+
+                    <!-- TLAČÍTKO EMULOVAT S ANIMACÍ -->
                     <DataGridTemplateColumn Header="Akce" Width="1.5*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Přepnout"
-                                        Background="#3a548c"
-                                        Foreground="White"
-                                        FontFamily="Century Gothic"
-                                        Padding="6,3"
-                                        Margin="3"
-                                        Cursor="Hand"
-                                        Click="BtnPrepnout_Click"
-                                        >
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Background" Value="#3a548c" />
-                                            <Setter Property="Foreground" Value="White" />
 
-                                            <Style.Triggers>
+                                <Button Content="Emulovat"
+                    Click="BtnPrepnout_Click"
+                    Cursor="Hand"
+                    Padding="6,3"
+                    Margin="3"
+                    FontFamily="Century Gothic"
+                    FontSize="13">
+
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="3">
+                                                <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+
+                                                <!-- Hover efekt -->
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#FFE92F2F" />
-                                                    <!-- HOVER BARVA -->
+                                                    <Trigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation
+                                                Storyboard.TargetName="border"
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                To="#111827"
+                                                Duration="0:0:0.25"/>
+
+                                                                <ColorAnimation
+                                                Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                                                To="White"
+                                                Duration="0:0:0.25"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.EnterActions>
+
+                                                    <Trigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation
+                                                Storyboard.TargetName="border"
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                To="#77B3FB"
+                                                Duration="0:0:0.25"/>
+
+                                                                <ColorAnimation
+                                                Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                                                To="Black"
+                                                Duration="0:0:0.25"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.ExitActions>
                                                 </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
+
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+
+                                    <Button.Background>
+                                        <SolidColorBrush Color="#77B3FB"/>
+                                    </Button.Background>
+
+                                    <Button.Foreground>
+                                        <SolidColorBrush Color="Black"/>
+                                    </Button.Foreground>
+
                                 </Button>
+
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+
+
                 </DataGrid.Columns>
 
-                <!-- Barvy výběru řádku -->
+
+                <!-- Barvy výběru -->
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#fad870"/>
                     <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#fad870"/>
@@ -117,15 +193,18 @@
             </DataGrid>
         </Border>
 
-        <!-- Pravá část – panel s ovládacími tlačítky -->
+
+
+        <!-- PRAVÁ ČÁST -->
         <Border Grid.Column="1" Background="#77B3FB">
             <Grid>
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Nadpis panelu -->
+
                 <TextBlock Text="Uživatelské účty"
                            Foreground="Black"
                            FontSize="25"
@@ -134,8 +213,9 @@
                            Margin="0,15"
                            FontFamily="Century Gothic"/>
 
-                <!-- Kontejner pro tlačítka -->
-                <Grid x:Name="gdTlacitka" Grid.Row="1" Margin="0,0,0,15">
+
+                <Grid Grid.Row="1" Margin="0,0,0,15">
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -143,39 +223,56 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                   
-                    <!-- Tlačítko pro přidání uživatele -->
-                    <Button x:Name="btnPridej" Grid.Row="0" Click="BtnPridej_Click" Margin="0,5" Style="{StaticResource HoverFadeButtonStyle2}">
+
+                    <Button x:Name="btnPridej"
+                            Grid.Row="0"
+                            Margin="0,5"
+                            Click="BtnPridej_Click"
+                            Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Přidej" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Tlačítko pro odebrání uživatele -->
-                    <Button x:Name="btnOdeber" Grid.Row="1" Click="BtnOdeber_Click" Margin="0,8,0,5" Style="{StaticResource HoverFadeButtonStyle2}">
+
+                    <Button x:Name="btnOdeber"
+                            Grid.Row="1"
+                            Margin="0,8,0,5"
+                            Click="BtnOdeber_Click"
+                            Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Tlačítko pro úpravu vybraného uživatele -->
-                    <Button x:Name="btnEdituj" Grid.Row="2" Click="BtnEdituj_Click" Margin="0,8,0,5" Style="{StaticResource HoverFadeButtonStyle2}">
+
+                    <Button x:Name="btnEdituj"
+                            Grid.Row="2"
+                            Margin="0,8,0,5"
+                            Click="BtnEdituj_Click"
+                            Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Edituj" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Tlačítko pro návrat zpět -->
-                    <Button x:Name="btnZpet" Grid.Row="3" Click="BtnZpet_Click" Margin="0,8,0,5" Style="{StaticResource HoverFadeButtonStyle2}">
+
+                    <Button x:Name="btnZpet"
+                            Grid.Row="3"
+                            Margin="0,8,0,5"
+                            Click="BtnZpet_Click"
+                            Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Zpět" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
+
                 </Grid>
+
             </Grid>
         </Border>
 

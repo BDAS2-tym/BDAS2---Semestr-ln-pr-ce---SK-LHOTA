@@ -10,11 +10,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
     {
 
         /// <summary>
-        /// Jedinečné ID člena klubu (hráče).
-        /// </summary>
-       // public int IdClenKlubu { get; set; }
-
-        /// <summary>
         /// Rodné číslo hráče
         /// </summary>
         public long RodneCislo { get; set; }
@@ -59,6 +54,24 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         public int PocetCervenychKaret { get; set; }
 
+        public DateTime DatumOpatreni { get; set; }
+
+        /// <summary>
+        /// Délka disciplinárního trestu 
+        /// </summary>
+        public int DelkaTrestu { get; set; }
+
+        /// <summary>
+        /// Důvod disciplinárního opatření (může být null)
+        /// </summary>
+        public string? DuvodOpatreni { get; set; }
+
+        /// <summary>
+        /// Textová reprezentace data disciplinárního opatření pro DataGrid,
+        /// pokud hráč žádné opatření nemá
+        /// </summary>
+        public string DatumOpatreniText { get; set; } = "–";
+
         /// <summary>
         /// Výchozí konstruktor
         /// </summary>
@@ -90,9 +103,5 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             this.TypClena = "Hrac"; // Defaultně "Hrac"
         }
 
-        public override string ToString()
-        {
-            return $"{Jmeno} {Prijmeni} RČ: {RodneCislo}";
-        }
     }
 }

@@ -30,9 +30,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         
         private void BtnBinarniObsah_Click(object sender, RoutedEventArgs e)
         {
-            //BinarniObsahOkno binarniObsahOkno = new BinarniObsahOkno();
-            //binarniObsahOkno.Show();
-            //this.Close();
+            BinarniObsahOkno binarniObsahOkno = new BinarniObsahOkno();
+            binarniObsahOkno.Show();
+            this.Close();
         }
 
         private void BtnUzivatele_Click(object sender, RoutedEventArgs e)
@@ -44,9 +44,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
         private void BtnSystemovyKatalog_Click(object sender, RoutedEventArgs e)
         {
-            //SystemovyKatalogOkno systemovyKatalogOkno = new SystemovyKatalogOkno();
-            //systemovyKatalogOkno.Show();
-            //this.Close();
+            SystemovyKatalogOkno systemovyKatalogOkno = new SystemovyKatalogOkno();
+            systemovyKatalogOkno.Show();
+            this.Close();
         }
 
         private void BtnZpet_Click(object sender, RoutedEventArgs e)

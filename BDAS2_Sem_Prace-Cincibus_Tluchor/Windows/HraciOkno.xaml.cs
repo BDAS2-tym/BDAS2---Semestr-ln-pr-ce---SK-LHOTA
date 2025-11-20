@@ -154,7 +154,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 using var conn = DatabaseManager.GetConnection();
                 conn.Open();
 
-                using var cmd = new OracleCommand("SELECT * FROM HRACI_VIEW", conn);
+                using var cmd = new OracleCommand("SELECT * FROM HRACI_OPATRENI_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
 
                 HraciData.Clear();
@@ -210,6 +210,32 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                         hrac.PoziceNaHristi = reader["POZICENAHRISTI"].ToString();
                     else
                         hrac.PoziceNaHristi = "Neznámá"; // default, pokud by bylo NULL
+
+                    // DATUMOPATRENI
+                    if (reader["DATUMOPATRENI"] != DBNull.Value)
+                    {
+                        DateTime datum = Convert.ToDateTime(reader["DATUMOPATRENI"]).Date;
+                        if (datum == new DateTime(1900, 1, 1) || datum == DateTime.MinValue)
+                            hrac.DatumOpatreniText = "Bez opatření";
+                        else
+                            hrac.DatumOpatreniText = datum.ToString("dd.MM.yyyy");
+                    }
+                    else
+                    {
+                        hrac.DatumOpatreniText = "Bez opatření";
+                    }
+
+                    // DELKATRESTU - NOT NULL
+                    if (reader["DELKATRESTU"] != DBNull.Value)
+                        hrac.DelkaTrestu = Convert.ToInt32(reader["DELKATRESTU"]);
+                    else
+                        hrac.DelkaTrestu = 0;
+
+                    // DUVODOPATRENI - může být NULL
+                    if (reader["DUVOD"] != DBNull.Value)
+                        hrac.DuvodOpatreni = reader["DUVOD"].ToString();
+                    else
+                        hrac.DuvodOpatreni = null;
 
                     HraciData.Add(hrac);
                 }

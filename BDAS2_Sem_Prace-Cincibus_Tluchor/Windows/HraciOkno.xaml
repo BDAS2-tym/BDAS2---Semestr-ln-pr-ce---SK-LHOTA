@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Hráči" 
-        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Hraci.ico">
+        Height="600" Width="1400" Icon="/Images/Ikony/Ikona_Hraci.ico">
 
     <Grid>
 
@@ -78,10 +78,14 @@
                     <DataGridTextColumn x:Name="RodneCisloSloupec" Header="Rodné číslo" Binding="{Binding RodneCislo, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn x:Name="PocetZlutychKaretSloupec" Header="Žluté karty" Binding="{Binding PocetZlutychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
                     <DataGridTextColumn x:Name="PocetCervenychKaretSloupec" Header="Červené karty" Binding="{Binding PocetCervenychKaret, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="DatumOpatreni" Header="Datum opatření" Binding="{Binding DatumOpatreniText}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
 
+                    <DataGridTextColumn x:Name="DelkaTrestu" Header="Délka trestu" Binding="{Binding DelkaTrestu, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    <DataGridTextColumn x:Name="Duvod" Header="Důvod trestu" Binding="{Binding DuvodOpatreni, UpdateSourceTrigger=LostFocus}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
+                    
                     <DataGridTextColumn x:Name="PocetGoluSloupec" Header="Počet gólů" Binding="{Binding PocetVstrelenychGolu}" Width="2*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         <DataGridTextColumn.HeaderStyle>
-                            <!-- Tento kód platí pouze pro poslední sloupec hlavičky, aby se zrušilo ohraničení na pravé straně -->
+        
                             <Style TargetType="DataGridColumnHeader">
                                 <!-- Pozadí -->
                                 <Setter Property="Background" Value="#AABBCC"/>
