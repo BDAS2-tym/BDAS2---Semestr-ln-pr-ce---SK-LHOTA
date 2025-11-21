@@ -1,4 +1,5 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class SponzoriOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
 
         // Kolekce sponzorů pro DataGrid (binding v XAML)
         public ObservableCollection<Sponzor> SponzoriData { get; set; } = new ObservableCollection<Sponzor>();
@@ -152,7 +154,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnPridej_Click(object sender, RoutedEventArgs e)
+        private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejSponzora dialogPridejSponzora = new DialogPridejSponzora(SponzoriData);
             dialogPridejSponzora.ShowDialog();
@@ -163,7 +165,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnOdeber_Click(object sender, RoutedEventArgs e)
+        private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
             Sponzor? vybranySponzor = dgSponzori.SelectedItem as Sponzor;
 
@@ -242,8 +244,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgSponzori_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DgSponzori_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (jeVyhledavaniAktivni)
+            {
+                e.Handled = true;
+                return;
+            }
+
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
             // Získání objektu DataGrid a jeho potomků, aby se DoubleClick uplatňoval pouze na řádky a ne na ColumnHeader
@@ -263,6 +271,50 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                 DialogEditujSponzora dialogEditujdialogEditujSponzora = new DialogEditujSponzora(vybranySponzor, this);
                 dialogEditujdialogEditujSponzora.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované sponzorů zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiSponzora dialogNajdiSponzora = new DialogNajdiSponzora(SponzoriData);
+            bool? vysledekDiaOkna = dialogNajdiSponzora.ShowDialog();
+
+            if (vysledekDiaOkna == true)
+            {
+                if (dialogNajdiSponzora.VyfiltrovaniSponzori.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádní sponzoři se zadanými filtry.", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgSponzori.ItemsSource = new ObservableCollection<Sponzor>(dialogNajdiSponzora.VyfiltrovaniSponzori);
+                jeVyhledavaniAktivni = true;
+
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgSponzori.ItemsSource = SponzoriData;
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = true;
+                e.Handled = true;
             }
         }
     }

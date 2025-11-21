@@ -1,4 +1,5 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class SoutezeOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
 
         // Kolekce soutěží pro DataGrid (binding v XAML)
         public ObservableCollection<Soutez> SoutezeData {  get; set; } = new ObservableCollection<Soutez>();
@@ -102,7 +104,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgSouteze_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void DgSouteze_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {
@@ -130,7 +132,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnPridej_Click(object sender, RoutedEventArgs e)
+        private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejSoutez dialogPridejSoutez = new DialogPridejSoutez(SoutezeData);
             dialogPridejSoutez.ShowDialog();
@@ -141,7 +143,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnOdeber_Click(object sender, RoutedEventArgs e)
+        private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
             Soutez? vybranaSoutez = dgSouteze.SelectedItem as Soutez;
             if (vybranaSoutez == null)
@@ -202,8 +204,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgSouteze_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DgSouteze_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (jeVyhledavaniAktivni)
+            {
+                e.Handled = true;
+                return;
+            }
+
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
             // Získání objektu DataGrid a jeho potomků, aby se DoubleClick uplatňoval pouze na řádky a ne na ColumnHeader
@@ -231,10 +239,54 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnCastkySoutezi_Click(object sender, RoutedEventArgs e)
+        private void BtnCastkySoutezi_Click(object sender, RoutedEventArgs e)
         {
             DialogSponzorovaneCastkySoutezi castky = new DialogSponzorovaneCastkySoutezi();
             castky.ShowDialog();
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgSouteze.ItemsSource = SoutezeData;
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = true;
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované soutěže zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiSoutez dialogNajdiSoutez = new DialogNajdiSoutez(SoutezeData);
+            bool? vysledekDiaOkna = dialogNajdiSoutez.ShowDialog();
+
+            if (vysledekDiaOkna == true)
+            {
+                if (dialogNajdiSoutez.VyfiltrovaneSouteze.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádné soutěže se zadanými filtry.", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgSouteze.ItemsSource = new ObservableCollection<Soutez>(dialogNajdiSoutez.VyfiltrovaneSouteze);
+                jeVyhledavaniAktivni = true;
+
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = false;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class ZapasyOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
 
         // Kolekce zápasů pro DataGrid (binding v XAML)
         public ObservableCollection<Zapas> ZapasyData { get; set; } = new ObservableCollection<Zapas>();
@@ -225,7 +227,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgZapasy_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void DgZapasy_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {
@@ -253,7 +255,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnPridej_Click(object sender, RoutedEventArgs e)
+        private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejZapas dialogPridejZapas = new DialogPridejZapas(ZapasyData, VysledkyData);
             dialogPridejZapas.ShowDialog();
@@ -264,7 +266,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnOdeber_Click(object sender, RoutedEventArgs e)
+        private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
             Zapas? vybranyZapas = dgZapasy.SelectedItem as Zapas;
             if (vybranyZapas == null)
@@ -326,8 +328,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu o podrobnostech ohledně výsledku zápasu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void Vysledek_Click(object sender, MouseButtonEventArgs e)
         {
+            if (jeVyhledavaniAktivni)
+            {
+                e.Handled = true;
+                return;
+            }
+
             // Získání vybraného zápasu z TextBlocku
             if (sender is TextBlock tb && tb.DataContext is Zapas vybranyZapas)
             {
@@ -352,8 +365,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgZapasy_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DgZapasy_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (jeVyhledavaniAktivni)
+            {
+                e.Handled = true;
+                return;
+            }
+
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
             // Získání objektu DataGrid a jeho potomků, aby se DoubleClick uplatňoval pouze na řádky a ne na ColumnHeader
@@ -373,6 +392,50 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                 DialogEditujZapas dialogEditujZapas = new DialogEditujZapas(vybranyZapas, VysledkyData, this);
                 dialogEditujZapas.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované zápasy zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiZapas dialogNajdiZapas = new DialogNajdiZapas(ZapasyData);
+            bool? vysledekDiaOkna = dialogNajdiZapas.ShowDialog();
+
+            if (vysledekDiaOkna == true)
+            {
+                if (dialogNajdiZapas.VyfiltrovaneZapasy.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádné zápasy se zadanými filtry.", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgZapasy.ItemsSource = new ObservableCollection<Zapas>(dialogNajdiZapas.VyfiltrovaneZapasy);
+                jeVyhledavaniAktivni = true;
+
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgZapasy.ItemsSource = ZapasyData;
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = true;
+                e.Handled = true;
             }
         }
     }

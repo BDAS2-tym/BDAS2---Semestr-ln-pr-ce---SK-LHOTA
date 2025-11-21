@@ -97,8 +97,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
             }
         }
 
-
-
         /// <summary>
         /// Metoda slouží k filtrování všech hráčů podle zadaných kritérií
         /// </summary>

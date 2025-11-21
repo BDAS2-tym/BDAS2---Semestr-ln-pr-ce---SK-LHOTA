@@ -149,9 +149,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             DatabaseSponzoriSouteze.AddSponzoriSouteze(conn, soutez, editovanySponzor);
                         }
                     }
-
-                    sponzoriOkno.dgSponzori.Items.Refresh();
-                    MessageBox.Show("Sponzor byl úspěšně editován! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 
                 sponzoriOkno.dgSponzori.Items.Refresh();

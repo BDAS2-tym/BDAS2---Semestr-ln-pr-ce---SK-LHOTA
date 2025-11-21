@@ -1,4 +1,4 @@
-﻿<Window x:Name="DialogHledaniKontraktu" x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs.DialogNajdiKontrakt"
+﻿<Window x:Name="DialogHledaniSponzora" x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs.DialogNajdiSponzora"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Windows"
         mc:Ignorable="d"
-        Title="Vyhledávání kontraktu" 
+        Title="Vyhledávání sponzora" 
         Height="450" Width="900"
         MinWidth="900" MinHeight="450"
         MaxWidth="1000" MaxHeight="500"
@@ -36,85 +36,52 @@
                 <RowDefinition/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Hráč -->
-            <TextBlock Text="Vyberte hráče:" Grid.Row="0" Grid.Column="0"
+            <!-- Člen -->
+            <TextBlock Text="Vyberte člena:" Grid.Row="0" Grid.Column="0"
                        VerticalAlignment="Center" HorizontalAlignment="Right"
                        Margin="10" FontFamily="Century Gothic" FontWeight="Bold" FontSize="15"/>
-            <ComboBox x:Name="cbHrac" Grid.Row="0" Grid.Column="1" Margin="45,16,45,16"
+            <ComboBox x:Name="cbClen" Grid.Row="0" Grid.Column="1" Margin="45,28,45,28"
                       FontFamily="Century Gothic" FontSize="12" VerticalContentAlignment="Center" TabIndex="1"/>
 
-            <!-- Datum od -->
-            <TextBlock Text="Vyberte datum od:" Grid.Row="1" Grid.Column="0"
+
+            <!-- Soutěž -->
+            <TextBlock Text="Vyberte soutěž:" Grid.Row="1" Grid.Column="0"
+                        VerticalAlignment="Center" HorizontalAlignment="Right"
+                        Margin="10" FontFamily="Century Gothic" FontWeight="Bold" FontSize="15"/>
+            <ComboBox x:Name="cbSoutez" Grid.Row="1" Grid.Column="1" Margin="45,28,45,28"
+                        FontFamily="Century Gothic" FontSize="12" VerticalContentAlignment="Center" TabIndex="2"/>
+
+            <!-- Sponzor -->
+            <TextBlock Text="Napište sponzora:" Grid.Row="2" Grid.Column="0"
                        VerticalAlignment="Center" HorizontalAlignment="Right"
                        Margin="10" FontFamily="Century Gothic" FontWeight="Bold" FontSize="15"/>
-            <DatePicker x:Name="dpDatumZacatkuKontraktu" Margin="45,16,45,16" FontFamily="Century Gothic" FontSize="12" TabIndex="2" Grid.Column="1" Grid.Row="1"/>
+            <TextBox x:Name="tboxJmenoSponzora" Grid.Row="2" Margin="45,28,45,28" MaxLines="10" TextWrapping="Wrap" MaxLength="30" VerticalContentAlignment="Center" TabIndex="3" FontFamily="Century Gothic" FontSize="12" Grid.Column="1"/>
 
-            <!-- Datum do -->
-            <TextBlock Text="Vyberte datum do:" Grid.Row="2" Grid.Column="0"
-           VerticalAlignment="Center" HorizontalAlignment="Right"
-           Margin="10" FontFamily="Century Gothic" FontWeight="Bold" FontSize="15"/>
-            <DatePicker x:Name="dpDatumKonceKontraktu" Grid.Row="2" Margin="45,16,45,16" FontFamily="Century Gothic" FontSize="12" TabIndex="3" Grid.Column="1"/>
-
-            <!-- Telefonní číslo agenta -->
-            <TextBlock Text="Napište tel. číslo agenta:" Grid.Row="3" Grid.Column="0"
+            <!-- Sponzorovaná částka -->
+            <TextBlock Text="Vyberte sponzorovanou částku:" Grid.Row="3" Grid.Column="0"
                        VerticalAlignment="Center" HorizontalAlignment="Right"
                        Margin="10" FontFamily="Century Gothic" FontWeight="Bold" FontSize="15"/>
-            <TextBox x:Name="tboxCisloNaAgenta" Grid.Row="3" Margin="45,16,45,16" MaxLines="10" TextWrapping="Wrap" MaxLength="10" VerticalContentAlignment="Center" TabIndex="4" FontFamily="Century Gothic" FontSize="12" Grid.Column="1"/>
-
-            <!-- Plat -->
-            <TextBlock Text="Vyberte rozmezí platu:" Grid.Row="4" Grid.Column="0"
-                       VerticalAlignment="Center" HorizontalAlignment="Right"
-                       Margin="10" FontFamily="Century Gothic" FontWeight="Bold" FontSize="15"/>
-            <Grid Grid.Column="1" Grid.Row="4" Margin="45,5,45,5">
+            <Grid Grid.Column="1" Grid.Row="3" Margin="45,5,45,5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-                <xctk:RangeSlider x:Name="slPlat"
-                    Grid.Row="0" Grid.Column="0"
-                    Minimum="20800"
-                    Maximum="1000000"
-                    LowerValue="20800" HigherValue="1000000" VerticalAlignment="Top" Margin="0" FontFamily="Century Gothic" TabIndex="5" TickPlacement="BottomRight" TickFrequency="100000"/>
-
-                <TextBlock Grid.Row="1" Grid.Column="0"
-                    Text="{Binding ElementName=slPlat, Path=LowerValue, StringFormat='Od: {0:0} Kč'}"
-                    FontFamily="Century Gothic" FontSize="12"
-                    HorizontalAlignment="Left"/>
-
-                <TextBlock Grid.Row="1" Grid.Column="1"
-                    Text="{Binding ElementName=slPlat, Path=HigherValue, StringFormat='Do: {0:0} Kč'}"
-                    FontFamily="Century Gothic" FontSize="12"
-                    HorizontalAlignment="Right"/>
-            </Grid>
-
-            <!-- Výstupní klauzule -->           
-            <TextBlock Text="Vyberte rozmezí výstupní klauzule:" Grid.Row="5" Grid.Column="0"
-                VerticalAlignment="Center" HorizontalAlignment="Right"
-                Margin="0,0,10,0" FontFamily="Century Gothic" FontWeight="Bold" FontSize="15"/>
-            <Grid Grid.Column="1" Grid.Row="5" Margin="45,5,45,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1.5*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-
-                <xctk:RangeSlider x:Name="slVystupniKlauzule"
+                <xctk:RangeSlider x:Name="slCastka"
                     Grid.Row="0" Grid.Column="0"
                     Minimum="0"
                     Maximum="1000000"
                     LowerValue="0" HigherValue="1000000" VerticalAlignment="Top" Margin="0" FontFamily="Century Gothic" TabIndex="6" TickFrequency="100000" TickPlacement="BottomRight"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0"
-                    Text="{Binding ElementName=slVystupniKlauzule, Path=LowerValue, StringFormat='Od: {0:0} Kč'}"
+                    Text="{Binding ElementName=slCastka, Path=LowerValue, StringFormat='Od: {0:0} Kč'}"
                     FontFamily="Century Gothic" FontSize="12"
                     HorizontalAlignment="Left"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="1"
-                    Text="{Binding ElementName=slVystupniKlauzule, Path=HigherValue, StringFormat='Do: {0:0} Kč'}"
+                    Text="{Binding ElementName=slCastka, Path=HigherValue, StringFormat='Do: {0:0} Kč'}"
                     FontFamily="Century Gothic" FontSize="12"
                     HorizontalAlignment="Right"/>
             </Grid>
@@ -129,12 +96,12 @@
                 <Button x:Name="btnNajdi" Content="Najdi"
                         Width="120" Height="35" Margin="0,10"
                         FontFamily="Century Gothic" FontSize="14"
-                        Style="{StaticResource HoverFadeButtonStyle}" Click="btnNajdi_Click" TabIndex="7"/>
+                        Style="{StaticResource HoverFadeButtonStyle}" Click="BtnNajdi_Click"/>
 
                 <Button x:Name="btnReset" Content="Reset"
                         Width="120" Height="35" Margin="40,10,0,10"
                         FontFamily="Century Gothic" FontSize="14"
-                        Style="{StaticResource HoverFadeButtonStyle}" Click="btnReset_Click" TabIndex="8">
+                        Style="{StaticResource HoverFadeButtonStyle}" Click="BtnReset_Click">
                     <Button.Background>
                         <SolidColorBrush Color="#DDC5D709" Opacity="0.85"/>
                     </Button.Background>

@@ -199,7 +199,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgKontrakty_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        private void DgKontrakty_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
             if (jeVyhledavaniAktivni)
             {
@@ -235,7 +235,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgKontrakty_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void DgKontrakty_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {
@@ -263,7 +263,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnNajdi_Click(object sender, RoutedEventArgs e)
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
         {
             DialogNajdiKontrakt dialogNajdiKontrakt = new DialogNajdiKontrakt(KontraktyData);
             bool? vysledekDiaOkna = dialogNajdiKontrakt.ShowDialog();
