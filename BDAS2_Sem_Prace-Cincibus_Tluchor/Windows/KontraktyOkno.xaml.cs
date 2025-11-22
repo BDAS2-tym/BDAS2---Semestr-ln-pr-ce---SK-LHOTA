@@ -301,5 +301,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 e.Handled = true;
             }
         }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu pro zjištění kontraktů, které končí v určitém časovém období
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnKonciciKontrakty_Click(object sender, RoutedEventArgs e)
+        {
+            DialogKonciciKontrakty dialogKonciciKontrakty = new DialogKonciciKontrakty();
+            dialogKonciciKontrakty.ShowDialog();
+        }
     }
 }
