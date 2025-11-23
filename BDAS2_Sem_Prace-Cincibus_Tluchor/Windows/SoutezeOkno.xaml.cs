@@ -288,5 +288,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 btnPridej.IsEnabled = btnOdeber.IsEnabled = false;
             }
         }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu, který zobrazuje hierarchii Soutěží --> Zápasů --> Výsledků zápasů z databáze
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnHierarchieSoutezi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogHierarchieSoutezi dialogHierarchieSoutezi = new DialogHierarchieSoutezi();
+            dialogHierarchieSoutezi.ShowDialog();
+        }
     }
 }
