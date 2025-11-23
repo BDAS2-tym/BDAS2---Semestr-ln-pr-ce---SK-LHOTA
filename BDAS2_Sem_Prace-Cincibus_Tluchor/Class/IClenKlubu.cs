@@ -61,5 +61,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             TypClena = typClena;
             TelefonniCislo = telefonniCislo;
         }
+
+        public override string ToString()
+        {
+            return $"{Jmeno} {Prijmeni}   RČ: {RodneCislo}";
+        }
     }
 }
