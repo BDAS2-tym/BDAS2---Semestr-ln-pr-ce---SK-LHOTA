@@ -1,9 +1,12 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Persistence;
 using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
+using Microsoft.Win32;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -311,6 +314,98 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             DialogKonciciKontrakty dialogKonciciKontrakty = new DialogKonciciKontrakty();
             dialogKonciciKontrakty.ShowDialog();
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení kontextové nabídky
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnExportImport_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnExportImport.ContextMenu != null)
+            {
+                btnExportImport.ContextMenu.MinWidth = btnExportImport.ActualWidth;
+                btnExportImport.ContextMenu.PlacementTarget = btnExportImport;
+                btnExportImport.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+                btnExportImport.ContextMenu.IsOpen = true;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží exportu vybraného kontraktu do formátu PDF
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuitExportPdf_Click(object sender, RoutedEventArgs e)
+        {
+            Kontrakt? vybranyKontrakt = dgKontrakty.SelectedItem as Kontrakt;
+            if (vybranyKontrakt == null)
+            {
+                MessageBox.Show(
+                    "Prosím, vyberte kontrakt, který chcete exportovat", "Info", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "PDF soubory (*.pdf)|*.pdf",
+                FileName = $"Kontrakt- {vybranyKontrakt.KontraktHrace.Jmeno}_{vybranyKontrakt.KontraktHrace.Prijmeni}.pdf",
+                Title = "Exportování kontraktu"
+            };
+
+            bool? result = saveFileDialog.ShowDialog();
+            if (result != true)
+            {
+                return;
+            }
+
+            try
+            {
+                SpravaPdfSouboru.UlozHracuvKontrakt(saveFileDialog.FileName, vybranyKontrakt);
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Nastala neočekávaná chyba při exportování kontraktu:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k importu vybraného kontraktu z počítače do databáze
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void MenuitImportPdf_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    Filter = "PDF soubory (*.pdf)|*.pdf|" +
+                             "PNG soubory (*.png)|*.png|" +
+                             "JPG soubory (*.jpg)|*.jpg|" +
+                             "JPEG soubory (*.jpeg)|*.jpeg|" +
+                             "BMP soubory (*.bmp)|*.bmp|" +
+                             "Word dokumenty (*.doc;*.docx)|*.doc;*.docx",
+                    Title = "Importování kontraktu"
+                };
+
+                bool? result = openFileDialog.ShowDialog();
+                if (result != true)
+                {
+                    return;
+                }
+
+                SpravaPdfSouboru.NahrajHracuvKontrakt(openFileDialog.FileName);
+
+                MessageBox.Show("Kontrakt byl úspěšně nahrát do databáze", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Nastala neočekávaná chyba při importování kontraktu:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

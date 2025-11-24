@@ -172,7 +172,7 @@
                           RowHeight="30"
                           AlternatingRowBackground="#FFF0F8F8"
                           Background="#F9FFFF"
-                          MouseDoubleClick="dgBinarniObsah_MouseDoubleClick">
+                          MouseDoubleClick="DgBinarniObsah_MouseDoubleClick">
 
                     <!-- Styl hlaviček -->
                     <DataGrid.ColumnHeaderStyle>

@@ -250,7 +250,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <summary>
         /// Přejmenuje soubor po dvojkliku v Datagridu
         /// </summary>
-        private void dgBinarniObsah_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void DgBinarniObsah_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var vybrany = dgBinarniObsah.SelectedItem as BinarniObsah;
             if (vybrany == null) return;
