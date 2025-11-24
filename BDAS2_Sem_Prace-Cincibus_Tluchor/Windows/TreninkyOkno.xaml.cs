@@ -1,4 +1,5 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     {
 
         private HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
 
         // Kolekce tréninků pro DataGrid
         public static ObservableCollection<TreninkView> TreninkyData { get; set; } = new ObservableCollection<TreninkView>();
@@ -57,6 +59,47 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 btnOdeber.IsEnabled = false;
                 btnPridej.Opacity = 0.2;
                 btnOdeber.Opacity = 0.2;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované záznamy zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiTrenink dialogNajdiTrenink = new DialogNajdiTrenink(TreninkyData);
+            bool? vysledekDiaOkna = dialogNajdiTrenink.ShowDialog();
+
+            if (vysledekDiaOkna == true)
+            {
+                if (dialogNajdiTrenink.VyfiltrovaneTreninky.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádné záznamy se zadanými filtry", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgTreninky.ItemsSource = new ObservableCollection<TreninkView>(dialogNajdiTrenink.VyfiltrovaneTreninky);
+                jeVyhledavaniAktivni = true;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgTreninky.ItemsSource = TreninkyData;
+                e.Handled = true;
             }
         }
 
