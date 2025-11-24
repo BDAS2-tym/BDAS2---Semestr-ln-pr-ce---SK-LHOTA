@@ -32,6 +32,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             NastavViditelnostSloupcuProUzivatele();
         }
 
+        private void BtnTopStrelci_Click(object sender, RoutedEventArgs e)
+        {
+            DialogTopStrelci dialogTopStrelci = new DialogTopStrelci();
+            dialogTopStrelci.ShowDialog();
+        }
+
         private void NastavViditelnostSloupcuProUzivatele()
         {
             // Zjistíme, kdo je přihlášený

@@ -163,5 +163,38 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.ExecuteNonQuery();
             }
         }
+
+        /// <summary>
+        /// Načte TOP 3 střelce z databázového pohledu TOP_3_NEJLEPSI_STRELCI_VIEW
+        /// </summary>
+        /// <returns>Seznam nejlepších střelců.</returns>
+        public static List<TopStrelec> GetTopStrelci()
+        {
+            var seznamStrelcu = new List<TopStrelec>();
+
+            using (var conn = DatabaseManager.GetConnection())
+            {
+                conn.Open();
+                string sql = "SELECT JMENO, PRIJMENI, POCETVSTRELENYCHGOLU, NAZEV_POZICE, PORADI FROM TOP_3_NEJLEPSI_STRELCI_VIEW";
+
+                using (var cmd = new OracleCommand(sql, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        seznamStrelcu.Add(new TopStrelec(
+                            reader["JMENO"].ToString(),
+                            reader["PRIJMENI"].ToString(),
+                            Convert.ToInt32(reader["POCETVSTRELENYCHGOLU"]),
+                            reader["NAZEV_POZICE"].ToString(),
+                            Convert.ToInt32(reader["PORADI"])
+                        ));
+                    }
+                }
+            }
+
+            return seznamStrelcu;
+        }
     }
 }
+
