@@ -65,7 +65,7 @@
                 <DataGrid.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                        <GradientStop Color="#FFCBCBCB" Offset="1"/>
+                        <GradientStop Color="#FFE8FFFF" Offset="1"/>
                     </LinearGradientBrush>
                 </DataGrid.Background>
 
@@ -111,70 +111,9 @@
                     Padding="6,3"
                     Margin="3"
                     FontFamily="Century Gothic"
-                    FontSize="13">
-
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="border"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="3">
-                                                <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
-                                            </Border>
-
-                                            <ControlTemplate.Triggers>
-
-                                                <!-- Hover efekt -->
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Trigger.EnterActions>
-                                                        <BeginStoryboard>
-                                                            <Storyboard>
-                                                                <ColorAnimation
-                                                Storyboard.TargetName="border"
-                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                To="#111827"
-                                                Duration="0:0:0.25"/>
-
-                                                                <ColorAnimation
-                                                Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
-                                                To="White"
-                                                Duration="0:0:0.25"/>
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </Trigger.EnterActions>
-
-                                                    <Trigger.ExitActions>
-                                                        <BeginStoryboard>
-                                                            <Storyboard>
-                                                                <ColorAnimation
-                                                Storyboard.TargetName="border"
-                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                To="#77B3FB"
-                                                Duration="0:0:0.25"/>
-
-                                                                <ColorAnimation
-                                                Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
-                                                To="Black"
-                                                Duration="0:0:0.25"/>
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </Trigger.ExitActions>
-                                                </Trigger>
-
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-
-                                    <Button.Background>
-                                        <SolidColorBrush Color="#77B3FB"/>
-                                    </Button.Background>
-
-                                    <Button.Foreground>
-                                        <SolidColorBrush Color="Black"/>
-                                    </Button.Foreground>
-
-                                </Button>
-
+                    FontSize="14"
+                    Style="{StaticResource HoverFadeButtonStyle4}"/>
+                                                              
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

@@ -207,7 +207,7 @@
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                                 <Image Source="/Images/Img/clock_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
-                                <TextBlock Text="Export/Import PDF" VerticalAlignment="Center" FontSize="19"/>
+                                <TextBlock Text="Export/Import" VerticalAlignment="Center" FontSize="20"/>
                             </StackPanel>
                         </Button.Content>
                         <Button.ContextMenu>
