@@ -26,9 +26,19 @@
                       CanUserAddRows="False"
                       FontFamily="Century Gothic"
                       FontSize="13"
-                      AlternatingRowBackground="#FFF0F0F0"
+                      AlternatingRowBackground="#FFE0E0E0" 
+                      AutomationProperties.IsColumnHeader="True" 
+                      RowBackground="#FFF3F3F3"
+                      GridLinesVisibility="None" SelectionMode="Single"
                       RowHeight="30"
+                      ColumnHeaderHeight="28"
                       HeadersVisibility="Column">
+                <DataGrid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFF3F3F3"/>
+                        <GradientStop Color="#FFE8FFFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </DataGrid.Background>
 
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
@@ -50,6 +60,17 @@
                     <DataGridTextColumn Header="Pozice" Binding="{Binding Pozice}" Width="*" />
                     <DataGridTextColumn Header="Pořadí" Binding="{Binding Poradi}" Width="*" />
                 </DataGrid.Columns>
+
+                <!-- Změna barvy pozadí a písma při výběru řádku -->
+                <DataGrid.Resources>
+
+                    <!-- Změna barvy pozadí -->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#fad870"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#fad870"/>
+
+                    <!-- Změna barvy písma-->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                </DataGrid.Resources>
 
             </DataGrid>
         </Border>
