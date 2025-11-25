@@ -96,42 +96,48 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
             string telefonCislo = tTelefon.Text;
             string vybranaPozice = cbPozice.SelectedItem as string;
 
-            // -----------------------------
             // Rodné číslo
-            // -----------------------------
             if (!string.IsNullOrWhiteSpace(rodneCislo))
             {
-                // TryParse používáme na ověření, že je to číslo
-                // Parametr "out _" znamená, že výsledek převodu zahazujeme
-                if (rodneCislo.Length != 10 || !long.TryParse(rodneCislo, out _))
+                if (rodneCislo.Length != 10)
                 {
                     throw new NonValidDataException("Rodné číslo musí mít přesně 10 číslic");
                 }
 
-                vysledek = vysledek.Where(h =>
+                if (!rodneCislo.All(char.IsDigit))
                 {
-                    return h.RodneCislo.ToString() == rodneCislo;
-                });
+                    throw new NonValidDataException("Rodné číslo může obsahovat pouze číslice");
+                }
+
+                vysledek = vysledek.Where(h => h.RodneCislo.ToString() == rodneCislo);
             }
 
-            // Jméno
+            // Jméno 
             if (!string.IsNullOrWhiteSpace(jmeno))
             {
-                vysledek = vysledek.Where(h =>
+                if (!jmeno.All(char.IsLetter)) 
                 {
-                    return h.Jmeno != null &&
-                           h.Jmeno.Contains(jmeno, StringComparison.OrdinalIgnoreCase);
-                });
+                    throw new NonValidDataException("Jméno může obsahovat pouze písmena");
+                }
+
+                vysledek = vysledek.Where(h =>
+                    h.Jmeno != null &&
+                    h.Jmeno.Contains(jmeno, StringComparison.OrdinalIgnoreCase)
+                );
             }
 
-            // Příjmení
+            // Příjmení 
             if (!string.IsNullOrWhiteSpace(prijmeni))
             {
-                vysledek = vysledek.Where(h =>
+                if (!prijmeni.All(char.IsLetter))
                 {
-                    return h.Prijmeni != null &&
-                           h.Prijmeni.Contains(prijmeni, StringComparison.OrdinalIgnoreCase);
-                });
+                    throw new NonValidDataException("Příjmení může obsahovat pouze písmena");
+                }
+
+                vysledek = vysledek.Where(h =>
+                    h.Prijmeni != null &&
+                    h.Prijmeni.Contains(prijmeni, StringComparison.OrdinalIgnoreCase)
+                );
             }
 
             // Telefonní číslo

@@ -3,24 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Správa binárního obsahu"
         Height="720" Width="1300"
-        Icon="/Images/Ikony/Ikona_Binarni_Obsah.ico"
-        WindowStartupLocation="CenterScreen">
+        Icon="/Images/Ikony/Ikona_Binarni_Obsah.ico "
+        WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown">
 
     <!-- TODO dodělat stylizování -->
 
     <Grid>
-        <!-- POZADÍ -->
+        <!-- Pozadí -->
         <Grid.Background>
             <ImageBrush ImageSource="/Images/Img/pozadi_2_dialog_okna.png"/>
         </Grid.Background>
 
-        <!-- O něco užší levý panel → pravý bude širší -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- LEVÝ PANEL -->
+        <!-- Levý panel -->
         <Border Grid.Column="0" Background="#77B3FB" BorderBrush="#125C64" BorderThickness="2">
             <Grid Margin="12">
                 <Grid.RowDefinitions>
@@ -34,9 +33,10 @@
                            FontWeight="Bold"
                            Foreground="Black"
                            FontFamily="Century Gothic"
-                           HorizontalAlignment="Center"
+                           HorizontalAlignment="Left"
                            Margin="0,10,0,20"/>
 
+<<<<<<< HEAD
                 <Grid Grid.Row="1" VerticalAlignment="Top">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -106,10 +106,105 @@
                TextAlignment="Center"
                Margin="0,30,0,0"/>
                 </Grid>
+=======
+                <!-- Ovládací prvky -->
+                <StackPanel Grid.Row="1" VerticalAlignment="Top">
+
+                    <!-- Styl tlačítek -->
+                    <StackPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#77B3FB"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontFamily" Value="Century Gothic"/>
+                            <Setter Property="FontSize" Value="22"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="14,14"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Margin" Value="10,2,10,10"/>
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                CornerRadius="6"
+                                                SnapsToDevicePixels="True">
+                                            <ContentPresenter HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center"
+                                                              RecognizesAccessKey="True"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#77B3FB"/>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <!-- Plynulý přechod do tmavší modré -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                                To="#355581"
+                                                                Duration="0:0:0.5"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                                To="#77B3FB"
+                                                                Duration="0:0:0.5"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <!-- TextBoxy -->
+                    <Label Content="Název souboru:" FontFamily="Century Gothic" FontSize="14"/>
+                    <TextBox x:Name="tboxNazev" FontFamily="Century Gothic" Margin="0,0,0,8" IsReadOnly="True"/>
+
+                    <Label Content="Typ souboru:" FontFamily="Century Gothic" FontSize="14"/>
+                    <TextBox x:Name="tboxTyp" FontFamily="Century Gothic" Margin="0,0,0,8" IsReadOnly="True"/>
+
+                    <Label Content="Přípona:" FontFamily="Century Gothic" FontSize="14"/>
+                    <TextBox x:Name="tboxPripona" FontFamily="Century Gothic" Margin="0,0,0,14" IsReadOnly="True"/>
+
+                    <!-- Tlačítka -->
+                    <Button x:Name="btnVybratSoubor" Content="Vybrat soubor" Click="BtnVybratSoubor_Click"/>
+                    <Button x:Name="btnUlozit" Content="Uložit do databáze" Click="BtnUlozit_Click"/>
+                    <Button x:Name="btnStahnout" Content="Stáhnout soubor" Click="BtnStahnoutVybrany_Click"/>
+                    <Button x:Name="btnSmazat" Content="Smazat z databáze" Click="BtnSmazatVybrany_Click"/>
+                    <Button x:Name="btnZobrazit" Content="Zobrazit obrázek" Click="BtnZobrazitObrazek_Click"/>
+                    <Button x:Name="btnNajdi" Content="Najdi" Click="BtnNajdi_Click"/>
+                    <Button x:Name="btnZpet" Content="Zpět" Click="BtnZpet_Click"/>
+
+                    <!-- Status -->
+                    <TextBlock x:Name="txtStatus"
+                               Text="Soubor nenahrán"
+                               Foreground="Black"
+                               FontStyle="Italic"
+                               FontFamily="Century Gothic"
+                               FontSize="13"
+                               TextAlignment="Center"
+                               Margin="0,25,0,0"/>
+                </StackPanel>
+>>>>>>> e6425889b52055e0d22c1c8c468bd898153b55e8
             </Grid>
         </Border>
 
-        <!-- PRAVÁ ČÁST -->
+        <!-- Pravá část -->
         <Grid Grid.Column="1" Margin="10,10,15,15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="350"/>
@@ -125,7 +220,7 @@
                     Margin="0,0,0,10">
                 <ScrollViewer VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Auto">
-                    <Image x:Name="imgNahlad"
+                    <Image x:Name="imgNahled"
                            Stretch="Uniform"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
@@ -133,7 +228,7 @@
                 </ScrollViewer>
             </Border>
 
-            <!-- DATAGRID -->
+            <!-- Datagrid -->
             <Border Grid.Row="1"
                     BorderBrush="#125C64"
                     BorderThickness="2"
@@ -188,9 +283,10 @@
                         <DataGridTextColumn Header="Přípona" Binding="{Binding PriponaSouboru}" Width="0.8*" />
                         <DataGridTextColumn Header="Datum nahrání" Binding="{Binding DatumNahrani, StringFormat=d. MM. yyyy HH:mm}" Width="1.5*" />
                         <DataGridTextColumn Header="Datum změny" Binding="{Binding DatumModifikace, StringFormat=d. MM. yyyy HH:mm}" Width="1.5*" />
+                        <DataGridTextColumn Header="Operace" Binding="{Binding Operace}" Width="1*" />
                         <DataGridTextColumn Header="Uživatel" Binding="{Binding Uzivatel}" Width="1*" />
 
-                        <!-- 🔹 Sloupec Akce – odstraněno tlačítko Stáhnout -->
+                        <!--  Sloupec Akce  -->
                         <DataGridTemplateColumn Header="Akce" Width="1.8*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

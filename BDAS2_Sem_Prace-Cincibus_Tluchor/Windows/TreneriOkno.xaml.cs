@@ -1,5 +1,6 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
 using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -13,6 +14,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
     public partial class TreneriOkno : Window
     {
         private HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
 
         // Kolekce trenérů pro DataGrid
         public static ObservableCollection<Trener> TreneriData { get; set; } = new ObservableCollection<Trener>();
@@ -60,10 +62,45 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             hlavniOkno.txtPocetTreneru.Text = DatabaseTreneri.GetPocetTreneru().ToString();
         }
 
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované záznamy zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void BtnNajdi_Click(object sender, RoutedEventArgs e)
         {
-            DialogNajdiTrenera dialogNajdiTrenera = new DialogNajdiTrenera(this);
-            dialogNajdiTrenera.ShowDialog();
+            DialogNajdiTrenera dialogNajdiTrenera = new DialogNajdiTrenera(TreneriData);
+            bool? vysledekDiaOkna = dialogNajdiTrenera.ShowDialog();
+
+            if (vysledekDiaOkna == true)
+            {
+                if (dialogNajdiTrenera.VyfiltrovaniTreneri.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádné záznamy se zadanými filtry", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgTreneri.ItemsSource = new ObservableCollection<Trener>(dialogNajdiTrenera.VyfiltrovaniTreneri);
+                jeVyhledavaniAktivni = true;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgTreneri.ItemsSource = TreneriData;
+                e.Handled = true;
+            }
         }
 
         private void BtnPridejDialog_Click(object sender, RoutedEventArgs e)

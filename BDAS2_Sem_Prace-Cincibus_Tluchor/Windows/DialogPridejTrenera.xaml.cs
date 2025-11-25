@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Interaction logic for DialogPridejTrenera.xaml
+    /// DialogPridejTrenera.xaml
     /// </summary>
     public partial class DialogPridejTrenera : Window
     {
@@ -47,13 +47,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Ověří vstupní data a pokusí se vytvořit a přidat nového trenéra.
+        /// Ověří vstupní data a pokusí se vytvořit a přidat nového trenéra
         /// </summary>
         private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // --- VALIDACE VSTUPŮ ---
+                // Validace vstupu
                 if (!long.TryParse(tboxRodneCislo.Text, out long rodneCislo))
                 {
                     MessageBox.Show("Rodné číslo může obsahovat pouze číslice ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error

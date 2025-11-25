@@ -53,7 +53,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Aktualizuje existující binární obsah podle ID pomocí procedury PKG_BINARNI_OBSAH.SP_UPDATE_OBSAH
         /// </summary>
-        public static void UpdateBinarniObsah(int idObsah, byte[] obsah, string operace)
+        public static void UpdateBinarniObsah(int idObsah, byte[] obsah, string operace, int idUzivatelRole)
         {
             using var conn = DatabaseManager.GetConnection();
             conn.Open();
@@ -71,6 +71,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             cmd.Parameters.Add("v_id_obsah", OracleDbType.Int32).Value = idObsah;
             cmd.Parameters.Add("v_obsah", OracleDbType.Blob).Value = obsah;
             cmd.Parameters.Add("v_operace", OracleDbType.Varchar2).Value = operace;
+            cmd.Parameters.Add("v_id_uzivatel", OracleDbType.Int32).Value = idUzivatelRole;
 
             try
             {
