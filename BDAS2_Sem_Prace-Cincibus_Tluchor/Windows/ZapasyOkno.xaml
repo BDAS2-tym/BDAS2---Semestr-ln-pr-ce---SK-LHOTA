@@ -225,7 +225,7 @@
                     <!-- Button Info -->
                     <Button x:Name="btnInfo" Grid.Row="3" Margin="0,8,0,5" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}" Click="BtnInfo_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
-                            <Image Source="/Images/Img/binary_file.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <Image Source="/Images/Img/info.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Info" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>

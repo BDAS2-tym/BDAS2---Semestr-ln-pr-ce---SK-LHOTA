@@ -6,6 +6,8 @@
         Icon="/Images/Ikony/Ikona_Binarni_Obsah.ico "
         WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown">
 
+    <!-- TODO dodělat stylizování -->
+
     <Grid>
         <!-- Pozadí -->
         <Grid.Background>
@@ -34,106 +36,102 @@
                            HorizontalAlignment="Left"
                            Margin="0,10,0,20"/>
 
-                <!-- Ovládací prvky -->
-                <StackPanel Grid.Row="1" VerticalAlignment="Top">
-
-                    <!-- Styl tlačítek -->
-                    <StackPanel.Resources>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#77B3FB"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Foreground" Value="Black"/>
-                            <Setter Property="FontFamily" Value="Century Gothic"/>
-                            <Setter Property="FontSize" Value="22"/>
-                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            <Setter Property="Padding" Value="14,14"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Setter Property="Margin" Value="10,2,10,10"/>
-                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}"
-                                                CornerRadius="6"
-                                                SnapsToDevicePixels="True">
-                                            <ContentPresenter HorizontalAlignment="Center"
-                                                              VerticalAlignment="Center"
-                                                              RecognizesAccessKey="True"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="#77B3FB"/>
-                                </Setter.Value>
-                            </Setter>
-
-                            <Style.Triggers>
-                                <!-- Plynulý přechod do tmavší modré -->
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Trigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                                                To="#355581"
-                                                                Duration="0:0:0.5"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.EnterActions>
-                                    <Trigger.ExitActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                                                To="#77B3FB"
-                                                                Duration="0:0:0.5"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.ExitActions>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Resources>
+                <Grid Grid.Row="1" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
                     <!-- TextBoxy -->
-                    <Label Content="Název souboru:" FontFamily="Century Gothic" FontSize="14"/>
-                    <TextBox x:Name="tboxNazev" FontFamily="Century Gothic" Margin="0,0,0,8" IsReadOnly="True"/>
+                    <Label Grid.Row="0" Content="Název souboru:" FontFamily="Century Gothic" FontSize="14"/>
+                    <TextBox Grid.Row="1" x:Name="tboxNazev" FontFamily="Century Gothic" Margin="0,0,0,8" IsHitTestVisible="False"/>
 
-                    <Label Content="Typ souboru:" FontFamily="Century Gothic" FontSize="14"/>
-                    <TextBox x:Name="tboxTyp" FontFamily="Century Gothic" Margin="0,0,0,8" IsReadOnly="True"/>
+                    <Label Grid.Row="2" Content="Typ souboru:" FontFamily="Century Gothic" FontSize="14"/>
+                    <TextBox Grid.Row="3" x:Name="tboxTyp" FontFamily="Century Gothic" Margin="0,0,0,8" IsHitTestVisible="False"/>
 
-                    <Label Content="Přípona:" FontFamily="Century Gothic" FontSize="14"/>
-                    <TextBox x:Name="tboxPripona" FontFamily="Century Gothic" Margin="0,0,0,14" IsReadOnly="True"/>
+                    <Label Grid.Row="4" Content="Přípona:" FontFamily="Century Gothic" FontSize="14"/>
+                    <TextBox Grid.Row="5" x:Name="tboxPripona" FontFamily="Century Gothic" Margin="0,0,0,14" IsHitTestVisible="False"/>
 
-                    <!-- Tlačítka -->
-                    <Button x:Name="btnVybratSoubor" Content="Vybrat soubor" Click="BtnVybratSoubor_Click"/>
-                    <Button x:Name="btnUlozit" Content="Uložit do databáze" Click="BtnUlozit_Click"/>
-                    <Button x:Name="btnStahnout" Content="Stáhnout soubor" Click="BtnStahnoutVybrany_Click"/>
-                    <Button x:Name="btnSmazat" Content="Smazat z databáze" Click="BtnSmazatVybrany_Click"/>
-                    <Button x:Name="btnZobrazit" Content="Zobrazit obrázek" Click="BtnZobrazitObrazek_Click"/>
-                    <Button x:Name="btnNajdi" Content="Najdi" Click="BtnNajdi_Click"/>
-                    <Button x:Name="btnZpet" Content="Zpět" Click="BtnZpet_Click"/>
+                    <!-- TLAČÍTKA -->
+                    <Button Grid.Row="6"
+                            x:Name="btnVybratSoubor"
+                            Content="Vybrat soubor"
+                            Click="BtnVybratSoubor_Click"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="18,4,18,4"
+                            VerticalContentAlignment="Center"
+                            Margin="0,15,0,8"/>
 
-                    <!-- Status -->
-                    <TextBlock x:Name="txtStatus"
-                               Text="Soubor nenahrán"
-                               Foreground="Black"
-                               FontStyle="Italic"
-                               FontFamily="Century Gothic"
-                               FontSize="13"
-                               TextAlignment="Center"
-                               Margin="0,25,0,0"/>
-                </StackPanel>
+                    <Button Grid.Row="7"
+                            x:Name="btnUlozit"
+                            Content="Uložit do databáze"
+                            Click="BtnUlozit_Click"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Margin="0,5,0,8"/>
+
+                    <Button Grid.Row="8"
+                            x:Name="btnStahnout"
+                            Content="Stáhnout soubor"
+                            Click="BtnStahnoutVybrany_Click"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Margin="0,5,0,8"/>
+
+                    <Button Grid.Row="9"
+                            x:Name="btnSmazat"
+                            Content="Smazat z databáze"
+                            Click="BtnSmazatVybrany_Click"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Margin="0,5,0,8"/>
+
+                    <Button Grid.Row="10"
+            x:Name="btnZobrazit"
+            Content="Zobrazit obrázek"
+            Click="BtnZobrazitObrazek_Click"
+            Style="{StaticResource HoverFadeButtonStyle2}" Margin="0,5,0,8"/>
+
+                    <Button Grid.Row="11"
+                        x:Name="btnNajdi"
+                        Content="Najdi"
+                        Style="{StaticResource HoverFadeButtonStyle2}" Margin="0,5,0,8" Click="BtnNajdi_Click"/>
+
+                    <Button Grid.Row="12"
+                        x:Name="btnZpet"
+                        Content="Zpět"
+                        Style="{StaticResource HoverFadeButtonStyle2}" Margin="0,5,0,0" Click="BtnZpet_Click"/>
+
+                    <!-- STATUS -->
+                    <TextBlock Grid.Row="13"
+               x:Name="txtStatus"
+               Text="Soubor nenahrán"
+               Foreground="Black"
+               FontStyle="Italic"
+               FontFamily="Century Gothic"
+               FontSize="13"
+               TextAlignment="Center"
+               Margin="0,30,0,0"/>
+                </Grid>
+
             </Grid>
         </Border>
 
         <!-- Pravá část -->
         <Grid Grid.Column="1" Margin="10,10,15,15">
             <Grid.RowDefinitions>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="350"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -172,7 +170,6 @@
                           FontSize="11"
                           RowHeight="30"
                           AlternatingRowBackground="#FFF0F8F8"
-                          Background="#F9FFFF"
                           MouseDoubleClick="DgBinarniObsah_MouseDoubleClick">
 
                     <!-- Styl hlaviček -->
@@ -196,6 +193,12 @@
                         <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#fad870"/>
                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
                     </DataGrid.Resources>
+                    <DataGrid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFF3F3F3"/>
+                            <GradientStop Color="#FFE8FFFF" Offset="1"/>
+                        </LinearGradientBrush>
+                    </DataGrid.Background>
 
                     <!-- Sloupce -->
                     <DataGrid.Columns>
@@ -212,8 +215,8 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Button Content="Upravit" Width="70" Margin="2" Click="BtnUpravit_Click"/>
-                                        <Button Content="Smazat" Width="70" Margin="2" Click="BtnSmazatVybrany_Click"/>
+                                        <Button Content="Upravit" Width="70" Margin="2" Style="{StaticResource HoverFadeButtonStyle4}" Click="BtnUpravit_Click"/>
+                                        <Button Content="Smazat" Width="70" Margin="2" Style="{StaticResource HoverFadeButtonStyle4}" Click="BtnSmazatVybrany_Click"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

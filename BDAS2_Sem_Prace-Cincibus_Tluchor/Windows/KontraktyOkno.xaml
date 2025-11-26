@@ -206,14 +206,14 @@
                     <Button x:Name="btnExportImport" Grid.Row="5" Margin="0,8,0,5" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalAlignment="Stretch" Click="BtnExportImport_Click">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
-                                <Image Source="/Images/Img/clock_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
-                                <TextBlock Text="Export/Import PDF" VerticalAlignment="Center" FontSize="19"/>
+                                <Image Source="/Images/Img/export_import.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                                <TextBlock Text="Export/Import" VerticalAlignment="Center" FontSize="20"/>
                             </StackPanel>
                         </Button.Content>
                         <Button.ContextMenu>
                             <ContextMenu Background="Transparent" BorderThickness="2" Padding="0" BorderBrush="#FF5194E5">
-                                <MenuItem x:Name="menuitExportPdf"  Header="Exportovat PDF" Style="{StaticResource MenuItemButtonStyle}" Click="MenuitExportPdf_Click"/>
-                                <MenuItem x:Name="menuitImportPdf" Header="Importovat PDF" Style="{StaticResource MenuItemButtonStyle}" Click="MenuitImportPdf_Click"/>
+                                <MenuItem x:Name="menuitExportPdf" Header="Exportovat kontrakt" Style="{StaticResource MenuItemButtonStyle}" Click="MenuitExportPdf_Click"/>
+                                <MenuItem x:Name="menuitImportPdf" Header="Importovat kontrakt" Style="{StaticResource MenuItemButtonStyle}" Click="MenuitImportPdf_Click"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>

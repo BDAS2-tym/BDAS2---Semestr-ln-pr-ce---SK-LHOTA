@@ -190,10 +190,20 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Persistence
             }
         }
 
+        /// <summary>
+        /// Metoda slouží k uložení kontraktu hráče do databáze
+        /// </summary>
+        /// <param name="cestaKSouboru">Cesta importovaného souboru</param>
+        /// <exception cref="Exception">Obecná výjimka</exception>
         public static void NahrajHracuvKontrakt(string cestaKSouboru)
         {
             try
             {
+                if (String.IsNullOrWhiteSpace(cestaKSouboru))
+                {
+                    throw new ArgumentException("Cesta k souboru nesmí být prázdná ani NULL!");
+                }
+
                 var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
                 if (prihlaseny == null)
                 {
