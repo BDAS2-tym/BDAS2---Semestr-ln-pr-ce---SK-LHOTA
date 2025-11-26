@@ -367,12 +367,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void DgZapasy_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (jeVyhledavaniAktivni)
-            {
-                e.Handled = true;
-                return;
-            }
-
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
             // Získání objektu DataGrid a jeho potomků, aby se DoubleClick uplatňoval pouze na řádky a ne na ColumnHeader
@@ -413,7 +407,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     return;
                 }
 
-                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat ani odebírat vyhledaná data. " +
                                 "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 dgZapasy.ItemsSource = new ObservableCollection<Zapas>(dialogNajdiZapas.VyfiltrovaneZapasy);
                 jeVyhledavaniAktivni = true;
