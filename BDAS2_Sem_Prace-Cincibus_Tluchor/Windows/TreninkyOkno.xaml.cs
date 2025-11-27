@@ -267,5 +267,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 dgTreninky.Focusable = true;
             }
         }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu pro zjištění statistik tréninků
+        /// </summary>
+        /// <param name="sender">param</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnStatistikyTreninku_Click(object sender, RoutedEventArgs e)
+        {
+            DialogStatistikyTreninku dialogStatistikyTreninku = new DialogStatistikyTreninku();
+            dialogStatistikyTreninku.ShowDialog();
+        }
     }
 }

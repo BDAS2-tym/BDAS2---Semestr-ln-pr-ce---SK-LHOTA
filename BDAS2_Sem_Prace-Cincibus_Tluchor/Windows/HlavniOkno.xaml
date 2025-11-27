@@ -37,15 +37,22 @@
                            TextWrapping="Wrap"
                            FontFamily="Century Gothic"/>
 
-                <!-- Zde jméno přihlášeného -->
-                <TextBlock x:Name="txtPrihlasenUzivatel"
-                   Text="Nepřihlášen"
-                   Foreground="White"
-                   FontSize="16"
+                <!-- Ikona + Text vedle sebe -->
+                <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,20,0">
+                    <Image Source="/Images/Img/user_miniature.png"
+                   Width="32" Height="32" 
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Right"
-                   Margin="0,0,20,0"
-                   FontFamily="Century Gothic"/>
+                   Margin="0,0,13,0" Stretch="UniformToFill"/>
+                    <TextBlock x:Name="txtPrihlasenUzivatel"
+                       Text="Nepřihlášen"
+                       Foreground="White"
+                       FontSize="16"
+                       VerticalAlignment="Center"
+                       FontFamily="Century Gothic"/>
+                </StackPanel>
             </Grid>
         </Border>
 
@@ -77,7 +84,6 @@
                 <!-- Tlačítka -->
                 <Grid Grid.Row="1" Margin="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
@@ -143,16 +149,8 @@
                         </StackPanel>
                     </Button>
 
-                    <!-- Opatření -->
-                    <Button x:Name="btnOpatreni" Click="BtnOpatreni_Click"  Grid.Row="4" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
-                            <Image Source="/Images/Img/red_card.png" Width="26" Height="26" Margin="0,0,10,0"/>
-                            <TextBlock Text="Opatření" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-
                     <!-- Sponzoři -->
-                    <Button x:Name="btnSponzori" Click="BtnSponzori_Click" Grid.Row="5" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnSponzori" Click="BtnSponzori_Click" Grid.Row="4" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/dolar.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Sponzoři" VerticalAlignment="Center"/>
@@ -160,7 +158,7 @@
                     </Button>
 
                     <!-- Soutěže -->
-                    <Button x:Name="btnSouteze" Click="BtnSouteze_Click" Grid.Row="6" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnSouteze" Click="BtnSouteze_Click" Grid.Row="5" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/trophy.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Soutěže" VerticalAlignment="Center"/>
@@ -168,7 +166,7 @@
                     </Button>
 
                     <!-- Zápasy -->
-                    <Button x:Name="btnZapasy" Click="BtnZapasy_Click" Grid.Row="7" Padding="-5,0,3,0" Margin="-5,0,-5,-5" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnZapasy" Click="BtnZapasy_Click" Grid.Row="6" Padding="-5,0,3,0" Margin="-5,0,-5,-5" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/match.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Zápasy" VerticalAlignment="Center"/>
@@ -176,7 +174,7 @@
                     </Button>
 
                     <!-- Grafy -->
-                    <Button x:Name="btnGrafy" Click="BtnGrafy_Click" Grid.Row="8" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnGrafy" Click="BtnGrafy_Click" Grid.Row="7" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/graph.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Grafy" VerticalAlignment="Center"/>
@@ -184,7 +182,7 @@
                     </Button>
 
                     <!-- Nastavení -->
-                    <Button x:Name="btnNastaveni" Click="BtnNastaveni_Click" Grid.Row="9" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnNastaveni" Click="BtnNastaveni_Click" Grid.Row="8" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/settings.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Nastavení" VerticalAlignment="Center"/>
@@ -192,7 +190,7 @@
                     </Button>
 
                     <!-- Odhlášení -->
-                    <Button x:Name="btnOdhlaseni" Click="BtnOdhlaseni_Click" Grid.Row="10" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnOdhlaseni" Click="BtnOdhlaseni_Click" Grid.Row="9" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Odhlášení" VerticalAlignment="Center"/>

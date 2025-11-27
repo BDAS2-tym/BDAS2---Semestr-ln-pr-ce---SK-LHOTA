@@ -195,8 +195,16 @@
                         </StackPanel>
                     </Button>
 
+                    <!-- Button Statistiky tréninků -->
+                    <Button x:Name="btnStatistikyTreninku" Grid.Row="3" Margin="0,8,0,5" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}" Click="BtnStatistikyTreninku_Click">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/statistics.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Statistiky tréninků" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
                     <!-- Exit -->
-                    <Button x:Name="btnZpet" Click="BtnZpet_Click" Grid.Row="7" Margin="0,8,0,5" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnZpet" Click="BtnZpet_Click" Grid.Row="7" Margin="0,8,0,5" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Zpět" VerticalAlignment="Center"/>
