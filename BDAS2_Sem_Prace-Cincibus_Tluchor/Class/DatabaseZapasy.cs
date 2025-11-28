@@ -146,12 +146,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         public static string GetShrnutiStavuZapasu(OracleConnection conn)
         {
-            using (var cmd = new OracleCommand("F_STAV_ZAPASU_SHRNUTI", conn))
+            using (var cmd = new OracleCommand("PKG_ZAPASY.F_STAV_ZAPASU_SHRNUTI", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 // návratový parametr funkce
-                cmd.Parameters.Add("return_value", OracleDbType.Varchar2, 200).Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add("return_value", OracleDbType.Varchar2, 4000).Direction = ParameterDirection.ReturnValue;
 
                 try
                 {

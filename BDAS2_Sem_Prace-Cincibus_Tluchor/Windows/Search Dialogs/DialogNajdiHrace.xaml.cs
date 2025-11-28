@@ -94,65 +94,54 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
             string prijmeni = tPrijmeni.Text;
             string rodneCislo = tRodneCislo.Text;
             string telefonCislo = tTelefon.Text;
-            string vybranaPozice = cbPozice.SelectedItem as string;
+
+            string vybranaPozice = null;
+            if (cbPozice.SelectedItem != null)
+            {
+                vybranaPozice = cbPozice.SelectedItem.ToString();
+            }
 
             // Rodné číslo
             if (!string.IsNullOrWhiteSpace(rodneCislo))
             {
-                if (rodneCislo.Length != 10)
-                {
-                    throw new NonValidDataException("Rodné číslo musí mít přesně 10 číslic");
-                }
+                // validace rodného čísla
+                Validator.ValidujRodneCislo(rodneCislo);
 
-                if (!rodneCislo.All(char.IsDigit))
+                vysledek = vysledek.Where(h =>
                 {
-                    throw new NonValidDataException("Rodné číslo může obsahovat pouze číslice");
-                }
-
-                vysledek = vysledek.Where(h => h.RodneCislo.ToString() == rodneCislo);
+                    return h.RodneCislo != null && h.RodneCislo == rodneCislo;
+                });
             }
 
-            // Jméno 
+            // Jméno
             if (!string.IsNullOrWhiteSpace(jmeno))
             {
-                if (!jmeno.All(char.IsLetter)) 
-                {
-                    throw new NonValidDataException("Jméno může obsahovat pouze písmena");
-                }
+                // validace jména
+                Validator.ValidujJmeno(jmeno);
 
                 vysledek = vysledek.Where(h =>
-                    h.Jmeno != null &&
-                    h.Jmeno.Contains(jmeno, StringComparison.OrdinalIgnoreCase)
-                );
+                {
+                    return h.Jmeno != null &&
+                           h.Jmeno.Contains(jmeno, StringComparison.OrdinalIgnoreCase);
+                });
             }
 
-            // Příjmení 
+            // Příjmení
             if (!string.IsNullOrWhiteSpace(prijmeni))
             {
-                if (!prijmeni.All(char.IsLetter))
-                {
-                    throw new NonValidDataException("Příjmení může obsahovat pouze písmena");
-                }
+                Validator.ValidujPrijmeni(prijmeni);
 
                 vysledek = vysledek.Where(h =>
-                    h.Prijmeni != null &&
-                    h.Prijmeni.Contains(prijmeni, StringComparison.OrdinalIgnoreCase)
-                );
+                {
+                    return h.Prijmeni != null &&
+                           h.Prijmeni.Contains(prijmeni, StringComparison.OrdinalIgnoreCase);
+                });
             }
 
             // Telefonní číslo
             if (!string.IsNullOrWhiteSpace(telefonCislo))
             {
-                //Obsahuje telefonní číslo nějaký znak, který NENÍ číslice
-                if (telefonCislo.Any(c => !char.IsDigit(c)))
-                {
-                    throw new NonValidDataException("Telefon může obsahovat pouze číslice");
-                }
-
-                if (telefonCislo.Length > 12)
-                {
-                    throw new NonValidDataException("Telefonní číslo může mít maximálně 12 číslic");
-                }
+                Validator.ValidujTelefon(telefonCislo, 1, 12);
 
                 vysledek = vysledek.Where(h =>
                 {
@@ -164,12 +153,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
             // Počet gólů
             if (!string.IsNullOrWhiteSpace(tGoly.Text))
             {
-                int goly;
+                Validator.ValidujCeleCislo(tGoly.Text, "Počet gólů");
 
-                if (!int.TryParse(tGoly.Text, out goly) || goly < 0)
-                {
-                    throw new NonValidDataException("Počet gólů musí být nezáporné číslo");
-                }
+                int goly = int.Parse(tGoly.Text);
 
                 vysledek = vysledek.Where(h =>
                 {
@@ -180,12 +166,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
             // Žluté karty
             if (!string.IsNullOrWhiteSpace(tZlute.Text))
             {
-                int zlute;
+                Validator.ValidujCeleCislo(tZlute.Text, "Počet žlutých karet");
 
-                if (!int.TryParse(tZlute.Text, out zlute) || zlute < 0)
-                {
-                    throw new NonValidDataException("Počet žlutých karet musí být nezáporné číslo");
-                }
+                int zlute = int.Parse(tZlute.Text);
 
                 vysledek = vysledek.Where(h =>
                 {
@@ -196,16 +179,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
             // Červené karty
             if (!string.IsNullOrWhiteSpace(tCervene.Text))
             {
-                int cerveneKarty;
+                Validator.ValidujCeleCislo(tCervene.Text, "Počet červených karet");
 
-                if (!int.TryParse(tCervene.Text, out cerveneKarty) || cerveneKarty < 0)
-                {
-                    throw new NonValidDataException("Počet červených karet musí být nezáporné číslo");
-                }
+                int cervene = int.Parse(tCervene.Text);
 
                 vysledek = vysledek.Where(h =>
                 {
-                    return h.PocetCervenychKaret == cerveneKarty;
+                    return h.PocetCervenychKaret == cervene;
                 });
             }
 
@@ -218,14 +198,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
                 });
             }
 
-            // Datum opatření 
+            // Datum opatření
             if (dpOpatreni.SelectedDate != null)
             {
+                Validator.ValidujDatum(dpOpatreni.SelectedDate, "Datum opatření");
+
                 string datumVybrane = dpOpatreni.SelectedDate.Value.ToString("dd.MM.yyyy");
 
                 vysledek = vysledek.Where(h =>
                 {
-                    return h.DatumOpatreniText != null && h.DatumOpatreniText != "Bez opatření" && h.DatumOpatreniText == datumVybrane;
+                    return h.DatumOpatreniText != null &&
+                           h.DatumOpatreniText != "Bez opatření" &&
+                           h.DatumOpatreniText == datumVybrane;
                 });
             }
 
@@ -244,12 +228,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
             // Délka trestu
             if (!string.IsNullOrWhiteSpace(tDelkaTrestu.Text))
             {
-                int delka;
+                Validator.ValidujCeleCislo(tDelkaTrestu.Text, "Délka trestu");
 
-                if (!int.TryParse(tDelkaTrestu.Text, out delka) || delka < 0)
-                {
-                    throw new NonValidDataException("Délka trestu musí být nezáporné číslo");
-                }
+                int delka = int.Parse(tDelkaTrestu.Text);
 
                 vysledek = vysledek.Where(h =>
                 {
@@ -259,5 +240,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
 
             return vysledek;
         }
+
     }
 }

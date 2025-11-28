@@ -32,12 +32,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             NastavViditelnostSloupcuProUzivatele();
         }
 
+        /// <summary>
+        /// Otevře dialogové okno s TOP 3 střelci.
+        /// </summary>
         private void BtnTopStrelci_Click(object sender, RoutedEventArgs e)
         {
             DialogTopStrelci dialogTopStrelci = new DialogTopStrelci();
             dialogTopStrelci.ShowDialog();
         }
 
+        /// <summary>
+        /// Skryje citlivé údaje (rodné číslo, telefon) podle role přihlášeného uživatele
+        /// a zakáže funkce přidávání a mazání, pokud přihlášený není administrátor
+        /// </summary>
         private void NastavViditelnostSloupcuProUzivatele()
         {
             // Zjistíme, kdo je přihlášený
@@ -64,6 +71,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
+
+        /// <summary>
+        /// Zavře toto okno a vrátí uživatele zpět do hlavního menu
+        /// Aktualizuje počítadlo hráčů v hlavním okně
+        /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -71,6 +83,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             hlavniOkno.txtPocetHracu.Text = DatabaseHraci.GetPocetHracu().ToString();
         }
 
+        /// <summary>
+        /// Otevře dialog pro přidání nového hráče
+        /// Po uzavření dialogu se DataGrid automaticky aktualizuje
+        /// </summary>
         private void BtnPridejDialog_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejHrace dialogPridejHrace = new DialogPridejHrace(HraciData);
@@ -119,7 +135,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
-
+        /// <summary>
+        /// Otevře dialog pro editaci hráče při dvojkliku na jeho řádek v DataGridu
+        /// Kontroluje, zda byl hráč skutečně vybrán
+        /// </summary>
         private void DgHraci_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
@@ -135,6 +154,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             dialogEditujHrace.ShowDialog();
         }
 
+        /// <summary>
+        /// Odebere označeného hráče po potvrzení uživatelem
+        /// Odstraní hráče z databáze i z kolekce zobrazené v DataGridu
+        /// </summary>
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
 
@@ -209,10 +232,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     Hrac hrac = new Hrac();
 
                     // RODNE_CISLO - NOT NULL
+                    // RODNE_CISLO - NOT NULL
                     if (reader["RODNE_CISLO"] != DBNull.Value)
-                        hrac.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                        hrac.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
-                        hrac.RodneCislo = 0L;
+                        hrac.RodneCislo = "";
+
 
                     // JMENO - NOT NULL
                     if (reader["JMENO"] != DBNull.Value)

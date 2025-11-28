@@ -84,11 +84,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     break;
 
                 case "trener":
-                    Zapni(btnHraci, btnTreneri, btnOpatreni, btnKontrakty, btnGrafy, btnZapasy);
+                    Zapni(btnHraci, btnTreneri, btnKontrakty, btnGrafy, btnZapasy);
                     break;
 
                 case "hrac":
-                    Zapni(btnHraci, btnTreneri, btnGrafy, btnTreninky, btnOpatreni, btnZapasy);
+                    Zapni(btnHraci, btnTreneri, btnGrafy, btnTreninky, btnZapasy);
                     break;
 
                 case "uzivatel":
@@ -111,7 +111,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             btnTreninky.IsEnabled = false;
             btnSponzori.IsEnabled = false;
             btnKontrakty.IsEnabled = false;
-            btnOpatreni.IsEnabled = false;
             btnSouteze.IsEnabled = false;
             btnGrafy.IsEnabled = false;
             btnZapasy.IsEnabled = false;
@@ -121,7 +120,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             btnTreninky.Opacity = 0.2;
             btnSponzori.Opacity = 0.2;
             btnKontrakty.Opacity = 0.2;
-            btnOpatreni.Opacity = 0.2;
             btnSouteze.Opacity = 0.2;
             btnGrafy.Opacity = 0.2;
             btnZapasy.Opacity = 0.2;
@@ -136,7 +134,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             btnTreneri.IsEnabled = true;
             btnSponzori.IsEnabled = true;
             btnKontrakty.IsEnabled = true;
-            btnOpatreni.IsEnabled = true;
             btnSouteze.IsEnabled = true;
             btnGrafy.IsEnabled = true;
             btnZapasy.IsEnabled = true;
@@ -146,7 +143,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             btnTreneri.Opacity = 1;
             btnSponzori.Opacity = 1;
             btnKontrakty.Opacity = 1;
-            btnOpatreni.Opacity = 1;
             btnSouteze.Opacity = 1;
             btnGrafy.Opacity = 1;
             btnZapasy.Opacity = 1;
@@ -198,15 +194,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         private void BtnKontrakty_Click(object sender, RoutedEventArgs e)
         {
             new KontraktyOkno(this).Show();
-            this.Hide();
-        }
-
-        /// <summary>
-        /// Otevře okno s opatřeními
-        /// </summary>
-        private void BtnOpatreni_Click(object sender, RoutedEventArgs e)
-        {
-            new OpatreniOkno(this).Show();
             this.Hide();
         }
 

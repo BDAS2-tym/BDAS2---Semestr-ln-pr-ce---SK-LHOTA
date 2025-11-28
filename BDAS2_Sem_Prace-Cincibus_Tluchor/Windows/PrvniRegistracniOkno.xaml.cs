@@ -92,8 +92,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 {
                     conn.Open();
 
-                    // Nastavení přihlášeného uživatele pro logování
-                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+                    
 
                     // Přidání uživatele
                     DatabaseRegistrace.AddUzivatel(conn, novyUzivatel);
