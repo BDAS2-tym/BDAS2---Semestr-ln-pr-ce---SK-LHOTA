@@ -12,7 +12,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Rodné číslo hráče
         /// </summary>
-        public long RodneCislo { get; set; }
+        public string RodneCislo { get; set; }
 
         /// <summary>
         /// Jméno hráče
@@ -88,7 +88,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <param name="pocetZlutychKaret">Počet žlutých karet</param>
         /// <param name="pocetCervenychKaret">Počet červených karet</param>
         /// <param name="poziceNaHristi">Pozice hráče na hřišti přes combobox v dialogu přidej</param>
-        public Hrac(long rodneCislo, string jmeno, string prijmeni, string telefonniCislo, int pocetVstrelenychGolu, 
+        public Hrac(string rodneCislo, string jmeno, string prijmeni, string telefonniCislo, int pocetVstrelenychGolu, 
             int pocetZlutychKaret, int pocetCervenychKaret, string poziceNaHristi)
         {
   

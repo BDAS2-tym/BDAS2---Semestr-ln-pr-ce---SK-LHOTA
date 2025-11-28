@@ -43,7 +43,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Decimal).Value = hrac.RodneCislo;
+                    cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Varchar2).Value = hrac.RodneCislo;
+
                     cmd.Parameters.Add("v_jmeno", OracleDbType.Varchar2).Value = hrac.Jmeno;
                     cmd.Parameters.Add("v_prijmeni", OracleDbType.Varchar2).Value = hrac.Prijmeni;
                     cmd.Parameters.Add("v_telefonni_cislo", OracleDbType.Varchar2).Value = hrac.TelefonniCislo;
@@ -95,13 +96,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <param name="conn">Otevřené Oracle připojení</param>
         /// <param name="hrac">Objekt hráče s upravenými hodnotami</param>
         /// <exception cref="Exception">Vyvoláno, pokud Oracle hlásí chybu</exception>
-        public static void UpdateHrac(OracleConnection conn, Hrac hrac)
+        public static void UpdateHrac(OracleConnection conn, Hrac hrac, string puvodniRodneCislo)
         {
             using (var cmd = new OracleCommand("PKG_HRACI.SP_UPDATE_HRAC", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Decimal).Value = hrac.RodneCislo;
+                cmd.Parameters.Add("v_rodne_cislo_puvodni", OracleDbType.Varchar2).Value = puvodniRodneCislo;
+                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Varchar2).Value = hrac.RodneCislo;
+
                 cmd.Parameters.Add("v_jmeno", OracleDbType.Varchar2).Value = hrac.Jmeno;
                 cmd.Parameters.Add("v_prijmeni", OracleDbType.Varchar2).Value = hrac.Prijmeni;
                 cmd.Parameters.Add("v_telefonni_cislo", OracleDbType.Varchar2).Value = hrac.TelefonniCislo;
@@ -159,7 +162,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             using (var cmd = new OracleCommand("PKG_HRACI.SP_ODEBER_HRACE", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Decimal).Value = hrac.RodneCislo;
+                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Varchar2).Value = hrac.RodneCislo;
+
                 cmd.ExecuteNonQuery();
             }
         }
