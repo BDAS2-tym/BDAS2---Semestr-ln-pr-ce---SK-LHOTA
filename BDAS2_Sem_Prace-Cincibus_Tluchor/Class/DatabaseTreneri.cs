@@ -1,7 +1,9 @@
 ﻿using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,6 +110,46 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Decimal).Value = trener.RodneCislo;
                 cmd.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// Zavolá PL/SQL funkci F_TOP3_TRENERI_BLOB a uloží výsledek do souboru.
+        /// </summary>
+        /// <param name="cestaSouboru">Cesta k výstupnímu souboru</param>
+        public static void ExportTop3TreneriDoSouboru(string cestaSouboru, Uzivatel uzivatel)
+        {
+            using (var conn = DatabaseManager.GetConnection())
+            {
+                conn.Open();
+
+                // Nastavení přihlášeného uživatele (logování)
+                DatabaseAppUser.SetAppUser(conn, uzivatel);
+
+                using (var cmd = new OracleCommand("PKG_TRENERI.F_TOP3_TRENERI_BLOB", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // Výstupní parametr typu BLOB
+                    cmd.Parameters.Add("return_value",
+                        OracleDbType.Blob,
+                        System.Data.ParameterDirection.ReturnValue);
+
+                    cmd.ExecuteNonQuery();
+
+                    OracleBlob blob = cmd.Parameters["return_value"].Value as OracleBlob;
+
+                    if (blob == null || blob.Length == 0)
+                    {
+                        throw new Exception("Funkce F_TOP3_TRENERI_BLOB nevrátila žádná data!");
+                    }
+
+                    // Uložit BLOB do souboru
+                    using (var fs = new FileStream(cestaSouboru, FileMode.Create, FileAccess.Write))
+                    {
+                        blob.CopyTo(fs);
+                    }
+                }
             }
         }
 

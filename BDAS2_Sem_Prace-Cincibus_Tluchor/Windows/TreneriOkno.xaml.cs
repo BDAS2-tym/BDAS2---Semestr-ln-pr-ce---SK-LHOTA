@@ -29,6 +29,31 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             NastavViditelnostSloupcuProUzivatele();
         }
 
+        private void BtnExportTopTreneri_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new Microsoft.Win32.SaveFileDialog();
+                dialog.Title = "Uložit TOP 3 trenéry";
+                dialog.Filter = "Textový soubor (*.txt)|*.txt";
+
+                if (dialog.ShowDialog() == true)
+                {
+                    Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+
+                    DatabaseTreneri.ExportTop3TreneriDoSouboru(dialog.FileName, uzivatel);
+
+                    MessageBox.Show("TOP 3 trenéři byli úspěšně exportováni!",
+                                    "Hotovo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Chyba při exportu:\n" + ex.Message,
+                                "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void NastavViditelnostSloupcuProUzivatele()
         {
             // Zjistíme, kdo je přihlášený

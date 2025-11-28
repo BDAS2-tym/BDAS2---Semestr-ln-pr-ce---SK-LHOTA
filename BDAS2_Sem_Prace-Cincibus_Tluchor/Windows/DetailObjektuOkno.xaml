@@ -1,0 +1,62 @@
+﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.DetailObjektuOkno"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Detail objektu"
+        Height="750" Width="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#f0f0f0">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Nadpis -->
+            <RowDefinition Height="200"/>
+            <!-- Sloupce tabulky -->
+            <RowDefinition Height="*"/>
+            <!-- SQL kód -->
+        </Grid.RowDefinitions>
+
+        <!-- Nadpis -->
+        <TextBlock x:Name="txtTitle"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   Margin="0 0 0 12"
+                   TextWrapping="Wrap"
+                   Foreground="#1e1e1e"/>
+
+        <!-- SLOUPCE TABULKY (jen u TABLE, jinak prázdné) -->
+        <DataGrid x:Name="dgSloupce"
+                  Grid.Row="1"
+                  AutoGenerateColumns="True"
+                  HeadersVisibility="Column"
+                  CanUserAddRows="False"
+                  FontSize="13"
+                  Background="White"
+                  AlternatingRowBackground="#FFF5F5F5"
+                  BorderBrush="#AAAAAA"
+                  BorderThickness="1"
+                  />
+
+        <!-- Scrollovatelný SQL kód -->
+        <ScrollViewer Grid.Row="2"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto"
+                      Background="White"
+                      Margin="0 10 0 0">
+
+            <TextBox x:Name="txtCode"
+                     FontFamily="Consolas"
+                     FontSize="14"
+                     AcceptsReturn="True"
+                     AcceptsTab="True"
+                     VerticalScrollBarVisibility="Disabled"
+                     HorizontalScrollBarVisibility="Disabled"
+                     TextWrapping="NoWrap"
+                     IsReadOnly="True"
+                     Background="White"
+                     BorderThickness="0"
+                     Foreground="Black"/>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

@@ -195,9 +195,18 @@
                         </StackPanel>
                     </Button>
 
+                    <!-- EXPORT TOP 3 Trenéři -->
+                    <Button x:Name="btnExportTopTreneri" Click="BtnExportTopTreneri_Click" Grid.Row="3" Margin="0,8,0,5" Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/coach.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Export TOP 3 " VerticalAlignment="Center" Height="40"/>
+                        </StackPanel>
+                    </Button>
+
+
 
                     <!-- Exit -->
-                    <Button x:Name="btnZpet" Grid.Row="7" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnZpet" Grid.Row="7" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Zpět" VerticalAlignment="Center"/>

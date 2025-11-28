@@ -78,7 +78,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                     foreach (string pozice in NazvyPozic)
                     {
-                        using (var cmd = new OracleCommand("SELECT F_GOLY_PROCENTA_POZICE(:p) FROM DUAL", conn))
+                        using (var cmd = new OracleCommand("SELECT PKG_HRACI.F_GOLY_PROCENTA_POZICE(:p) FROM DUAL", conn))
                         {
                             cmd.Parameters.Add("p", pozice);
                             object result = cmd.ExecuteScalar();
