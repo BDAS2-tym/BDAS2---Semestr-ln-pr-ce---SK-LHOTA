@@ -31,7 +31,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.Parameters.Add("v_datum_zacatku", OracleDbType.Date).Value = kontrakt.DatumZacatku.ToDateTime(TimeOnly.MinValue);
                 cmd.Parameters.Add("v_datum_konce", OracleDbType.Date).Value = kontrakt.DatumKonce.ToDateTime(TimeOnly.MinValue);
                 cmd.Parameters.Add("v_plat", OracleDbType.Int32).Value = kontrakt.Plat;
-                cmd.Parameters.Add("v_cislo_na_agenta", OracleDbType.Int32).Value = Convert.ToInt32(kontrakt.TelCisloNaAgenta);
+                cmd.Parameters.Add("v_cislo_na_agenta", OracleDbType.Int64).Value = Convert.ToInt64(kontrakt.TelCisloNaAgenta);
 
                 if (kontrakt.VystupniKlauzule == 0)
                 {
@@ -99,7 +99,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.Parameters.Add("v_datum_zacatku", OracleDbType.Date).Value = kontrakt.DatumZacatku.ToDateTime(TimeOnly.MinValue);
                 cmd.Parameters.Add("v_datum_konce", OracleDbType.Date).Value = kontrakt.DatumKonce.ToDateTime(TimeOnly.MinValue);
                 cmd.Parameters.Add("v_plat", OracleDbType.Int32).Value = kontrakt.Plat;
-                cmd.Parameters.Add("v_cislo_na_agenta", OracleDbType.Int32).Value = Convert.ToInt32(kontrakt.TelCisloNaAgenta);
+                cmd.Parameters.Add("v_cislo_na_agenta", OracleDbType.Int64).Value = Convert.ToInt64(kontrakt.TelCisloNaAgenta);
 
                 if (kontrakt.VystupniKlauzule == 0)
                 {

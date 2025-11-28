@@ -74,7 +74,7 @@
 
                     <DataGridTextColumn Header="Uživatel" Binding="{Binding Uzivatel.UzivatelskeJmeno, UpdateSourceTrigger=LostFocus}" Width="*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic"/>
 
-                    <!-- Sponzorované soutěže – vytvoření přes TemplateColumn, kvůli zobrazování více soutěží -->
+                    <!-- Čas – vytvoření přes TemplateColumn, kvůli zobrazování více soutěží -->
                     <DataGridTextColumn Header="Čas" Binding="{Binding Cas, StringFormat='dd.MM.yyyy HH:mm:ss', UpdateSourceTrigger=LostFocus}" Width="*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
                         
                         <DataGridTextColumn.HeaderStyle>

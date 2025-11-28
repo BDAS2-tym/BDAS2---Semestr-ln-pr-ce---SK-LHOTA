@@ -178,7 +178,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 using var conn = DatabaseManager.GetConnection();
                 conn.Open();
 
-                using var cmd = new OracleCommand("SELECT * FROM HRACI_VIEW", conn);
+                using var cmd = new OracleCommand("SELECT * FROM HRACI_OPATRENI_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
 
                 hraci.Clear();
@@ -196,7 +196,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         hrac.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
                         hrac.RodneCislo = "";
-
 
                     // JMENO - NOT NULL
                     if (reader["JMENO"] != DBNull.Value)

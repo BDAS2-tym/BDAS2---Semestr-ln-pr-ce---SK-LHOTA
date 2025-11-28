@@ -54,11 +54,28 @@
                 </DataGrid.ColumnHeaderStyle>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno}" Width="*" />
-                    <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni}" Width="*" />
-                    <DataGridTextColumn Header="Góly" Binding="{Binding PocetGolu}" Width="*" />
-                    <DataGridTextColumn Header="Pozice" Binding="{Binding Pozice}" Width="*" />
-                    <DataGridTextColumn Header="Pořadí" Binding="{Binding Poradi}" Width="*" />
+                    <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno}" ElementStyle="{StaticResource CenterCellStyle}" Width="*" />
+                    <DataGridTextColumn Header="Příjmení" Binding="{Binding Prijmeni}" ElementStyle="{StaticResource CenterCellStyle}" Width="*" />
+                    <DataGridTextColumn Header="Góly" Binding="{Binding PocetGolu}" ElementStyle="{StaticResource CenterCellStyle}" Width="*" />
+                    <DataGridTextColumn Header="Pozice" Binding="{Binding Pozice}" ElementStyle="{StaticResource CenterCellStyle}" Width="*" />
+                    
+                    <!-- Pořadí – vytvoření přes TemplateColumn, kvůli zobrazování více soutěží -->
+                    <DataGridTextColumn Header="Pořadí" Binding="{Binding Poradi}" Width="*" ElementStyle="{StaticResource CenterCellStyle}" FontFamily="Century Gothic">
+
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#AABBCC"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="BorderBrush" Value="#125C64"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
 
                 <!-- Změna barvy pozadí a písma při výběru řádku -->
