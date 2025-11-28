@@ -67,20 +67,21 @@ Cílem aplikace je usnadnit správu členské základny, sponzorů a sledování
 
 
 ### Hlavní entity
-| Entita                   | Atributy                                                                                          |
-|---------------------------|---------------------------------------------------------------------------------------------------|
-| **_Clen_Klubu_**            | IdClenKlubu, RodneCislo, Jmeno, Prijmeni, TypClena, TelefonniCislo                              |
-| **_Trener_**                | TrenerskaLicence, PocetLetPraxe, Specializace                                                    |
-| **_Hrac_**                  | PoziceNaHristi, PocetVstrelenychGolu, PocetZlutychKaret, PocetCervenychKaret                     |
-| **_Trenink_**               | IdTrenink, Datum, Misto, Popis                                                                   |
-| **_Disclipinarni_Opatreni_**| IdDisclipinarniOpatreni, DatumOpatreni, DelkaTrestu, Duvod                                       |
-| **_Kontrakt_**              | DatumZacatku, DatumKonce, Plat, CisloNaAgenta, VystupniKlazule                                   |
-| **_Uzivatelsky_Ucet_**      | IdUzivatelskyUcet, UzivatelskeJmeno, Email, Heslo, PosledniPrihlaseni                            |
-| **_Log_Table_**             | IdLog, Operace, Cas, Uzivatel, Tabulka                                                           |
-| **_Sponzor_**               | IdSponzor, Jmeno, SponzorovanaCastka                                                             |
-| **_Soutez_**                | IdSoutez, StartDatum, KonecDatum                                                                 |
-| **_Zapas_**                 | IdZapas, Datum                                                                                    |
-| **_Vysledek_Zapasu_**       | Vysledek, PocetZlutychKaret, PocetCervenychKaret, PocetGolyDomaciTym, PocetGolyHosteTym         |
+| Entita                   | Atributy                                                                                                           |
+|---------------------------|---------------------------------------------------------------------------------------------------                |
+| **_Clen_Klubu_**            | IdClenKlubu, RodneCislo, Jmeno, Prijmeni, TypClena, TelefonniCislo                                              |
+| **_Trener_**                | TrenerskaLicence, PocetLetPraxe, Specializace                                                                   |
+| **_Hrac_**                  | PoziceNaHristi, PocetVstrelenychGolu, PocetZlutychKaret, PocetCervenychKaret                                    |
+| **_Trenink_**               | IdTrenink, Datum, Misto, Popis                                                                                  |
+| **_Disclipinarni_Opatreni_**| IdDisclipinarniOpatreni, DatumOpatreni, DelkaTrestu, Duvod                                                      |
+| **_Kontrakt_**              | DatumZacatku, DatumKonce, Plat, CisloNaAgenta, VystupniKlazule                                                  |
+| **_Uzivatelsky_Ucet_**      | IdUzivatelskyUcet, UzivatelskeJmeno, Email, Heslo, PosledniPrihlaseni                                           |
+| **_Log_Table_**             | IdLog, Operace, Cas, Uzivatel, Tabulka                                                                          |
+| **_Sponzor_**               | IdSponzor, Jmeno, SponzorovanaCastka                                                                            |
+| **_Soutez_**                | IdSoutez, StartDatum, KonecDatum                                                                                |
+| **_Zapas_**                 | IdZapas, Datum                                                                                                  |
+| **_Vysledek_Zapasu_**       | Vysledek, PocetZlutychKaret, PocetCervenychKaret, PocetGolyDomaciTym, PocetGolyHosteTym                         |
+| **_Binarni_Obsah_**         | IdBinarniObsah, NazevSouboru, TypSouboru, PriponaSouboru, Obsah, DatumNahrani, DatumModifikace, Operace         |
 
 <br>
 
