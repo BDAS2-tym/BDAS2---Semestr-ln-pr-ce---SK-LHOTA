@@ -57,6 +57,8 @@ Cílem aplikace je usnadnit správu členské základny, sponzorů a sledování
 - 🟨 Evidence hračských kontraktů
 - 🟨 Zobrazení zápasů a jejich výsledků
 - 🟨 Vyhledávání a filtrování údajů
+- 🟨 Export/Import kontraktů do formátu PDF
+- 🟨 Správa binárních souborů
 
 ---
 <br>
