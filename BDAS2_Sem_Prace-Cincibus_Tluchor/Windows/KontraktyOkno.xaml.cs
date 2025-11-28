@@ -6,6 +6,7 @@ using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
@@ -204,12 +205,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void DgKontrakty_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
-            if (jeVyhledavaniAktivni)
-            {
-                e.Handled = true;
-                return;
-            }
-
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
             // Získání objektu DataGrid a jeho potomků, aby se DoubleClick uplatňoval pouze na řádky a ne na ColumnHeader
@@ -279,7 +274,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     return;
                 }
 
-                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat ani odebírat vyhledaná data. " +
                                 "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 dgKontrakty.ItemsSource = new ObservableCollection<Kontrakt>(dialogNajdiKontrakt.VyfiltrovaneKontrakty);
                 jeVyhledavaniAktivni = true;
@@ -406,6 +401,55 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 MessageBox.Show($"Nastala neočekávaná chyba při importování kontraktu:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zvýšení platu hráčů, kteří mají 3 a více sponzorů
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnZvysPlat_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult? result = MessageBox.Show("Opravdu chcete zvýšit plat hráčům, kteří mají 3 a více sponzorů?", "Zvýšení platu", MessageBoxButton.YesNoCancel, MessageBoxImage.Question); ;
+            if (result == MessageBoxResult.Yes)
+            {
+                ZvysPlatHrace();
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zvýšení platu hráčů, kteří mají 3 a více sponzorů
+        /// </summary>
+        private void ZvysPlatHrace()
+        {
+            try
+            {
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                using (var cmd = new OracleCommand("PKG_KONTRAKTY.SP_ZVYS_PLAT_HRACE", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    catch (OracleException ex)
+                    {
+                        throw new Exception($"Chyba při volání procedury SP_ZVYS_PLAT_HRACE: {ex.Message}", ex);
+                    }
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Chyba při zvyšování platů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            NactiKontrakty();
         }
     }
 }

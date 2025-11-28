@@ -218,6 +218,14 @@
                         </Button.ContextMenu>
                     </Button>
 
+                    <!-- Button Zvýšení platu -->
+                    <Button x:Name="btnZvysPlat" Grid.Row="6" Margin="0,8,0,5" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle2}" Click="BtnZvysPlat_Click">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/higher_salary.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Zvyšení platu" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
                     <!-- Button Exit -->
                     <Button x:Name="btnZpet" Grid.Row="7" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="6" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">

@@ -16,15 +16,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
     internal static class DatabaseSouteze
     {
         /// <summary>
-        /// Metoda slouží k získání Oracle Connection do databáze
-        /// </summary>
-        /// <returns>Připojení do Oracle databáze</returns>
-        private static OracleConnection GetConnection()
-        {
-            return DatabaseManager.GetConnection(); // využijeme metodu z DatabaseManager
-        }
-
-        /// <summary>
         /// Metoda slouží k přidání sponzora do databáze
         /// </summary>
         /// <param name="soutez">Soutěž, kterou chceme přidat do databáze</param>

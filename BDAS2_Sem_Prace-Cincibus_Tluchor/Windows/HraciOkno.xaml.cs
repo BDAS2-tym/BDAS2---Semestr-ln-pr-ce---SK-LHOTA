@@ -96,7 +96,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     return;
                 }
 
-                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat ani odebírat vyhledaná data. " +
                                 "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 dgHraci.ItemsSource = new ObservableCollection<Hrac>(dialogNajdiHrace.VyfiltrovaniHraci);
                 jeVyhledavaniAktivni = true;

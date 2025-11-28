@@ -201,7 +201,7 @@
                     </Button>
 
                     <!-- Button TOP Střelci -->
-                    <Button x:Name="btnTopStrelci" Click="BtnTopStrelci_Click" Grid.Row="2" Margin="0,8,0,5" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnTopStrelci" Click="BtnTopStrelci_Click" Grid.Row="3" Margin="0,8,0,5" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/top_players.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="TOP Střelci" VerticalAlignment="Center"/>
