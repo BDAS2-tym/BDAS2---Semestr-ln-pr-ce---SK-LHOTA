@@ -166,6 +166,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 return;
             }
 
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "uzivatel" || role == "host" || role == "trener")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
+
             DialogEditujTrenera dialogEditujTrenera = new DialogEditujTrenera(vybranyTrener, this);
             dialogEditujTrenera.ShowDialog();
 

@@ -19,6 +19,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void DeleteUzivatel(OracleConnection conn, Uzivatel uzivatel)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             // Voláme proceduru z balíčku PKG_REGISTRACE
             using var cmd = new OracleCommand("PKG_REGISTRACE.SP_DELETE_UZIVATEL", conn)
             {
@@ -46,6 +48,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void AddUzivatel(OracleConnection conn, Uzivatel uzivatel)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             // Získáme ID role podle názvu role
             int idRole;
             using (var roleCmd = new OracleCommand("SELECT IDROLE FROM ROLE WHERE LOWER(REPLACE(NAZEVROLE, 'Á', 'A')) = :nazev", conn))
@@ -59,7 +63,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 
                 object result = roleCmd.ExecuteScalar();
                 if (result == null)
-                    throw new Exception($"Role '{uzivatel.Role}' neexistuje v tabulce ROLE.");
+                {
+                    throw new Exception($"Role '{uzivatel.Role}' neexistuje v tabulce ROLE");
+                }
 
                 idRole = Convert.ToInt32(result);
             }
@@ -120,6 +126,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void UpdateUzivatel(OracleConnection conn, Uzivatel uzivatel, string stareJmeno)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             // Pokud není nové heslo → načteme staré
             if (string.IsNullOrEmpty(uzivatel.Heslo))
             {
@@ -201,8 +209,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmdClear.ExecuteNonQuery();
             }
         }
-
-
 
         /// <summary>
         /// Ověří, zda v databázi existuje člen klubu podle rodného čísla a typu (hráč/trenér)

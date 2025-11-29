@@ -88,7 +88,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     break;
 
                 case "hrac":
-                    Zapni(btnHraci, btnTreneri, btnGrafy, btnTreninky, btnZapasy);
+                    Zapni(btnHraci, btnTreneri, btnGrafy, btnTreninky, btnZapasy, btnGrafy);
                     break;
 
                 case "uzivatel":
@@ -96,7 +96,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     break;
 
                 case "host":
-                    Zapni(btnZapasy);
+                    Zapni(btnZapasy, btnNastaveni);
                     break;
             }
         }
@@ -114,6 +114,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             btnSouteze.IsEnabled = false;
             btnGrafy.IsEnabled = false;
             btnZapasy.IsEnabled = false;
+            btnNastaveni.IsEnabled = false;
 
             btnHraci.Opacity = 0.2;
             btnTreneri.Opacity = 0.2;
@@ -123,6 +124,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             btnSouteze.Opacity = 0.2;
             btnGrafy.Opacity = 0.2;
             btnZapasy.Opacity = 0.2;
+            btnNastaveni.Opacity = 0.2;
         }
 
         /// <summary>
@@ -138,6 +140,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             btnGrafy.IsEnabled = true;
             btnZapasy.IsEnabled = true;
             btnTreninky.IsEnabled = true;
+            btnNastaveni.IsEnabled = true;
 
             btnHraci.Opacity = 1;
             btnTreneri.Opacity = 1;
@@ -147,6 +150,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             btnGrafy.Opacity = 1;
             btnZapasy.Opacity = 1;
             btnTreninky.Opacity = 1;
+            btnNastaveni.Opacity = 1;
         }
 
         /// <summary>

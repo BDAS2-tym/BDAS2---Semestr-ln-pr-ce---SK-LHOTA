@@ -41,9 +41,37 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Propojení kolekce s DataGridem
             DataContext = this;
 
+            NastavViditelnostSloupcuProUzivatele();
             NactiKontrakty();
         }
 
+        /// <summary>
+        /// Skryje rodné číslo a telefon trenérům a hráčům
+        /// Uživatelům bez oprávnění zakáže přidávání, mazání a vyhledávání
+        /// </summary>
+        private void NastavViditelnostSloupcuProUzivatele()
+        {
+            // Zjistíme, kdo je přihlášený
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+
+            string role = uzivatel.Role.ToLower();
+
+            // Pokud je to hráč nebo trenér tyto funkce tlačítek schováme
+            if (role == "hrac" || role == "uzivatel" || role == "host")
+            {
+
+                btnPridej.IsEnabled = false;
+                btnOdeber.IsEnabled = false;
+                btnNajdi.IsEnabled = false;
+                btnZvysPlat.IsEnabled = false;
+
+                btnPridej.Opacity = 0.2;
+                btnOdeber.Opacity = 0.2;
+                btnNajdi.Opacity = 0.2;
+                btnZvysPlat.Opacity = 0.2;
+            }
+        }
+            
         /// <summary>
         /// Metoda slouží k vrácení se na hlavní okno aplikace
         /// </summary>
@@ -211,6 +239,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             while (dep != null && !(dep is DataGridRow))
             {
                 dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "uzivatel" || role == "host")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
             }
 
             if (dep is DataGridRow row)

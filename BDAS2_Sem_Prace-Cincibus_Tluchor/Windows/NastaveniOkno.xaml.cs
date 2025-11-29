@@ -15,7 +15,12 @@ using System.Windows.Shapes;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Interakční logika pro NastaveniOkno.xaml
+    /// Okno představující hlavní nabídku nastavení aplikace
+    /// Umožňuje uživateli přecházet do jednotlivých podoken:
+    /// - správa binárního obsahu
+    /// - správa uživatelů
+    /// - systémový katalog
+    /// - logovací tabulku
     /// </summary>
     public partial class NastaveniOkno : Window
     {
@@ -27,7 +32,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             this.hlavniOkno = hlavniOkno;
         }
-        
+
+        /// <summary>
+        /// Otevře okno pro správu binárního obsahu 
+        /// </summary>
         private void BtnBinarniObsah_Click(object sender, RoutedEventArgs e)
         {
             BinarniObsahOkno binarniObsahOkno = new BinarniObsahOkno();
@@ -35,6 +43,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             this.Close();
         }
 
+        /// <summary>
+        /// Otevře okno pro správu uživatelů 
+        /// </summary>
         private void BtnUzivatele_Click(object sender, RoutedEventArgs e)
         {
             NastaveniUzivateleOkno uzivateleOkno = new NastaveniUzivateleOkno();
@@ -42,6 +53,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             this.Close();
         }
 
+        /// <summary>
+        /// Otevře okno se systémovým katalogem
+        /// </summary>
         private void BtnSystemovyKatalog_Click(object sender, RoutedEventArgs e)
         {
             SystemovyKatalogOkno systemovyKatalogOkno = new SystemovyKatalogOkno();
@@ -49,6 +63,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             this.Close();
         }
 
+        /// <summary>
+        /// Vrátí uživatele zpět do hlavního okna aplikace
+        /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
             HlavniOkno hlavniOkno = new HlavniOkno();
@@ -56,7 +73,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             this.Close();
         }
 
-        private void btnZmeny_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Otevře okno s logem změn, které zobrazuje auditní historii databáze
+        /// Předává hlavní okno kvůli přihlášenému uživateli
+        /// </summary>
+        private void BtnZmeny_Click(object sender, RoutedEventArgs e)
         {
             LogTableOkno logTableOkno = new LogTableOkno(hlavniOkno);
             logTableOkno.Show();

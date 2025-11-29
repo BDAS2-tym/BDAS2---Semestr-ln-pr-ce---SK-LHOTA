@@ -11,53 +11,68 @@ using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Okno pro úpravu uživatele – umožňuje editovat údaje 
+    /// Okno umožňující úpravu uživatelského účtu
+    /// Zahrnuje validaci údajů, změnu role, práci s rodným číslem a uložení dat do databáze
     /// </summary>
     public partial class EditUzivatelOkno : Window
     {
+        /// <summary>
+        /// Objekt aktuálně editovaného uživatele
+        /// </summary>
         private Uzivatel uzivatel;
+
+        /// <summary>
+        /// Původní uživatelské jméno nutné pro update v databázi
+        /// </summary>
         private string stareJmeno;
 
+        /// <summary>
+        /// Inicializace okna a naplnění údajů
+        /// </summary>
         public EditUzivatelOkno(Uzivatel editovanyUzivatel)
         {
             InitializeComponent();
-            this.uzivatel = editovanyUzivatel;
-            this.stareJmeno = editovanyUzivatel.UzivatelskeJmeno;
+            uzivatel = editovanyUzivatel;
+            stareJmeno = editovanyUzivatel.UzivatelskeJmeno;
+
             NactiRoleZDB();
             NaplnFormular();
+            AktualizujZamceniRodnehoCisla();
         }
 
         /// <summary>
-        /// Načte dostupné role z tabulky ROLE a naplní combobox
+        /// Načte role z databáze a naplní ComboBox
         /// </summary>
         private void NactiRoleZDB()
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
-
-                using var cmd = new OracleCommand("SELECT IDROLE, NAZEVROLE FROM ROLE ORDER BY IDROLE", conn);
-                using var reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var conn = DatabaseManager.GetConnection())
                 {
-                    ComboBoxItem item = new ComboBoxItem
+                    conn.Open();
+
+                    using (var cmd = new OracleCommand("SELECT IDROLE, NAZEVROLE FROM ROLE ORDER BY IDROLE", conn))
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        Content = reader["NAZEVROLE"].ToString(),
-                        Tag = Convert.ToInt32(reader["IDROLE"])
-                    };
-                    cmbRole.Items.Add(item);
+                        while (reader.Read())
+                        {
+                            ComboBoxItem item = new ComboBoxItem();
+                            item.Content = reader["NAZEVROLE"].ToString();
+                            item.Tag = Convert.ToInt32(reader["IDROLE"]);
+                            cmbRole.Items.Add(item);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Chyba při načítání rolí: " + ex.Message);
+                MessageBox.Show("Chyba při načítání rolí\n" + ex.Message,
+                    "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         /// <summary>
-        /// Naplní formulář aktuálními údaji o uživateli
+        /// Naplní textová pole daty o uživateli
         /// </summary>
         private void NaplnFormular()
         {
@@ -65,10 +80,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             txtEmail.Text = uzivatel.Email;
             txtRodneCislo.Text = uzivatel.RodneCislo;
 
-            // Nastaví combobox na aktuální roli
             foreach (ComboBoxItem item in cmbRole.Items)
             {
-                if (item.Content.ToString().Equals(uzivatel.Role, StringComparison.OrdinalIgnoreCase))
+                if (item.Content.ToString().ToLower() == uzivatel.Role.ToLower())
                 {
                     cmbRole.SelectedItem = item;
                     break;
@@ -77,19 +91,42 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Ověří formát rodného čísla – musí mít 10 číslic nebo může být prázdné
+        /// Uzamyká nebo odemyká rodné číslo textbox podle role
         /// </summary>
-        private bool OverRodneCislo(string rodneCislo)
+        private void AktualizujZamceniRodnehoCisla()
         {
-            if (string.IsNullOrEmpty(rodneCislo))
-                return true;
+            ComboBoxItem item = cmbRole.SelectedItem as ComboBoxItem;
+            if (item == null)
+            {
+                return;
+            }
 
-            if (rodneCislo.Length != 10)
-                return false;
+            string role = item.Content.ToString().ToLower();
 
-            return rodneCislo.All(char.IsDigit);
+            if (role == "hrac" || role == "trener")
+            {
+                txtRodneCislo.IsEnabled = true;
+                txtRodneCislo.Opacity = 1;
+            }
+            else
+            {
+                txtRodneCislo.IsEnabled = false;
+                txtRodneCislo.Opacity = 0.4;
+                txtRodneCislo.Text = "";
+            }
         }
 
+        /// <summary>
+        /// Při změně role aktualizuje nastavení textboxu rodného čísla
+        /// </summary>
+        private void cmbRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AktualizujZamceniRodnehoCisla();
+        }
+
+        /// <summary>
+        /// Validuje vstupy a uloží změny uživatele do databáze
+        /// </summary>
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -100,46 +137,112 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 string heslo = txtHeslo.Text.Trim();
 
                 ComboBoxItem item = cmbRole.SelectedItem as ComboBoxItem;
-
                 if (item == null)
                 {
-                    MessageBox.Show("Vyberte roli uživatele.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Musíte vybrat roli uživatele",
+                        "Varování", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                string novaRole = item.Content.ToString();
+                string novaRole = item.Content.ToString().ToLower();
 
-                if (string.IsNullOrWhiteSpace(jmeno))
+                // validace jména
+                if (jmeno == "")
                 {
-                    MessageBox.Show("Zadejte uživatelské jméno.");
+                    MessageBox.Show("Uživatelské jméno nesmí být prázdné",
+                        "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(email))
+                if (jmeno.Length < 3)
                 {
-                    MessageBox.Show("Zadejte e-mail.");
+                    MessageBox.Show("Uživatelské jméno musí mít alespoň 3 znaky",
+                        "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                bool roleVyžadujeRodneCislo = false;
-
-                if (novaRole.Equals("Hrac", StringComparison.OrdinalIgnoreCase))
+                if (jmeno.Contains(" "))
                 {
-                    roleVyžadujeRodneCislo = true;
+                    MessageBox.Show("Uživatelské jméno nesmí obsahovat mezery",
+                        "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
 
-                if (novaRole.Equals("Trener", StringComparison.OrdinalIgnoreCase))
+                foreach (char c in jmeno)
                 {
-                    roleVyžadujeRodneCislo = true;
-                }
-
-                // -------- VALIDACE PRO ROLE HRÁČ A TRENÉR --------
-
-                if (roleVyžadujeRodneCislo)
-                {
-                    if (string.IsNullOrWhiteSpace(rodneCislo))
+                    if (!char.IsLetterOrDigit(c) && c != '_')
                     {
-                        MessageBox.Show("Pro roli Hráč nebo Trenér musíte zadat rodné číslo.",
+                        MessageBox.Show("Uživatelské jméno může obsahovat pouze písmena číslice a podtržítko",
+                            "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+
+                // validace e-mailu
+                if (email == "")
+                {
+                    MessageBox.Show("E-mail nesmí být prázdný",
+                        "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                bool emailOK = System.Text.RegularExpressions.Regex.IsMatch(
+                    email, @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$");
+
+                if (!emailOK)
+                {
+                    MessageBox.Show("Zadejte platný e-mail",
+                        "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // validace hesla
+                if (heslo != "")
+                {
+                    if (heslo.Length < 8)
+                    {
+                        MessageBox.Show("Heslo musí mít alespoň 8 znaků",
+                            "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    bool specialOK = false;
+                    string povolene = "!@#$%^&*()_+-=[]{};:,.<>?";
+
+                    foreach (char h in heslo)
+                    {
+                        if (povolene.Contains(h))
+                        {
+                            specialOK = true;
+                        }
+                    }
+
+                    if (!specialOK)
+                    {
+                        MessageBox.Show("Heslo musí obsahovat speciální znak",
+                            "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+
+                // role s povinným rodným číslem
+                bool roleVyZadava = false;
+
+                if (novaRole == "hrac")
+                {
+                    roleVyZadava = true;
+                }
+
+                if (novaRole == "trener")
+                {
+                    roleVyZadava = true;
+                }
+
+                if (roleVyZadava)
+                {
+                    if (rodneCislo == "")
+                    {
+                        MessageBox.Show("Pro roli hráč nebo trenér musíte zadat rodné číslo",
                             "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
@@ -150,7 +253,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message,
+                            "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
@@ -158,75 +262,50 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     {
                         conn.Open();
 
-                        string sql = @"
-                            SELECT COUNT(*) 
-                            FROM CLENOVE_KLUBU 
-                            WHERE RODNE_CISLO = :rc
-                            AND LOWER(TYPCLENA) = :typ";
+                        string sql = "SELECT COUNT(*) FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rc AND LOWER(TYPCLENA) = :typ";
 
                         using (var cmd = new OracleCommand(sql, conn))
                         {
-                            string typClena;
-
-                            if (novaRole.Equals("Hrac", StringComparison.OrdinalIgnoreCase))
-                                typClena = "hrac";
-                            else
-                                typClena = "trener";
-
-
                             cmd.Parameters.Add(":rc", OracleDbType.Varchar2).Value = rodneCislo;
-                            cmd.Parameters.Add(":typ", OracleDbType.Varchar2).Value = typClena;
+                            cmd.Parameters.Add(":typ", OracleDbType.Varchar2).Value = novaRole;
 
                             int pocet = Convert.ToInt32(cmd.ExecuteScalar());
 
                             if (pocet == 0)
                             {
-                                MessageBox.Show(
-                                    $"Rodné číslo {rodneCislo} patří jinému typu člena.\n" +
-                                    $"Pro roli {novaRole} musí být v databázi člen typu '{typClena}'.",
+                                MessageBox.Show("Rodné číslo není evidováno mezi členy klubu",
                                     "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-
                                 return;
                             }
                         }
-
                     }
                 }
                 else
                 {
-                    if (!string.IsNullOrWhiteSpace(rodneCislo))
-                    {
-                        try
-                        {
-                            Validator.ValidujRodneCislo(rodneCislo);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                            return;
-                        }
-                    }
+                    rodneCislo = "";
                 }
 
-                // -------- ULOŽENÍ UŽIVATELE --------
-
+                // uložení do objektu
                 uzivatel.UzivatelskeJmeno = jmeno;
                 uzivatel.Email = email;
                 uzivatel.RodneCislo = rodneCislo;
                 uzivatel.Role = novaRole;
 
+                // uložení do databáze
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
                     int idRole = Convert.ToInt32(item.Tag);
+
                     AktualizujRoliUzivatele(conn, stareJmeno, idRole);
 
-                    if (!string.IsNullOrWhiteSpace(heslo))
+                    if (heslo != "")
                     {
                         string salt = PasswordHasher.GenerateSalt();
                         string hash = PasswordHasher.HashPassword(heslo, salt);
+
                         uzivatel.Heslo = hash;
                         uzivatel.Salt = salt;
                     }
@@ -234,47 +313,67 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     DatabaseRegistrace.UpdateUzivatel(conn, uzivatel, stareJmeno);
                 }
 
-                MessageBox.Show("Změny byly úspěšně uloženy.", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Změny byly úspěšně uloženy",
+                    "Uloženo", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 DialogResult = true;
                 Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Chyba: " + ex.Message);
+                MessageBox.Show("Chyba při ukládání dat\n" + ex.Message,
+                    "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-
-
-
         /// <summary>
-        /// Aktualizuje ID role uživatele — používá EXISTUJÍCÍ spojení
+        /// Aktualizuje ID role uživatele v databázi
         /// </summary>
         private void AktualizujRoliUzivatele(OracleConnection conn, string uzivatelskeJmeno, int idRole)
         {
             try
             {
                 string sql = "UPDATE UZIVATELSKE_UCTY SET IDROLE = :idrole WHERE UZIVATELSKEJMENO = :jmeno";
-                using var cmd = new OracleCommand(sql, conn);
 
-                cmd.Parameters.Add(":idrole", OracleDbType.Int32).Value = idRole;
-                cmd.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatelskeJmeno;
-
-                cmd.ExecuteNonQuery();
+                using (var cmd = new OracleCommand(sql, conn))
+                {
+                    cmd.Parameters.Add(":idrole", OracleDbType.Int32).Value = idRole;
+                    cmd.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatelskeJmeno;
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Chyba při změně role: " + ex.Message);
+                MessageBox.Show("Chyba při změně role\n" + ex.Message,
+                    "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void BtnClose_Click(object sender, RoutedEventArgs e) => Close();
-        private void BtnMinimize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+        /// <summary>
+        /// Zavře okno
+        /// </summary>
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
+        /// <summary>
+        /// Minimalizuje okno
+        /// </summary>
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        /// <summary>
+        /// Umožní přesouvat okno myší
+        /// </summary>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
+            {
                 DragMove();
+            }
         }
     }
 }

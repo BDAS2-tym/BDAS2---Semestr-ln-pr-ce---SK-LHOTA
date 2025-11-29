@@ -56,8 +56,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             RodneCisloSloupec.Visibility = Visibility.Visible;
             TelefonniCisloSloupec.Visibility = Visibility.Visible;
 
-            // Pokud je to hráč nebo trenér tyto sloupce a funkce tlačítek schováme
-            if (role == "hrac" || role == "trener")
+            // Pro dané role funkce tlačítek schováme
+            if (role == "hrac" || role == "trener" || role == "host")
             {
                 RodneCisloSloupec.Visibility = Visibility.Collapsed;
                 TelefonniCisloSloupec.Visibility = Visibility.Collapsed;
@@ -142,11 +142,24 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
 
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "trener" || role == "host")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
+
             if (vybranyHrac == null)
             {
                 MessageBox.Show("Prosím vyberte hráče, kterého chcete upravit! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
 
             DialogEditujHrace dialogEditujHrace = new DialogEditujHrace(vybranyHrac, this);
             dialogEditujHrace.ShowDialog();

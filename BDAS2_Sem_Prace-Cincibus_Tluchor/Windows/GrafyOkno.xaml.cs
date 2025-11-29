@@ -10,45 +10,42 @@ using System.Windows.Media;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
-    /// <summary>
-    /// Okno zobrazující statistické grafy načtené z databáze
-    /// Koláčový graf hráčů a trenérů a sloupcový graf podílu gólů podle pozic
-    /// </summary>
     public partial class GrafyOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
 
-        /// <summary>
-        /// Data pro koláčový graf poměru hráčů a trenérů
-        /// </summary>
+        // Datová sada pro koláčový graf hráčů a trenérů
         public SeriesCollection PomeryHracuTreneru { get; set; }
 
-        /// <summary>
-        /// Data pro sloupcový graf podílu gólů podle pozic
-        /// </summary>
+        // Datová sada pro sloupcový graf vstřelených gólů podle pozic
         public SeriesCollection IndexyPozic { get; set; }
 
-        /// <summary>
-        /// Popisky X-osy pro sloupcový graf
-        /// </summary>
+        // Textové popisky pozic pro osu X
         public List<string> NazvyPozic { get; set; }
 
-        /// <summary>
-        /// Konstruktor okna grafů, načítá data z databáze a vytváří obě datové série
-        /// </summary>
         public GrafyOkno(HlavniOkno hlavniOkno)
         {
             InitializeComponent();
             this.hlavniOkno = hlavniOkno;
 
-            // Koláčový graf: hráči vs trenéři 
             int pocetHracu = DatabaseHraci.GetPocetHracu();
             int pocetTreneru = DatabaseTreneri.GetPocetTreneru();
 
-            // Zabrání úplně prázdnému grafu
             if (pocetHracu == 0 && pocetTreneru == 0)
-                pocetHracu = 1;
+            {
+                MessageBox.Show(
+                    "V databázi nejsou žádná data. Vložte hráče nebo trenéra, aby bylo možné zobrazit grafy.",
+                    "Žádná data",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
 
+                this.Close();
+                hlavniOkno.Show();
+                return;
+            }
+
+            // Vytvoření datové kolekce pro koláčový graf
             PomeryHracuTreneru = new SeriesCollection
             {
                 new PieSeries
@@ -67,40 +64,56 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 }
             };
 
-            // Sloupcový graf: procenta gólů podle pozic
+            // Textové názvy pozic pro osu X grafu
             NazvyPozic = new List<string> { "Brankář", "Obránce", "Záložník", "Útočník" };
+
+            // Číselné ID pozic podle databázového číselníku
+            int[] idPozic = { 1, 2, 3, 4 };
+
+            // Kolekce hodnot pro sloupcový graf (procenta gólů)
             var hodnotyPozic = new ChartValues<double>();
 
+            // Volání PL/SQL funkce pro každou pozici a načtení procentuálního podílu
             try
             {
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
 
-                    foreach (string pozice in NazvyPozic)
+                    for (int i = 0; i < idPozic.Length; i++)
                     {
                         using (var cmd = new OracleCommand("PKG_HRACI.F_GOLY_PROCENTA_POZICE", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
 
+                            // Návratová hodnota funkce
                             cmd.Parameters.Add("return_value", OracleDbType.Double, ParameterDirection.ReturnValue);
-                            cmd.Parameters.Add("p", OracleDbType.Varchar2).Value = pozice;
+
+                            // Parametr funkce představující ID pozice
+                            cmd.Parameters.Add("p_pozice", OracleDbType.Int32).Value = idPozic[i];
 
                             cmd.ExecuteNonQuery();
 
-                            double hodnota = Convert.ToDouble(cmd.Parameters["return_value"].Value);
+                            // Převod OracleDecimal na double
+                            double hodnota = ((Oracle.ManagedDataAccess.Types.OracleDecimal)
+                                cmd.Parameters["return_value"].Value).ToDouble();
+
                             hodnotyPozic.Add(hodnota);
                         }
-
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Chyba při načtení dat pro graf gólů podle pozic\n{ex.Message}",
-                    "Chyba databáze", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    $"Chyba při načtení dat pro graf gólů podle pozic:\n{ex.Message}",
+                    "Chyba databáze",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
 
+            // Sestavení sloupcového grafu ze získaných hodnot
             IndexyPozic = new SeriesCollection
             {
                 new ColumnSeries
@@ -113,12 +126,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 }
             };
 
+            // Nastavení datového kontextu pro binding do XAML
             DataContext = this;
         }
 
-        /// <summary>
-        /// Zavře okno a vrátí uživatele do hlavního okna
-        /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

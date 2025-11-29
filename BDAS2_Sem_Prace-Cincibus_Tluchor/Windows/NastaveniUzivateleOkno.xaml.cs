@@ -1,4 +1,5 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class NastaveniUzivateleOkno : Window
     {
         private HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
 
         /// <summary>
         /// Kolekce uživatelů pro DataGrid
@@ -28,6 +30,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             InitializeComponent();
             NactiUzivatele();
+            DataContext = this;
         }
 
         /// <summary>
@@ -71,7 +74,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         uzivatel.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
                         uzivatel.RodneCislo = "";
-
 
                     // Poslední přihlášení
                     if (reader["POSLEDNIPRIHLASENI"] != DBNull.Value)
@@ -125,19 +127,22 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             NactiUzivatele(); // Obnoví seznam
         }
 
+        /// <summary>
+        /// Odebere vybraného uživatele z databáze
+        /// Kontroluje také, aby nebyl odstraněn právě přihlášený (emulovaný) účet
+        /// </summary>
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
             Uzivatel vybranyUzivatel = dgUzivatele.SelectedItem as Uzivatel;
 
-            // 1) kontrola výběru
+            // Kontrola výběru
             if (vybranyUzivatel == null)
             {
-                MessageBox.Show("Vyberte uživatele, kterého chcete odebrat.",
-                    "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Vyberte uživatele, kterého chcete odebrat", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // 2) kontrola, zda se nesnažíš smazat aktuálně emulovaný účet
+            // Kontrola, zda se nesnažíš smazat aktuálně emulovaný účet
             Uzivatel prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
 
             if (prihlaseny != null &&
@@ -150,7 +155,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-            // 3) potvrzení smazání
+            // Potvrzení smazání
             var potvrzeni = MessageBox.Show(
                 $"Opravdu chcete odebrat uživatele {vybranyUzivatel.UzivatelskeJmeno}?",
                 "Potvrzení odstranění",
@@ -162,7 +167,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-            // 4) provedení smazání
+            // Provedení smazání
             try
             {
                 using (var conn = DatabaseManager.GetConnection())
@@ -211,7 +216,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             if (vybrany == null)
             {
-                MessageBox.Show("Vyberte uživatele, kterého chcete upravit.","Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Vyberte uživatele, kterého chcete upravit.", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -251,5 +256,42 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 dgUzivatele.Focusable = true;
             }
         }
+
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiUzivatelskeUcty dialog =
+                new DialogNajdiUzivatelskeUcty(UzivateleData);
+
+            bool? vysledek = dialog.ShowDialog();
+
+            if (vysledek == true)
+            {
+                if (!dialog.VyfiltrovaniUzivatele.Any())
+                {
+                    MessageBox.Show("Nenašly se žádné záznamy",
+                        "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show(
+                    "Vyhledávací mód je aktivní. Pro návrat stiskněte CTRL + X",
+                    "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                dgUzivatele.ItemsSource = new ObservableCollection<Uzivatel>(dialog.VyfiltrovaniUzivatele);
+                jeVyhledavaniAktivni = true;
+            }
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (jeVyhledavaniAktivni && Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X)
+            {
+                dgUzivatele.ItemsSource = UzivateleData;
+                jeVyhledavaniAktivni = false;
+                e.Handled = true;
+            }
+        }
+
+
     }
 }

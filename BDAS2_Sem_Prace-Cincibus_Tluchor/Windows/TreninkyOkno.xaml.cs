@@ -52,7 +52,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             RodneCisloSloupec.Visibility = Visibility.Visible;
 
             // Pokud je to hráč, uživatel nebo trenér tyto sloupce a funkce tlačítek schováme
-            if (role == "hrac" || role == "trener" || role == "uzivatel")
+            if (role == "hrac" || role == "host" )
             {
                 RodneCisloSloupec.Visibility = Visibility.Collapsed;
 
@@ -118,6 +118,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             if (vybranyTrenink == null)
             {
                 MessageBox.Show("Prosím vyberte trénink, který chcete editovat! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "host")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
                 return;
             }
 
