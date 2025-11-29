@@ -11,6 +11,10 @@ using System.Windows.Input;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 {
+    /// <summary>
+    /// Okno pro správu trenérů
+    /// Umožňuje přidávání, mazání, úpravu, filtrování a export trenérů
+    /// </summary>
     public partial class TreneriOkno : Window
     {
         private HlavniOkno hlavniOkno;
@@ -29,6 +33,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             NastavViditelnostSloupcuProUzivatele();
         }
 
+        /// <summary>
+        /// Umožní export TOP 3 trenérů do textového souboru a uložit na plochu PC
+        /// </summary>
         private void BtnExportTopTreneri_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -54,6 +61,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
+        /// <summary>
+        /// Skryje rodné číslo a telefon trenérům a hráčům
+        /// Uživatelům bez oprávnění zakáže přidávání, mazání a vyhledávání
+        /// </summary>
         private void NastavViditelnostSloupcuProUzivatele()
         {
             // Zjistíme, kdo je přihlášený
@@ -80,6 +91,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
+        /// <summary>
+        /// Zavře okno trenérů a vrátí uživatele do hlavního menu
+        /// Aktualizuje počet trenérů v hlavním okně
+        /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -128,12 +143,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
+        /// <summary>
+        /// Otevře dialog pro přidání nového trenéra
+        /// </summary>
         private void BtnPridejDialog_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejTrenera dialogPridejTrenera = new DialogPridejTrenera(TreneriData);
             dialogPridejTrenera.ShowDialog();
         }
 
+        /// <summary>
+        /// Otevře dialog pro editaci trenéra při dvojkliku na záznam
+        /// </summary>
         private void DgTreneri_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
@@ -150,6 +171,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
         }
 
+        /// <summary>
+        /// Odebere vybraného trenéra po potvrzení od uživatele
+        /// Odstraní ho z databáze i z DataGridu
+        /// </summary>
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
 
@@ -168,7 +193,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 MessageBoxImage.Question);
 
             if (potvrzeni != MessageBoxResult.Yes)
+            {
                 return;
+            }
 
             // Smazání z databáze
             try
@@ -206,6 +233,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
+        /// <summary>
+        /// Načte trenéry z databáze pomocí view TRENERI_VIEW
+        /// Naplní kolekci TreneriData pro DataGrid
+        /// </summary>
         public static void NactiTrenery()
         {
             try
@@ -223,17 +254,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 {
                     Trener trener = new Trener();
 
-                    //// ID člena klubu (NOT NULL) - pokud je NULL, nastavíme 0
-                    //if (reader["IDCLENKLUBU"] != DBNull.Value)
-                    //    trener.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
-                    //else
-                    //    trener.IdClenKlubu = 0;
-
-                    // Rodné číslo (NOT NULL) 
+                    // Rodné číslo (NOT NULL)
                     if (reader["RODNE_CISLO"] != DBNull.Value)
-                        trener.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                        trener.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
-                        trener.RodneCislo = 0L;
+                        trener.RodneCislo = "";
 
                     // Jméno (NOT NULL)
                     if (reader["JMENO"] != DBNull.Value)
@@ -282,7 +307,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         }
 
         /// <summary>
-        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu
         /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
         /// </summary>
         /// <param name="sender">sender</param>

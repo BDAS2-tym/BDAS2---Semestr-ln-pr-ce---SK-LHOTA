@@ -1,9 +1,10 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions;
+using System.Windows.Controls;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
@@ -30,43 +31,77 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             this.editovanyHrac = editovanyHrac;
             this.hraciOkno = hraciOkno;
 
-        // Naplnění seznamu pozic
-        cbPozice.ItemsSource = new List<string> { "Brankář", "Obránce", "Záložník", "Útočník" };
+            //  Naplnění comboboxu pozicemi pro hráče
+            List<Pozice> poziceList = new List<Pozice>();
+            poziceList.Add(new Pozice { Id = 1, Nazev = "Brankář" });
+            poziceList.Add(new Pozice { Id = 2, Nazev = "Obránce" });
+            poziceList.Add(new Pozice { Id = 3, Nazev = "Záložník" });
+            poziceList.Add(new Pozice { Id = 4, Nazev = "Útočník" });
 
-            // Načti základní údaje hráče 
+            cbPozice.ItemsSource = poziceList;
+            cbPozice.DisplayMemberPath = "Nazev"; //zobrazit v ComboBoxu – zde textový název pozice
+            cbPozice.SelectedValuePath = "Id"; // Určuje, jaká hodnota se má vracet jako SelectedValue – zde ID pozice
+            cbPozice.SelectedIndex = 0;
+
+            // Načtení údajů hráče
             tboxRodneCislo.Text = editovanyHrac.RodneCislo;
             tboxJmeno.Text = editovanyHrac.Jmeno;
             tboxPrijmeni.Text = editovanyHrac.Prijmeni;
             tboxTelCislo.Text = editovanyHrac.TelefonniCislo;
-            cbPozice.SelectedItem = editovanyHrac.PoziceNaHristi;
+
             iudPocetGolu.Value = editovanyHrac.PocetVstrelenychGolu;
             iudPocetZlutychKaret.Value = editovanyHrac.PocetZlutychKaret;
             iudPocetCervenychKaret.Value = editovanyHrac.PocetCervenychKaret;
 
-            // ULOŽÍME PŮVODNÍ RODNÉ ČÍSLO
+            // Vybrání pozice editovaného hráče do comboboxu
+            foreach (Pozice p in poziceList)
+            {
+                if (p.Nazev == editovanyHrac.PoziceNaHristi)
+                {
+                    cbPozice.SelectedItem = p;
+                    break;
+                }
+            }
+
+            // Uložení původního Rodného čísla pro případ změny
             puvodniRodneCislo = editovanyHrac.RodneCislo;
 
-            // Načti opatření (pokud má)
-            bool maOpatreni = editovanyHrac.DelkaTrestu > 0 || !string.IsNullOrEmpty(editovanyHrac.DuvodOpatreni);
+            // Disciplinární opatření
+            bool maOpatreni = false;
+
+            if (editovanyHrac.DelkaTrestu > 0)
+            {
+                maOpatreni = true;
+            }
+
+            if (!string.IsNullOrEmpty(editovanyHrac.DuvodOpatreni))
+            {
+                maOpatreni = true;
+            }
 
             if (maOpatreni)
             {
                 chkMaOpatreni.IsChecked = true;
                 spOpatreni.Visibility = Visibility.Visible;
 
-                // Datum opatření
                 if (editovanyHrac.DatumOpatreni == DateTime.MinValue)
+                {
                     dpDatumOpatreni.SelectedDate = DateTime.Today;
+                }
                 else
+                {
                     dpDatumOpatreni.SelectedDate = editovanyHrac.DatumOpatreni;
+                }
 
-                // Délka trestu
                 if (editovanyHrac.DelkaTrestu > 0)
+                {
                     iudDelkaTrestu.Value = editovanyHrac.DelkaTrestu;
+                }
                 else
+                {
                     iudDelkaTrestu.Value = 1;
+                }
 
-                // Důvod
                 tboxDuvodOpatreni.Text = editovanyHrac.DuvodOpatreni;
             }
             else
@@ -78,7 +113,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
         /// <summary>
         /// Zobrazí panel pro disciplinární opatření
-        /// pokud uživatel zaškrtne políčko "Má opatření"
+        /// Pokud uživatel zaškrtne políčko "Má opatření"
         /// </summary>
         private void chkMaOpatreni_Checked(object sender, RoutedEventArgs e)
         {
@@ -112,13 +147,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 string prijmeni = tboxPrijmeni.Text.Trim();
                 string telCislo = tboxTelCislo.Text.Trim();
 
-                string pozice = "";
-                if (cbPozice.SelectedItem != null)
-                {
-                    pozice = cbPozice.SelectedItem.ToString();
-                }
+                editovanyHrac.IdPozice = (int)cbPozice.SelectedValue;
+                editovanyHrac.PoziceNaHristi = ((Pozice)cbPozice.SelectedItem).Nazev;
 
-                // Použití centralizovaných validačních metod
+                // Použití validačních metod
                 Validator.ValidujRodneCislo(rodneCislo);
                 Validator.ValidujJmeno(jmeno);
                 Validator.ValidujPrijmeni(prijmeni);
@@ -137,10 +169,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     Validator.ValidujDatum(dpDatumOpatreni.SelectedDate, "Datum opatření");
                     Validator.ValidujCeleCislo(iudDelkaTrestu.Value.ToString(), "Délka trestu");
 
-                    if (string.IsNullOrWhiteSpace(tboxDuvodOpatreni.Text))
-                    {
-                        throw new Exception("Důvod opatření nesmí být prázdný.");
-                    }
                 }
 
                 // Přepsání hodnot
@@ -148,7 +176,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 editovanyHrac.Jmeno = jmeno;
                 editovanyHrac.Prijmeni = prijmeni;
                 editovanyHrac.TelefonniCislo = telCislo;
-                editovanyHrac.PoziceNaHristi = pozice;
                 editovanyHrac.PocetVstrelenychGolu = (int)iudPocetGolu.Value;
                 editovanyHrac.PocetZlutychKaret = (int)iudPocetZlutychKaret.Value;
                 editovanyHrac.PocetCervenychKaret = (int)iudPocetCervenychKaret.Value;
@@ -189,7 +216,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
-
+        /// <summary>
+        /// Zavře dialogové okno pro editaci hráče a vrátí uživatele zpět do okna HraciOkno
+        /// </summary>
         private void BtnUkonci_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

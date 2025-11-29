@@ -33,7 +33,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         }
 
         /// <summary>
-        /// Otevře dialogové okno s TOP 3 střelci.
+        /// Otevře dialogové okno s TOP 3 střelci
         /// </summary>
         private void BtnTopStrelci_Click(object sender, RoutedEventArgs e)
         {
@@ -71,10 +71,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
-
         /// <summary>
         /// Zavře toto okno a vrátí uživatele zpět do hlavního menu
-        /// Aktualizuje počítadlo hráčů v hlavním okně
+        /// Aktualizuje counter hráčů v hlavním okně
         /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
@@ -91,7 +90,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             DialogPridejHrace dialogPridejHrace = new DialogPridejHrace(HraciData);
             dialogPridejHrace.ShowDialog();
-
         }
 
         /// <summary>
@@ -165,8 +163,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             if (vybranyHrac == null)
             {
-                MessageBox.Show(
-                    "Prosím, vyberte hráče, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Prosím, vyberte hráče, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -176,16 +173,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 MessageBoxImage.Question);
 
             if (potvrzeni != MessageBoxResult.Yes)
+            {
                 return;
+            }
 
-            // smazání z databáze
+            // Smazání z databáze
             try
             {
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
 
-                    // Nastavení přihlášeného uživatele pro logování
+                    // Nastavení přihlášeného uživatele pro log table
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
                     // Odebrání hráče
@@ -196,8 +195,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
                 // Úspěch
                 MessageBox.Show(
-                    $"Hráč {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni} byl úspěšně odebrán.",
-                    "Úspěch",
+                    $"Hráč {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni} byl úspěšně odebrán.", "Úspěch",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -232,12 +230,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     Hrac hrac = new Hrac();
 
                     // RODNE_CISLO - NOT NULL
-                    // RODNE_CISLO - NOT NULL
                     if (reader["RODNE_CISLO"] != DBNull.Value)
                         hrac.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
                         hrac.RodneCislo = "";
-
 
                     // JMENO - NOT NULL
                     if (reader["JMENO"] != DBNull.Value)
@@ -275,11 +271,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     else
                         hrac.PocetCervenychKaret = 0;
 
-                    // NAZEV_POZICE - číselník, NOT NULL
+                    // Pozice hráče z číselníku (text)
                     if (reader["POZICENAHRISTI"] != DBNull.Value)
                         hrac.PoziceNaHristi = reader["POZICENAHRISTI"].ToString();
                     else
-                        hrac.PoziceNaHristi = "Neznámá"; // default, pokud by bylo NULL
+                        hrac.PoziceNaHristi = "Neznámá";
 
                     // DATUMOPATRENI
                     if (reader["DATUMOPATRENI"] != DBNull.Value)

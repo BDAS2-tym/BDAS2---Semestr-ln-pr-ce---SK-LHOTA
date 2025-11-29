@@ -91,15 +91,20 @@
                 <TextBlock Text="Pozice na hřišti:" Grid.Row="4" Grid.Column="0"
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-                <ComboBox x:Name="cbPozice" Grid.Row="4" Grid.Column="1"
-                          Margin="50,18,50,18" MaxDropDownHeight="230"
-                          FontFamily="Century Gothic" FontSize="12"/>
+                <ComboBox x:Name="cbPozice"
+                            Grid.Row="4" Grid.Column="1"
+                            Margin="50,18,50,18"
+                            MaxDropDownHeight="230"
+                            FontFamily="Century Gothic"
+                            FontSize="12"
+                            />
+
 
                 <!-- Góly -->
                 <TextBlock Text="Počet vstřelených gólů:" Grid.Row="5" Grid.Column="0"
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-                <xctk:IntegerUpDown x:Name="iudPocetGolu" Grid.Row="5" Grid.Column="1"
+                <xctk:IntegerUpDown x:Name="iudPocetGolu" Value="0" Grid.Row="5" Grid.Column="1"
                                     Margin="50,18,50,18"
                                     Minimum="0" Maximum="100"
                                     FontFamily="Century Gothic" FontSize="12"/>
@@ -108,7 +113,7 @@
                 <TextBlock Text="Počet žlutých karet:" Grid.Row="6" Grid.Column="0"
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-                <xctk:IntegerUpDown x:Name="iudPocetZlutychKaret" Grid.Row="6" Grid.Column="1"
+                <xctk:IntegerUpDown x:Name="iudPocetZlutychKaret" Value="0" Grid.Row="6" Grid.Column="1"
                                     Margin="50,18,50,18"
                                     Minimum="0" Maximum="100"
                                     FontFamily="Century Gothic" FontSize="12"/>
@@ -117,7 +122,7 @@
                 <TextBlock Text="Počet červených karet:" Grid.Row="7" Grid.Column="0"
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-                <xctk:IntegerUpDown x:Name="iudPocetCervenychKaret" Grid.Row="7" Grid.Column="1"
+                <xctk:IntegerUpDown x:Name="iudPocetCervenychKaret" Value="0" Grid.Row="7" Grid.Column="1"
                                     Margin="50,17,50,17"
                                     Minimum="0" Maximum="100"
                                     FontFamily="Century Gothic" FontSize="12"/>

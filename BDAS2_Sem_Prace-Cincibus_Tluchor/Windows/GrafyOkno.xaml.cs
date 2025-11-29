@@ -1,11 +1,12 @@
-﻿using LiveCharts;
+﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using LiveCharts;
 using LiveCharts.Wpf;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows;
 using System.Windows.Media;
-using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
-using Oracle.ManagedDataAccess.Client;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
@@ -78,14 +79,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                     foreach (string pozice in NazvyPozic)
                     {
-                        using (var cmd = new OracleCommand("SELECT PKG_HRACI.F_GOLY_PROCENTA_POZICE(:p) FROM DUAL", conn))
+                        using (var cmd = new OracleCommand("PKG_HRACI.F_GOLY_PROCENTA_POZICE", conn))
                         {
-                            cmd.Parameters.Add("p", pozice);
-                            object result = cmd.ExecuteScalar();
+                            cmd.CommandType = CommandType.StoredProcedure;
 
-                            double hodnota = result == DBNull.Value ? 0 : Convert.ToDouble(result);
+                            cmd.Parameters.Add("return_value", OracleDbType.Double, ParameterDirection.ReturnValue);
+                            cmd.Parameters.Add("p", OracleDbType.Varchar2).Value = pozice;
+
+                            cmd.ExecuteNonQuery();
+
+                            double hodnota = Convert.ToDouble(cmd.Parameters["return_value"].Value);
                             hodnotyPozic.Add(hodnota);
                         }
+
                     }
                 }
             }

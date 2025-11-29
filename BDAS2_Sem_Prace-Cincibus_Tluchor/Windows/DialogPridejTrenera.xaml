@@ -72,8 +72,22 @@
 
             <!-- Počet let praxe -->
             <TextBlock x:Name="tblockPraxe" Grid.Row="6" Grid.Column="0" Text="Počet let praxe:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-            <xctk:IntegerUpDown x:Name="iudPraxe" Grid.Row="6" Grid.Column="1" Margin="50,18,50,18"
-                Minimum="0" Maximum="100" Value="0" ButtonSpinnerWidth="19" ClipValueToMinMax="True" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" IsUndoEnabled="False" Text="" TextAlignment="Right" UpdateValueOnEnterKey="True" IsTabStop="False" TabIndex="7" FontFamily="Century Gothic" FontSize="12"/>
+            <xctk:IntegerUpDown 
+                x:Name="iudPraxe"
+                Grid.Row="6"
+                Grid.Column="1"
+                Margin="50,18,50,18"
+                Minimum="1"
+                Maximum="60"
+                Value="0"
+                ClipValueToMinMax="True"
+                DefaultValue="1"
+                DisplayDefaultValueOnEmptyText="True"
+                TextAlignment="Right"
+                IsReadOnly="False"
+                FontFamily="Century Gothic"
+                FontSize="12"/>
+
         </Grid>
 
         <!-- Tlačítka -->

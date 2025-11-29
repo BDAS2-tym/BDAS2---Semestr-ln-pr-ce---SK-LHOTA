@@ -55,13 +55,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     // Získání SQL SELECT pohledu
                     systemovyObjekt.ZdrojovyKod = DatabaseSystemovyKatalog.GetViewSql(conn, systemovyObjekt.NazevObjektu);
 
-                    // VIEW NEMÁ PL/SQL KÓD - řádky kódu = 0
+                    // VIEW nemá PL/SQL KÓD - řádky kódu = 0
                     systemovyObjekt.PocetRadkuKodu = 0;
 
                     // Počet záznamů ve view
                     systemovyObjekt.PocetRadku = GetCountFromView(conn, systemovyObjekt.NazevObjektu);
                 }
-
 
                 // Indexy
                 else if (systemovyObjekt.TypObjektu == "INDEX")
@@ -153,8 +152,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             dgSloupce.ItemsSource = systemovyObjekt.Sloupce;
         }
-
-
 
         /// <summary>
         /// Vrátí počet záznamů ve View pomocí SELECT COUNT(*)

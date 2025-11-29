@@ -8,14 +8,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
     public class Trener : ClenKlubu
     {
         /// <summary>
-        /// Jedinečné ID člena klubu (trenéra)
-        /// </summary>
-        //public int IdClenKlubu { get; set; }
-
-        /// <summary>
         /// Rodné číslo trenéra
         /// </summary>
-        public long RodneCislo { get; set; }
+        public string RodneCislo { get; set; }
 
         /// <summary>
         /// Jméno trenéra
@@ -53,7 +48,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         public int PocetLetPraxe { get; set; }
 
         /// <summary>
-        /// Výchozí konstruktor
+        /// Bezparametrický konstruktor
         /// </summary>
         public Trener() { }
 
@@ -68,13 +63,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <param name="trenerskaLicence">Trenérská licence</param>
         /// <param name="specializace">Specializace trenéra</param>
         /// <param name="pocetLetPraxe">Počet let praxe trenéra</param>
-        public Trener(string jmeno, string prijmeni, long rodneCislo, string typClena,
+        public Trener(string jmeno, string prijmeni, string rodneCislo,
             string telefonniCislo, string trenerskaLicence, string specializace, int pocetLetPraxe)
         {
             this.Jmeno = jmeno;
             this.Prijmeni = prijmeni;
             this.RodneCislo = rodneCislo;
-            this.TypClena = typClena;
             this.TelefonniCislo = telefonniCislo;
             this.TrenerskaLicence = trenerskaLicence;
             this.Specializace = specializace;

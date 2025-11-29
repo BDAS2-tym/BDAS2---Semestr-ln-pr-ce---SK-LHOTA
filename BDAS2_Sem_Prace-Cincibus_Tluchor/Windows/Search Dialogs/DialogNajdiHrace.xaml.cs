@@ -104,7 +104,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
             // Rodné číslo
             if (!string.IsNullOrWhiteSpace(rodneCislo))
             {
-                // validace rodného čísla
+                // Validace rodného čísla
                 Validator.ValidujRodneCislo(rodneCislo);
 
                 vysledek = vysledek.Where(h =>
@@ -116,7 +116,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
             // Jméno
             if (!string.IsNullOrWhiteSpace(jmeno))
             {
-                // validace jména
+                // Validace jména
                 Validator.ValidujJmeno(jmeno);
 
                 vysledek = vysledek.Where(h =>

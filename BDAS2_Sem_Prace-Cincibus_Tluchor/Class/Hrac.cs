@@ -3,11 +3,26 @@ using System.Collections.ObjectModel;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+
+    /// <summary>
+    /// Reprezentuje jednu pozici hráče z číselníku (např. Brankář, Obránce, Záložnik, Útočník)
+    /// Tato třída se používá do ComboBoxu při výběru pozice
+    /// </summary>
+    public class Pozice
+    {
+        public int Id { get; set; }
+        public string Nazev { get; set; }
+    }
+
     /// <summary>
     /// Reprezentuje hráče klubu
     /// </summary>
     public class Hrac : ClenKlubu
     {
+        /// <summary>
+        /// Cizí klíč – ID pozice z číselníku POZICE_HRACE
+        /// </summary>
+        public int IdPozice { get; set; }
 
         /// <summary>
         /// Rodné číslo hráče
@@ -40,7 +55,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         public int PocetVstrelenychGolu { get; set; }
 
         /// <summary>
-        /// Pozice hráče na hřišti
+        /// Text názvu pozice pro DataGrid (z view – Brankář/Obránce/Záložník/Útočník)
         /// </summary>
         public string PoziceNaHristi { get; set; }
 
@@ -89,7 +104,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <param name="pocetCervenychKaret">Počet červených karet</param>
         /// <param name="poziceNaHristi">Pozice hráče na hřišti přes combobox v dialogu přidej</param>
         public Hrac(string rodneCislo, string jmeno, string prijmeni, string telefonniCislo, int pocetVstrelenychGolu, 
-            int pocetZlutychKaret, int pocetCervenychKaret, string poziceNaHristi)
+            int pocetZlutychKaret, int pocetCervenychKaret, int idPozice)
         {
   
             this.RodneCislo = rodneCislo;
@@ -97,9 +112,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             this.Prijmeni = prijmeni;
             this.TelefonniCislo = telefonniCislo;
             this.PocetVstrelenychGolu = pocetVstrelenychGolu;
-            this.PoziceNaHristi = poziceNaHristi;
+            
             this.PocetZlutychKaret = pocetZlutychKaret;
             this.PocetCervenychKaret = pocetCervenychKaret;
+            this.IdPozice = idPozice;     
             this.TypClena = "Hrac"; // Defaultně "Hrac"
         }
 
@@ -107,5 +123,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         {
             return $"{Jmeno} {Prijmeni}   RČ: {RodneCislo}";
         }
+
     }
 }

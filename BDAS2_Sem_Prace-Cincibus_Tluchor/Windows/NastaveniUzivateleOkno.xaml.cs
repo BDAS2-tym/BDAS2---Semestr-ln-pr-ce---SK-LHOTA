@@ -67,11 +67,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     else
                         uzivatel.Email = "";
 
-                    // Rodné číslo
                     if (reader["RODNE_CISLO"] != DBNull.Value)
                         uzivatel.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
                         uzivatel.RodneCislo = "";
+
 
                     // Poslední přihlášení
                     if (reader["POSLEDNIPRIHLASENI"] != DBNull.Value)
@@ -125,49 +125,70 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             NactiUzivatele(); // Obnoví seznam
         }
 
-        /// <summary>
-        /// Odstraní vybraného uživatele po potvrzení
-        /// </summary>
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
             Uzivatel vybranyUzivatel = dgUzivatele.SelectedItem as Uzivatel;
 
+            // 1) kontrola výběru
             if (vybranyUzivatel == null)
             {
-                MessageBox.Show("Vyberte uživatele, kterého chcete odebrat.", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Vyberte uživatele, kterého chcete odebrat.",
+                    "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            var potvrzeni = MessageBox.Show(
-                $"Opravdu chcete odebrat uživatele {vybranyUzivatel.UzivatelskeJmeno}?", "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            // 2) kontrola, zda se nesnažíš smazat aktuálně emulovaný účet
+            Uzivatel prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
 
-            if (potvrzeni != MessageBoxResult.Yes) 
+            if (prihlaseny != null &&
+                vybranyUzivatel.UzivatelskeJmeno == prihlaseny.UzivatelskeJmeno)
+            {
+                MessageBox.Show(
+                    "Nelze odstranit účet, který je právě aktivní (emulovaný)!",
+                    "Chyba", MessageBoxButton.OK, MessageBoxImage.Error
+                );
+                return;
+            }
+
+            // 3) potvrzení smazání
+            var potvrzeni = MessageBox.Show(
+                $"Opravdu chcete odebrat uživatele {vybranyUzivatel.UzivatelskeJmeno}?",
+                "Potvrzení odstranění",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (potvrzeni != MessageBoxResult.Yes)
             {
                 return;
             }
 
+            // 4) provedení smazání
             try
             {
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
 
-                    // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-
-                    // Odebrání uživatele
                     DatabaseRegistrace.DeleteUzivatel(conn, vybranyUzivatel);
 
                     UzivateleData.Remove(vybranyUzivatel);
                 }
 
-                MessageBox.Show($"Uživatel {vybranyUzivatel.UzivatelskeJmeno} byl úspěšně odebrán.", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(
+                    $"Uživatel {vybranyUzivatel.UzivatelskeJmeno} byl úspěšně odebrán.",
+                    "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Chyba při odstraňování uživatele:\n{ex.Message}", "Chyba databáze", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    $"Chyba při odstraňování uživatele:\n{ex.Message}",
+                    "Chyba databáze",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
+
 
         /// <summary>
         /// Metoda slouží k vrácení se na okno nastavení

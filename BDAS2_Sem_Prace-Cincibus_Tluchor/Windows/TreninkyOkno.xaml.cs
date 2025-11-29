@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -199,11 +200,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 {
                     TreninkView trenink = new TreninkView();
 
-                    // Rodné číslo (NOT NULL) 
+                    // RODNE_CISLO - NOT NULL
                     if (reader["RODNE_CISLO"] != DBNull.Value)
-                        trenink.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                        trenink.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
-                        trenink.RodneCislo = 0L;
+                        trenink.RodneCislo = "";
 
                     // Příjmení (NOT NULL) 
                     if (reader["PRIJMENI"] != DBNull.Value)

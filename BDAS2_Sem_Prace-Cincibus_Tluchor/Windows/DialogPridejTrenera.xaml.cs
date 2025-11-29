@@ -13,21 +13,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// DialogPridejTrenera.xaml
+    /// Dialog pro přidání nového trenéra
+    /// Umožňuje vyplnit osobní údaje, licenci a praxi a vložit trenéra do databáze
     /// </summary>
     public partial class DialogPridejTrenera : Window
     {
-
+      
         private ObservableCollection<Trener> TreneriData;
 
         public DialogPridejTrenera(ObservableCollection<Trener> TreneriData)
         {
             InitializeComponent();
             this.TreneriData = TreneriData;
+
+            // Výchozí hodnota počet let praxe
+            iudPraxe.Value = 1;
         }
 
         /// <summary>
@@ -43,82 +48,75 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             tboxTelCislo.Clear();
             tboxLicence.Clear();
             tboxSpecializace.Clear();
-            iudPraxe.Value = 0;
+            iudPraxe.Value = 1;
         }
 
         /// <summary>
-        /// Ověří vstupní data a pokusí se vytvořit a přidat nového trenéra
+        /// Ověří vstupní data a pokusí se vytvořit a přidat nového trenéra do databáze a datagridu
         /// </summary>
         private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Validace vstupu
-                if (!long.TryParse(tboxRodneCislo.Text, out long rodneCislo))
-                {
-                    MessageBox.Show("Rodné číslo může obsahovat pouze číslice ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error
-                    );
-                    return;
-                }
-                string jmeno = tboxJmeno.Text;
-                string prijmeni = tboxPrijmeni.Text;
-                string telCislo = tboxTelCislo.Text;
-                string licence = tboxLicence.Text;
-                string specializace = tboxSpecializace.Text; // Specializace může být prázdná
-                int praxe = (int)iudPraxe.Value; // Hodnota může být null
+                // Vstupy
+                string rodneCislo = tboxRodneCislo.Text.Trim();
+                string jmeno = tboxJmeno.Text.Trim();
+                string prijmeni = tboxPrijmeni.Text.Trim();
+                string telCislo = tboxTelCislo.Text.Trim();
+                string licence = tboxLicence.Text.Trim();
+                string specializace = tboxSpecializace.Text.Trim(); // nepovinné
+                string praxeText = iudPraxe.Value.ToString();
 
-                if (string.IsNullOrWhiteSpace(jmeno) || string.IsNullOrWhiteSpace(prijmeni) || string.IsNullOrWhiteSpace(telCislo) || 
-                    string.IsNullOrWhiteSpace(licence))
-                {
-                    MessageBox.Show("Prosím vyplňte všechna povinná pole správně ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                // Validace
+                Validator.ValidujRodneCislo(rodneCislo);
+                Validator.ValidujJmeno(jmeno);
+                Validator.ValidujPrijmeni(prijmeni);
+                Validator.ValidujTelefon(telCislo);
+                Validator.ValidujTrenerskouLicenci(licence);
+                Validator.ValidujPocetLetPraxeTrenera(praxeText);
+                Validator.ValidujSpecializaciTrenera(specializace);
 
-                if (!telCislo.All(char.IsDigit))
-                {
-                    MessageBox.Show("Telefonní číslo může obsahovat pouze číslice! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // Kontrola záporných hodnot počet let praxe
-                if (praxe < 0)
-                {
-                    MessageBox.Show("Počet let praxe je povinný údaj a nesmí být záporný! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error
-                    );
-                    return;
-                }
-
-                // Délka rodného čísla (10 číslic)
-                if (rodneCislo.ToString().Length != 10)
-                {
-                    MessageBox.Show("Rodné číslo musí mít 10 číslic bez lomítka! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // Vytvoření nového trenéra
-                Trener novyTrener = new Trener(jmeno, prijmeni, rodneCislo, "Trener", telCislo, licence, specializace, praxe);
+                int praxe = (int)iudPraxe.Value;
 
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
 
-                    // Nastavení přihlášeného uživatele pro logování
+                    // Kontrola duplicity rodného čísla
+                    if (Validator.ExistujeRodneCislo(conn, rodneCislo))
+                    {
+                        MessageBox.Show("Trenér s tímto rodným číslem již existuje!", "Duplicitní rodné číslo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                    // Přidání trenéra
+                    // Vytvoření trenéra
+                    Trener novyTrener = new Trener(
+                        jmeno,
+                        prijmeni,
+                        rodneCislo,        
+                        telCislo,
+                        licence,
+                        specializace,
+                        praxe
+                    );
+
+                    // Vložení do databáze
                     DatabaseTreneri.AddTrener(conn, novyTrener);
 
+                    // Vložení do datagridu
                     TreneriData.Add(novyTrener);
                 }
 
-                MessageBox.Show("Trenér byl úspěšně přidán.", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Trenér byl úspěšně přidán", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Došlo k chybě při přidávání trenéra: {ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Došlo k chybě při přidávání trenéra:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
     }
 }
