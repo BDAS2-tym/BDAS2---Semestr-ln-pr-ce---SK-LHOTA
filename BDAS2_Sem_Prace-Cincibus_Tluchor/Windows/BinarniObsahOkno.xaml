@@ -202,16 +202,31 @@
 
                     <!-- Sloupce -->
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Název souboru" Binding="{Binding NazevSouboru}" Width="2*" />
-                        <DataGridTextColumn Header="Typ" Binding="{Binding TypSouboru}" Width="1*" />
-                        <DataGridTextColumn Header="Přípona" Binding="{Binding PriponaSouboru}" Width="0.8*" />
-                        <DataGridTextColumn Header="Datum nahrání" Binding="{Binding DatumNahrani, StringFormat=d. MM. yyyy HH:mm}" Width="1.5*" />
-                        <DataGridTextColumn Header="Datum změny" Binding="{Binding DatumModifikace, StringFormat=d. MM. yyyy HH:mm}" Width="1.5*" />
-                        <DataGridTextColumn Header="Operace" Binding="{Binding Operace}" Width="1*" />
-                        <DataGridTextColumn Header="Uživatel" Binding="{Binding Uzivatel}" Width="1*" />
+                        <DataGridTextColumn Header="Název souboru" Binding="{Binding NazevSouboru}" ElementStyle="{StaticResource CenterCellStyle}" Width="2*" />
+                        <DataGridTextColumn Header="Typ" Binding="{Binding TypSouboru}" Width="1*" ElementStyle="{StaticResource CenterCellStyle}" />
+                        <DataGridTextColumn Header="Přípona" Binding="{Binding PriponaSouboru}" Width="0.8*" ElementStyle="{StaticResource CenterCellStyle}" />
+                        <DataGridTextColumn Header="Datum nahrání" Binding="{Binding DatumNahrani, StringFormat=d. MM. yyyy HH:mm}" Width="1.5*" ElementStyle="{StaticResource CenterCellStyle}" />
+                        <DataGridTextColumn Header="Datum změny" Binding="{Binding DatumModifikace, StringFormat=d. MM. yyyy HH:mm}" Width="1.5*" ElementStyle="{StaticResource CenterCellStyle}" />
+                        <DataGridTextColumn Header="Operace" Binding="{Binding Operace}" Width="1*" ElementStyle="{StaticResource CenterCellStyle}" />
+                        <DataGridTextColumn Header="Uživatel" Binding="{Binding Uzivatel}" Width="1*" ElementStyle="{StaticResource CenterCellStyle}" />
 
                         <!--  Sloupec Akce  -->
                         <DataGridTemplateColumn Header="Akce" Width="1.8*">
+
+                            <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#AABBCC"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="BorderBrush" Value="#125C64"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </Style>
+                            </DataGridTemplateColumn.HeaderStyle>
+                            
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
