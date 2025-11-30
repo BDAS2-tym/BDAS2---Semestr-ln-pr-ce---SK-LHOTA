@@ -168,10 +168,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         /// <summary>
         /// Odebere označeného hráče po potvrzení uživatelem
         /// Odstraní hráče z databáze i z kolekce zobrazené v DataGridu
+        /// Pokud má hráč uživatelský účet, smaže se nejprve účet a poté hráč
         /// </summary>
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
-
             Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
 
             if (vybranyHrac == null)
@@ -181,7 +181,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
 
             // Potvrzení od uživatele
-            var potvrzeni = MessageBox.Show($"Opravdu chcete odebrat hráče {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni}?", "Potvrzení odebrání",
+            var potvrzeni = MessageBox.Show(
+                $"Opravdu chcete odebrat hráče {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni}?",
+                "Potvrzení odebrání",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -190,36 +192,74 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 return;
             }
 
-            // Smazání z databáze
             try
             {
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
 
-                    // Nastavení přihlášeného uživatele pro log table
+                    // Nastavení přihlášeného uživatele pro logování triggerem
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                    // Odebrání hráče
+                    // Hledání účtu podle rodného čísla přes pohled
+                    string sqlFindAcc = @"
+                                        SELECT UZIVATELSKEJMENO
+                                        FROM PREHLED_UZIVATELSKE_UCTY
+                                        WHERE RODNE_CISLO = :rc";
+
+                    // Sem se uloží nalezené uživatelské jméno
+                    string uzivatelskeJmeno = null;
+
+                    using (var cmdFind = new OracleCommand(sqlFindAcc, conn))
+                    {
+                        cmdFind.Parameters.Add(":rc", OracleDbType.Varchar2).Value = vybranyHrac.RodneCislo;
+
+                        object result = cmdFind.ExecuteScalar();
+
+                        // Pokud dotaz něco našel, tak výsledek převedeme na string
+                        if (result != null)
+                        {
+                            uzivatelskeJmeno = result.ToString();
+                        }
+                           
+                    }
+
+                    // Pokud má hráč uživatelský účet, smažeme ho jako první
+                    if (!string.IsNullOrEmpty(uzivatelskeJmeno))
+                    {
+                        Uzivatel uzivatelHrac = new Uzivatel();
+                        uzivatelHrac.UzivatelskeJmeno = uzivatelskeJmeno;
+
+                        DatabaseRegistrace.DeleteUzivatel(conn, uzivatelHrac);
+                    }
+
+                    // Poté smažeme samotného hráče
                     DatabaseHraci.OdeberHrace(conn, vybranyHrac);
 
+                    // Odebereme hráče z kolekce
                     HraciData.Remove(vybranyHrac);
                 }
 
                 // Úspěch
                 MessageBox.Show(
-                    $"Hráč {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni} byl úspěšně odebrán.", "Úspěch",
+                    $"Hráč {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni} byl úspěšně odebrán.",
+                    "Úspěch",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
-
             catch (OracleException ex)
             {
-                MessageBox.Show($"Chyba databáze při mazání hráče:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Chyba databáze při mazání hráče:\n{ex.Message}",
+                                "Databázová chyba",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Nastala neočekávaná chyba při mazání hráče:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Nastala neočekávaná chyba při mazání hráče:\n{ex.Message}",
+                                "Chyba",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
         }
 

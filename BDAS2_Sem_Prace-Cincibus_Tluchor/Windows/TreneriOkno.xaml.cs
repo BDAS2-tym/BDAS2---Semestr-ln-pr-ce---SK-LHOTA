@@ -184,23 +184,27 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         }
 
         /// <summary>
-        /// Odebere vybraného trenéra po potvrzení od uživatele
-        /// Odstraní ho z databáze i z DataGridu
+        /// Odebere vybraného trenéra po potvrzení uživatelem.
+        /// Nejprve zjistí, zda má trenér vlastní uživatelský účet.
+        /// Pokud ano → smaže nejdříve účet a pak teprve trenéra.
+        /// Poté odebere trenéra i z kolekce v DataGridu.
         /// </summary>
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
-
             Trener vybranyTrener = dgTreneri.SelectedItem as Trener;
 
+            // Ověření, že byl trenér vybrán
             if (vybranyTrener == null)
             {
-                MessageBox.Show(
-                    "Prosím, vyberte trenéra, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Prosím, vyberte trenéra, kterého chcete odebrat!",
+                                "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Potvrzení od uživatele
-            var potvrzeni = MessageBox.Show($"Opravdu chcete odebrat trenéra {vybranyTrener.Jmeno} {vybranyTrener.Prijmeni}?", "Potvrzení odebrání",
+            // Potvrzení mazání
+            var potvrzeni = MessageBox.Show(
+                $"Opravdu chcete odebrat trenéra {vybranyTrener.Jmeno} {vybranyTrener.Prijmeni}?",
+                "Potvrzení odebrání",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -209,39 +213,68 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 return;
             }
 
-            // Smazání z databáze
             try
             {
-
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
 
-                    // Nastavení přihlášeného uživatele pro logování
+                    // Nastaví přihlášeného uživatele pro logování triggerem
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                    // Odebrání trenéra
+                    // Hledání účtu podle rodného čísla přes pohled
+                    string sqlFindAcc = @"
+                                        SELECT UZIVATELSKEJMENO
+                                        FROM PREHLED_UZIVATELSKE_UCTY
+                                        WHERE RODNE_CISLO = :rc";
+
+                    // Sem se uloží nalezené uživatelské jméno
+                    string uzivatelskeJmeno = null;
+
+                    using (var cmdFind = new OracleCommand(sqlFindAcc, conn))
+                    {
+                        // předáme rodné číslo trenéra jako parametr
+                        cmdFind.Parameters.Add(":rc", OracleDbType.Varchar2).Value = vybranyTrener.RodneCislo;
+
+                        // ExecuteScalar vrátí první hodnotu - uživatelské jméno
+                        object result = cmdFind.ExecuteScalar();
+
+                        // pokud trenér nějaký účet má, uložíme ho
+                        if (result != null)
+                            uzivatelskeJmeno = result.ToString();
+                    }
+
+                    // Pokud má trenér uživatelský účet, smažeme ho jako první
+                    if (!string.IsNullOrEmpty(uzivatelskeJmeno))
+                    {
+                        Uzivatel uzivatelTrener = new Uzivatel();
+                        uzivatelTrener.UzivatelskeJmeno = uzivatelskeJmeno;
+
+                        DatabaseRegistrace.DeleteUzivatel(conn, uzivatelTrener);
+                    }
+
+                    // Poté smažeme samotného trenéra
                     DatabaseTreneri.OdeberTrenera(conn, vybranyTrener);
 
-                    // Aktualizace DataGridu (odebrání z kolekce)
+                    // Odebereme hráče z kolekce
                     TreneriData.Remove(vybranyTrener);
                 }
 
-                // Úspěch
                 MessageBox.Show(
                     $"Trenér {vybranyTrener.Jmeno} {vybranyTrener.Prijmeni} byl úspěšně odebrán.",
                     "Úspěch",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
-
             catch (OracleException ex)
             {
-                MessageBox.Show($"Chyba databáze při mazání trenéra:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Chyba databáze při mazání trenéra:\n{ex.Message}",
+                                "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Nastala neočekávaná chyba při mazání trenéra:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Nastala neočekávaná chyba při mazání trenéra:\n{ex.Message}",
+                                "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
