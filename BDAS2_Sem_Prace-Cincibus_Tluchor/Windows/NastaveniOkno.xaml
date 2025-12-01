@@ -96,7 +96,7 @@
                     </Button>
 
                     <!-- Button Záznamy změn -->
-                    <Button x:Name="btnZmeny" Grid.Row="3" Margin="0,10,0,10" TabIndex="3" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="btnZmeny_Click">
+                    <Button x:Name="btnZmeny" Grid.Row="3" Margin="0,10,0,10" TabIndex="3" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="BtnZmeny_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/log_table.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Záznamy změn" VerticalAlignment="Center" FontSize="18"/>

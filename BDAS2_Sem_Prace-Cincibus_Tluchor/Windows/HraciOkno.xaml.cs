@@ -33,7 +33,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         }
 
         /// <summary>
-        /// Otevře dialogové okno s TOP 3 střelci.
+        /// Otevře dialogové okno s TOP 3 střelci
         /// </summary>
         private void BtnTopStrelci_Click(object sender, RoutedEventArgs e)
         {
@@ -56,8 +56,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             RodneCisloSloupec.Visibility = Visibility.Visible;
             TelefonniCisloSloupec.Visibility = Visibility.Visible;
 
-            // Pokud je to hráč nebo trenér tyto sloupce a funkce tlačítek schováme
-            if (role == "hrac" || role == "trener")
+            // Pro dané role funkce tlačítek schováme
+            if (role == "hrac" || role == "trener" || role == "host")
             {
                 RodneCisloSloupec.Visibility = Visibility.Collapsed;
                 TelefonniCisloSloupec.Visibility = Visibility.Collapsed;
@@ -71,10 +71,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
-
         /// <summary>
         /// Zavře toto okno a vrátí uživatele zpět do hlavního menu
-        /// Aktualizuje počítadlo hráčů v hlavním okně
+        /// Aktualizuje counter hráčů v hlavním okně
         /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
@@ -91,7 +90,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             DialogPridejHrace dialogPridejHrace = new DialogPridejHrace(HraciData);
             dialogPridejHrace.ShowDialog();
-
         }
 
         /// <summary>
@@ -144,11 +142,24 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
 
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "trener" || role == "host")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
+
             if (vybranyHrac == null)
             {
                 MessageBox.Show("Prosím vyberte hráče, kterého chcete upravit! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
 
             DialogEditujHrace dialogEditujHrace = new DialogEditujHrace(vybranyHrac, this);
             dialogEditujHrace.ShowDialog();
@@ -157,40 +168,75 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         /// <summary>
         /// Odebere označeného hráče po potvrzení uživatelem
         /// Odstraní hráče z databáze i z kolekce zobrazené v DataGridu
+        /// Pokud má hráč uživatelský účet, smaže se nejprve účet a poté hráč
         /// </summary>
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
-
             Hrac vybranyHrac = dgHraci.SelectedItem as Hrac;
 
             if (vybranyHrac == null)
             {
-                MessageBox.Show(
-                    "Prosím, vyberte hráče, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Prosím, vyberte hráče, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             // Potvrzení od uživatele
-            var potvrzeni = MessageBox.Show($"Opravdu chcete odebrat hráče {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni}?", "Potvrzení odebrání",
+            var potvrzeni = MessageBox.Show(
+                $"Opravdu chcete odebrat hráče {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni}?",
+                "Potvrzení odebrání",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
             if (potvrzeni != MessageBoxResult.Yes)
+            {
                 return;
+            }
 
-            // smazání z databáze
             try
             {
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
 
-                    // Nastavení přihlášeného uživatele pro logování
+                    // Nastavení přihlášeného uživatele pro logování triggerem
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                    // Odebrání hráče
+                    // Hledání účtu podle rodného čísla přes pohled
+                    string sqlFindAcc = @"
+                                        SELECT UZIVATELSKEJMENO
+                                        FROM PREHLED_UZIVATELSKE_UCTY
+                                        WHERE RODNE_CISLO = :rc";
+
+                    // Sem se uloží nalezené uživatelské jméno
+                    string uzivatelskeJmeno = null;
+
+                    using (var cmdFind = new OracleCommand(sqlFindAcc, conn))
+                    {
+                        cmdFind.Parameters.Add(":rc", OracleDbType.Varchar2).Value = vybranyHrac.RodneCislo;
+
+                        object result = cmdFind.ExecuteScalar();
+
+                        // Pokud dotaz něco našel, tak výsledek převedeme na string
+                        if (result != null)
+                        {
+                            uzivatelskeJmeno = result.ToString();
+                        }
+                           
+                    }
+
+                    // Pokud má hráč uživatelský účet, smažeme ho jako první
+                    if (!string.IsNullOrEmpty(uzivatelskeJmeno))
+                    {
+                        Uzivatel uzivatelHrac = new Uzivatel();
+                        uzivatelHrac.UzivatelskeJmeno = uzivatelskeJmeno;
+
+                        DatabaseRegistrace.DeleteUzivatel(conn, uzivatelHrac);
+                    }
+
+                    // Poté smažeme samotného hráče
                     DatabaseHraci.OdeberHrace(conn, vybranyHrac);
 
+                    // Odebereme hráče z kolekce
                     HraciData.Remove(vybranyHrac);
                 }
 
@@ -201,14 +247,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
-
             catch (OracleException ex)
             {
-                MessageBox.Show($"Chyba databáze při mazání hráče:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Chyba databáze při mazání hráče:\n{ex.Message}",
+                                "Databázová chyba",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Nastala neočekávaná chyba při mazání hráče:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Nastala neočekávaná chyba při mazání hráče:\n{ex.Message}",
+                                "Chyba",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
         }
 
@@ -232,12 +283,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     Hrac hrac = new Hrac();
 
                     // RODNE_CISLO - NOT NULL
-                    // RODNE_CISLO - NOT NULL
                     if (reader["RODNE_CISLO"] != DBNull.Value)
                         hrac.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
                         hrac.RodneCislo = "";
-
 
                     // JMENO - NOT NULL
                     if (reader["JMENO"] != DBNull.Value)
@@ -275,11 +324,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     else
                         hrac.PocetCervenychKaret = 0;
 
-                    // NAZEV_POZICE - číselník, NOT NULL
+                    // Pozice hráče z číselníku (text)
                     if (reader["POZICENAHRISTI"] != DBNull.Value)
                         hrac.PoziceNaHristi = reader["POZICENAHRISTI"].ToString();
                     else
-                        hrac.PoziceNaHristi = "Neznámá"; // default, pokud by bylo NULL
+                        hrac.PoziceNaHristi = "Neznámá";
 
                     // DATUMOPATRENI
                     if (reader["DATUMOPATRENI"] != DBNull.Value)

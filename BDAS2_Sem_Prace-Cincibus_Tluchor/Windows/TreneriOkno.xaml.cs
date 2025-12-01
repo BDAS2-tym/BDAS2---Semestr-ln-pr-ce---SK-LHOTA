@@ -11,6 +11,10 @@ using System.Windows.Input;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 {
+    /// <summary>
+    /// Okno pro správu trenérů
+    /// Umožňuje přidávání, mazání, úpravu, filtrování a export trenérů
+    /// </summary>
     public partial class TreneriOkno : Window
     {
         private HlavniOkno hlavniOkno;
@@ -29,6 +33,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             NastavViditelnostSloupcuProUzivatele();
         }
 
+        /// <summary>
+        /// Umožní export TOP 3 trenérů do textového souboru a uložit na plochu PC
+        /// </summary>
         private void BtnExportTopTreneri_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -54,6 +61,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
+        /// <summary>
+        /// Skryje rodné číslo a telefon trenérům a hráčům
+        /// Uživatelům bez oprávnění zakáže přidávání, mazání a vyhledávání
+        /// </summary>
         private void NastavViditelnostSloupcuProUzivatele()
         {
             // Zjistíme, kdo je přihlášený
@@ -80,6 +91,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
+        /// <summary>
+        /// Zavře okno trenérů a vrátí uživatele do hlavního menu
+        /// Aktualizuje počet trenérů v hlavním okně
+        /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -128,12 +143,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             }
         }
 
+        /// <summary>
+        /// Otevře dialog pro přidání nového trenéra
+        /// </summary>
         private void BtnPridejDialog_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejTrenera dialogPridejTrenera = new DialogPridejTrenera(TreneriData);
             dialogPridejTrenera.ShowDialog();
         }
 
+        /// <summary>
+        /// Otevře dialog pro editaci trenéra při dvojkliku na záznam
+        /// </summary>
         private void DgTreneri_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
@@ -145,67 +166,122 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 return;
             }
 
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "uzivatel" || role == "host" || role == "trener")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
+
             DialogEditujTrenera dialogEditujTrenera = new DialogEditujTrenera(vybranyTrener, this);
             dialogEditujTrenera.ShowDialog();
 
         }
 
+        /// <summary>
+        /// Odebere vybraného trenéra po potvrzení uživatelem.
+        /// Nejprve zjistí, zda má trenér vlastní uživatelský účet.
+        /// Pokud ano → smaže nejdříve účet a pak teprve trenéra.
+        /// Poté odebere trenéra i z kolekce v DataGridu.
+        /// </summary>
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
-
             Trener vybranyTrener = dgTreneri.SelectedItem as Trener;
 
+            // Ověření, že byl trenér vybrán
             if (vybranyTrener == null)
             {
-                MessageBox.Show(
-                    "Prosím, vyberte trenéra, kterého chcete odebrat!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Prosím, vyberte trenéra, kterého chcete odebrat!",
+                                "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Potvrzení od uživatele
-            var potvrzeni = MessageBox.Show($"Opravdu chcete odebrat trenéra {vybranyTrener.Jmeno} {vybranyTrener.Prijmeni}?", "Potvrzení odebrání",
+            // Potvrzení mazání
+            var potvrzeni = MessageBox.Show(
+                $"Opravdu chcete odebrat trenéra {vybranyTrener.Jmeno} {vybranyTrener.Prijmeni}?",
+                "Potvrzení odebrání",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
             if (potvrzeni != MessageBoxResult.Yes)
+            {
                 return;
+            }
 
-            // Smazání z databáze
             try
             {
-
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
 
-                    // Nastavení přihlášeného uživatele pro logování
+                    // Nastaví přihlášeného uživatele pro logování triggerem
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                    // Odebrání trenéra
+                    // Hledání účtu podle rodného čísla přes pohled
+                    string sqlFindAcc = @"
+                                        SELECT UZIVATELSKEJMENO
+                                        FROM PREHLED_UZIVATELSKE_UCTY
+                                        WHERE RODNE_CISLO = :rc";
+
+                    // Sem se uloží nalezené uživatelské jméno
+                    string uzivatelskeJmeno = null;
+
+                    using (var cmdFind = new OracleCommand(sqlFindAcc, conn))
+                    {
+                        // předáme rodné číslo trenéra jako parametr
+                        cmdFind.Parameters.Add(":rc", OracleDbType.Varchar2).Value = vybranyTrener.RodneCislo;
+
+                        // ExecuteScalar vrátí první hodnotu - uživatelské jméno
+                        object result = cmdFind.ExecuteScalar();
+
+                        // pokud trenér nějaký účet má, uložíme ho
+                        if (result != null)
+                            uzivatelskeJmeno = result.ToString();
+                    }
+
+                    // Pokud má trenér uživatelský účet, smažeme ho jako první
+                    if (!string.IsNullOrEmpty(uzivatelskeJmeno))
+                    {
+                        Uzivatel uzivatelTrener = new Uzivatel();
+                        uzivatelTrener.UzivatelskeJmeno = uzivatelskeJmeno;
+
+                        DatabaseRegistrace.DeleteUzivatel(conn, uzivatelTrener);
+                    }
+
+                    // Poté smažeme samotného trenéra
                     DatabaseTreneri.OdeberTrenera(conn, vybranyTrener);
 
-                    // Aktualizace DataGridu (odebrání z kolekce)
+                    // Odebereme hráče z kolekce
                     TreneriData.Remove(vybranyTrener);
                 }
 
-                // Úspěch
                 MessageBox.Show(
                     $"Trenér {vybranyTrener.Jmeno} {vybranyTrener.Prijmeni} byl úspěšně odebrán.",
                     "Úspěch",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
-
             catch (OracleException ex)
             {
-                MessageBox.Show($"Chyba databáze při mazání trenéra:\n{ex.Message}", "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Chyba databáze při mazání trenéra:\n{ex.Message}",
+                                "Databázová chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Nastala neočekávaná chyba při mazání trenéra:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Nastala neočekávaná chyba při mazání trenéra:\n{ex.Message}",
+                                "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        /// <summary>
+        /// Načte trenéry z databáze pomocí view TRENERI_VIEW
+        /// Naplní kolekci TreneriData pro DataGrid
+        /// </summary>
         public static void NactiTrenery()
         {
             try
@@ -223,17 +299,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 {
                     Trener trener = new Trener();
 
-                    //// ID člena klubu (NOT NULL) - pokud je NULL, nastavíme 0
-                    //if (reader["IDCLENKLUBU"] != DBNull.Value)
-                    //    trener.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
-                    //else
-                    //    trener.IdClenKlubu = 0;
-
-                    // Rodné číslo (NOT NULL) 
+                    // Rodné číslo (NOT NULL)
                     if (reader["RODNE_CISLO"] != DBNull.Value)
-                        trener.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                        trener.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
-                        trener.RodneCislo = 0L;
+                        trener.RodneCislo = "";
 
                     // Jméno (NOT NULL)
                     if (reader["JMENO"] != DBNull.Value)
@@ -282,7 +352,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         }
 
         /// <summary>
-        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu
         /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
         /// </summary>
         /// <param name="sender">sender</param>

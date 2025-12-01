@@ -1,150 +1,148 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Interakční logika pro DialogEditujTrenink.xaml
+    /// Dialog pro editaci existujícího tréninku
+    /// Umožňuje změnit trenéra, datum, místo a popis
+    /// Po potvrzení provádí validaci a ukládá změny do databáze
     /// </summary>
     public partial class DialogEditujTrenink : Window
     {
         private TreninkView editovanyTrenink;
         private TreninkyOkno treninkyOkno;
-        private const int MaxLimitZnaku = 30;
+        private const int MaxPopis = 30;
 
+        /// <summary>
+        /// Inicializuje dialog a naplní vstupní pole hodnotami upravovaného tréninku
+        /// </summary>
         public DialogEditujTrenink(TreninkView trenink, TreninkyOkno treninkyOkno)
         {
             InitializeComponent();
+
             this.editovanyTrenink = trenink;
             this.treninkyOkno = treninkyOkno;
 
-            // Načtení hodnot do formuláře
+            // Datum a místo
             dtpDatumTreninku.Value = editovanyTrenink.Datum;
             tboxMistoTreninku.Text = editovanyTrenink.Misto;
 
-            // Nastavení textu do RichTextBoxu 
+            // Popis (může být null)
             rtboxPopisTreninku.Document.Blocks.Clear();
             rtboxPopisTreninku.Document.Blocks.Add(new Paragraph(new Run(editovanyTrenink.Popis)));
 
-            // Naplnění trenérů
             TreneriOkno.NactiTrenery();
             cbTrener.Items.Clear();
 
             foreach (var trener in TreneriOkno.TreneriData)
             {
-                string zaznam = $"{trener.Prijmeni} ({trener.RodneCislo})";
+                string zaznam = trener.Prijmeni + " (" + trener.RodneCislo + ")";
                 cbTrener.Items.Add(zaznam);
 
+                // Pokud je trenér shodný s tréninkem, vybere se
                 if (trener.RodneCislo == editovanyTrenink.RodneCislo)
+                {
                     cbTrener.SelectedItem = zaznam;
+                }
             }
         }
 
+        /// <summary>
+        /// Zavře dialog bez uložení
+        /// </summary>
         private void BtnUkonci_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Uloží upravený trénink po validaci vstupních dat
+        /// Aktualizuje objekt i databázi a obnoví DataGrid v hlavním okně
+        /// </summary>
         private void BtnEdituj_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // VALIDACE
+                // Validace trenéra
                 if (cbTrener.SelectedItem == null)
                 {
-                    MessageBox.Show("Vyberte trenéra!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    throw new Exception("Vyberte trenéra");
                 }
 
-                if (dtpDatumTreninku.Value == null)
-                {
-                    MessageBox.Show("Zadejte datum tréninku!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                // Validace data
+                Validator.ValidujDatum(dtpDatumTreninku.Value, "Datum tréninku");
 
-                if (string.IsNullOrWhiteSpace(tboxMistoTreninku.Text))
-                {
-                    MessageBox.Show("Zadejte místo tréninku!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                // Validace místa
+                string misto = tboxMistoTreninku.Text.Trim();
+                Validator.ValidujMistoTreninku(misto);
 
-                string popisTreninku = new TextRange(rtboxPopisTreninku.Document.ContentStart, rtboxPopisTreninku.Document.ContentEnd).Text.Trim();
-                if (popisTreninku.Length > 100)
-                {
-                    MessageBox.Show("Popis tréninku nesmí přesáhnout 100 znaků", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                // Načtení popisu z RichTextBoxu
+                string popis = new TextRange(
+                    rtboxPopisTreninku.Document.ContentStart,
+                    rtboxPopisTreninku.Document.ContentEnd
+                ).Text.Trim();
 
-                string vybranyTrener = cbTrener.SelectedItem.ToString();
-                string prijmeniTrenera = vybranyTrener.Split('(')[0].Trim();
-                string rcStr = vybranyTrener.Split('(', ')')[1].Trim();
+                Validator.ValidujPopisTreninku(popis);
 
-                if (!long.TryParse(rcStr, out long rodneCisloTrenera))
-                {
-                    MessageBox.Show("Neplatný formát rodného čísla trenéra.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                string vybrany = cbTrener.SelectedItem.ToString();
+                string prijmeni = vybrany.Split('(')[0].Trim();
+                string rcStr = vybrany.Split('(', ')')[1].Trim();
 
-                // AKTUALIZACE OBJEKTU
-                editovanyTrenink.Prijmeni = prijmeniTrenera;
-                editovanyTrenink.RodneCislo = rodneCisloTrenera;
+                // Validace rodného čísla trenéra přiřazeného k tréninku
+                Validator.ValidujRodneCislo(rcStr);
+
+                // Uložení změn do objektu editovaného tréninku
+                editovanyTrenink.Prijmeni = prijmeni;
+                editovanyTrenink.RodneCislo = rcStr;
                 editovanyTrenink.Datum = dtpDatumTreninku.Value.Value;
-                editovanyTrenink.Misto = tboxMistoTreninku.Text.Trim();
-                editovanyTrenink.Popis = popisTreninku;
+                editovanyTrenink.Misto = misto;
+                editovanyTrenink.Popis = popis;
 
-
+                // Uložení do databáze
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
-
-                    // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-
-                    // Editování soutěže
                     DatabaseTreninky.UpdateTrenink(conn, editovanyTrenink);
-
-                    treninkyOkno.dgTreninky.Items.Refresh();
-
-                    this.DialogResult = true;
-                    MessageBox.Show("Trénink byl úspěšně upraven!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-               
+
+                treninkyOkno.dgTreninky.Items.Refresh();
+
+                MessageBox.Show("Trénink byl úspěšně upraven", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                this.DialogResult = true;
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Chyba při ukládání tréninku:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Chyba při ukládání tréninku:\n" + ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        /// <summary>
+        /// Omezí text v poli popisu na maximální délku
+        /// </summary>
         private void rtboxPopisTreninku_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string text = new TextRange(rtboxPopisTreninku.Document.ContentStart, rtboxPopisTreninku.Document.ContentEnd).Text;
+            string text = new TextRange(
+                rtboxPopisTreninku.Document.ContentStart,
+                rtboxPopisTreninku.Document.ContentEnd
+            ).Text;
 
-            // RichTextBox dává na konec 2 speciální znaky '\r \n', proto + 2
-            if (text.Length > MaxLimitZnaku + 2)
+            // Kontrola délky textu MaxPopis znaků
+            // plus 2 znaky, které RichTextBox přidává pro konec odstavce "\r\n")
+            if (text.Length > MaxPopis + 2)
             {
-                // Kontrola rozmezí
-                text = text.Substring(0, MaxLimitZnaku);
+                text = text.Substring(0, MaxPopis);
                 rtboxPopisTreninku.Document.Blocks.Clear();
                 rtboxPopisTreninku.Document.Blocks.Add(new Paragraph(new Run(text)));
-
-                // Přesunutí pointeru na konec věty
                 rtboxPopisTreninku.CaretPosition = rtboxPopisTreninku.Document.ContentEnd;
             }
         }
-
     }
 }

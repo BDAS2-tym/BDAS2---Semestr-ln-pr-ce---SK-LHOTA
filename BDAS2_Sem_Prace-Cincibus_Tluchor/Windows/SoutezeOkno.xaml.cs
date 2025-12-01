@@ -38,6 +38,29 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             DataContext = this;
 
             NactiSouteze();
+            NastavViditelnostSloupcuProUzivatele();
+        }
+
+        /// <summary>
+        /// Uživatelům bez oprávnění zakáže přidávání, mazání a vyhledávání
+        /// </summary>
+        private void NastavViditelnostSloupcuProUzivatele()
+        {
+            // Zjistíme, kdo je přihlášený
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "host" || role == "trener")
+            {
+
+                btnPridej.IsEnabled = false;
+                btnOdeber.IsEnabled = false;
+                btnNajdi.IsEnabled = false;
+                btnPridej.Opacity = 0.2;
+                btnOdeber.Opacity = 0.2;
+                btnNajdi.Opacity = 0.2;
+            }
         }
 
         /// <summary>
@@ -212,6 +235,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             while (dep != null && !(dep is DataGridRow))
             {
                 dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "host" || role == "trener")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
             }
 
             if (dep is DataGridRow row)

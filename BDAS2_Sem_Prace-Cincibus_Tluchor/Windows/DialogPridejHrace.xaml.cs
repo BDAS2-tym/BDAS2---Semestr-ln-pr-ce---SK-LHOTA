@@ -23,14 +23,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             InitializeComponent();
             this.HraciData = HraciData;
 
-            // Naplnění ComboBoxu pro pozice hráčů
-            cbPozice.ItemsSource = new List<string> { "Brankář", "Obránce", "Záložník", "Útočník" };
+            cbPozice.ItemsSource = new List<Pozice>
+            {
+                new Pozice { Id = 1, Nazev = "Brankář" },
+                new Pozice { Id = 2, Nazev = "Obránce" },
+                new Pozice { Id = 3, Nazev = "Záložník" },
+                new Pozice { Id = 4, Nazev = "Útočník" }
+            };
 
-            // Výchozí hodnoty statistických čísel
+            cbPozice.DisplayMemberPath = "Nazev";
+            cbPozice.SelectedValuePath = "Id";
             cbPozice.SelectedIndex = 0;
-            iudPocetCervenychKaret.Value = 0;
-            iudPocetGolu.Value = 0;
-            iudPocetZlutychKaret.Value = 0;
         }
 
         /// <summary>
@@ -83,11 +86,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 string telCislo = tboxTelCislo.Text.Trim();
 
                 // Získání pozice hráče
-                string pozice = "";
-                if (cbPozice.SelectedItem != null)
-                {
-                    pozice = cbPozice.SelectedItem.ToString();
-                }
+                int idPozice = (int)cbPozice.SelectedValue;
 
                 // Validace základních údajů
                 Validator.ValidujRodneCislo(rodneCislo);
@@ -111,7 +110,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                     if (string.IsNullOrWhiteSpace(tboxDuvodOpatreni.Text))
                     {
-                        throw new Exception("Důvod opatření nesmí být prázdný.");
+                        throw new Exception("Důvod opatření nesmí být prázdný");
                     }
                 }
 
@@ -124,8 +123,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     (int)iudPocetGolu.Value,
                     (int)iudPocetZlutychKaret.Value,
                     (int)iudPocetCervenychKaret.Value,
-                    pozice
+                    idPozice
                 );
+
+                novyHrac.PoziceNaHristi = ((Pozice)cbPozice.SelectedItem).Nazev;
 
                 // Uložení disciplinárního opatření do objektu
                 if (maOpatreni)
@@ -147,13 +148,23 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
+
+                    // Kontrola UNIQUE rodného čísla
+                    if (Validator.ExistujeRodneCislo(conn, rodneCislo))
+                    {
+                        MessageBox.Show("Hráč s tímto rodným číslem již existuje!",
+                                        "Duplicitní rodné číslo",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
+                        return;
+                    }
+
                     DatabaseHraci.AddHrac(conn, novyHrac);
                 }
 
                 // Přidání hráče do kolekce pro DataGrid
                 HraciData.Add(novyHrac);
 
-                // Uživatelská notifikace
                 MessageBox.Show("Hráč byl úspěšně přidán", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Zavření dialogu

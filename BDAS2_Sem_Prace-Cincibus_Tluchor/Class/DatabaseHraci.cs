@@ -44,16 +44,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Varchar2).Value = hrac.RodneCislo;
-
                     cmd.Parameters.Add("v_jmeno", OracleDbType.Varchar2).Value = hrac.Jmeno;
                     cmd.Parameters.Add("v_prijmeni", OracleDbType.Varchar2).Value = hrac.Prijmeni;
                     cmd.Parameters.Add("v_telefonni_cislo", OracleDbType.Varchar2).Value = hrac.TelefonniCislo;
-                    cmd.Parameters.Add("v_pozice_na_hristi", OracleDbType.Varchar2).Value = hrac.PoziceNaHristi;
+                    cmd.Parameters.Add("v_id_pozice", OracleDbType.Int32).Value = hrac.IdPozice;
                     cmd.Parameters.Add("v_pocet_golu", OracleDbType.Int32).Value = hrac.PocetVstrelenychGolu;
                     cmd.Parameters.Add("v_pocet_zlute", OracleDbType.Int32).Value = hrac.PocetZlutychKaret;
                     cmd.Parameters.Add("v_pocet_cervene", OracleDbType.Int32).Value = hrac.PocetCervenychKaret;
 
-                    // Disciplinární opatření
+                    // Pokud hráč nemá Disciplinární opatření
                     if (hrac.DatumOpatreni == DateTime.MinValue)
                     {
                         cmd.Parameters.Add("v_datum_opatreni", OracleDbType.Date).Value = DBNull.Value;
@@ -98,6 +97,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="Exception">Vyvoláno, pokud Oracle hlásí chybu</exception>
         public static void UpdateHrac(OracleConnection conn, Hrac hrac, string puvodniRodneCislo)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             using (var cmd = new OracleCommand("PKG_HRACI.SP_UPDATE_HRAC", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -108,7 +109,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.Parameters.Add("v_jmeno", OracleDbType.Varchar2).Value = hrac.Jmeno;
                 cmd.Parameters.Add("v_prijmeni", OracleDbType.Varchar2).Value = hrac.Prijmeni;
                 cmd.Parameters.Add("v_telefonni_cislo", OracleDbType.Varchar2).Value = hrac.TelefonniCislo;
-                cmd.Parameters.Add("v_pozice_na_hristi", OracleDbType.Varchar2).Value = hrac.PoziceNaHristi;
+                cmd.Parameters.Add("v_id_pozice", OracleDbType.Int32).Value = hrac.IdPozice;
                 cmd.Parameters.Add("v_pocet_golu", OracleDbType.Int32).Value = hrac.PocetVstrelenychGolu;
                 cmd.Parameters.Add("v_pocet_zlute", OracleDbType.Int32).Value = hrac.PocetZlutychKaret;
                 cmd.Parameters.Add("v_pocet_cervene", OracleDbType.Int32).Value = hrac.PocetCervenychKaret;
@@ -159,6 +160,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <param name="hrac">Objekt hráče, který má být odstraněn (dle rodného čísla)</param>
         public static void OdeberHrace(OracleConnection conn, Hrac hrac)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             using (var cmd = new OracleCommand("PKG_HRACI.SP_ODEBER_HRACE", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;

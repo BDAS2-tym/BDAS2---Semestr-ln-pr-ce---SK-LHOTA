@@ -6,6 +6,7 @@ using System.Windows.Input;
 using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
 using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Tools;
 using Oracle.ManagedDataAccess.Client;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
@@ -47,17 +48,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Ověří, zda zadaný e-mail odpovídá platnému formátu (např. jmeno@domena.cz)
-        /// </summary>
-        /// <param name="email">E-mailová adresa zadaná uživatelem.</param>
-        /// <returns>True, pokud je e-mail ve správném formátu, jinak false</returns>
-        private bool JeEmailValidni(string email)
-        {
-            return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-        }
-
-        /// <summary>
-        /// Reakce na změnu výběru role v ComboBoxu – zobrazí/skrývá pole pro rodné číslo.
+        /// Reakce na změnu výběru role v ComboBoxu – zobrazí/skrývá pole pro rodné číslo
         /// </summary>
         private void CmbRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -76,16 +67,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <summary>
         /// Zpracuje registraci nového uživatele po kliknutí na tlačítko "Registrovat"
         /// </summary>
+        /// <summary>
+        /// Zpracuje registraci nového uživatele po kliknutí na tlačítko "Registrovat"
+        /// </summary>
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
             string uzivatelskeJmeno = txtUser.Text.Trim();
             string email = txtEmail.Text.Trim();
             string heslo = txtPass.Password.Trim();
             string heslo2 = txtPass2.Password.Trim();
+            string rodneCislo = txtRodneCislo.Text.Trim();
 
+            // Výběr role
             ComboBoxItem selectedItem = (ComboBoxItem)cmbRole.SelectedItem;
-
-            // Kontrola výběru role
             if (selectedItem == null)
             {
                 MessageBox.Show("Vyberte roli!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -93,117 +87,159 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
 
             string role = selectedItem.Content.ToString();
-            string rodneCislo = txtRodneCislo.Text.Trim();
 
-            // --- Validace vstupů ---
-            if (string.IsNullOrEmpty(uzivatelskeJmeno) || string.IsNullOrEmpty(heslo) ||
-                string.IsNullOrEmpty(email) || string.IsNullOrEmpty(role))
+            // Validace základních polí
+            if (string.IsNullOrEmpty(uzivatelskeJmeno) ||
+                string.IsNullOrEmpty(email) ||
+                string.IsNullOrEmpty(heslo))
             {
-                MessageBox.Show("Vyplňte všechna povinná pole!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Vyplňte všechna povinná pole!", "Chyba",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (uzivatelskeJmeno.Length < 3 || uzivatelskeJmeno.Length > 30)
             {
-                MessageBox.Show("Uživatelské jméno musí mít v rozsahu 3–30 znaků", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Uživatelské jméno musí mít 3–30 znaků.", "Chyba",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (heslo.Length < 8 || heslo.Length > 15)
             {
-                MessageBox.Show("Heslo musí mít 8–15 znaků!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Heslo musí mít 8–15 znaků.", "Chyba",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            if (!string.Equals(heslo, heslo2, StringComparison.Ordinal))
+            if (heslo != heslo2)
             {
-                MessageBox.Show("Hesla se neshodují!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Hesla se neshodují!", "Chyba",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (email.Length > 100)
             {
-                MessageBox.Show("E-mail je příliš dlouhý (max. 100 znaků)", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("E-mail je příliš dlouhý (max 100 znaků)", "Chyba",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            if (!JeEmailValidni(email))
+            if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
-                MessageBox.Show("E-mail není ve správném formátu!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("E-mail není ve správném formátu!", "Chyba",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
+            }
+
+            // Normalizace role (bez diakritiky)
+            string normalizovanaRole =
+                role.ToLowerInvariant()
+                    .Replace("á", "a")
+                    .Replace("é", "e")
+                    .Replace("í", "i")
+                    .Replace("ó", "o")
+                    .Replace("ú", "u")
+                    .Replace("ů", "u")
+                    .Replace("č", "c")
+                    .Replace("ř", "r")
+                    .Replace("š", "s")
+                    .Replace("ť", "t")
+                    .Replace("ň", "n")
+                    .Replace("ý", "y")
+                    .Replace("ž", "z");
+
+            bool roleVyzadujeRodneCislo = normalizovanaRole == "hrac" || normalizovanaRole == "trener";
+
+            // VALIDACE RODNÉHO ČÍSLA 
+            if (roleVyzadujeRodneCislo)
+            {
+                if (string.IsNullOrWhiteSpace(rodneCislo))
+                {
+                    MessageBox.Show("Pro roli Hráč/Trenér musíte zadat rodné číslo",
+                        "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                try
+                {
+                    Validator.ValidujRodneCislo(rodneCislo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            else
+            {
+                // role Admin / Host / Uzivatel rodné číslo nemá - ignorujeme
+                rodneCislo = null;
             }
 
             try
             {
-                // U hráče nebo trenéra ověř existenci podle rodného čísla, jestli je v databázi Oracle
-
-                // Převádí roli na malá písmena 'Hráč' -> 'hrac', 'Trenér' -> 'trener'
-                role = role.ToLowerInvariant().Replace("á", "a").Replace("é", "e").Replace("č", "c");
-
-                if (role == "hrac" || role == "trener")
-                {
-                    if (string.IsNullOrEmpty(rodneCislo))
-                    {
-                        MessageBox.Show("Zadejte rodné číslo!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
-                    }
-
-                    bool existuje = DatabaseRegistrace.OverClenaPodleRodnehoCisla(rodneCislo, role);
-                    if (!existuje)
-                    {
-                        MessageBox.Show($"Tento {role} s rodným číslem {rodneCislo} nebyl nalezen v databázi!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                }
-
-                // Hash + Salt hesla
+                // HASH + SALT
                 string salt = PasswordHasher.GenerateSalt();
                 string hash = PasswordHasher.HashPassword(heslo, salt);
 
-                // Vytvoření nového objektu uživatele
+                // Vytvoření objektu uživatele
                 Uzivatel novyUzivatel = new Uzivatel();
                 novyUzivatel.UzivatelskeJmeno = uzivatelskeJmeno;
+                novyUzivatel.Email = email;
                 novyUzivatel.Heslo = hash;
                 novyUzivatel.Salt = salt;
-                novyUzivatel.Role = role;
-                novyUzivatel.Email = email;
+                novyUzivatel.Role = normalizovanaRole;
                 novyUzivatel.PosledniPrihlaseni = DateTime.Now;
+                novyUzivatel.RodneCislo = rodneCislo;
 
-                // Ulož rodné číslo jen pokud má význam
-                if (role == "hrac" || role == "trener")
-                {
-                    novyUzivatel.RodneCislo = rodneCislo;
-                }
-                else
-                {
-                    novyUzivatel.RodneCislo = null;
-                }
-
+                // Uložení do DB
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
 
-                    // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-
-                    // Přidání uživatele
                     DatabaseRegistrace.AddUzivatel(conn, novyUzivatel);
                 }
 
-                MessageBox.Show($"Uživatel '{uzivatelskeJmeno}' byl úspěšně registrován jako '{role}'.", "Registrace úspěšná", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(
+                    $"Uživatel '{uzivatelskeJmeno}' byl úspěšně registrován.",
+                    "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 this.Close();
             }
             catch (OracleException ex)
             {
-                // Ošetření duplicitního uživatelského jména
-                if (ex.Number == 20002)
-                    MessageBox.Show("Toto uživatelské jméno již existuje!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                if (ex.Number == 20003)
+                {
+                    MessageBox.Show("Uživatelské jméno nebo email již existuje!", "Chyba",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else if (ex.Number == 20100)
+                {
+                    MessageBox.Show("Rodné číslo je povinné pro hráče/trenéra",
+                        "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else if (ex.Number == 20101)
+                {
+                    MessageBox.Show("Člen s daným rodným číslem neexistuje v databázi",
+                        "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else if (ex.Number == 20103)
+                {
+                    MessageBox.Show("Hráč/trenér již má vytvořený účet!",
+                        "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
                 else
-                    MessageBox.Show("Chyba při registraci: " + ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                {
+                    MessageBox.Show("Chyba při registraci: " + ex.Message, "Chyba",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Neočekávaná chyba: " + ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Neočekávaná chyba: " + ex.Message, "Chyba");
             }
         }
 

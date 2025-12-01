@@ -41,7 +41,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             string heslo = txtPass.Password.Trim();
             string heslo2 = txtPass2.Password.Trim();
 
-            // --- Validace vstupů ---
+            // Validace vstupů 
             if (string.IsNullOrEmpty(uzivatelskeJmeno) ||
                 string.IsNullOrEmpty(heslo) || string.IsNullOrEmpty(email))
             {
@@ -73,6 +73,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
+            if (uzivatelskeJmeno.Contains(" "))
+            {
+                MessageBox.Show("Uživatelské jméno nesmí obsahovat mezery!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+
             try
             {
                 // Hash + Salt
@@ -91,8 +98,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
-
-                    
 
                     // Přidání uživatele
                     DatabaseRegistrace.AddUzivatel(conn, novyUzivatel);

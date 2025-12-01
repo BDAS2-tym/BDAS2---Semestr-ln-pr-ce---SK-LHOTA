@@ -68,110 +68,86 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
         {
             IEnumerable<Trener> vysledek = treneriData;
 
-            string rodneCislo = tRodneCislo.Text;
-            string jmeno = tJmeno.Text;
-            string prijmeni = tPrijmeni.Text;
-            string telefon = tTelefon.Text;
-            string licence = tLicence.Text;
-            string specializace = tSpecializace.Text;
-            string praxeText = tPraxe.Text;
+            string rodneCislo = tRodneCislo.Text.Trim();
+            string jmeno = tJmeno.Text.Trim();
+            string prijmeni = tPrijmeni.Text.Trim();
+            string telefon = tTelefon.Text.Trim();
+            string licence = tLicence.Text.Trim();
+            string specializace = tSpecializace.Text.Trim();
+            string praxeText = tPraxe.Text.Trim();
 
+            // Rodné číslo
             if (!string.IsNullOrWhiteSpace(rodneCislo))
             {
-                // Musí mít přesně 10 číslic
-                if (rodneCislo.Length != 10) 
-                {
-                    throw new NonValidDataException("Rodné číslo musí mít přesně 10 číslic");
-                }
+                Validator.ValidujRodneCislo(rodneCislo);
 
-                // Musí být jen číslice
-                if (!rodneCislo.All(char.IsDigit)) 
-                {
-                    throw new NonValidDataException("Rodné číslo může obsahovat pouze číslice");
-                }
-
-                // Filtr pro rodné číslo
-                vysledek = vysledek.Where(t => t.RodneCislo.ToString() == rodneCislo);
+                vysledek = vysledek.Where(t =>
+                    t.RodneCislo != null &&
+                    t.RodneCislo == rodneCislo);
             }
-   
 
             // Jméno
             if (!string.IsNullOrWhiteSpace(jmeno))
             {
+                Validator.ValidujJmeno(jmeno);
+
                 vysledek = vysledek.Where(t =>
-                {
-                    return t.Jmeno != null &&
-                           t.Jmeno.Contains(jmeno, StringComparison.OrdinalIgnoreCase);
-                });
+                    t.Jmeno != null &&
+                    t.Jmeno.Contains(jmeno, StringComparison.OrdinalIgnoreCase));
             }
 
             // Příjmení
             if (!string.IsNullOrWhiteSpace(prijmeni))
             {
+                Validator.ValidujPrijmeni(prijmeni);
+
                 vysledek = vysledek.Where(t =>
-                {
-                    return t.Prijmeni != null &&
-                           t.Prijmeni.Contains(prijmeni, StringComparison.OrdinalIgnoreCase);
-                });
+                    t.Prijmeni != null &&
+                    t.Prijmeni.Contains(prijmeni, StringComparison.OrdinalIgnoreCase));
             }
 
-            // Telefonní číslo
+            // Telefon
             if (!string.IsNullOrWhiteSpace(telefon))
             {
-                if (telefon.Any(c => !char.IsDigit(c)))
-                {
-                    throw new NonValidDataException("Telefon může obsahovat pouze číslice");
-                }
-
-                if (telefon.Length > 12)
-                {
-                    throw new NonValidDataException("Telefonní číslo může mít maximálně 12 číslic");
-                }
+                Validator.ValidujTelefon(telefon);
 
                 vysledek = vysledek.Where(t =>
-                {
-                    return t.TelefonniCislo != null &&
-                           t.TelefonniCislo.Contains(telefon);
-                });
+                    t.TelefonniCislo != null &&
+                    t.TelefonniCislo.Contains(telefon));
             }
 
-            // Trenérská licence
+            // Licence (pouze validace délky)
             if (!string.IsNullOrWhiteSpace(licence))
             {
+                Validator.ValidujTrenerskouLicenci(licence);
+
                 vysledek = vysledek.Where(t =>
-                {
-                    return t.TrenerskaLicence != null &&
-                           t.TrenerskaLicence.Contains(licence, StringComparison.OrdinalIgnoreCase);
-                });
+                    t.TrenerskaLicence != null &&
+                    t.TrenerskaLicence.Contains(licence, StringComparison.OrdinalIgnoreCase));
             }
 
-            // Specializace
+            // Specializace (nepovinné, jen pokud vyplněno)
             if (!string.IsNullOrWhiteSpace(specializace))
             {
+                Validator.ValidujSpecializaciTrenera(specializace);
+
                 vysledek = vysledek.Where(t =>
-                {
-                    return t.Specializace != null &&
-                           t.Specializace.Contains(specializace, StringComparison.OrdinalIgnoreCase);
-                });
+                    t.Specializace != null &&
+                    t.Specializace.Contains(specializace, StringComparison.OrdinalIgnoreCase));
             }
 
-            // Počet let praxe
+            // Praxe
             if (!string.IsNullOrWhiteSpace(praxeText))
             {
-                int praxe;
+                Validator.ValidujPocetLetPraxeTrenera(praxeText);
 
-                if (!int.TryParse(praxeText, out praxe) || praxe < 0)
-                {
-                    throw new NonValidDataException("Počet let praxe musí být nezáporné číslo");
-                }
+                int praxe = int.Parse(praxeText);
 
-                vysledek = vysledek.Where(t =>
-                {
-                    return t.PocetLetPraxe == praxe;
-                });
+                vysledek = vysledek.Where(t => t.PocetLetPraxe == praxe);
             }
 
             return vysledek;
         }
+
     }
 }

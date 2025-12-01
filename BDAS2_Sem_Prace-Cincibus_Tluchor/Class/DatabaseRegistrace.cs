@@ -1,6 +1,7 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Data;
+using System.Windows.Media;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
@@ -19,6 +20,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void DeleteUzivatel(OracleConnection conn, Uzivatel uzivatel)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             // Voláme proceduru z balíčku PKG_REGISTRACE
             using var cmd = new OracleCommand("PKG_REGISTRACE.SP_DELETE_UZIVATEL", conn)
             {
@@ -46,85 +49,114 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void AddUzivatel(OracleConnection conn, Uzivatel uzivatel)
         {
-            // Získáme ID role podle názvu role
-            int idRole;
-            using (var roleCmd = new OracleCommand("SELECT IDROLE FROM ROLE WHERE LOWER(REPLACE(NAZEVROLE, 'Á', 'A')) = :nazev", conn))
+            var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
+
+            if (prihlaseny != null)
             {
-                string normalizedRole = uzivatel.Role.ToLowerInvariant()
-                    .Replace("á", "a").Replace("é", "e").Replace("í", "i")
-                    .Replace("ó", "o").Replace("ú", "u").Replace("ý", "y")
-                    .Replace("č", "c").Replace("ř", "r").Replace("š", "s").Replace("ž", "z");
+                // Nastaví přihlášeného uživatele pro logování
+                DatabaseAppUser.SetAppUser(conn, prihlaseny);
+            }
 
-                roleCmd.Parameters.Add("nazev", OracleDbType.Varchar2).Value = normalizedRole;
+            int idRole;
 
-                object result = roleCmd.ExecuteScalar();
+            // Zjištění ID ROLE
+            using (var cmdRole = new OracleCommand(
+                "SELECT IDROLE FROM ROLE WHERE UPPER(NAZEVROLE) = UPPER(:nazev)", conn))
+            {
+                cmdRole.Parameters.Add(":nazev", OracleDbType.Varchar2).Value = uzivatel.Role;
+
+                object result = cmdRole.ExecuteScalar();
                 if (result == null)
-                    throw new Exception($"Role '{uzivatel.Role}' neexistuje v tabulce ROLE.");
+                {
+                    throw new Exception("Zvolená role neexistuje.");
+                }
 
                 idRole = Convert.ToInt32(result);
             }
 
-            // Zavoláme uloženou proceduru pro vložení uživatele
-            using var cmd = new OracleCommand("PKG_REGISTRACE.SP_ADD_UZIVATEL", conn)
+            // ID člena klubu (pouze pro hráče / trenéra)
+            int? idClena = null;
+
+            // Pokud má uživatel rodné číslo - jedná se o hráče/trenéra
+            if (!string.IsNullOrEmpty(uzivatel.RodneCislo))
             {
-                CommandType = CommandType.StoredProcedure
-            };
+                // Ověření, že existuje člen klubu s tímto rodným číslem a správným typem
+                idClena = OverClena(conn, uzivatel.RodneCislo, uzivatel.Role);
 
-            cmd.Parameters.Add("v_uzivatelske_jmeno", OracleDbType.Varchar2, 30).Value = uzivatel.UzivatelskeJmeno;
-            cmd.Parameters.Add("v_heslo", OracleDbType.Varchar2, 100).Value = uzivatel.Heslo;
-            cmd.Parameters.Add("v_posledni_prihlaseni", OracleDbType.TimeStamp).Value = uzivatel.PosledniPrihlaseni;
-            cmd.Parameters.Add("v_idrole", OracleDbType.Int32).Value = idRole;
-            cmd.Parameters.Add("v_salt", OracleDbType.Varchar2, 64).Value = uzivatel.Salt;
-            cmd.Parameters.Add("v_email", OracleDbType.Varchar2, 100).Value = uzivatel.Email;
+                // Ověření, že tento člen ještě nemá vytvořený účet
+                OverJestliNemaJinyUcet(conn, idClena.Value, "");
+            }
 
-            try
+            // Vložíme účet do tabulky přes uloženou proceduru
+            using (var cmd = new OracleCommand("PKG_REGISTRACE.SP_ADD_UZIVATEL", conn))
             {
-                cmd.ExecuteNonQuery();
+                cmd.CommandType = CommandType.StoredProcedure;
 
-                // Pokud má uživatel rodné číslo (je člen klubu), vytvoříme vazbu
-                if (!string.IsNullOrEmpty(uzivatel.RodneCislo))
+                cmd.Parameters.Add("v_uzivatelske_jmeno", OracleDbType.Varchar2, 30).Value = uzivatel.UzivatelskeJmeno;
+
+                cmd.Parameters.Add("v_heslo", OracleDbType.Varchar2, 100).Value = uzivatel.Heslo;
+
+                cmd.Parameters.Add("v_posledni_prihlaseni", OracleDbType.TimeStamp).Value = uzivatel.PosledniPrihlaseni;
+
+                cmd.Parameters.Add("v_idrole", OracleDbType.Int32).Value = idRole;
+
+                cmd.Parameters.Add("v_salt", OracleDbType.Varchar2, 64).Value = uzivatel.Salt;
+
+                cmd.Parameters.Add("v_email", OracleDbType.Varchar2, 100).Value = uzivatel.Email;
+
+                try
                 {
-                    using var cmdId = new OracleCommand("SELECT IDCLENKLUBU FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rodnecislo", conn);
-                    cmdId.Parameters.Add(":rodnecislo", OracleDbType.Varchar2).Value = uzivatel.RodneCislo;
-
-                    object idClena = cmdId.ExecuteScalar();
-                    if (idClena != null)
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OracleException ex)
+                {
+                    if (ex.Number == 20003)
                     {
-                        using var cmdUpdate = new OracleCommand(@"
-                            UPDATE UZIVATELSKE_UCTY 
-                            SET CLEN_KLUBU_IDCLENKLUBU = :id 
-                            WHERE UZIVATELSKEJMENO = :jmeno", conn);
-
-                        cmdUpdate.Parameters.Add(":id", OracleDbType.Int32).Value = Convert.ToInt32(idClena);
-                        cmdUpdate.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
-                        cmdUpdate.ExecuteNonQuery();
+                        throw new Exception("Duplicitní uživatelské jméno nebo e-mail");
                     }
+
+                    throw new Exception("Chyba při provádění SP_ADD_UZIVATEL: " + ex.Message);
                 }
             }
-            catch (OracleException ex)
+
+            // Pokud je to hráč nebo trenér - doplníme vazbu
+            if (idClena.HasValue)
             {
-                if (ex.Number == 20003)
-                    throw new Exception("Duplicitní uživatelské jméno nebo e-mail!");
-                else
-                    throw new Exception($"Chyba při volání PKG_REGISTRACE.SP_ADD_UZIVATEL: {ex.Message}", ex);
+                using (var cmdUpdate = new OracleCommand(
+                    "UPDATE UZIVATELSKE_UCTY SET CLEN_KLUBU_IDCLENKLUBU = :id WHERE UZIVATELSKEJMENO = :jmeno",
+                    conn))
+                {
+                    cmdUpdate.Parameters.Add(":id", OracleDbType.Int32).Value = idClena.Value;
+                    cmdUpdate.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+                    cmdUpdate.ExecuteNonQuery();
+                }
             }
         }
 
         /// <summary>
-        /// Aktualizuje údaje uživatele pomocí procedury PKG_REGISTRACE.SP_UPDATE_UZIVATEL
-        /// Pokud heslo není zadáno, použije se původní z databáze
+        /// Aktualizuje údaje uživatele v databázi
+        /// Pokud není zadáno nové heslo, načte se původní
+        /// Kontroluje platnost rodného čísla u hráče/trenéra
+        /// a ověřuje, zda daný člen klubu nemá již jiný účet
+        /// Po kontrole uloží změny přes uloženou proceduru
+        /// a aktualizuje vazbu na člena klubu
         /// </summary>
-        /// <param name="uzivatel">Objekt s novými daty uživatele</param>
-        /// <param name="stareJmeno">Původní uživatelské jméno, podle kterého se vyhledá záznam</param>
-        /// /// <param name="conn">Připojení do Oracle databáze</param>
-        /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void UpdateUzivatel(OracleConnection conn,Uzivatel uzivatel, string stareJmeno)
+        public static void UpdateUzivatel(OracleConnection conn, Uzivatel uzivatel, string stareJmeno)
         {
-            // Pokud není nové heslo → načteme staré
+            var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
+
+            if (prihlaseny != null)
+            {
+                // Nastaví přihlášeného uživatele pro logování
+                DatabaseAppUser.SetAppUser(conn, prihlaseny);
+            }
+
+            // pokud nebylo zadáno nové heslo, načteme původní heslo
             if (string.IsNullOrEmpty(uzivatel.Heslo))
             {
                 using var cmdOld = new OracleCommand(
                     "SELECT HESLO, SALT FROM UZIVATELSKE_UCTY WHERE UZIVATELSKEJMENO = :jmeno", conn);
+
                 cmdOld.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = stareJmeno;
 
                 using var reader = cmdOld.ExecuteReader();
@@ -135,36 +167,121 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 }
             }
 
-            // Získáme ID role podle názvu role (např. "Admin" → 1)
+            // zjistíme ID role podle názvu
             int idRole;
-            using (var cmdRole = new OracleCommand("SELECT IDROLE FROM ROLE WHERE UPPER(NAZEVROLE) = UPPER(:nazev)", conn))
+            using (var cmdRole = new OracleCommand(
+                "SELECT IDROLE FROM ROLE WHERE UPPER(NAZEVROLE) = UPPER(:nazev)", conn))
             {
                 cmdRole.Parameters.Add(":nazev", OracleDbType.Varchar2).Value = uzivatel.Role;
-                object result = cmdRole.ExecuteScalar();
-                if (result == null)
-                    throw new Exception($"Role '{uzivatel.Role}' nebyla nalezena v tabulce ROLE.");
-                idRole = Convert.ToInt32(result);
+                idRole = Convert.ToInt32(cmdRole.ExecuteScalar());
             }
 
-            // Voláme proceduru pro update
+            // zpracování rodného čísla jestli hráč nebo trenér jinak null pro další role
+            int? idClena = null;
+
+            if (!string.IsNullOrEmpty(uzivatel.RodneCislo))
+            {
+                // ověří typ hráč nebo trenér a existence člena v DB
+                idClena = OverClena(conn, uzivatel.RodneCislo, uzivatel.Role);
+
+                // ověří, že tento člen už nemá jiný účet
+                OverJestliNemaJinyUcet(conn, idClena.Value, stareJmeno);
+            }
+
+            // volání procedury z balíčku
             using var cmd = new OracleCommand("PKG_REGISTRACE.SP_UPDATE_UZIVATEL", conn)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            cmd.Parameters.Add("v_uzivatelske_jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+            cmd.Parameters.Add("v_stare_jmeno", OracleDbType.Varchar2).Value = stareJmeno;
+            cmd.Parameters.Add("v_nove_jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
             cmd.Parameters.Add("v_email", OracleDbType.Varchar2).Value = uzivatel.Email;
             cmd.Parameters.Add("v_heslo", OracleDbType.Varchar2).Value = uzivatel.Heslo;
             cmd.Parameters.Add("v_salt", OracleDbType.Varchar2).Value = uzivatel.Salt;
             cmd.Parameters.Add("v_idrole", OracleDbType.Int32).Value = idRole;
 
-            try
+            cmd.ExecuteNonQuery();
+
+            // Pokud je idClena vyplněné (hráč / trenér byl nalezen),
+            // přiřadí se jeho ID do uživatelského účtu.
+            // Pokud idClena není (např. role změněna na „admin“),
+            // vazba se vymaže = účet už nebude propojen s žádným členem.
+            if (idClena.HasValue)
             {
-                cmd.ExecuteNonQuery();
+                // hráč/trenér existuje → nastavíme vazbu na jeho ID
+                using var cmdUpdate = new OracleCommand(
+                    "UPDATE UZIVATELSKE_UCTY SET CLEN_KLUBU_IDCLENKLUBU = :id WHERE UZIVATELSKEJMENO = :jmeno",
+                    conn);
+
+                cmdUpdate.Parameters.Add(":id", OracleDbType.Int32).Value = idClena.Value;
+                cmdUpdate.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+
+                cmdUpdate.ExecuteNonQuery();
             }
-            catch (OracleException ex)
+            else
             {
-                throw new Exception($"Chyba při volání PKG_REGISTRACE.SP_UPDATE_UZIVATEL: {ex.Message}", ex);
+                using var cmdClear = new OracleCommand(
+                    "UPDATE UZIVATELSKE_UCTY SET CLEN_KLUBU_IDCLENKLUBU = NULL WHERE UZIVATELSKEJMENO = :jmeno",
+                    conn);
+
+                cmdClear.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+                cmdClear.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// Najde člena klubu podle rodného čísla a typu (hráč / trenér)
+        /// Metoda ověřuje, že rodné číslo existuje a že patří členovi
+        /// správného typu. Pokud nic nenajde, vyhodí výjimku
+        /// Vrací ID člena pro následné použití
+        /// </summary>
+        private static int OverClena(OracleConnection conn, string rodneCislo, string role)
+        {
+            string sql = @"
+                        SELECT IDCLENKLUBU
+                        FROM CLENOVE_KLUBU 
+                        WHERE RODNE_CISLO = :rc 
+                        AND LOWER(TYPCLENA) = :typ";
+
+            using var cmd = new OracleCommand(sql, conn);
+            cmd.Parameters.Add(":rc", OracleDbType.Varchar2).Value = rodneCislo;
+            cmd.Parameters.Add(":typ", OracleDbType.Varchar2).Value = role.ToLower();
+
+            object res = cmd.ExecuteScalar();
+
+            if (res == null)
+            {
+                throw new Exception("Rodné číslo neodpovídá žádnému členovi klubu tohoto typu");
+            }
+
+            return Convert.ToInt32(res);
+        }
+
+        /// <summary>
+        /// Ověří, zda daný člen klubu hráč/trenér už nemá jiný
+        /// existující uživatelský účet. Používá se hlavně při editaci.
+        /// Parametr stareJmeno slouží k tomu, aby se při kontrole
+        /// ignoroval účet, který právě upravujeme. Pokud existuje jiný
+        /// účet s tímto ID člena, metoda vyhodí výjimku.
+        /// </summary>
+        private static void OverJestliNemaJinyUcet(OracleConnection conn, int idClena, string stareJmeno)
+        {
+            string sql = @"
+                        SELECT COUNT(*) 
+                        FROM UZIVATELSKE_UCTY
+                        WHERE CLEN_KLUBU_IDCLENKLUBU = :id
+                        AND UZIVATELSKEJMENO <> :starejmeno"; //zajišťuje při kontrole duplicit se nepočítá daný editovaný uživatel 
+
+            using var cmd = new OracleCommand(sql, conn);
+            cmd.Parameters.Add(":id", OracleDbType.Int32).Value = idClena;
+            cmd.Parameters.Add(":starejmeno", OracleDbType.Varchar2).Value = stareJmeno;
+
+            int pocet = Convert.ToInt32(cmd.ExecuteScalar());
+
+            if (pocet > 0)
+            {
+                throw new Exception("Tento hráč/trenér již má vytvořený jiný uživatelský účet");
             }
         }
 

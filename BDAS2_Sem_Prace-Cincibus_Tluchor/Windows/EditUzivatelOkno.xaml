@@ -10,11 +10,9 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
-    <!-- Vnější rámeček -->
     <Border CornerRadius="12">
         <Border CornerRadius="10" BorderThickness="2" Opacity="0.95">
 
-            <!-- Barevný okraj -->
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Aqua" Offset="0"/>
@@ -23,7 +21,6 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
 
-            <!-- Barevné pozadí -->
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                     <GradientStop Color="#5D1FA3" Offset="0"/>
@@ -82,7 +79,7 @@
                         </Button.Template>
                     </Button>
 
-                    <!-- Zavření -->
+                    <!-- Close -->
                     <Button x:Name="btnClose"
                             BorderThickness="0"
                             Content="X"
@@ -112,16 +109,15 @@
                     </Button>
                 </Grid>
 
-                <!-- Tělo formuláře -->
+                <!-- Tělo okna -->
                 <StackPanel Grid.Row="1" Width="280" Orientation="Vertical"
                             HorizontalAlignment="Center" Margin="0,35,0,0">
 
-                    <!-- Ikona -->
                     <Image Source="/Images/Ikony/Ikona_Uzivatel.png"
                            Width="120" Height="120" Margin="0,0,0,30"/>
 
                     <!-- Uživatelské jméno -->
-                    <TextBlock Text="Uživatelské jméno" Foreground="DarkGray" Margin="0,5,0,0"/>
+                    <TextBlock Text="Uživatelské jméno" Foreground="DarkGray"/>
                     <TextBox x:Name="txtUser" Height="28" Foreground="White"
                              BorderThickness="0,0,0,2" BorderBrush="DarkGray" Background="Transparent"/>
 
@@ -131,20 +127,21 @@
                              BorderThickness="0,0,0,2" BorderBrush="DarkGray" Background="Transparent"/>
 
                     <!-- Heslo -->
-                    <TextBlock Text="Heslo (můžeš změnit)" Foreground="DarkGray" Margin="0,15,0,0"/>
+                    <TextBlock Text="Heslo (volitelné)" Foreground="DarkGray" Margin="0,15,0,0"/>
                     <TextBox x:Name="txtHeslo" Height="28" Foreground="White"
                              BorderThickness="0,0,0,2" BorderBrush="DarkGray"
                              Background="Transparent" VerticalContentAlignment="Center"/>
 
                     <!-- Rodné číslo -->
-                    <TextBlock Text="Rodné číslo" Foreground="DarkGray" Margin="0,15,0,0"/>
+                    <TextBlock x:Name="lblRodne" Text="Rodné číslo" Foreground="DarkGray" Margin="0,15,0,0"/>
                     <TextBox x:Name="txtRodneCislo" Height="28" Foreground="White"
                              BorderThickness="0,0,0,2" BorderBrush="DarkGray" Background="Transparent"/>
 
-                    <!-- ComboBox pro roli -->
+                    <!-- Role -->
                     <TextBlock Text="Role" Foreground="DarkGray" Margin="0,15,0,0"/>
                     <ComboBox x:Name="cmbRole"
                               Height="30"
+                              SelectionChanged="cmbRole_SelectionChanged"
                               FontFamily="Montserrat"
                               FontSize="13"
                               Foreground="Black"
@@ -154,15 +151,15 @@
                               Padding="4"
                               Cursor="Hand"
                               HorizontalContentAlignment="Left"
-                              VerticalContentAlignment="Center"
-                              />
+                              VerticalContentAlignment="Center"/>
 
-                    <!-- Tlačítko uložit -->
-                    <Button x:Name="btnSave" Content="ULOŽIT ZMĚNY" Click="BtnSave_Click"
+                    <!-- Save -->
+                    <Button x:Name="btnSave" Content="ULOŽIT ZMĚNY"
+                            Click="BtnSave_Click"
                             Width="160" Height="40" Margin="0,30,0,0"
                             Background="#462AD8" Foreground="White"
                             FontSize="14" FontFamily="Montserrat"
-                            Cursor="Hand" BorderThickness="0" BorderBrush="Transparent">
+                            Cursor="Hand" BorderThickness="0">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#462AD8"/>
