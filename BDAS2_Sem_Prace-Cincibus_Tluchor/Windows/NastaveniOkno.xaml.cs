@@ -60,26 +60,26 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-            // TRENÉR – pouze binární obsah
+            // TRENÉR 
             if (role == "trener")
             {
                 Zapni(btnBinarniObsah);
                 return;
             }
 
-            // HRÁČ – nemá přístup k nastavení
+            // HRÁČ 
             if (role == "hrac")
             {
                 return;
             }
 
-            // UŽIVATEL – také nic
+            // UŽIVATEL 
             if (role == "uzivatel")
             {
                 return;
             }
 
-            // HOST – žádný přístup
+            // HOST 
             if (role == "host")
             {
                 return;
@@ -87,7 +87,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Deaktivuje všechna tlačítka v okně Nastavení a upraví jejich průhlednost.
+        /// Deaktivuje všechna tlačítka v okně Nastavení a upraví jejich průhlednost
         /// </summary>
         private void VypniVse()
         {
@@ -130,7 +130,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 btn.Opacity = 1;
             }
         }
-
 
         /// <summary>
         /// Otevře okno pro správu binárního obsahu 

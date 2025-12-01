@@ -57,8 +57,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         while (reader.Read())
                         {
                             ComboBoxItem item = new ComboBoxItem();
+
+                            // Nastavení textu zobrazovaného v ComboBoxu — název role
                             item.Content = reader["NAZEVROLE"].ToString();
+
+                            // Uložení ID role do Tag (skrytá hodnota připojená k položce)
                             item.Tag = Convert.ToInt32(reader["IDROLE"]);
+
                             cmbRole.Items.Add(item);
                         }
                     }
@@ -130,7 +135,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// Po úspěšné validaci aktualizuje objekt uživatele a zavolá
         /// databázový update. Chyby balíčku se zobrazují jako MessageBox
         /// </summary>
-
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try

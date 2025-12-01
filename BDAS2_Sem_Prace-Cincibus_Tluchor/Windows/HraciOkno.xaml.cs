@@ -365,7 +365,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
         /// <summary>
         /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
-        /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>

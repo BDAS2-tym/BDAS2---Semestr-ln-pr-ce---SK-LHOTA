@@ -64,10 +64,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 
                 btnPridej.IsEnabled = false;
                 btnOdeber.IsEnabled = false;
-                //btnNajdi.IsEnabled = false;
                 btnPridej.Opacity = 0.2;
                 btnOdeber.Opacity = 0.2;
-                //btnNajdi.Opacity = 0.2;
             }
         }
 
@@ -425,7 +423,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             if (role == "hrac" ||  role == "host" || role == "trener" || role == "uzivatel")
             {
-                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                MessageBox.Show("Nemáte oprávnění upravovat zápasy",
                                 "Omezení přístupu",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Warning);

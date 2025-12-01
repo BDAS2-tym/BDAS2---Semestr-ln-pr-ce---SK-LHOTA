@@ -67,9 +67,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <summary>
         /// Zpracuje registraci nového uživatele po kliknutí na tlačítko "Registrovat"
         /// </summary>
-        /// <summary>
-        /// Zpracuje registraci nového uživatele po kliknutí na tlačítko "Registrovat"
-        /// </summary>
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
             string uzivatelskeJmeno = txtUser.Text.Trim();
@@ -150,9 +147,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     .Replace("ý", "y")
                     .Replace("ž", "z");
 
+            // ověřuje, zda je role "hrac" nebo "trener"
             bool roleVyzadujeRodneCislo = normalizovanaRole == "hrac" || normalizovanaRole == "trener";
 
-            // VALIDACE RODNÉHO ČÍSLA 
+            // Validace rodného čísla
             if (roleVyzadujeRodneCislo)
             {
                 if (string.IsNullOrWhiteSpace(rodneCislo))

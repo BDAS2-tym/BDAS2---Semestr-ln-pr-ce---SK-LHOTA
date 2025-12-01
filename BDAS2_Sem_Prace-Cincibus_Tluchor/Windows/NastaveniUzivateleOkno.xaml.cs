@@ -257,10 +257,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Otevře dialogové okno pro vyhledávání uživatelských účtů
+        /// Pokud uživatel zadá filtry a dialog vrátí výsledky,
+        /// DataGrid přejde do vyhledávacího režimu,
+        /// </summary>
         private void BtnNajdi_Click(object sender, RoutedEventArgs e)
         {
-            DialogNajdiUzivatelskeUcty dialog =
-                new DialogNajdiUzivatelskeUcty(UzivateleData);
+            DialogNajdiUzivatelskeUcty dialog = new DialogNajdiUzivatelskeUcty(UzivateleData);
 
             bool? vysledek = dialog.ShowDialog();
 
@@ -282,6 +286,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Zachytává stisk kláves v okně.
+        /// Pokud je aktivní vyhledávací režim a uživatel stiskne kombinaci
+        /// CTRL + X, vrátí se DataGrid zpět do normálního režimu
+        /// </summary>
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (jeVyhledavaniAktivni && Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X)
