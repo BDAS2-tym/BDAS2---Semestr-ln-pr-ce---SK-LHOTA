@@ -84,7 +84,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     break;
 
                 case "trener":
-                    Zapni(btnHraci, btnTreneri, btnKontrakty, btnGrafy, btnZapasy);
+                    Zapni(btnHraci, btnTreneri, btnKontrakty, btnGrafy, btnZapasy, btnNastaveni);
                     break;
 
                 case "hrac":
@@ -96,7 +96,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     break;
 
                 case "host":
-                    Zapni(btnZapasy, btnNastaveni);
+                    Zapni(btnZapasy);
                     break;
             }
         }

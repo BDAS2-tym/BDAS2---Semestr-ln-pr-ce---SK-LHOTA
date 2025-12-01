@@ -64,10 +64,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
                 btnPridej.IsEnabled = false;
                 btnOdeber.IsEnabled = false;
-                btnNajdi.IsEnabled = false; 
                 btnPridej.Opacity = 0.2;
                 btnOdeber.Opacity = 0.2;
-                btnNajdi.Opacity = 0.2;
             }
         }
 

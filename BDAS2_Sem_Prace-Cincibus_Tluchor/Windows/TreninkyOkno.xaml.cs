@@ -52,7 +52,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             RodneCisloSloupec.Visibility = Visibility.Visible;
 
             // Pokud je to hráč, uživatel nebo trenér tyto sloupce a funkce tlačítek schováme
-            if (role == "hrac" || role == "host" )
+            if (role == "hrac" || role == "host" || role == "uzivatel")
             {
                 RodneCisloSloupec.Visibility = Visibility.Collapsed;
 
@@ -124,7 +124,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
             string role = uzivatel.Role.ToLower();
 
-            if (role == "hrac" || role == "host")
+            if (role == "hrac" || role == "host" || role == "uzivatel")
             {
                 MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
                                 "Omezení přístupu",
