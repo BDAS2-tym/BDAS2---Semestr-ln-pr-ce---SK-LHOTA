@@ -24,6 +24,23 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
         {
             InitializeComponent();
             this.treninkyData = treninkyData;
+
+            // Zjištění role s kontrolou null
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = "host"; // fallback
+
+            if (uzivatel != null && uzivatel.Role != null)
+            {
+                role = uzivatel.Role.ToLower();
+            }
+
+            // Pokud není admin - zakázat filtrování/zadání rodného čísla
+            if (role != "admin")
+            {
+                tRodneCislo.IsEnabled = false;
+                tRodneCislo.Opacity = 0.5;
+                tRodneCislo.ToolTip = "Pouze admin může filtrovat podle rodného čísla";
+            }
         }
 
         /// <summary>

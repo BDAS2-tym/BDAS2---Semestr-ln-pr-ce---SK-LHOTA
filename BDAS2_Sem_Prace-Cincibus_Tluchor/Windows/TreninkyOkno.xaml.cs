@@ -54,7 +54,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Nejdřív zobrazíme
             RodneCisloSloupec.Visibility = Visibility.Visible;
 
-            // Pokud je to hráč, uživatel nebo trenér tyto sloupce a funkce tlačítek schováme
+            // Pokud je role trener, skryjeme rodné číslo ostatních trenérů
+            if (role == "trener")
+            {
+                RodneCisloSloupec.Visibility = Visibility.Collapsed;
+            }
+
+            // Pokud je to hráč, uživatel host tyto sloupce a funkce tlačítek schováme
             if (role == "hrac" || role == "host" || role == "uzivatel")
             {
                 RodneCisloSloupec.Visibility = Visibility.Collapsed;
