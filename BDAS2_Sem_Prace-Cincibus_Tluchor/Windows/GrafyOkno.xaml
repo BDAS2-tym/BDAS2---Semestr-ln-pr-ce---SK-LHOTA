@@ -6,7 +6,7 @@
         Width="1400" Height="700"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Icon="/Images/Img/graph.png">
+        Icon="/Images/Ikony/Ikona_Grafy.ico">
 
     <Grid>
         <!-- Pozadí -->
