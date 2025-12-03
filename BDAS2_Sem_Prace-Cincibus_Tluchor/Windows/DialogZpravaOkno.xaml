@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Zpráva uživatelům" 
         Height="600" Width="1100"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen" Icon="/Images/Ikony/Ikona_Notifikace.ico"
 >
 
     <Grid>
@@ -24,7 +24,7 @@
                 Margin="15"
                 BorderBrush="#125C64"
                 BorderThickness="2"
-                CornerRadius="6">
+                CornerRadius="6" Background="#66D1F9FF">
 
             <Grid Margin="15">
                 <Grid.RowDefinitions>
@@ -133,7 +133,7 @@
                             Style="{StaticResource HoverFadeButtonStyle2}">
 
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
-                            <Image Source="/Images/Img/coach.png" 
+                            <Image Source="/Images/Img/send.png" 
                                    Width="40" Height="40"
                                    Margin="0,0,10,0"/>
                             <TextBlock Text="Odeslat"

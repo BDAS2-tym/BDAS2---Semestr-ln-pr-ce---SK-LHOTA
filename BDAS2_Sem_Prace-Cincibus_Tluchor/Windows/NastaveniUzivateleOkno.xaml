@@ -198,7 +198,7 @@
                             Click="BtnNotifikace_Click"
                             Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
-                            <Image Source="/Images/Img/clock_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <Image Source="/Images/Img/notification.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Notifikace" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
