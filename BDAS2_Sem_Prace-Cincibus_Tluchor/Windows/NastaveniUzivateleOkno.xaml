@@ -140,8 +140,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
+                    <!-- Button Přidej -->
                     <Button x:Name="btnPridej"
                             Grid.Row="0"
                             Margin="0,5"
@@ -153,6 +155,7 @@
                         </StackPanel>
                     </Button>
 
+                    <!-- Button Odeber -->
                     <Button x:Name="btnOdeber"
                             Grid.Row="1"
                             Margin="0,8,0,5"
@@ -164,6 +167,7 @@
                         </StackPanel>
                     </Button>
 
+                    <!-- Button Edituj -->
                     <Button x:Name="btnEdituj"
                             Grid.Row="2"
                             Margin="0,8,0,5"
@@ -175,19 +179,33 @@
                         </StackPanel>
                     </Button>
 
+                    <!-- Button Najdi -->
                     <Button x:Name="btnNajdi"
-                            Grid.Row="3"
-                            Margin="0,8,0,5"
-                            Click="BtnNajdi_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}">
+                              Grid.Row="3"
+                              Margin="0,8,0,5"
+                              Click="BtnNajdi_Click"
+                              Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Najdi" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="btnZpet"
+                    <!-- Button Notifikace/Zpráva-->
+                    <Button x:Name="btnNotifikace"
                             Grid.Row="4"
+                            Margin="0,8,0,5"
+                            Click="BtnNotifikace_Click"
+                            Style="{StaticResource HoverFadeButtonStyle2}">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/clock_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Notifikace" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Button Zpět -->
+                    <Button x:Name="btnZpet"
+                            Grid.Row="5"
                             Margin="0,8,0,5"
                             Click="BtnZpet_Click"
                             Style="{StaticResource HoverFadeButtonStyle2}">
@@ -198,6 +216,7 @@
                     </Button>
 
                 </Grid>
+
 
             </Grid>
         </Border>

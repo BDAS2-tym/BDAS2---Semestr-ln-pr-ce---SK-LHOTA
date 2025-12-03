@@ -63,7 +63,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // TRENÉR 
             if (role == "trener")
             {
-                Zapni(btnBinarniObsah);
+                Zapni(btnBinarniObsah, btnUzivatele);
                 return;
             }
 
