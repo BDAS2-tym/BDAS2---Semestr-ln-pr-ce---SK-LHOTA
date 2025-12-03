@@ -135,7 +135,7 @@
                              BorderThickness="0,0,0,2" Height="28"
                              VerticalContentAlignment="Center" Padding="20,0,0,0" Margin="0,5,0,0">
                         <TextBox.Background>
-                            <ImageBrush ImageSource="/Images/Ikony/user-icon.png"
+                            <ImageBrush ImageSource="/Images/Ikony/Ikona_Mail.png"
                             Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
                         </TextBox.Background>
                     </TextBox>

@@ -18,6 +18,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <summary>
         /// Konstruktor přihlašovacího okna
         /// </summary>
+        public PrihlaseniOkno()
+        {
+            InitializeComponent();
+        }
+
+        /// <summary>
+        /// Konstruktor přihlašovacího okna
+        /// </summary>
         /// <param name="hlavniOkno">Instance hlavního okna </param>
         public PrihlaseniOkno(HlavniOkno hlavniOkno)
         {

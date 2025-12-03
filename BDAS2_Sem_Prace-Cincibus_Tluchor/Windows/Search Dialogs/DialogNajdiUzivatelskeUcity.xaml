@@ -5,7 +5,7 @@
         Height="400" Width="550"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
-        Icon="/Images/Ikony/Ikona_Uzivatele.ico">
+        Icon="/Images/Ikony/Ikona_Hledani.ico">
 
     <Grid>
 
