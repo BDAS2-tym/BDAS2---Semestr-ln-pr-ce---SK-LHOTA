@@ -66,7 +66,8 @@
                         <lvc:CartesianChart Series="{Binding IndexyPozic}"
                                             LegendLocation="Bottom"
                                             Height="350"
-                                            Width="600">
+                                            Width="600"
+                                            DataTooltip="{x:Null}">
 
                             <lvc:CartesianChart.AxisX>
                                 <lvc:Axis Title="Pozice"
