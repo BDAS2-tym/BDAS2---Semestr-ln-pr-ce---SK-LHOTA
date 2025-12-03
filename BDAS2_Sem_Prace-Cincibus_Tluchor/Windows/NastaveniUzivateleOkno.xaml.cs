@@ -31,6 +31,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             InitializeComponent();
             NactiUzivatele();
             DataContext = this;
+
+            NastavPrava();
         }
 
         /// <summary>
@@ -257,10 +259,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Otevře dialogové okno pro vyhledávání uživatelských účtů
+        /// Pokud uživatel zadá filtry a dialog vrátí výsledky,
+        /// DataGrid přejde do vyhledávacího režimu,
+        /// </summary>
         private void BtnNajdi_Click(object sender, RoutedEventArgs e)
         {
-            DialogNajdiUzivatelskeUcty dialog =
-                new DialogNajdiUzivatelskeUcty(UzivateleData);
+            DialogNajdiUzivatelskeUcty dialog = new DialogNajdiUzivatelskeUcty(UzivateleData);
 
             bool? vysledek = dialog.ShowDialog();
 
@@ -282,6 +288,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Zachytává stisk kláves v okně.
+        /// Pokud je aktivní vyhledávací režim a uživatel stiskne kombinaci
+        /// CTRL + X, vrátí se DataGrid zpět do normálního režimu
+        /// </summary>
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (jeVyhledavaniAktivni && Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X)
@@ -290,6 +301,101 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 jeVyhledavaniAktivni = false;
                 e.Handled = true;
             }
+        }
+
+        /// <summary>
+        /// Při stistknutí tlačítka se otevře dialog ZpravaOkno
+        /// Pokud je aktivní vyhledávací režim a uživatel stiskne kombinaci
+        /// CTRL + X, vrátí se DataGrid zpět do normálního režimu
+        /// </summary>
+        private void BtnNotifikace_Click(object sender, RoutedEventArgs e)
+        {
+            DialogZpravaOkno okno = new DialogZpravaOkno(UzivateleData);
+            okno.ShowDialog();
+        }
+
+        /// <summary>
+        /// Nastaví viditelnost sloupců a oprávnění přesně jako u TreneriOkno.
+        /// Admin má vše, trenér může pouze posílat notifikace.
+        /// </summary>
+        private void NastavPrava()
+        {
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+
+            string role;
+
+            if (uzivatel != null && uzivatel.Role != null)
+            {
+                role = uzivatel.Role.ToLower();
+            }
+
+            else
+            {
+                role = "host";
+            }
+
+            // Nejprve zobrazíme všechny sloupce (pro admina)
+            foreach (var sloupec in dgUzivatele.Columns)
+            {
+                sloupec.Visibility = Visibility.Visible;
+            }
+
+            // ADMIN – plný přístup
+            if (role == "admin")
+            {
+                return;
+            }    
+
+            // Skrytí sloupce RODNÉ ČÍSLO + AKCE pro všechny kromě admina
+            foreach (var sloupec in dgUzivatele.Columns)
+            {
+                if (sloupec.Header != null)
+                {
+                    string header = sloupec.Header.ToString().ToLower();
+
+                    // Skryje RODNÉ ČÍSLO
+                    if (header.Contains("rodné") || header.Contains("rodne"))
+                    {
+                        sloupec.Visibility = Visibility.Collapsed;
+                    }
+
+                    // Skryje AKCE (sloupec s tlačítkem Emulovat)
+                    if (header.Contains("akce"))
+                    {
+                        sloupec.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+
+            // TRENÉR – smí pouze posílat notifikace
+            if (role == "trener")
+            {
+                btnPridej.IsEnabled = false;
+                btnEdituj.IsEnabled = false;
+                btnOdeber.IsEnabled = false;
+                btnNajdi.IsEnabled = false;
+                btnNotifikace.IsEnabled = true;
+
+                btnPridej.Opacity = 0.2;
+                btnEdituj.Opacity = 0.2;
+                btnOdeber.Opacity = 0.2;
+                btnNajdi.Opacity = 0.2;
+
+                return;
+            }
+
+            // OSTATNÍ role – vše omezeno - nemají přístup
+            btnPridej.IsEnabled = false;
+            btnEdituj.IsEnabled = false;
+            btnOdeber.IsEnabled = false;
+            btnNajdi.IsEnabled = false;
+            btnNotifikace.IsEnabled = false;
+
+            btnPridej.Opacity = 0.2;
+            btnEdituj.Opacity = 0.2;
+            btnOdeber.Opacity = 0.2;
+            btnNajdi.Opacity = 0.2;
+            btnNotifikace.Opacity = 0.2;
         }
 
 

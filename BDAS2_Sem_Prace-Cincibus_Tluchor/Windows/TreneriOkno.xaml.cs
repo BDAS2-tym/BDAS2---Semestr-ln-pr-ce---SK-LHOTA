@@ -34,7 +34,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         }
 
         /// <summary>
-        /// Umožní export TOP 3 trenérů do textového souboru a uložit na plochu PC
+        /// FUNKCE, Umožní export TOP 3 trenérů do textového souboru a uložit na plochu PC
         /// </summary>
         private void BtnExportTopTreneri_Click(object sender, RoutedEventArgs e)
         {
@@ -84,10 +84,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
                 btnPridej.IsEnabled = false;
                 btnOdeber.IsEnabled = false;
-                btnNajdi.IsEnabled = false;
+                //btnNajdi.IsEnabled = false;
                 btnPridej.Opacity = 0.2;
                 btnOdeber.Opacity = 0.2;
-                btnNajdi.Opacity = 0.2;
+                //btnNajdi.Opacity = 0.2;
             }
         }
 

@@ -59,15 +59,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             string role = uzivatel.Role.ToLower();
 
             // Pokud je to hráč nebo trenér tyto sloupce a funkce tlačítek schováme
-            if (role == "hrac" || role == "host" || role == "trener")
+            if (role == "hrac" || role == "host" || role == "trener" || role == "uzivatel")
             {
                 
                 btnPridej.IsEnabled = false;
                 btnOdeber.IsEnabled = false;
-                btnNajdi.IsEnabled = false;
                 btnPridej.Opacity = 0.2;
                 btnOdeber.Opacity = 0.2;
-                btnNajdi.Opacity = 0.2;
             }
         }
 
@@ -367,6 +365,25 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
+            // Zjištění role přihlášeného uživatele
+            var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
+            if (prihlaseny == null) return;
+
+            string role = prihlaseny.Role.ToLower();
+
+            // Role, které NEMAJÍ povoleno editovat výsledek zápasu
+            if (role == "host" || role == "uzivatel" || role == "trener" || role == "hrac")
+            {
+                MessageBox.Show(
+                    "Vaše role nemá oprávnění editovat výsledek zápasu.",
+                    "Přístup zakázán",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+                return; // Ukončit metodu
+            }
+
+            // Dále pokračuje jen v roli Admin
             // Získání vybraného zápasu z TextBlocku
             if (sender is TextBlock tb && tb.DataContext is Zapas vybranyZapas)
             {
@@ -404,9 +421,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
             string role = uzivatel.Role.ToLower();
 
-            if (role == "hrac" ||  role == "host" || role == "trener")
+            if (role == "hrac" ||  role == "host" || role == "trener" || role == "uzivatel")
             {
-                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                MessageBox.Show("Nemáte oprávnění upravovat zápasy",
                                 "Omezení přístupu",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Warning);

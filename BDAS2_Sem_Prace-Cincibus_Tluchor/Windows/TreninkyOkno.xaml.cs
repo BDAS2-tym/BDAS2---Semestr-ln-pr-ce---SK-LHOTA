@@ -41,6 +41,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             NastavViditelnostSloupcuProUzivatele();
         }
 
+        /// <summary>
+        /// Nastaví viditelnost datových sloupců a možnost úprav podle role přihlášeného uživatele
+        /// </summary>
         private void NastavViditelnostSloupcuProUzivatele()
         {
             // Zjistíme, kdo je přihlášený
@@ -51,8 +54,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Nejdřív zobrazíme
             RodneCisloSloupec.Visibility = Visibility.Visible;
 
-            // Pokud je to hráč, uživatel nebo trenér tyto sloupce a funkce tlačítek schováme
-            if (role == "hrac" || role == "host" )
+            // Pokud je role trener, skryjeme rodné číslo ostatních trenérů
+            if (role == "trener")
+            {
+                RodneCisloSloupec.Visibility = Visibility.Collapsed;
+            }
+
+            // Pokud je to hráč, uživatel host tyto sloupce a funkce tlačítek schováme
+            if (role == "hrac" || role == "host" || role == "uzivatel")
             {
                 RodneCisloSloupec.Visibility = Visibility.Collapsed;
 
@@ -104,12 +113,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Zavře okno a vrátí uživatele do hlavního menu
+        /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
             hlavniOkno.Show();
         }
 
+        /// <summary>
+        /// Otevře dialog pro úpravu vybraného tréninku
+        /// </summary>
         private void DgTreninky_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
@@ -124,9 +139,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
             string role = uzivatel.Role.ToLower();
 
-            if (role == "hrac" || role == "host")
+            if (role == "hrac" || role == "host" || role == "uzivatel")
             {
-                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                MessageBox.Show("Nemáte oprávnění upravovat tréninky",
                                 "Omezení přístupu",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Warning);
@@ -138,12 +153,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
         }
 
+        /// <summary>
+        /// Otevře dialog pro přidání nového tréninku
+        /// </summary>
         private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejTrenink dialogPridejTrenink = new DialogPridejTrenink(TreneriOkno.TreneriData);
             dialogPridejTrenink.ShowDialog();
         }
 
+        /// <summary>
+        /// Smaže vybraný trénink po potvrzení uživatele
+        /// </summary>
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
             TreninkView vybranyTrenink = dgTreninky.SelectedItem as TreninkView;
@@ -195,6 +216,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Načte všechny tréninky z databázového pohledu TRENINKY_VIEW
+        /// Ukládá je do kolekce TreninkyData pro zobrazení v DataGridu
+        /// </summary>
         private void NactiTreninky()
         {
             try
@@ -224,7 +249,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     else
                         trenink.Prijmeni = "";
 
-                    // Trénink -> Popis (volitelný sloupec) 
+                    // Trénink - Popis (volitelný sloupec) 
                     if (reader["POPIS"] != DBNull.Value)
                         trenink.Popis = reader["POPIS"].ToString();
                     else
@@ -253,8 +278,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
-        /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>

@@ -130,6 +130,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             DataContext = this;
         }
 
+        // Vrácení zpět do hlavního okna
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

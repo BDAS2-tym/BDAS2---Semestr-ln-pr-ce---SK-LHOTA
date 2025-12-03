@@ -533,13 +533,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             if (reader.Read())
                             {
                                 byte[] data = (byte[])reader["OBSAH"];
-                                string pripona = reader["PRIPONASOUBORU"].ToString();
+                                string pripona = vybranyRadek.PriponaSouboru?.Trim().ToLower();
 
-                                // Otevře dialog pro výběr, kam se má soubor uložit
                                 SaveFileDialog dialog = new SaveFileDialog
                                 {
-                                    FileName = vybranyRadek.NazevSouboru + "." + pripona
+                                    FileName = $"{vybranyRadek.NazevSouboru}.{pripona}",
+                                    Filter = $"{pripona.ToUpper()} soubor (*.{pripona})|*.{pripona}|Všechny soubory (*.*)|*.*",
+                                    AddExtension = true,
+                                    DefaultExt = pripona
                                 };
+
 
 
                                 if (dialog.ShowDialog() == true)
