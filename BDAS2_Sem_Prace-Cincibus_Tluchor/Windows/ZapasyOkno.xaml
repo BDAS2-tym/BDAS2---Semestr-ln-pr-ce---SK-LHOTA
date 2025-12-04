@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Zápasy" 
         
-                Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Zapasy.ico" PreviewKeyDown="Window_PreviewKeyDown" >
+                Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Zapasy.ico" PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized" >
 
     <Grid>
 

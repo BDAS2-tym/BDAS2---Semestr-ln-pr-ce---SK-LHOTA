@@ -105,9 +105,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                     // RODNE_CISLO - NOT NULL
                     if (reader["RODNE_CISLO"] != DBNull.Value)
-                        clenKlubu.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                        clenKlubu.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
-                        clenKlubu.RodneCislo = 0L;
+                        clenKlubu.RodneCislo = "";
 
                     // JMENO - NOT NULL
                     if (reader["JMENO"] != DBNull.Value)

@@ -125,7 +125,6 @@
                 VerticalAlignment="Stretch">
             <Grid>
                 <Image Source="/Images/Img/hriste.jpeg"
-                       Stretch="Uniform"
                        Width="700"
                        Height="400"
                        HorizontalAlignment="Center"

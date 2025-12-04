@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Trenéři" 
         d:DataContext="{d:DesignInstance Type=local:TreneriOkno, IsDesignTimeCreatable=True}"
-        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Treneri.ico" PreviewKeyDown="Window_PreviewKeyDown">
+        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Treneri.ico" PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized">
 
     <Grid>
         <Grid.Background>
