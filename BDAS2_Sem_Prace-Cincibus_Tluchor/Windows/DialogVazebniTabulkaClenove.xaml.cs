@@ -90,7 +90,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 using var conn = DatabaseManager.GetConnection();
                 conn.Open();
 
-                using var cmd = new OracleCommand("SELECT * FROM HRACI_OPATRENI_VIEW", conn);
+                using var cmd = new OracleCommand("SELECT * FROM CLENOVE_KLUBU_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
 
                 VsichniClenove.Clear();
