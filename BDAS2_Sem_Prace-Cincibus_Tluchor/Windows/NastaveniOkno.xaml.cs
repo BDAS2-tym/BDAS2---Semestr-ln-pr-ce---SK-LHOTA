@@ -167,7 +167,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
             HlavniOkno hlavniOkno = new HlavniOkno();
-            hlavniOkno.ShowDialog();
+            hlavniOkno.Show();
             this.Close();
         }
 
