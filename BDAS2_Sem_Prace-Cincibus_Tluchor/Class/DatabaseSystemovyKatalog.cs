@@ -137,9 +137,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             List<SystemovyObjekt> list = new List<SystemovyObjekt>();
 
             // Dotaz na USER_SOURCE vrací všech PACKAGE 
-            // ORDER BY NAME, LINE:
-            //   - seřadí nejdřív balíčky podle jména (NAME)
-            //   - uvnitř každého balíčku seřadí řádky podle LINE = správné pořadí kódu
             string sql = @"
             SELECT NAME, TEXT
             FROM USER_SOURCE

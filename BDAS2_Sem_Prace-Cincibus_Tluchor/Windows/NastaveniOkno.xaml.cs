@@ -1,6 +1,7 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,15 +27,27 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class NastaveniOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
-        private bool zavrenoTlacitkem = false;
+        public static NastaveniOkno Instance;
+
 
         public NastaveniOkno(HlavniOkno hlavniOkno)
         {
             InitializeComponent();
-
             this.hlavniOkno = hlavniOkno;
-
+            Instance = this;
             NastavPrava();
+        }
+
+        /// <summary>
+        /// Umožní přesouvání okna podržením levého tlačítka myši
+        /// </summary>
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+                
         }
 
         /// <summary>
@@ -137,10 +150,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnBinarniObsah_Click(object sender, RoutedEventArgs e)
         {
-            zavrenoTlacitkem = true;
             BinarniObsahOkno binarniObsahOkno = new BinarniObsahOkno();
             binarniObsahOkno.Show();
-            this.Close();
+            this.Hide();
         }
 
         /// <summary>
@@ -148,10 +160,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnUzivatele_Click(object sender, RoutedEventArgs e)
         {
-            zavrenoTlacitkem = true;
-            NastaveniUzivateleOkno uzivateleOkno = new NastaveniUzivateleOkno();
-            uzivateleOkno.Show();
-            this.Close();
+            NastaveniUzivateleOkno oknoUzivatele = new NastaveniUzivateleOkno(hlavniOkno);
+            oknoUzivatele.Show();
+            this.Hide();
         }
 
         /// <summary>
@@ -159,10 +170,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnSystemovyKatalog_Click(object sender, RoutedEventArgs e)
         {
-            zavrenoTlacitkem = true;
             SystemovyKatalogOkno systemovyKatalogOkno = new SystemovyKatalogOkno();
             systemovyKatalogOkno.Show();
-            this.Close();
+            this.Hide();
         }
 
         /// <summary>
@@ -170,12 +180,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
-            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
-            HlavniOkno hlavniOkno = new HlavniOkno();
             hlavniOkno.Show();
-            this.Close();
+            this.Hide();
         }
-
 
         /// <summary>
         /// Otevře okno s logem změn, které zobrazuje auditní historii databáze
@@ -183,22 +190,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnZmeny_Click(object sender, RoutedEventArgs e)
         {
-            zavrenoTlacitkem = true;
             LogTableOkno logTableOkno = new LogTableOkno(hlavniOkno);
             logTableOkno.Show();
-            this.Close();
-        }
-
-        /// <summary>
-        /// Ukončí aplikaci stistknutím X
-        /// </summary>
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (zavrenoTlacitkem == false)
-            {
-                // zavřeno přes X → ukončit aplikaci
-                Application.Current.Shutdown();
-            }
+            this.Hide();
         }
 
 

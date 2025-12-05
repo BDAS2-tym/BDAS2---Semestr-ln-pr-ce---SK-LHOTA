@@ -90,10 +90,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnZpet_Click(object sender, System.EventArgs e) 
         {
-            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
-            NastaveniOkno nastaveniOkno = new NastaveniOkno(hlavniOkno);
-            nastaveniOkno.Show();
-            this.Close();
+            zavrenoTlacitkem = true;
+            NastaveniOkno.Instance.Show();
+            this.Hide();
         }
 
         /// <summary>

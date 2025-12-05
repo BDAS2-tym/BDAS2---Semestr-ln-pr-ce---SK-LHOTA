@@ -44,13 +44,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <summary>
         /// Zavře aktuální okno a otevře nové okno s nastavením
         /// </summary>
-        private void BtnZpet_Click(object sender, RoutedEventArgs e)
+        private void BtnZpet_Click(object sender, EventArgs e)
         {
-            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
-            NastaveniOkno nastaveniOkno = new NastaveniOkno(hlavniOkno);
-            nastaveniOkno.Show();
-            this.Close();
+            zavrenoTlacitkem = true;
+            NastaveniOkno.Instance.Show();
+            this.Hide();
         }
+
 
         /// <summary>
         /// Ukončí aplikaci stistknutím X

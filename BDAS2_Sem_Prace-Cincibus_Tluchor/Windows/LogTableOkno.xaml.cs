@@ -34,7 +34,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
         public LogTableOkno(HlavniOkno hlavniOkno)
         {
-            // TODO Dodělat zobrazení do tabulky
 
             InitializeComponent();
             this.hlavniOkno = hlavniOkno;
@@ -112,11 +111,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void btnZpet_Click(object sender, RoutedEventArgs e)
         {
-            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
-            NastaveniOkno nastaveniOkno = new NastaveniOkno(hlavniOkno);
-            nastaveniOkno.Show();
-            this.Close();
+            zavrenoTlacitkem = true;
+            NastaveniOkno.Instance.Show();
+            this.Hide();
         }
+
 
         /// <summary>
         /// Ukončí aplikaci stistknutím X

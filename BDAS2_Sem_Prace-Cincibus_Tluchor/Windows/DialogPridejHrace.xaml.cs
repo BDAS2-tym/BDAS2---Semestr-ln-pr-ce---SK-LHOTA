@@ -108,10 +108,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     Validator.ValidujDatum(dpDatumOpatreni.SelectedDate, "Datum disciplinárního opatření");
                     Validator.ValidujCeleCislo(iudDelkaTrestu.Value.ToString(), "Délka trestu");
 
-                    if (string.IsNullOrWhiteSpace(tboxDuvodOpatreni.Text))
-                    {
-                        throw new Exception("Důvod opatření nesmí být prázdný");
-                    }
+                    
                 }
 
                 // Vytvoření objektu hráče
