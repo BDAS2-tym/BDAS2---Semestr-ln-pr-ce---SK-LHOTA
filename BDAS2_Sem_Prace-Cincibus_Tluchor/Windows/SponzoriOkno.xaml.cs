@@ -88,7 +88,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]),
                             Jmeno = reader["JMENO_CLENA"].ToString(),
                             Prijmeni = reader["PRIJMENI_CLENA"].ToString(),
-                            RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"])
+                            RodneCislo = reader["RODNE_CISLO"].ToString()
                         };
 
                         // Zamezení duplikací sponzorů

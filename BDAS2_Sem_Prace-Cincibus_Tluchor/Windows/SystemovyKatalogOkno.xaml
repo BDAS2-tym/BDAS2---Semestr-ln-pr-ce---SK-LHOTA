@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Systémový katalog"
         Height="600" Width="1400"
-        Icon="/Images/Ikony/Ikona_Hraci.ico">
+        Icon="/Images/Ikony/Ikona_Hraci.ico" WindowState="Maximized">
 
     <Grid>
 
@@ -141,16 +141,16 @@
                                Margin="0 0 0 6"/>
 
                     <!-- Checkboxy -->
-                    <CheckBox x:Name="chkTables"       Content="Tabulky"                    Checked="FilterChanged" Unchecked="FilterChanged"/>
-                    <CheckBox x:Name="chkViews"        Content="Pohledy (VIEW)"             Checked="FilterChanged" Unchecked="FilterChanged"/>
-                    <CheckBox x:Name="chkFunctions"    Content="Funkce (FUNCTION)"          Checked="FilterChanged" Unchecked="FilterChanged"/>
-                    <CheckBox x:Name="chkProcedures"   Content="Procedury (PROCEDURE)"      Checked="FilterChanged" Unchecked="FilterChanged"/>
-                    <CheckBox x:Name="chkPackages"     Content="Package / Package Body"     Checked="FilterChanged" Unchecked="FilterChanged"/>
-                    <CheckBox x:Name="chkTriggers"     Content="Triggery (TRIGGER)"         Checked="FilterChanged" Unchecked="FilterChanged"/>
-                    <CheckBox x:Name="chkSequences"    Content="Sekvence (SEQUENCE)"        Checked="FilterChanged" Unchecked="FilterChanged"/>
-                    <CheckBox x:Name="chkIndexes"      Content="Indexy (INDEX)"             Checked="FilterChanged" Unchecked="FilterChanged"/>
+                    <CheckBox x:Name="chkTables"       Content="Tabulky"                    Checked="FilterChanged" Unchecked="FilterChanged" TabIndex="1"/>
+                    <CheckBox x:Name="chkViews"        Content="Pohledy (VIEW)"             Checked="FilterChanged" Unchecked="FilterChanged" TabIndex="2"/>
+                    <CheckBox x:Name="chkFunctions"    Content="Funkce (FUNCTION)"          Checked="FilterChanged" Unchecked="FilterChanged" TabIndex="3"/>
+                    <CheckBox x:Name="chkProcedures"   Content="Procedury (PROCEDURE)"      Checked="FilterChanged" Unchecked="FilterChanged" TabIndex="4"/>
+                    <CheckBox x:Name="chkPackages"     Content="Package / Package Body"     Checked="FilterChanged" Unchecked="FilterChanged" TabIndex="5"/>
+                    <CheckBox x:Name="chkTriggers"     Content="Triggery (TRIGGER)"         Checked="FilterChanged" Unchecked="FilterChanged" TabIndex="6"/>
+                    <CheckBox x:Name="chkSequences"    Content="Sekvence (SEQUENCE)"        Checked="FilterChanged" Unchecked="FilterChanged" TabIndex="7"/>
+                    <CheckBox x:Name="chkIndexes"      Content="Indexy (INDEX)"             Checked="FilterChanged" Unchecked="FilterChanged" TabIndex="8"/>
                     <CheckBox x:Name="chkConstraints"  Content="Omezení (Constraints)"
-                               Checked="FilterChanged" Unchecked="FilterChanged"/>
+                               Checked="FilterChanged" Unchecked="FilterChanged" TabIndex="9"/>
 
                 </StackPanel>
 
@@ -163,7 +163,7 @@
                         Style="{StaticResource HoverFadeButtonStyle2}"
                         FontFamily="Century Gothic"
                         FontSize="20"
-                        Cursor="Hand">
+                        Cursor="Hand" TabIndex="10">
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>

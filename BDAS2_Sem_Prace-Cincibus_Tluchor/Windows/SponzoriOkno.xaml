@@ -7,7 +7,7 @@
         xmlns:conv="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Text_Converters"
         mc:Ignorable="d"
         Title="Sponzoři" 
-        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Kontrakty.ico" PreviewKeyDown="Window_PreviewKeyDown">
+        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Kontrakty.ico" PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized">
 
     <Window.Resources>
         <conv:SponzorovaniClenoveConverter x:Key="SponzorovaniClenoveConverter"/>

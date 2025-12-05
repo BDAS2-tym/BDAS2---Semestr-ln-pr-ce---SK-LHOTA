@@ -69,6 +69,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         public int PocetCervenychKaret { get; set; }
 
+        /// <summary>
+        /// Datum, kdy bylo opatření uděleno
+        /// </summary>
         public DateTime DatumOpatreni { get; set; }
 
         /// <summary>

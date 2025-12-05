@@ -16,7 +16,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Rodné číslo člena klubu.
         /// </summary>
-        public long RodneCislo { get; set; }
+        public string RodneCislo { get; set; }
 
         /// <summary>
         /// Jméno člena klubu.
@@ -52,7 +52,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <param name="prijmeni">Příjmení člena</param>
         /// <param name="typClena">Typ člena</param>
         /// <param name="telefonniCislo">Tel. číslo člena</param>
-        public ClenKlubu(int idClenKlubu, long rodneCislo, string jmeno, string prijmeni, string typClena, string telefonniCislo)
+        public ClenKlubu(int idClenKlubu, string rodneCislo, string jmeno, string prijmeni, string typClena, string telefonniCislo)
         {
             IdClenKlubu = idClenKlubu;
             RodneCislo = rodneCislo;
