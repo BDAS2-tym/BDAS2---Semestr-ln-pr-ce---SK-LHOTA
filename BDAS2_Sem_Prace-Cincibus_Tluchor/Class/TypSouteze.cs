@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,16 +15,31 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         public Dictionary<int, string> TypySoutezi { get; private set; }
 
         /// <summary>
-        /// Prázdný konstruktor pro naplnění slovníku
+        /// Parametrický konstruktor pro naplnění slovníku
         /// </summary>
-        public TypSouteze()
+        /// <param name="conn">OracleConnection pro připojení do Oracle databáze</param>
+        public TypSouteze(OracleConnection conn)
         {
             TypySoutezi = new Dictionary<int, string>();
-            TypySoutezi.Add(1, "Liga");
-            TypySoutezi.Add(2, "Pohár");
-            TypySoutezi.Add(3, "Divize");
-            TypySoutezi.Add(4, "Kraj");
-            TypySoutezi.Add(5, "Okres");
+            using var cmd = new OracleCommand("SELECT * FROM TYP_SOUTEZ_VIEW", conn);
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                int? id = null;
+                string? nazev = null;
+
+                // IDTYPSOUTEZE - NOT NULL
+                if (reader["IDTYPSOUTEZE"] != DBNull.Value)
+                    id = Convert.ToInt32(reader["IDTYPSOUTEZE"]);
+
+                // NAZEVSOUTEZE - NOT NULL
+                if (reader["NAZEVSOUTEZE"] != DBNull.Value)
+                    nazev = reader["NAZEVSOUTEZE"].ToString();
+
+                if (id != null && nazev != null)
+                    TypySoutezi.Add((int)id, nazev);
+            }
         }
     }
 }

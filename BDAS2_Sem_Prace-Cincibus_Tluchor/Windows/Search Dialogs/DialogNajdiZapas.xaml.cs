@@ -131,7 +131,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
         {
             try
             {
-                TypSouteze typSouteze = new TypSouteze();
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+                TypSouteze typSouteze = new TypSouteze(conn);
                 cbSoutez.ItemsSource = typSouteze.TypySoutezi;
                 cbSoutez.DisplayMemberPath = "Value";
                 cbSoutez.SelectedValuePath = "Key";
@@ -151,7 +153,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
         {           
             try
             {
-                StavZapasu stav = new StavZapasu();
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+                StavZapasu stav = new StavZapasu(conn);
                 cbStav.ItemsSource = stav.StavyZapasu;
                 cbStav.DisplayMemberPath = "Value";
                 cbStav.SelectedValuePath = "Key";
