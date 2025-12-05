@@ -4,9 +4,8 @@
         Title="Správa binárního obsahu"
         Height="720" Width="1300"
         Icon="/Images/Ikony/Ikona_Binarni_Obsah.ico "
-        WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized">
-
-    <!-- TODO dodělat stylizování -->
+        WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized"
+        Closing="Window_Closing">
 
     <Grid>
         <!-- Pozadí -->

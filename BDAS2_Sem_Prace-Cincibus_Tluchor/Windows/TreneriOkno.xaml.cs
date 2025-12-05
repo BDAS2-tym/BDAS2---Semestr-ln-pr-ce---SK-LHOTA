@@ -19,6 +19,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
     {
         private HlavniOkno hlavniOkno;
         private bool jeVyhledavaniAktivni = false;
+        private bool zavrenoTlacitkem = false;
 
         // Kolekce trenérů pro DataGrid
         public static ObservableCollection<Trener> TreneriData { get; set; } = new ObservableCollection<Trener>();
@@ -97,9 +98,22 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
             this.Close();
             hlavniOkno.Show();
             hlavniOkno.txtPocetTreneru.Text = DatabaseTreneri.GetPocetTreneru().ToString();
+        }
+
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
         }
 
         /// <summary>

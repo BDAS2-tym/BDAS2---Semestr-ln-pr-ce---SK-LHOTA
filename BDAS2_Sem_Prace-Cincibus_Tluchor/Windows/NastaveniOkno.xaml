@@ -7,7 +7,8 @@
         Title="Nastavení systému"
         Height="500" Width="1000"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize" Icon="/Images/Ikony/Ikona_Nastaveni.ico">
+        ResizeMode="NoResize" Icon="/Images/Ikony/Ikona_Nastaveni.ico"
+        Closing="Window_Closing">
 
     <Grid>
         <!-- Pozadí -->

@@ -25,6 +25,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         private string nazevSouboru;
         private string priponaSouboru;
         private bool jeVyhledavaniAktivni = false;
+        private bool zavrenoTlacitkem = false;
 
         private HlavniOkno hlavniOkno;
 
@@ -88,10 +89,23 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// Tlačítko Zpět (vrátí se do Nastavení)
         /// </summary>
         private void BtnZpet_Click(object sender, System.EventArgs e) 
-        { 
+        {
+            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
             NastaveniOkno nastaveniOkno = new NastaveniOkno(hlavniOkno);
             nastaveniOkno.Show();
             this.Close();
+        }
+
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
         }
 
 

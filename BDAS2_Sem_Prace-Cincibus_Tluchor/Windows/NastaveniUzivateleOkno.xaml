@@ -7,7 +7,8 @@
         Title="Uživatelské účty"
         Height="600" Width="1300"
         WindowStartupLocation="CenterScreen"
-        Icon="/Images/Ikony/Ikona_Uzivatele.ico" PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized">
+        Icon="/Images/Ikony/Ikona_Uzivatele.ico" PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized"
+        Closing="Window_Closing">
 
     <Grid>
 

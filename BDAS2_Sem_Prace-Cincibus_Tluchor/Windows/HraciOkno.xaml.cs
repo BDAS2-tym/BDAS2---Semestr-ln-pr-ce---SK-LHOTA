@@ -18,6 +18,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
     {
         private HlavniOkno hlavniOkno;
         private bool jeVyhledavaniAktivni = false;
+        private bool zavrenoTlacitkem = false;
 
         //Kolekce hráčů pro DataGrid
         public static ObservableCollection<Hrac> HraciData { get; set; } = new ObservableCollection<Hrac>();
@@ -75,10 +76,24 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
             this.Close();
             hlavniOkno.Show();
             hlavniOkno.txtPocetHracu.Text = DatabaseHraci.GetPocetHracu().ToString();
         }
+
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
+        }
+
 
         /// <summary>
         /// Otevře dialog pro přidání nového hráče

@@ -13,6 +13,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class GrafyOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
+        private bool zavrenoTlacitkem = false;
 
         // Datová sada pro koláčový graf hráčů a trenérů
         public SeriesCollection PomeryHracuTreneru { get; set; }
@@ -133,8 +134,21 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         // Vrácení zpět do hlavního okna
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
             this.Close();
             hlavniOkno.Show();
+        }
+
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
         }
     }
 }

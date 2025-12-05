@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Hráči" 
-        Height="600" Width="1400" Icon="/Images/Ikony/Ikona_Hraci.ico " PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized">
+        Height="600" Width="1400" Icon="/Images/Ikony/Ikona_Hraci.ico " PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized"
+        Closing="Window_Closing">
 
     <Grid>
 

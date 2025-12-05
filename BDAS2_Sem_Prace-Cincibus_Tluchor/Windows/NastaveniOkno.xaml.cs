@@ -26,6 +26,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class NastaveniOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
+        private bool zavrenoTlacitkem = false;
 
         public NastaveniOkno(HlavniOkno hlavniOkno)
         {
@@ -136,6 +137,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnBinarniObsah_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;
             BinarniObsahOkno binarniObsahOkno = new BinarniObsahOkno();
             binarniObsahOkno.Show();
             this.Close();
@@ -146,6 +148,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnUzivatele_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;
             NastaveniUzivateleOkno uzivateleOkno = new NastaveniUzivateleOkno();
             uzivateleOkno.Show();
             this.Close();
@@ -156,6 +159,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnSystemovyKatalog_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;
             SystemovyKatalogOkno systemovyKatalogOkno = new SystemovyKatalogOkno();
             systemovyKatalogOkno.Show();
             this.Close();
@@ -166,10 +170,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
             HlavniOkno hlavniOkno = new HlavniOkno();
             hlavniOkno.Show();
             this.Close();
         }
+
 
         /// <summary>
         /// Otevře okno s logem změn, které zobrazuje auditní historii databáze
@@ -177,9 +183,24 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnZmeny_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;
             LogTableOkno logTableOkno = new LogTableOkno(hlavniOkno);
             logTableOkno.Show();
             this.Close();
         }
+
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
+        }
+
+
     }
 }

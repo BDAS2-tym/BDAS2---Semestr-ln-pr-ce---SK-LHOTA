@@ -25,6 +25,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     {
         private readonly HlavniOkno hlavniOkno;
         private bool jeVyhledavaniAktivni = false;
+        private bool zavrenoTlacitkem = false;
 
         // Kolekce soutěží pro DataGrid (binding v XAML)
         public ObservableCollection<Soutez> SoutezeData {  get; set; } = new ObservableCollection<Soutez>();
@@ -70,8 +71,21 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
             this.Close();
             hlavniOkno.Show();           
+        }
+
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
         }
 
         /// <summary>
