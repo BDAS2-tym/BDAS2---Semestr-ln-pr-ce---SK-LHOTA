@@ -51,7 +51,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 {
                     conn.Open();
 
-                    using (var cmd = new OracleCommand("SELECT IDROLE, NAZEVROLE FROM ROLE ORDER BY IDROLE", conn))
+                    using (var cmd = new OracleCommand("SELECT IDROLE, NAZEVROLE FROM ROLE_VIEW ORDER BY IDROLE", conn))
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -258,7 +258,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                     // změna role
                     int idRole = Convert.ToInt32(item.Tag);
-                    AktualizujRoliUzivatele(conn, stareJmeno, idRole);
 
                     // UPDATE přes proceduru
                     DatabaseRegistrace.UpdateUzivatel(conn, uzivatel, stareJmeno);
@@ -302,29 +301,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             catch (Exception ex)
             {
                 MessageBox.Show("Chyba při ukládání dat\n" + ex.Message,
-                    "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        /// <summary>
-        /// Aktualizuje ID role uživatele v databázi
-        /// </summary>
-        private void AktualizujRoliUzivatele(OracleConnection conn, string uzivatelskeJmeno, int idRole)
-        {
-            try
-            {
-                string sql = "UPDATE UZIVATELSKE_UCTY SET IDROLE = :idrole WHERE UZIVATELSKEJMENO = :jmeno";
-
-                using (var cmd = new OracleCommand(sql, conn))
-                {
-                    cmd.Parameters.Add(":idrole", OracleDbType.Int32).Value = idRole;
-                    cmd.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatelskeJmeno;
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Chyba při změně role\n" + ex.Message,
                     "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

@@ -142,22 +142,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                                 if (hesloOK)
                                 {
-                                    DatabaseAppUser.SetAppUser(conn, new Uzivatel { UzivatelskeJmeno = uzivatelskeJmeno });
 
-                                    // Aktualizace času posledního přihlášení
-                                    using (OracleCommand update = new OracleCommand(@"
-                                        UPDATE UZIVATELSKE_UCTY
-                                        SET POSLEDNIPRIHLASENI = SYSTIMESTAMP
-                                        WHERE LOWER(UZIVATELSKEJMENO) = LOWER(:v_jmeno)", conn))
-                                    {
-                                        update.Parameters.Add("v_jmeno", OracleDbType.Varchar2).Value = txtUzivatelskeJmeno;
-                                        int rows = update.ExecuteNonQuery();
-
-                                        if (rows == 0)
-                                        {
-                                            MessageBox.Show("Nepodařilo se aktualizovat čas přihlášení!", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
-                                        }
-                                    }
+                                    // Aktualizace posledního přihlášení přes proceduru
+                                    DatabaseRegistrace.UpdatePosledniPrihlaseni(conn, uzivatelskeJmeno);
 
                                     // Přihlášení proběhlo úspěšně
                                     MessageBox.Show("Přihlášení úspěšné (" + role + ")", "OK", MessageBoxButton.OK, MessageBoxImage.Information);

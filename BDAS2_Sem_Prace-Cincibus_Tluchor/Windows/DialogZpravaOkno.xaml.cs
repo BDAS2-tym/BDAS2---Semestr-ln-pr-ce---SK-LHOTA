@@ -11,13 +11,13 @@ using System.Windows.Media;
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
     /// <summary>
-    /// Okno pro odesílání hromadných zpráv uživatelům.
-    /// Umožňuje vybrat příjemce, zapsat text a odeslat zprávy e-mailem.
+    /// Okno pro odesílání hromadných zpráv uživatelům
+    /// Umožňuje vybrat příjemce, zapsat text a odeslat zprávy e-mailem
     /// </summary>
     public partial class DialogZpravaOkno : Window
     {
         /// <summary>
-        /// Kolekce uživatelů načtená z hlavního okna.
+        /// Kolekce uživatelů načtená z hlavního okna
         /// </summary>
         private IEnumerable<Uzivatel> uzivatele;
 

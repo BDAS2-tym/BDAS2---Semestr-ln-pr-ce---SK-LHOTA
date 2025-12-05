@@ -231,7 +231,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions
         /// </summary>
         public static bool ExistujeRodneCislo(OracleConnection conn, string rodneCislo)
         {
-            string sql = "SELECT COUNT(*) FROM CLENOVE_KLUBU WHERE RODNE_CISLO = :rc";
+            string sql = "SELECT COUNT(*) FROM PREHLED_UZIVATELSKE_UCTY WHERE RODNE_CISLO = :rc";
 
             using (var cmd = new OracleCommand(sql, conn))
             {

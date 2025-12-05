@@ -27,7 +27,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             using var conn = DatabaseManager.GetConnection();
             conn.Open();
 
-            using var cmd = new OracleCommand("SELECT COUNT(*) FROM TRENERI", conn);
+            using var cmd = new OracleCommand("SELECT COUNT(*) FROM TRENERI_VIEW", conn);
             return Convert.ToInt32(cmd.ExecuteScalar());
         }
 

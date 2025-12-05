@@ -61,14 +61,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 
             // Zjištění ID ROLE
             using (var cmdRole = new OracleCommand(
-                "SELECT IDROLE FROM ROLE WHERE UPPER(NAZEVROLE) = UPPER(:nazev)", conn))
+                "SELECT IDROLE FROM ROLE_VIEW WHERE UPPER(NAZEVROLE) = UPPER(:nazev)", conn))
             {
                 cmdRole.Parameters.Add(":nazev", OracleDbType.Varchar2).Value = uzivatel.Role;
 
                 object result = cmdRole.ExecuteScalar();
                 if (result == null)
                 {
-                    throw new Exception("Zvolená role neexistuje.");
+                    throw new Exception("Zvolená role neexistuje");
                 }
 
                 idRole = Convert.ToInt32(result);
@@ -122,15 +122,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             // Pokud je to hráč nebo trenér - doplníme vazbu
             if (idClena.HasValue)
             {
-                using (var cmdUpdate = new OracleCommand(
-                    "UPDATE UZIVATELSKE_UCTY SET CLEN_KLUBU_IDCLENKLUBU = :id WHERE UZIVATELSKEJMENO = :jmeno",
-                    conn))
+                using (var cmdUpdate = new OracleCommand("PKG_REGISTRACE.SP_NASTAV_CLENA", conn))
                 {
-                    cmdUpdate.Parameters.Add(":id", OracleDbType.Int32).Value = idClena.Value;
-                    cmdUpdate.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+                    cmdUpdate.CommandType = CommandType.StoredProcedure;
+
+                    cmdUpdate.Parameters.Add("v_uzivatelske_jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+                    cmdUpdate.Parameters.Add("v_id_clen", OracleDbType.Int32).Value = idClena.Value;
+
                     cmdUpdate.ExecuteNonQuery();
                 }
             }
+
         }
 
         /// <summary>
@@ -155,7 +157,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             if (string.IsNullOrEmpty(uzivatel.Heslo))
             {
                 using var cmdOld = new OracleCommand(
-                    "SELECT HESLO, SALT FROM UZIVATELSKE_UCTY WHERE UZIVATELSKEJMENO = :jmeno", conn);
+                    "SELECT HESLO, SALT FROM PREHLED_UZIVATELSKE_UCTY WHERE UZIVATELSKEJMENO = :jmeno", conn);
 
                 cmdOld.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = stareJmeno;
 
@@ -170,7 +172,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             // zjistíme ID role podle názvu
             int idRole;
             using (var cmdRole = new OracleCommand(
-                "SELECT IDROLE FROM ROLE WHERE UPPER(NAZEVROLE) = UPPER(:nazev)", conn))
+                "SELECT IDROLE FROM ROLE_VIEW WHERE UPPER(NAZEVROLE) = UPPER(:nazev)", conn))
             {
                 cmdRole.Parameters.Add(":nazev", OracleDbType.Varchar2).Value = uzivatel.Role;
                 idRole = Convert.ToInt32(cmdRole.ExecuteScalar());
@@ -209,26 +211,59 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             // vazba se vymaže = účet už nebude propojen s žádným členem.
             if (idClena.HasValue)
             {
-                // hráč/trenér existuje → nastavíme vazbu na jeho ID
-                using var cmdUpdate = new OracleCommand(
-                    "UPDATE UZIVATELSKE_UCTY SET CLEN_KLUBU_IDCLENKLUBU = :id WHERE UZIVATELSKEJMENO = :jmeno",
-                    conn);
+  
+                using var cmdUpdate = new OracleCommand("PKG_REGISTRACE.SP_NASTAV_CLENA", conn);
+                cmdUpdate.CommandType = CommandType.StoredProcedure;
 
-                cmdUpdate.Parameters.Add(":id", OracleDbType.Int32).Value = idClena.Value;
-                cmdUpdate.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+                cmdUpdate.Parameters.Add("v_uzivatelske_jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+                cmdUpdate.Parameters.Add("v_id_clen", OracleDbType.Int32).Value = idClena.Value;
 
                 cmdUpdate.ExecuteNonQuery();
+
             }
             else
             {
-                using var cmdClear = new OracleCommand(
-                    "UPDATE UZIVATELSKE_UCTY SET CLEN_KLUBU_IDCLENKLUBU = NULL WHERE UZIVATELSKEJMENO = :jmeno",
-                    conn);
+                using var cmdClear = new OracleCommand("PKG_REGISTRACE.SP_NASTAV_CLENA", conn);
+                cmdClear.CommandType = CommandType.StoredProcedure;
 
-                cmdClear.Parameters.Add(":jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+                cmdClear.Parameters.Add("v_uzivatelske_jmeno", OracleDbType.Varchar2).Value = uzivatel.UzivatelskeJmeno;
+                cmdClear.Parameters.Add("v_id_clen", OracleDbType.Int32).Value = DBNull.Value;
+
                 cmdClear.ExecuteNonQuery();
+
             }
         }
+
+        /// <summary>
+        /// Aktualizuje čas posledního přihlášení uživatele pomocí
+        /// procedury PKG_REGISTRACE.SP_UPDATE_POSLEDNI_PRIHLASENI
+        /// </summary>
+        public static void UpdatePosledniPrihlaseni(OracleConnection conn, string uzivatelskeJmeno)
+        {
+            var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
+
+            if (prihlaseny != null)
+            {
+                // Nastaví přihlášeného uživatele pro logování
+                DatabaseAppUser.SetAppUser(conn, prihlaseny);
+            }
+
+            using (var cmd = new OracleCommand("PKG_REGISTRACE.SP_UPDATE_POSLEDNI_PRIHLASENI", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("v_uzivatelske_jmeno", OracleDbType.Varchar2).Value = uzivatelskeJmeno;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OracleException ex)
+                {
+                    throw new Exception("Chyba při volání SP_UPDATE_POSLEDNI_PRIHLASENI: " + ex.Message, ex);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Najde člena klubu podle rodného čísla a typu (hráč / trenér)
@@ -240,22 +275,22 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         {
             string sql = @"
                         SELECT IDCLENKLUBU
-                        FROM CLENOVE_KLUBU 
-                        WHERE RODNE_CISLO = :rc 
+                        FROM CLENOVE_KLUBU_VIEW
+                        WHERE RODNE_CISLO = :rc
                         AND LOWER(TYPCLENA) = :typ";
 
             using var cmd = new OracleCommand(sql, conn);
             cmd.Parameters.Add(":rc", OracleDbType.Varchar2).Value = rodneCislo;
             cmd.Parameters.Add(":typ", OracleDbType.Varchar2).Value = role.ToLower();
 
-            object res = cmd.ExecuteScalar();
+            object result = cmd.ExecuteScalar();
 
-            if (res == null)
+            if (result == null)
             {
-                throw new Exception("Rodné číslo neodpovídá žádnému členovi klubu tohoto typu");
+                throw new Exception("Rodné číslo neodpovídá správnému typu člena nebo žádnému členovi klubu tohoto typu");
             }
 
-            return Convert.ToInt32(res);
+            return Convert.ToInt32(result);
         }
 
         /// <summary>
@@ -269,9 +304,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         {
             string sql = @"
                         SELECT COUNT(*) 
-                        FROM UZIVATELSKE_UCTY
-                        WHERE CLEN_KLUBU_IDCLENKLUBU = :id
-                        AND UZIVATELSKEJMENO <> :starejmeno"; //zajišťuje při kontrole duplicit se nepočítá daný editovaný uživatel 
+                        FROM PREHLED_UZIVATELSKE_UCTY
+                        WHERE IDCLENKLUBU = :id
+                        AND UZIVATELSKEJMENO <> :starejmeno";
 
             using var cmd = new OracleCommand(sql, conn);
             cmd.Parameters.Add(":id", OracleDbType.Int32).Value = idClena;
@@ -299,7 +334,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 
             const string sql = @"
                 SELECT COUNT(*) 
-                FROM CLENOVE_KLUBU 
+                FROM CLENOVE_KLUBU_VIEW
                 WHERE RODNE_CISLO = :v_rodne_cislo 
                   AND LOWER(TYPCLENA) = :v_typ_clena";
 
