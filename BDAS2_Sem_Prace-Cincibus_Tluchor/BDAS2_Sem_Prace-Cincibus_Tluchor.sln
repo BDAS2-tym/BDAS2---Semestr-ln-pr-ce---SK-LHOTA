@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDAS2_Sem_Prace-Cincibus_Tluchor", "BDAS2_Sem_Prace-Cincibus_Tluchor.csproj", "{BF51C177-7A47-463C-95CD-C11CA831AFA2}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "IsSkLhotaInstaller", "..\IsSkLhotaInstaller\IsSkLhotaInstaller.vdproj", "{1C44F36A-5273-69CB-C1DD-28AF83C8B501}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{BF51C177-7A47-463C-95CD-C11CA831AFA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF51C177-7A47-463C-95CD-C11CA831AFA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF51C177-7A47-463C-95CD-C11CA831AFA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C44F36A-5273-69CB-C1DD-28AF83C8B501}.Debug|Any CPU.ActiveCfg = Debug
+		{1C44F36A-5273-69CB-C1DD-28AF83C8B501}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
