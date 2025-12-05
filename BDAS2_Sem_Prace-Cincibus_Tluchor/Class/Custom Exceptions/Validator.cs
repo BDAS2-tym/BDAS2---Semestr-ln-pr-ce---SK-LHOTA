@@ -8,7 +8,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions
     /// <summary>
     /// Třída obsahující různé validační metody pro kontrolu uživatelských vstupů
     /// Slouží k ověření textových polí, čísel, telefonních čísel, rodného čísla,
-    /// textů, dat a dalších údajů před uložením do databáze
+    /// textů, dat a dalších údajů před uložením do databáze. Jedná se o formuláře hlavně pro hráče, trenéry a tréninky
     /// </summary>
     public static class Validator
     {

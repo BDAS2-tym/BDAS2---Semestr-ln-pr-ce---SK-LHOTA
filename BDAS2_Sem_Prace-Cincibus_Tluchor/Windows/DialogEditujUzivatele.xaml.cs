@@ -108,7 +108,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                 dtpPosledniPrihlaseni.Value = DateTime.Now;
 
-                // Donucení UI znovu načíst (JINAK TO NEFUNGUJE!)
                 dtpPosledniPrihlaseni.InvalidateVisual();
             }), DispatcherPriority.ContextIdle);
         }
