@@ -56,7 +56,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Persistence
                 // Logo
                 Paragraph logo = sekce.AddParagraph();
                 logo.Format.Alignment = ParagraphAlignment.Right;
-                MigraDoc.DocumentObjectModel.Shapes.Image img = logo.AddImage("../../../Images/Img/Logo_SK_Lhota.png");
+                string imagePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Logo_SK_Lhota.png");
+
+                MigraDoc.DocumentObjectModel.Shapes.Image img = logo.AddImage(imagePath);
                 img.Width = Unit.FromCentimeter(3.2);
                 img.LockAspectRatio = true;
                 logo.Format.SpaceAfter = Unit.FromCentimeter(0.5);
