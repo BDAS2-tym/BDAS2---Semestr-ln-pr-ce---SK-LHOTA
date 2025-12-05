@@ -28,7 +28,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 // Naplníme všechny parametry procedury
-                TypSouteze typSouteze = new TypSouteze();
+                TypSouteze typSouteze = new TypSouteze(conn);
                 int indexStavu = typSouteze.TypySoutezi.FirstOrDefault(st => st.Value == soutez.TypSouteze).Key;
 
                 cmd.Parameters.Add("v_id_typ_souteze", OracleDbType.Int32).Value = indexStavu;
@@ -89,7 +89,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 // Naplníme všechny parametry procedury
                 cmd.Parameters.Add("v_id_soutez", OracleDbType.Int32).Value = soutez.IdSoutez;
 
-                TypSouteze typSouteze = new TypSouteze();
+                TypSouteze typSouteze = new TypSouteze(conn);
                 int indexStavu = typSouteze.TypySoutezi.FirstOrDefault(st => st.Value == soutez.TypSouteze).Key;
 
                 cmd.Parameters.Add("v_id_typ_souteze", OracleDbType.Int32).Value = indexStavu;

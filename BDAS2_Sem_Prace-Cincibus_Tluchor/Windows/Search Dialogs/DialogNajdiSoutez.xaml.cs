@@ -78,7 +78,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
         {
             try
             {
-                TypSouteze typSouteze = new TypSouteze();
+                using var conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                TypSouteze typSouteze = new TypSouteze(conn);
                 cbSoutez.ItemsSource = typSouteze.TypySoutezi;
                 cbSoutez.DisplayMemberPath = "Value";
                 cbSoutez.SelectedValuePath = "Key";

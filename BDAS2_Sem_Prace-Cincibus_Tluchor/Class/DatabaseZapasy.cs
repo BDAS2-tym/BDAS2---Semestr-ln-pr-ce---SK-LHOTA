@@ -31,7 +31,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.Parameters.Add("v_datum", OracleDbType.Date).Value = zapas.Datum;
                 cmd.Parameters.Add("v_id_soutez", OracleDbType.Int32).Value = zapas.Soutez.IdSoutez;
 
-                StavZapasu stav = new StavZapasu();
+                StavZapasu stav = new StavZapasu(conn);
                 int indexStavu = stav.StavyZapasu.FirstOrDefault(st => st.Value == zapas.StavZapasu).Key;
 
                 cmd.Parameters.Add("v_id_stav", OracleDbType.Int32).Value = indexStavu;
@@ -94,7 +94,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.Parameters.Add("v_datum", OracleDbType.Date).Value = zapas.Datum;
                 cmd.Parameters.Add("v_id_soutez", OracleDbType.Int32).Value = zapas.Soutez.IdSoutez;
 
-                StavZapasu stav = new StavZapasu();
+                StavZapasu stav = new StavZapasu(conn);
                 int indexStavu = stav.StavyZapasu.FirstOrDefault(st => st.Value == zapas.StavZapasu).Key;
 
                 cmd.Parameters.Add("v_id_stav", OracleDbType.Int32).Value = indexStavu;

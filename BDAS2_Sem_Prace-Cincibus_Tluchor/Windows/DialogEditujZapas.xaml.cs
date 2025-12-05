@@ -314,7 +314,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
 
             DateTime vybraneDatum = dtpDatumZapasu.Value.Value;
-            StavZapasu stavZapasu = new StavZapasu();
 
             if (vybraneDatum < DateTime.Now)
             {
