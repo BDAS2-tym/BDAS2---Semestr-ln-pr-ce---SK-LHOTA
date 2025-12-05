@@ -58,9 +58,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                 // rodné číslo se zobrazuje pouze u hráče a trenéra
                 if (role.Contains("hráč") || role.Contains("trenér"))
+                {
                     panelRodneCislo.Visibility = Visibility.Visible;
+                }
+
                 else
+                {
                     panelRodneCislo.Visibility = Visibility.Collapsed;
+                }
+                    
             }
         }
 

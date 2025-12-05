@@ -112,6 +112,36 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             }
         }
 
+        /// <summary>
+        /// Přejmenuje binární soubor v databázi pomocí uložené procedury
+        /// <c>PKG_BINARNI_OBSAH.SP_RENAME_OBSAH</c>
+        /// </summary>
+        /// <param name="idObsah">ID existujícího záznamu v tabulce BINARNI_OBSAH, který má být přejmenován</param>
+        /// <param name="novyNazev">Nový název souboru, který bude uložen do databáze</param>
+        /// <param name="idUzivatel">
+        /// ID uživatelského účtu, který operaci provádí
+        /// </param>
+        public static void RenameBinarniObsah(int idObsah, string novyNazev, int idUzivatel)
+        {
+            using var conn = DatabaseManager.GetConnection();
+            conn.Open();
+
+            var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
+            if (prihlaseny != null)
+            {
+                DatabaseAppUser.SetAppUser(conn, prihlaseny);
+            }
+
+            using var cmd = new OracleCommand("PKG_BINARNI_OBSAH.SP_RENAME_OBSAH", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("v_id_obsah", OracleDbType.Int32).Value = idObsah;
+            cmd.Parameters.Add("v_novy_nazev", OracleDbType.Varchar2).Value = novyNazev;
+            cmd.Parameters.Add("v_id_uzivatel", OracleDbType.Int32).Value = idUzivatel;
+
+            cmd.ExecuteNonQuery();
+        }
+
 
     }
 }

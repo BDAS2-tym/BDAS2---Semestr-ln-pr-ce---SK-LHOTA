@@ -2,13 +2,16 @@
 using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Microsoft.VisualBasic;
 using Microsoft.Win32;
+using MigraDoc.DocumentObjectModel.Tables;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using Xceed.Wpf.AvalonDock.Themes;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
@@ -295,18 +298,25 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 {
                     conn.Open();
 
-                    string sql = "SELECT IDUZIVATELSKYUCET FROM UZIVATELSKE_UCTY WHERE IDROLE = :idRole FETCH FIRST 1 ROWS ONLY";
+                    string sql = @"SELECT IDUZIVATELSKYUCET
+                                    FROM PREHLED_UZIVATELSKE_UCTY
+                                    WHERE ROLE = :role
+                                    FETCH FIRST 1 ROWS ONLY";
+
                     using (var cmd = new OracleCommand(sql, conn))
                     {
-                        cmd.Parameters.Add("idRole", idRole);
+                        cmd.Parameters.Add("role", OracleDbType.Varchar2).Value = prihlaseny.Role;
+
                         object result = cmd.ExecuteScalar();
                         if (result == null)
                         {
-                            MessageBox.Show("Pro danou roli neexistuje žádný účet v databázi");
+                            MessageBox.Show("Nebyl nalezen žádný účet pro danou roli");
                             return;
                         }
+
                         idUzivatelskyUcet = Convert.ToInt32(result);
                     }
+
                 }
 
                 // Uložíme soubor do databáze
@@ -340,15 +350,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
-                    string sql = "SELECT IDROLE FROM ROLE WHERE LOWER(NAZEVROLE) = LOWER(:nazevRole)";
+
+                    string sql = "SELECT IDROLE FROM ROLE_VIEW WHERE LOWER(NAZEVROLE) = LOWER(:nazevRole)";
+
                     using (var cmd = new OracleCommand(sql, conn))
                     {
-                        cmd.Parameters.Add("nazevRole", nazevRole);
+                        cmd.Parameters.Add("nazevRole", OracleDbType.Varchar2).Value = nazevRole;
+
                         object result = cmd.ExecuteScalar();
-                        if (result != null) {
+
+                        if (result != null)
+                        {
                             return Convert.ToInt32(result);
                         }
-                          
                     }
                 }
             }
@@ -356,28 +370,29 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 MessageBox.Show("Chyba při zjišťování role: " + ex.Message);
             }
+
             return -1;
         }
+
 
         /// <summary>
         /// Přejmenuje soubor po dvojkliku v Datagridu
         /// </summary>
-        private void DgBinarniObsah_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void DgBinarniObsah_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var vybranyRadek = dgBinarniObsah.SelectedItem as BinarniObsah;
 
             if (vybranyRadek == null)
-            {
                 return;
-            } 
 
-            string novyNazev = Interaction.InputBox("Zadejte nový název souboru:", "Přejmenování", vybranyRadek.NazevSouboru);
+            string novyNazev = Interaction.InputBox(
+                "Zadejte nový název souboru:",
+                "Přejmenování",
+                vybranyRadek.NazevSouboru
+            );
 
-            // Pokud uživatel stiskne Storno nebo nezadá nic, ukončíme akci
             if (string.IsNullOrWhiteSpace(novyNazev))
-            {
                 return;
-            } 
 
             if (novyNazev.Length > 50)
             {
@@ -387,18 +402,53 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
+                // Získat přihlášeného uživatele
+                var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
+                if (prihlaseny == null)
+                {
+                    MessageBox.Show("Není přihlášen žádný uživatel!");
+                    return;
+                }
+
+                // Získat ID ROLE
+                int idRole = ZiskejIdRole(prihlaseny.Role);
+
+                // Získat ID účtu z view (podle role)
+                int idRoleUzivatel = 0;
+
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
-                    string sql = "UPDATE BINARNI_OBSAH SET NAZEVSOUBORU = :nazev, DATUMMODIFIKACE = SYSDATE, OPERACE = 'uprava' WHERE IDBINARNIOBSAH = :id";
+
+                    string sql = @"SELECT IDUZIVATELSKYUCET 
+                           FROM PREHLED_UCTY_ROLE_VIEW 
+                           WHERE IDROLE = :idRole 
+                           FETCH FIRST 1 ROWS ONLY";
+
                     using (var cmd = new OracleCommand(sql, conn))
                     {
-                        cmd.Parameters.Add("nazev", novyNazev);
-                        cmd.Parameters.Add("id", vybranyRadek.IdObsah);
-                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Add("idRole", OracleDbType.Int32).Value = idRole;
+                        object result = cmd.ExecuteScalar();
+
+                        if (result == null)
+                        {
+                            MessageBox.Show("Nebyl nalezen účet pro tuto roli!");
+                            return;
+                        }
+
+                        idRoleUzivatel = Convert.ToInt32(result);
                     }
                 }
+
+                // Zavolat uloženou proceduru s ID uživatele
+                DatabaseBinarniObsah.RenameBinarniObsah(
+                    vybranyRadek.IdObsah,
+                    novyNazev,
+                    idRoleUzivatel
+                );
+
                 MessageBox.Show("Název byl změněn", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 NactiBinarniObsah();
             }
             catch (Exception ex)
@@ -406,6 +456,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 MessageBox.Show("Chyba při přejmenování: " + ex.Message);
             }
         }
+
 
         /// <summary>
         /// Nahrazení vybraného souboru jiným souborem
@@ -446,7 +497,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
-                    string sql = "SELECT IDUZIVATELSKYUCET FROM UZIVATELSKE_UCTY WHERE IDROLE = :idRole FETCH FIRST 1 ROWS ONLY";
+                    string sql = "SELECT IDUZIVATELSKYUCET FROM PREHLED_UCTY_ROLE_VIEW WHERE IDROLE = :idRole FETCH FIRST 1 ROWS ONLY";
+
 
                     using (var cmd = new OracleCommand(sql, conn))
                     {
@@ -524,7 +576,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
-                    string sql = "SELECT OBSAH, PRIPONASOUBORU FROM BINARNI_OBSAH WHERE IDBINARNIOBSAH = :id";
+                    string sql = "SELECT OBSAH, PRIPONASOUBORU FROM BINARNI_OBSAH_ROLE_VIEW WHERE IDBINARNIOBSAH = :id";
                     using (var cmd = new OracleCommand(sql, conn))
                     {
                         cmd.Parameters.Add("id", vybranyRadek.IdObsah);
@@ -593,7 +645,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 using (var conn = DatabaseManager.GetConnection())
                 {
                     conn.Open();
-                    string sql = "SELECT OBSAH FROM BINARNI_OBSAH WHERE IDBINARNIOBSAH = :id";
+                    string sql = "SELECT OBSAH FROM BINARNI_OBSAH_ROLE_VIEW WHERE IDBINARNIOBSAH = :id";
                     using (var cmd = new OracleCommand(sql, conn))
                     {
                         cmd.Parameters.Add("id", vybranyRadek.IdObsah);

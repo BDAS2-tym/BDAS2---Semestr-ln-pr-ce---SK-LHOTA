@@ -79,7 +79,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-
             try
             {
                 // Hash + Salt
@@ -114,9 +113,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 // Ošetření duplicity a chyb Oracle
                 if (ex.Number == 20002)
+                {
                     MessageBox.Show("Toto uživatelské jméno už existuje!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+
                 else
+                {
                     MessageBox.Show("Chyba při registraci: " + ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
             }
             catch (Exception ex)
             {

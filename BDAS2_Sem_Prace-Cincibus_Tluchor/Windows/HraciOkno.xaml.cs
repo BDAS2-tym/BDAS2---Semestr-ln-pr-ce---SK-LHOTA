@@ -200,17 +200,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
                     // Hledání účtu podle rodného čísla přes pohled
-                    string sqlFindAcc = @"
+                    string sql = @"
                                         SELECT UZIVATELSKEJMENO
                                         FROM PREHLED_UZIVATELSKE_UCTY
-                                        WHERE RODNE_CISLO = :rc";
+                                        WHERE RODNE_CISLO = :rodnecislo";
 
                     // Sem se uloží nalezené uživatelské jméno
                     string uzivatelskeJmeno = null;
 
-                    using (var cmdFind = new OracleCommand(sqlFindAcc, conn))
+                    using (var cmdFind = new OracleCommand(sql, conn))
                     {
-                        cmdFind.Parameters.Add(":rc", OracleDbType.Varchar2).Value = vybranyHrac.RodneCislo;
+                        cmdFind.Parameters.Add(":rodnecislo", OracleDbType.Varchar2).Value = vybranyHrac.RodneCislo;
 
                         object result = cmdFind.ExecuteScalar();
 
@@ -322,7 +322,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                     else
                         hrac.PocetCervenychKaret = 0;
 
-                    // Pozice hráče z číselníku (text)
+                    // POZICE hráče z číselníku (text)
                     if (reader["POZICENAHRISTI"] != DBNull.Value)
                         hrac.PoziceNaHristi = reader["POZICENAHRISTI"].ToString();
                     else
