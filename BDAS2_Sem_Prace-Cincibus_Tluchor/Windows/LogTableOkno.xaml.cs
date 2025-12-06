@@ -26,6 +26,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     {
         private readonly HlavniOkno hlavniOkno;
         private bool jeVyhledavaniAktivni = false;
+        private bool zavrenoTlacitkem = false;
 
 
         // Kolekce soutěží pro DataGrid (binding v XAML)
@@ -33,7 +34,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
         public LogTableOkno(HlavniOkno hlavniOkno)
         {
-            // TODO Dodělat zobrazení do tabulky
 
             InitializeComponent();
             this.hlavniOkno = hlavniOkno;
@@ -111,9 +111,22 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void btnZpet_Click(object sender, RoutedEventArgs e)
         {
-            NastaveniOkno nastaveniOkno = new NastaveniOkno(hlavniOkno);
-            nastaveniOkno.Show();
-            this.Close();
+            zavrenoTlacitkem = true;
+            NastaveniOkno.Instance.Show();
+            this.Hide();
+        }
+
+
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
         }
 
         /// <summary>

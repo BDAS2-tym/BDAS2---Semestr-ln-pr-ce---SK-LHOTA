@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Soutěže" 
         
-        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Souteze.ico" PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized" >
+        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Souteze.ico" PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized" 
+        Closing="Window_Closing">
 
     <Grid>
 

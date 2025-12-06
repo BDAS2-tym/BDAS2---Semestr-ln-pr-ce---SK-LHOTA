@@ -15,8 +15,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     /// </summary>
     public partial class NastaveniUzivateleOkno : Window
     {
-        private HlavniOkno hlavniOkno;
+        private readonly HlavniOkno hlavniOkno;
         private bool jeVyhledavaniAktivni = false;
+        private bool zavrenoTlacitkem = false;
 
         /// <summary>
         /// Kolekce uživatelů pro DataGrid
@@ -26,12 +27,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <summary>
         /// Konstruktor – načte data po otevření okna
         /// </summary>
-        public NastaveniUzivateleOkno()
+        public NastaveniUzivateleOkno(HlavniOkno hlavniOkno)
         {
             InitializeComponent();
+            this.hlavniOkno = hlavniOkno;
             NactiUzivatele();
             DataContext = this;
-
             NastavPrava();
         }
 
@@ -101,21 +102,38 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         private void BtnPrepnout_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            Uzivatel u = (Uzivatel)btn.DataContext;
+            Uzivatel uzivatel = (Uzivatel)btn.DataContext;
 
-            var potvrzeni = MessageBox.Show($"Opravdu se chcete přepnout na účet: {u.UzivatelskeJmeno}?", "Potvrzení přepnutí",
+            var potvrzeni = MessageBox.Show($"Opravdu se chcete přepnout na účet: {uzivatel.UzivatelskeJmeno}?", "Potvrzení přepnutí",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
             if (potvrzeni != MessageBoxResult.Yes)
+            {
                 return;
+            }
 
-            HlavniOkno.NastavPrihlaseneho(u);
+            //Uložit emulovaného uživatele
+            HlavniOkno.NastavPrihlaseneho(uzivatel);
 
-            MessageBox.Show($"Nyní jste přihlášen jako: {u.UzivatelskeJmeno} ({u.Role})", "Úspěšné přepnutí", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(
+                $"Nyní jste přihlášen jako: {uzivatel.UzivatelskeJmeno} ({uzivatel.Role})",
+                "Úspěšné přepnutí",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
 
-            HlavniOkno hlavniOkno = new HlavniOkno();
-            hlavniOkno.Show();
+            // Otevřít nové hlavní okno
+            HlavniOkno noveOkno = new HlavniOkno();
+            noveOkno.Show();
+
+            // Zavřít staré hlavní okno – jen pokud existuje
+            if (hlavniOkno != null)
+            {
+                hlavniOkno.Close();
+            }
+
+            // Zavřít toto okno
+            zavrenoTlacitkem = true;
             this.Close();
         }
 
@@ -202,11 +220,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void BtnZpet_Click(object sender, RoutedEventArgs e)
+    
+        private void BtnZpet_Click(object sender, System.EventArgs e)
         {
-            NastaveniOkno nastaveniOkno = new NastaveniOkno(hlavniOkno);
-            nastaveniOkno.Show();
-            this.Close();
+            zavrenoTlacitkem = true;
+            NastaveniOkno.Instance.Show();
+            this.Hide();
         }
 
         /// <summary>
@@ -398,6 +417,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             btnNotifikace.Opacity = 0.2;
         }
 
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!zavrenoTlacitkem)
+            {
+                // zavřením přes X ukončit celou aplikaci
+                Application.Current.Shutdown();
+            }
+        }
 
     }
 }

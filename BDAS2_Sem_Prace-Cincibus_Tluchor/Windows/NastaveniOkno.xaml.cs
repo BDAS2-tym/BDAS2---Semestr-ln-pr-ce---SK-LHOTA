@@ -1,6 +1,7 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,14 +27,27 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class NastaveniOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
+        public static NastaveniOkno Instance;
+
 
         public NastaveniOkno(HlavniOkno hlavniOkno)
         {
             InitializeComponent();
-
             this.hlavniOkno = hlavniOkno;
-
+            Instance = this;
             NastavPrava();
+        }
+
+        /// <summary>
+        /// Umožní přesouvání okna podržením levého tlačítka myši
+        /// </summary>
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+                
         }
 
         /// <summary>
@@ -138,7 +152,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             BinarniObsahOkno binarniObsahOkno = new BinarniObsahOkno();
             binarniObsahOkno.Show();
-            this.Close();
+            this.Hide();
         }
 
         /// <summary>
@@ -146,9 +160,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnUzivatele_Click(object sender, RoutedEventArgs e)
         {
-            NastaveniUzivateleOkno uzivateleOkno = new NastaveniUzivateleOkno();
-            uzivateleOkno.Show();
-            this.Close();
+            NastaveniUzivateleOkno oknoUzivatele = new NastaveniUzivateleOkno(hlavniOkno);
+            oknoUzivatele.Show();
+            this.Hide();
         }
 
         /// <summary>
@@ -158,7 +172,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             SystemovyKatalogOkno systemovyKatalogOkno = new SystemovyKatalogOkno();
             systemovyKatalogOkno.Show();
-            this.Close();
+            this.Hide();
         }
 
         /// <summary>
@@ -166,9 +180,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
-            HlavniOkno hlavniOkno = new HlavniOkno();
             hlavniOkno.Show();
-            this.Close();
+            this.Hide();
         }
 
         /// <summary>
@@ -179,7 +192,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             LogTableOkno logTableOkno = new LogTableOkno(hlavniOkno);
             logTableOkno.Show();
-            this.Close();
+            this.Hide();
         }
+
+
     }
 }

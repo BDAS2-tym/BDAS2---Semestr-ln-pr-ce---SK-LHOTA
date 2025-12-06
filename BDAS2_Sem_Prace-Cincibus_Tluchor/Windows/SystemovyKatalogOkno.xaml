@@ -6,7 +6,8 @@
         mc:Ignorable="d"
         Title="Systémový katalog"
         Height="600" Width="1400"
-        Icon="/Images/Ikony/Ikona_Hraci.ico" WindowState="Maximized">
+        Icon="/Images/Ikony/Ikona_Hraci.ico" WindowState="Maximized"
+        Closing="Window_Closing">
 
     <Grid>
 
