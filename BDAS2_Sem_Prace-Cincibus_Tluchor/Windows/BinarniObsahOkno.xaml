@@ -73,44 +73,44 @@
                             Style="{StaticResource HoverFadeButtonStyle2}"
                             Padding="18,4,18,4"
                             VerticalContentAlignment="Center"
-                            Margin="0,15,0,8"/>
+                            Margin="0,15,0,8" TabIndex="1"/>
 
                     <Button Grid.Row="7"
                             x:Name="btnUlozit"
                             Content="Uložit do databáze"
                             Click="BtnUlozit_Click"
                             Style="{StaticResource HoverFadeButtonStyle2}"
-                            Margin="0,5,0,8"/>
+                            Margin="0,5,0,8" TabIndex="2"/>
 
                     <Button Grid.Row="8"
                             x:Name="btnStahnout"
                             Content="Stáhnout soubor"
                             Click="BtnStahnoutVybrany_Click"
                             Style="{StaticResource HoverFadeButtonStyle2}"
-                            Margin="0,5,0,8"/>
+                            Margin="0,5,0,8" TabIndex="3"/>
 
                     <Button Grid.Row="9"
                             x:Name="btnSmazat"
                             Content="Smazat z databáze"
                             Click="BtnSmazatVybrany_Click"
                             Style="{StaticResource HoverFadeButtonStyle2}"
-                            Margin="0,5,0,8"/>
+                            Margin="0,5,0,8" TabIndex="4"/>
 
                     <Button Grid.Row="10"
             x:Name="btnZobrazit"
             Content="Zobrazit obrázek"
             Click="BtnZobrazitObrazek_Click"
-            Style="{StaticResource HoverFadeButtonStyle2}" Margin="0,5,0,8"/>
+            Style="{StaticResource HoverFadeButtonStyle2}" Margin="0,5,0,8" TabIndex="5"/>
 
                     <Button Grid.Row="11"
                         x:Name="btnNajdi"
                         Content="Najdi"
-                        Style="{StaticResource HoverFadeButtonStyle2}" Margin="0,5,0,8" Click="BtnNajdi_Click"/>
+                        Style="{StaticResource HoverFadeButtonStyle2}" Margin="0,5,0,8" Click="BtnNajdi_Click" TabIndex="6"/>
 
                     <Button Grid.Row="12"
                         x:Name="btnZpet"
                         Content="Zpět"
-                        Style="{StaticResource HoverFadeButtonStyle2}" Margin="0,5,0,0" Click="BtnZpet_Click"/>
+                        Style="{StaticResource HoverFadeButtonStyle2}" Margin="0,5,0,0" Click="BtnZpet_Click" TabIndex="7"/>
 
                     <!-- STATUS -->
                     <TextBlock Grid.Row="13"

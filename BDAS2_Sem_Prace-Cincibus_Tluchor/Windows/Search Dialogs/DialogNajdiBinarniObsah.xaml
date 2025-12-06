@@ -40,26 +40,26 @@
             <TextBlock Text="Název souboru:" Grid.Row="0" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
             <TextBox x:Name="tboxNazev" Grid.Row="0" Height="26"
-                     Grid.ColumnSpan="2" Margin="140,4,30,4"/>
+                     Grid.ColumnSpan="2" Margin="140,4,30,4" TabIndex="1"/>
 
             <!-- Typ souboru -->
             <TextBlock Text="Typ souboru (MIME):" Grid.Row="1" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
             <TextBox x:Name="tboxTyp" Grid.Row="1" Height="26"
-                     Grid.ColumnSpan="2" Margin="140,4,30,4"/>
+                     Grid.ColumnSpan="2" Margin="140,4,30,4" TabIndex="2"/>
 
             <!-- Přípona -->
             <TextBlock Text="Přípona:" Grid.Row="2" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
             <TextBox x:Name="tboxPripona" Grid.Row="2" Height="26"
-                     Grid.ColumnSpan="2" Margin="140,4,30,4"/>
+                     Grid.ColumnSpan="2" Margin="140,4,30,4" TabIndex="3"/>
 
             <!-- Operace -->
             <TextBlock Text="Operace:" Grid.Row="3" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
             <ComboBox x:Name="cbOperace" Grid.Row="3" Height="26"
                       VerticalContentAlignment="Center"
-                      Grid.ColumnSpan="2" Margin="140,4,30,4">
+                      Grid.ColumnSpan="2" Margin="140,4,30,4" TabIndex="4">
                 <ComboBoxItem Content=""/>
                 <ComboBoxItem Content="vlozeni"/>
                 <ComboBoxItem Content="uprava"/>
@@ -70,7 +70,7 @@
                        VerticalAlignment="Center" FontWeight="Bold"/>
             <ComboBox x:Name="cbUzivatel" Grid.Row="4" Height="26"
                       VerticalContentAlignment="Center"
-                      Grid.ColumnSpan="2" Margin="140,4,30,4">
+                      Grid.ColumnSpan="2" Margin="140,4,30,4" TabIndex="5">
                 <ComboBoxItem Content=""/>
                 <ComboBoxItem Content="Host"/>
                 <ComboBoxItem Content="Admin"/>
@@ -83,13 +83,13 @@
             <TextBlock Text="Datum nahrání:" Grid.Row="5" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
             <DatePicker x:Name="dpNahrani" Grid.Row="5" Height="26"
-                        Grid.ColumnSpan="2" Margin="140,4,30,4"/>
+                        Grid.ColumnSpan="2" Margin="140,4,30,4" TabIndex="6"/>
 
             <!-- Datum změny -->
             <TextBlock Text="Datum změny:" Grid.Row="6" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
             <DatePicker x:Name="dpZmeny" Grid.Row="6" Height="26"
-                        Grid.ColumnSpan="2" Margin="140,4,30,4"/>
+                        Grid.ColumnSpan="2" Margin="140,4,30,4" TabIndex="7"/>
 
         </Grid>
 
@@ -106,12 +106,12 @@
                 <Button Content="Najdi" Width="130" Height="40"
                         Margin="20"
                         Style="{StaticResource HoverFadeButtonStyle}"
-                        Click="BtnNajdi_Click"/>
+                        Click="BtnNajdi_Click" TabIndex="8"/>
 
                 <Button Content="Reset" Width="130" Height="40"
                         Style="{StaticResource HoverFadeButtonStyle}"
                         Background="#DDC5D709"
-                        Click="BtnReset_Click"/>
+                        Click="BtnReset_Click" TabIndex="9"/>
 
             </StackPanel>
         </Border>

@@ -38,37 +38,37 @@
             <!-- RODNÉ ČÍSLO -->
             <TextBlock Text="Rodné číslo:" Grid.Row="0" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tRodneCislo" Grid.Row="0" Grid.Column="1" Height="26" MaxLength="10"/>
+            <TextBox x:Name="tRodneCislo" Grid.Row="0" Grid.Column="1" Height="26" MaxLength="10" Margin="0,5,0,5" TabIndex="1"/>
 
             <!-- JMÉNO -->
             <TextBlock Text="Jméno:" Grid.Row="1" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tJmeno" Grid.Row="1" Grid.Column="1" Height="26" MaxLength="20"/>
+            <TextBox x:Name="tJmeno" Grid.Row="1" Grid.Column="1" Height="26" MaxLength="20" Margin="0,5,0,5" TabIndex="2"/>
 
             <!-- PŘÍJMENÍ -->
             <TextBlock Text="Příjmení:" Grid.Row="2" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tPrijmeni" Grid.Row="2" Grid.Column="1" Height="26" MaxLength="20"/>
+            <TextBox x:Name="tPrijmeni" Grid.Row="2" Grid.Column="1" Height="26" MaxLength="20" Margin="0,5,0,5" TabIndex="3"/>
 
             <!-- TELEFON -->
             <TextBlock Text="Telefon:" Grid.Row="3" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tTelefon" Grid.Row="3" Grid.Column="1" Height="26" MaxLength="12"/>
+            <TextBox x:Name="tTelefon" Grid.Row="3" Grid.Column="1" Height="26" MaxLength="12" Margin="0,5,0,5" TabIndex="4"/>
 
             <!-- LICENCE -->
             <TextBlock Text="Trenérská licence:" Grid.Row="4" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tLicence" Grid.Row="4" Grid.Column="1" Height="20" MaxLength="20"/>
+            <TextBox x:Name="tLicence" Grid.Row="4" Grid.Column="1" Height="26" MaxLength="20" Margin="0,5,0,5" TabIndex="5"/>
 
             <!-- SPECIALIZACE -->
             <TextBlock Text="Specializace:" Grid.Row="5" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tSpecializace" Grid.Row="5" Grid.Column="1" Height="26" MaxLength="30"/>
+            <TextBox x:Name="tSpecializace" Grid.Row="5" Grid.Column="1" Height="26" MaxLength="30" Margin="0,5,0,5" TabIndex="6"/>
 
             <!-- PRAXE -->
             <TextBlock Text="Počet let praxe:" Grid.Row="6" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tPraxe" Grid.Row="6" Grid.Column="1" Height="26" MaxLength="3"/>
+            <TextBox x:Name="tPraxe" Grid.Row="6" Grid.Column="1" Height="26" MaxLength="3" Margin="0,5,0,5" TabIndex="7"/>
 
         </Grid>
 
@@ -85,12 +85,12 @@
                 <Button Content="Najdi" Width="130" Height="40"
                         Margin="20"
                         Style="{StaticResource HoverFadeButtonStyle}"
-                        Click="BtnNajdi_Click"/>
+                        Click="BtnNajdi_Click" TabIndex="8"/>
 
                 <Button Content="Reset" Width="130" Height="40"
                         Style="{StaticResource HoverFadeButtonStyle}"
                         Background="#DDC5D709"
-                        Click="BtnReset_Click"/>
+                        Click="BtnReset_Click" TabIndex="9"/>
 
             </StackPanel>
         </Border>
