@@ -15,7 +15,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
     public partial class HlavniOkno : Window
     {
         private DispatcherTimer timer; 
-        private static Uzivatel prihlasenyUzivatel; 
+        private static Uzivatel prihlasenyUzivatel;
 
         /// <summary>
         /// Konstruktor – nastaví časovač, načte údaje a zobrazí počet hráčů a trenérů
