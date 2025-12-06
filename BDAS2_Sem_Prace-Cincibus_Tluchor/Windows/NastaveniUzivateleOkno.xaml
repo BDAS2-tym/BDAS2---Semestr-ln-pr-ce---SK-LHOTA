@@ -7,10 +7,9 @@
         Title="Uživatelské účty"
         Height="600" Width="1300"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
         Icon="/Images/Ikony/Ikona_Uzivatele.ico"
         PreviewKeyDown="Window_PreviewKeyDown"
-        Closing="Window_Closing">
+        Closing="Window_Closing" WindowState="Maximized">
 
     <Grid>
 
@@ -151,7 +150,7 @@
                             Grid.Row="0"
                             Margin="0,5"
                             Click="BtnPridej_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}">
+                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="1">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Přidej" VerticalAlignment="Center"/>
@@ -163,7 +162,7 @@
                             Grid.Row="1"
                             Margin="0,8,0,5"
                             Click="BtnOdeber_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}">
+                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="2">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>
@@ -175,7 +174,7 @@
                             Grid.Row="2"
                             Margin="0,8,0,5"
                             Click="BtnEdituj_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}">
+                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="3">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/edit_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Edituj" VerticalAlignment="Center"/>
@@ -187,7 +186,7 @@
                               Grid.Row="3"
                               Margin="0,8,0,5"
                               Click="BtnNajdi_Click"
-                              Style="{StaticResource HoverFadeButtonStyle2}">
+                              Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="4">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Najdi" VerticalAlignment="Center"/>
@@ -199,7 +198,7 @@
                             Grid.Row="4"
                             Margin="0,8,0,5"
                             Click="BtnNotifikace_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}">
+                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="5">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/notification.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Notifikace" VerticalAlignment="Center"/>
@@ -211,7 +210,7 @@
                             Grid.Row="5"
                             Margin="0,8,0,5"
                             Click="BtnZpet_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}">
+                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="6">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Zpět" VerticalAlignment="Center"/>

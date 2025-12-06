@@ -43,7 +43,7 @@
 
             <!-- Popis tréninku -->
             <TextBlock x:Name="tblockPopis" Grid.Row="0" Grid.Column="0" Text="Náplň tréninku:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <RichTextBox x:Name="rtboxPopisTreninku" Grid.Column="1" Margin="50,12,50,12" TabIndex="4" FontFamily="Century Gothic" TextChanged="rtboxPopisTreninku_TextChanged">
+            <RichTextBox x:Name="rtboxPopisTreninku" Grid.Column="1" Margin="50,12,50,12" TabIndex="1" FontFamily="Century Gothic" TextChanged="rtboxPopisTreninku_TextChanged">
                 <FlowDocument>
                     <Paragraph>
                         <Run Text=""/>

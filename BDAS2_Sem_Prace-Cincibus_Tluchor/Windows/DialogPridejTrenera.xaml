@@ -86,7 +86,7 @@
                 TextAlignment="Right"
                 IsReadOnly="False"
                 FontFamily="Century Gothic"
-                FontSize="12"/>
+                FontSize="12" TabIndex="7"/>
 
         </Grid>
 

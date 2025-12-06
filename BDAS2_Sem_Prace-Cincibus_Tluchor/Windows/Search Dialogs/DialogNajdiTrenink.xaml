@@ -37,27 +37,27 @@
 
             <!-- Rodné číslo -->
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Rodné číslo trenéra:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox x:Name="tRodneCislo" Grid.Row="0" Grid.Column="1" Height="26" MaxLength="10"/>
+            <TextBox x:Name="tRodneCislo" Grid.Row="0" Grid.Column="1" Height="26" MaxLength="10" TabIndex="1"/>
 
             <!-- Příjmení -->
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Příjmení trenéra:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox x:Name="tPrijmeni" Grid.Row="1" Grid.Column="1" Height="26" MaxLength="20"/>
+            <TextBox x:Name="tPrijmeni" Grid.Row="1" Grid.Column="1" Height="26" MaxLength="20" TabIndex="2"/>
 
             <!-- Datum -->
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Datum:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <DatePicker x:Name="dpDatum" Grid.Row="2" Grid.Column="1" Height="26"/>
+            <DatePicker x:Name="dpDatum" Grid.Row="2" Grid.Column="1" Height="26" TabIndex="3"/>
 
             <!-- Čas -->
             <TextBlock Grid.Row="3" Grid.Column="0" Text="Čas (HH:mm):" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox x:Name="tCas" Grid.Row="3" Grid.Column="1" Height="26" MaxLength="5"/>
+            <TextBox x:Name="tCas" Grid.Row="3" Grid.Column="1" Height="26" MaxLength="5" TabIndex="4"/>
 
             <!-- Místo -->
             <TextBlock Grid.Row="4" Grid.Column="0" Text="Místo:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox x:Name="tMisto" Grid.Row="4" Grid.Column="1" Height="26" MaxLength="30"/>
+            <TextBox x:Name="tMisto" Grid.Row="4" Grid.Column="1" Height="26" MaxLength="30" TabIndex="5"/>
 
             <!-- Popis -->
             <TextBlock Grid.Row="5" Grid.Column="0" Text="Popis:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox x:Name="tPopis" Grid.Row="5" Grid.Column="1" Height="26" MaxLength="30"/>
+            <TextBox x:Name="tPopis" Grid.Row="5" Grid.Column="1" Height="26" MaxLength="30" TabIndex="6"/>
 
         </Grid>
 
@@ -74,12 +74,12 @@
                 <Button Content="Najdi" Width="130" Height="40"
                         Style="{StaticResource HoverFadeButtonStyle}"
                         Margin="20"
-                        Click="BtnNajdi_Click"/>
+                        Click="BtnNajdi_Click" TabIndex="7"/>
 
                 <Button Content="Reset" Width="130" Height="40"
                         Background="#DDC5D709"
                         Style="{StaticResource HoverFadeButtonStyle}"
-                        Click="BtnReset_Click"/>
+                        Click="BtnReset_Click" TabIndex="8"/>
 
             </StackPanel>
         </Border>

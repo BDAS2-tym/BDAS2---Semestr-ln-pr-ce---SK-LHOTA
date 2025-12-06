@@ -117,7 +117,7 @@
                              FontSize="13" FontFamily="Montserrat" Foreground="White"
                              CaretBrush="LightGray" BorderBrush="DarkGray"
                              BorderThickness="0,0,0,2" Height="28"
-                             VerticalContentAlignment="Center" Padding="20,0,0,0" Margin="0,5,0,0">
+                             VerticalContentAlignment="Center" Padding="20,0,0,0" Margin="0,5,0,0" TabIndex="1">
                         <TextBox.Background>
                             <ImageBrush ImageSource="/Images/Ikony/user-icon.png"
                                         Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
@@ -130,7 +130,7 @@
                              FontSize="13" FontFamily="Montserrat" Foreground="White"
                              CaretBrush="LightGray" BorderBrush="DarkGray"
                              BorderThickness="0,0,0,2" Height="28"
-                             VerticalContentAlignment="Center" Padding="20,0,0,0" Margin="0,5,0,0">
+                             VerticalContentAlignment="Center" Padding="20,0,0,0" Margin="0,5,0,0" TabIndex="2">
                         <TextBox.Background>
                             <ImageBrush ImageSource="/Images/Ikony/user-icon.png"
                                         Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
@@ -140,7 +140,7 @@
                     <TextBlock Text="Heslo" Foreground="DarkGray" FontSize="13" FontFamily="Montserrat" Margin="0,15,0,0"/>
                     <PasswordBox x:Name="txtPass" FontSize="13" FontFamily="Montserrat" Foreground="White"
                                  CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,2"
-                                 Height="28" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="20,0,0,0">
+                                 Height="28" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="20,0,0,0" TabIndex="3">
                         <PasswordBox.Background>
                             <ImageBrush ImageSource="/Images/Ikony/key1-icon.png"
                                         Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
@@ -150,7 +150,7 @@
                     <TextBlock Text="Znovu heslo" Foreground="DarkGray" FontSize="13" FontFamily="Montserrat" Margin="0,15,0,0"/>
                     <PasswordBox x:Name="txtPass2" FontSize="13" FontFamily="Montserrat" Foreground="White"
                                  CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,2"
-                                 Height="28" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="20,0,0,0">
+                                 Height="28" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="20,0,0,0" TabIndex="4">
                         <PasswordBox.Background>
                             <ImageBrush ImageSource="/Images/Ikony/key1-icon.png"
                                         Stretch="None" AlignmentX="Left" AlignmentY="Center"/>
@@ -172,7 +172,7 @@
                               Background="White"
                               Cursor="Hand"
                               HorizontalContentAlignment="Center"
-                              VerticalContentAlignment="Center">
+                              VerticalContentAlignment="Center" TabIndex="5">
                         <ComboBox.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="White"/>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#E0E0E0"/>
@@ -231,9 +231,9 @@
                         </Border>
                     </StackPanel>
 
-                    <Button x:Name="btnRegister" Content="REGISTROVAT"
+                    <Button x:Name="btnRegister" Content="Registrovat"
                             Foreground="White" FontSize="12" FontFamily="Montserrat"
-                            Cursor="Hand" Margin="0,30,0,0" Click="BtnRegister_Click">
+                            Cursor="Hand" Margin="0,30,0,0" Click="BtnRegister_Click" TabIndex="6">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#462AD8"/>

@@ -119,18 +119,18 @@
                     <!-- Uživatelské jméno -->
                     <TextBlock Text="Uživatelské jméno" Foreground="DarkGray"/>
                     <TextBox x:Name="txtUser" Height="28" Foreground="White"
-                             BorderThickness="0,0,0,2" BorderBrush="DarkGray" Background="Transparent"/>
+                             BorderThickness="0,0,0,2" BorderBrush="DarkGray" Background="Transparent" TabIndex="1"/>
 
                     <!-- Email -->
                     <TextBlock Text="E-mail" Foreground="DarkGray" Margin="0,15,0,0"/>
                     <TextBox x:Name="txtEmail" Height="28" Foreground="White"
-                             BorderThickness="0,0,0,2" BorderBrush="DarkGray" Background="Transparent"/>
+                             BorderThickness="0,0,0,2" BorderBrush="DarkGray" Background="Transparent" TabIndex="2"/>
 
                     <!-- Heslo -->
                     <TextBlock Text="Heslo (volitelné)" Foreground="DarkGray" Margin="0,15,0,0"/>
                     <TextBox x:Name="txtHeslo" Height="28" Foreground="White"
                              BorderThickness="0,0,0,2" BorderBrush="DarkGray"
-                             Background="Transparent" VerticalContentAlignment="Center"/>
+                             Background="Transparent" VerticalContentAlignment="Center" TabIndex="3"/>
 
                     <!-- Rodné číslo -->
                     <TextBlock x:Name="lblRodne" Text="Rodné číslo" Foreground="DarkGray" Margin="0,15,0,0"/>
@@ -151,15 +151,15 @@
                               Padding="4"
                               Cursor="Hand"
                               HorizontalContentAlignment="Left"
-                              VerticalContentAlignment="Center"/>
+                              VerticalContentAlignment="Center" TabIndex="4"/>
 
                     <!-- Save -->
-                    <Button x:Name="btnSave" Content="ULOŽIT ZMĚNY"
+                    <Button x:Name="btnSave" Content="Uložit změny"
                             Click="BtnSave_Click"
                             Width="160" Height="40" Margin="0,30,0,0"
                             Background="#462AD8" Foreground="White"
                             FontSize="14" FontFamily="Montserrat"
-                            Cursor="Hand" BorderThickness="0">
+                            Cursor="Hand" BorderThickness="0" TabIndex="5">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#462AD8"/>

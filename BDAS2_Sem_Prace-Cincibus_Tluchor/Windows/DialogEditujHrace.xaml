@@ -56,21 +56,21 @@
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <TextBox x:Name="tboxRodneCislo" Grid.Row="0" Grid.Column="1"
-                         Margin="50,18,50,18" MaxLength="10" FontFamily="Century Gothic" FontSize="12"/>
+                         Margin="50,18,50,18" MaxLength="10" FontFamily="Century Gothic" FontSize="12" TabIndex="1"/>
 
                 <!-- Jméno -->
                 <TextBlock Text="Jméno:" Grid.Row="1" Grid.Column="0"
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <TextBox x:Name="tboxJmeno" Grid.Row="1" Grid.Column="1"
-                         Margin="50,18,50,18" MaxLength="20" FontFamily="Century Gothic" FontSize="12"/>
+                         Margin="50,18,50,18" MaxLength="20" FontFamily="Century Gothic" FontSize="12" TabIndex="2"/>
 
                 <!-- Příjmení -->
                 <TextBlock Text="Příjmení:" Grid.Row="2" Grid.Column="0"
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <TextBox x:Name="tboxPrijmeni" Grid.Row="2" Grid.Column="1"
-                         Margin="50,18,50,18" MaxLength="20" FontFamily="Century Gothic" FontSize="12"/>
+                         Margin="50,18,50,18" MaxLength="20" FontFamily="Century Gothic" FontSize="12" TabIndex="3"/>
 
                 <!-- Telefon -->
                 <TextBlock Text="Telefonní číslo:" Grid.Row="3" Grid.Column="0"
@@ -78,7 +78,7 @@
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <TextBox x:Name="tboxTelCislo" Grid.Row="3" Grid.Column="1"
                            Margin="50,18,50,18" MaxLength="12"
-                           FontFamily="Century Gothic" FontSize="12"/>
+                           FontFamily="Century Gothic" FontSize="12" TabIndex="4"/>
 
                 <!-- Pozice -->
                 <TextBlock Text="Pozice na hřišti:" Grid.Row="4" Grid.Column="0"
@@ -86,7 +86,7 @@
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <ComboBox x:Name="cbPozice" Grid.Row="4" Grid.Column="1"
                           Margin="50,18,50,18" FontFamily="Century Gothic" FontSize="12"
-                          MaxDropDownHeight="230"/>
+                          MaxDropDownHeight="230" TabIndex="5"/>
 
                 <!-- Góly -->
                 <TextBlock Text="Počet vstřelených gólů:" Grid.Row="5" Grid.Column="0"
@@ -94,7 +94,7 @@
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <xctk:IntegerUpDown x:Name="iudPocetGolu" Grid.Row="5" Grid.Column="1"
                                     Margin="50,18,50,18" Minimum="0" Maximum="100"
-                                    FontFamily="Century Gothic" FontSize="12"/>
+                                    FontFamily="Century Gothic" FontSize="12" TabIndex="6"/>
 
                 <!-- Žluté karty -->
                 <TextBlock Text="Počet žlutých karet:" Grid.Row="6" Grid.Column="0"
@@ -102,7 +102,7 @@
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <xctk:IntegerUpDown x:Name="iudPocetZlutychKaret" Grid.Row="6" Grid.Column="1"
                                     Margin="50,18,50,18" Minimum="0" Maximum="100"
-                                    FontFamily="Century Gothic" FontSize="12"/>
+                                    FontFamily="Century Gothic" FontSize="12" TabIndex="7"/>
 
                 <!-- Červené karty -->
                 <TextBlock Text="Počet červených karet:" Grid.Row="7" Grid.Column="0"
@@ -110,7 +110,7 @@
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <xctk:IntegerUpDown x:Name="iudPocetCervenychKaret" Grid.Row="7" Grid.Column="1"
                                     Margin="50,17,50,17" Minimum="0" Maximum="100"
-                                    FontFamily="Century Gothic" FontSize="12"/>
+                                    FontFamily="Century Gothic" FontSize="12" IsTabStop="False" TabIndex="8"/>
 
                 <!-- Checkbox disciplinární opatření -->
                 <CheckBox x:Name="chkMaOpatreni" Grid.Row="8" Grid.ColumnSpan="2"
@@ -120,7 +120,7 @@
                           FontSize="14"
                           FontWeight="Bold"
                           Checked="chkMaOpatreni_Checked"
-                          Unchecked="chkMaOpatreni_Unchecked"/>
+                          Unchecked="chkMaOpatreni_Unchecked" TabIndex="9"/>
 
                 <!-- Panel opatření -->
                 <StackPanel x:Name="spOpatreni" Grid.Row="9" Grid.ColumnSpan="2"
@@ -178,12 +178,12 @@
                 <Button x:Name="btnEdituj" Click="BtnEdituj_Click"
                         Content="Edituj" Width="100" Padding="5" Margin="0,5,0,5"
                         FontFamily="Century Gothic" FontSize="14"
-                        Style="{StaticResource HoverFadeButtonStyle}"/>
+                        Style="{StaticResource HoverFadeButtonStyle}" TabIndex="10"/>
 
                 <Button x:Name="btnZrus" Content="Zruš" Width="100" Padding="5" Margin="100,5,0,5"
                         FontFamily="Century Gothic" FontSize="14"
                         Style="{StaticResource HoverFadeButtonStyle}"
-                        Click="BtnUkonci_Click">
+                        Click="BtnUkonci_Click" TabIndex="11">
                     <Button.Background>
                         <SolidColorBrush Color="#DDC5D709" Opacity="0.85"/>
                     </Button.Background>

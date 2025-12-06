@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:IsSkLhotaInstaller"
+"ProjectName" = "8:SkLhotaInstaller"
 "LanguageId" = "3:1029"
 "CodePage" = "3:1250"
 "UILanguageId" = "3:1029"
@@ -15,7 +15,25 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_48D8DB97B70441728033ACF6FA34BE0E"
+        "MsmKey" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_179C31B65BF44819B6BC688B00F13AB9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_33E7B20826754884816129A7122E4C2F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3B410209A1674045A5C37DE6EEEE4222"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -27,31 +45,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4DA5AE4CAFD14E5F9636365481084E61"
+        "MsmKey" = "8:_5A98754E29B248A2BC23D3716116C338"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5B0A26B6F86744379505C7409C80FB7B"
+        "MsmKey" = "8:_713CD2032A5E46319137A6F05D82FF4D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_65D9DAB77F5E48FBAA981506DA7D586A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6CB0C1F164094B62B2C913996B5A1B81"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_917E03DB3F7A4C08BE1A4756D6FF4974"
+        "MsmKey" = "8:_8494CEA2D43143C2963ECA161C875166"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -63,7 +69,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D823BE6D59C949FA8D86A4781F513168"
+        "MsmKey" = "8:_D77A177E0AF14F3797E9632CF6CE4C48"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -85,6 +91,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -101,6 +115,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -122,10 +152,70 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_48D8DB97B70441728033ACF6FA34BE0E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_040DF73325A14BEAB96DAAB6B3EE3C57"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\Banner.jpg"
+            "TargetName" = "8:Banner.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_28397C35512649C8A7177B4B85F9CB8B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_179C31B65BF44819B6BC688B00F13AB9"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\BDAS2_Sem_Prace-Cincibus_Tluchor.pdb"
+            "TargetName" = "8:BDAS2_Sem_Prace-Cincibus_Tluchor.pdb"
+            "Tag" = "8:"
+            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_33E7B20826754884816129A7122E4C2F"
             {
             "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\PenImc_cor3.dll"
             "TargetName" = "8:PenImc_cor3.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B410209A1674045A5C37DE6EEEE4222"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\wpfgfx_cor3.dll"
+            "TargetName" = "8:wpfgfx_cor3.dll"
             "Tag" = "8:"
             "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
             "Condition" = "8:"
@@ -162,27 +252,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4DA5AE4CAFD14E5F9636365481084E61"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\PresentationNative_cor3.dll"
-            "TargetName" = "8:PresentationNative_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5B0A26B6F86744379505C7409C80FB7B"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5A98754E29B248A2BC23D3716116C338"
             {
             "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\BDAS2_Sem_Prace-Cincibus_Tluchor.exe"
             "TargetName" = "8:BDAS2_Sem_Prace-Cincibus_Tluchor.exe"
@@ -202,7 +272,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_65D9DAB77F5E48FBAA981506DA7D586A"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_713CD2032A5E46319137A6F05D82FF4D"
             {
             "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\vcruntime140_cor3.dll"
             "TargetName" = "8:vcruntime140_cor3.dll"
@@ -222,30 +292,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6CB0C1F164094B62B2C913996B5A1B81"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8494CEA2D43143C2963ECA161C875166"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\wpfgfx_cor3.dll"
-            "TargetName" = "8:wpfgfx_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_917E03DB3F7A4C08BE1A4756D6FF4974"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\BDAS2_Sem_Prace-Cincibus_Tluchor.pdb"
-            "TargetName" = "8:BDAS2_Sem_Prace-Cincibus_Tluchor.pdb"
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\D3DCompiler_47_cor3.dll"
+            "TargetName" = "8:D3DCompiler_47_cor3.dll"
             "Tag" = "8:"
             "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
             "Condition" = "8:"
@@ -282,10 +332,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D823BE6D59C949FA8D86A4781F513168"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D77A177E0AF14F3797E9632CF6CE4C48"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\D3DCompiler_47_cor3.dll"
-            "TargetName" = "8:D3DCompiler_47_cor3.dll"
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\PresentationNative_cor3.dll"
+            "TargetName" = "8:PresentationNative_cor3.dll"
             "Tag" = "8:"
             "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
             "Condition" = "8:"
@@ -369,24 +419,24 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SK Lhota Installer"
-        "ProductCode" = "8:{B991A9FE-72E7-44CC-9AAD-BD55B11011AC}"
-        "PackageCode" = "8:{A97FC97B-0A7D-495A-A180-8AE96FAE6E50}"
+        "ProductCode" = "8:{BE141DE7-5C89-4EFD-BF62-D61ABD7B3735}"
+        "PackageCode" = "8:{3DD0E74D-662E-4E20-9601-A3195D1DE388}"
         "UpgradeCode" = "8:{D671E4D2-0ED8-4300-9C19-37DE0D1191E0}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Cincibus&Tluchor"
+        "ProductVersion" = "8:1.0.1"
+        "Manufacturer" = "8:Cincibus & Tluchor"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:SK Lhota Installer"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Cincibus&Tluchor"
-        "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:"
-        "ARPURLINFOABOUT" = "8:"
+        "ARPCONTACT" = "8:Cincibus & Tluchor"
+        "Keywords" = "8:SK Lhota"
+        "ARPCOMMENTS" = "8:Instalátor pro informační systém klubu SK Lhota"
+        "ARPURLINFOABOUT" = "8:https://github.com/BDAS2-tym/BDAS2---Semestr-ln-pr-ce---SK-LHOTA"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
@@ -490,30 +540,30 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A2AE57C4B5EE4947A4AB67F5217F0477"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_294BCAAD49DE4C16A47BE0238F12DA51"
             {
-            "Name" = "8:IS SK Lhota"
+            "Name" = "8:Informační Systém SK Lhota"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_5B0A26B6F86744379505C7409C80FB7B"
-            "Folder" = "8:_9413A037F71A48A690512F276AFB1205"
+            "Target" = "8:_5A98754E29B248A2BC23D3716116C338"
+            "Folder" = "8:_5FF8F3CB6DAC4E48A1BF927DEFC8718B"
             "WorkingFolder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
             "Icon" = "8:_9723C7181AFF448D8A6F4EF2CB64EACE"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CDE7569D0FAD4CF4807F3839BF5B84B5"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_87D2BB34136641178C3ACCED96BEBB65"
             {
-            "Name" = "8:IS SK Lhota"
+            "Name" = "8:Informační Systém SK Lhota"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_5B0A26B6F86744379505C7409C80FB7B"
-            "Folder" = "8:_5FF8F3CB6DAC4E48A1BF927DEFC8718B"
+            "Target" = "8:_5A98754E29B248A2BC23D3716116C338"
+            "Folder" = "8:_9413A037F71A48A690512F276AFB1205"
             "WorkingFolder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
             "Icon" = "8:_9723C7181AFF448D8A6F4EF2CB64EACE"
             "Feature" = "8:"
@@ -545,7 +595,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -595,7 +646,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -643,7 +695,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -665,7 +718,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -696,7 +750,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -744,7 +799,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -779,7 +835,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -816,7 +873,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -847,7 +905,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -891,7 +950,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_040DF73325A14BEAB96DAAB6B3EE3C57"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"

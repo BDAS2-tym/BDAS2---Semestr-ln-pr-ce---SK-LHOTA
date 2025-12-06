@@ -61,7 +61,7 @@
                                  BorderThickness="1"
                                  Height="380"
                                  FontFamily="Century Gothic"
-                                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto" TabIndex="1">
 
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -91,7 +91,7 @@
                                  VerticalScrollBarVisibility="Auto"
                                  FontFamily="Century Gothic"
                                  FontSize="14"
-                                 Height="380"/>
+                                 Height="380" TabIndex="2"/>
                     </StackPanel>
 
                 </Grid>
@@ -130,7 +130,7 @@
                             Grid.Row="0"
                             Margin="0,8,0,5"
                             Click="BtnOdeslat_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}">
+                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="3">
 
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/send.png" 
@@ -146,7 +146,7 @@
                             Grid.Row="1"
                             Margin="0,8,0,5"
                             Click="BtnZrusit_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}">
+                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="4">
 
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/left.png" 
