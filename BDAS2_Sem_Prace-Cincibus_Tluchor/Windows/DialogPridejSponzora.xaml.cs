@@ -98,9 +98,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 pridanySponzor.SponzorovaniClenove = SponzorovaniClenove.ToList();
                 pridanySponzor.SponzorovaneSouteze = SponzorovaneSouteze.ToList();
 
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                     // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -133,7 +132,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             DatabaseSponzoriSouteze.AddSponzoriSouteze(conn, soutez, pridanySponzor);
                         }                            
                     }
-                }
+                
 
                 sponzoriData.Add(pridanySponzor);
 

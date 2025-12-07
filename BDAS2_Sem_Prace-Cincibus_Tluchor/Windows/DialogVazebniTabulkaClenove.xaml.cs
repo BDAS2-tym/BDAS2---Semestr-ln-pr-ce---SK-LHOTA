@@ -87,8 +87,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using var cmd = new OracleCommand("SELECT * FROM CLENOVE_KLUBU_VIEW", conn);
                 using var reader = cmd.ExecuteReader();

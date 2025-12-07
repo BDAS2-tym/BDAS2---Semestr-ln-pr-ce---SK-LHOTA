@@ -55,8 +55,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 List<string> vysledky = new List<string>();
 
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                 using (var cmd = new OracleCommand("PKG_SOUTEZE.SP_VYPIS_HIERARCHII_SOUTEZI", conn))
                 {

@@ -56,8 +56,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                 using (var cmd = new OracleCommand("PKG_KONTRAKTY.SP_KONTROLA_KONCICICH_KONTRAKTU", conn))
                 {

@@ -72,10 +72,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     editovanaSoutez.StartDatum = DateOnly.FromDateTime(dpDatumStartuSouteze.SelectedDate.Value);
                     editovanaSoutez.KonecDatum = DateOnly.FromDateTime(dpDatumKonceSouteze.SelectedDate.Value);
 
-                    using (var conn = DatabaseManager.GetConnection())
-                    {
-                        conn.Open();
-
+                    var conn = DatabaseManager.GetConnection();
+            
                         // Nastavení přihlášeného uživatele pro logování
                         DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
@@ -85,7 +83,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         soutezeOkno.dgSouteze.Items.Refresh();
 
                         MessageBox.Show("Soutěž byla úspěšně editována!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
+                    
                 }
 
                 this.Close();
@@ -131,8 +129,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                 using var cmd = new OracleCommand("SELECT * FROM TYP_SOUTEZ_VIEW", conn);
                 using var reader = cmd.ExecuteReader();

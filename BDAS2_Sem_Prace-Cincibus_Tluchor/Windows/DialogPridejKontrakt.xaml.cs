@@ -106,8 +106,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                 using var cmd = new OracleCommand("SELECT * FROM HRACI_OPATRENI_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -187,9 +186,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     pridanyKontrakt.TelCisloNaAgenta = tboxTelCisloAgenta.Text;
                     pridanyKontrakt.VystupniKlauzule = Convert.ToInt32(tboxVystupniKlauzule.Text);
 
-                    using (var conn = DatabaseManager.GetConnection())
-                    {
-                        conn.Open();
+                    var conn = DatabaseManager.GetConnection();
+                    
 
                         // Nastavení přihlášeného uživatele pro logování
                         DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -198,7 +196,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         DatabaseKontrakty.AddKontrakt(conn, pridanyKontrakt);
 
                         kontraktyData.Add(pridanyKontrakt);
-                    }
+                    
 
                     MessageBox.Show("Kontrakt byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 }

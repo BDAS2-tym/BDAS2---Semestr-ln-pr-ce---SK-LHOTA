@@ -113,9 +113,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 EditovanyVysledek.PocetZlutychKaret = Convert.ToInt32(iudPocetZlutychKaret.Value);
                 EditovanyVysledek.PocetCervenychKaret = Convert.ToInt32(iudPocetCervenychKaret.Value);
 
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                     // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -124,7 +123,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     DatabaseVysledkyZapasu.UpdateVysledekZapasu(conn, EditovanyVysledek);
 
                     MessageBox.Show("Výsledek zápasu byl úspěšně editován!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                
 
                 this.DialogResult = true;
                 this.Close();

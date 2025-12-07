@@ -82,14 +82,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 novyTrenink.Misto = misto;
                 novyTrenink.Popis = popis;
 
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
                     DatabaseTreninky.AddTrenink(conn, novyTrenink);
 
                     TreninkyOkno.TreninkyData.Add(novyTrenink);
-                }
+                
 
                 this.DialogResult = true;
                 this.Close();

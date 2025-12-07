@@ -101,8 +101,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using var cmd = new OracleCommand("SELECT * FROM ZAPASY_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -172,8 +172,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using var cmd = new OracleCommand("SELECT * FROM VYSLEDKY_ZAPASU_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -245,8 +245,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 string vysledekFunkce = DatabaseZapasy.GetShrnutiStavuZapasu(conn);
 
@@ -328,9 +328,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Smazání z databáze
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
+                    
 
                     // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -345,7 +345,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     {
                         VysledkyData.Remove(vybranyVysledek);
                     }
-                }
+                
 
                 // Úspěch
                 MessageBox.Show(

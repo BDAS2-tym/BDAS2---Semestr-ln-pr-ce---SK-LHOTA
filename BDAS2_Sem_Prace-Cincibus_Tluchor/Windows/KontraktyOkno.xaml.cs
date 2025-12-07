@@ -104,8 +104,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using var cmd = new OracleCommand("SELECT * FROM KONTRAKTY_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -208,9 +208,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Smazání z databáze
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
+
 
                     // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -219,7 +219,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     DatabaseKontrakty.OdeberKontrakt(conn, vybranyKontrakt);
 
                     KontraktyData.Remove(vybranyKontrakt);
-                }
+                
 
                 // Úspěch
                 MessageBox.Show(
@@ -478,8 +478,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using (var cmd = new OracleCommand("PKG_KONTRAKTY.SP_ZVYS_PLAT_HRACE", conn))
                 {

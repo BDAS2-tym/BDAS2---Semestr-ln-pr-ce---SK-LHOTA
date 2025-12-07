@@ -447,25 +447,45 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 var conn = DatabaseManager.GetConnection();
                 string sql = "SELECT OBSAH, PRIPONASOUBORU FROM BINARNI_OBSAH_ROLE_VIEW WHERE IDBINARNIOBSAH = :id";
+
                 using (var cmd = new OracleCommand(sql, conn))
                 {
                     cmd.Parameters.Add("id", OracleDbType.Int32).Value = vybranyRadek.IdObsah;
+
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
+                            // BLOB z DB
                             byte[] data = reader["OBSAH"] as byte[];
-                            string pripona = reader["PRIPONASOUBORU"].ToString();
-                            SaveFileDialog sfd = new SaveFileDialog
+
+                            // PŘÍPONA
+                            string pripona = "";
+
+                            if (reader["PRIPONASOUBORU"] != DBNull.Value && reader["PRIPONASOUBORU"] != null)
                             {
-                                FileName = vybranyRadek.NazevSouboru + "." + pripona,
-                                Filter = "Všechny soubory|*.*"
-                            };
+                                pripona = reader["PRIPONASOUBORU"].ToString();
+                                if (pripona != null)
+                                {
+                                    pripona = pripona.Trim().ToLower();
+                                }
+                            }
+
+                            string fileName = vybranyRadek.NazevSouboru;
+                            if (!string.IsNullOrEmpty(pripona))
+                            {
+                                fileName = fileName + "." + pripona;
+                            }
+
+                            SaveFileDialog sfd = new SaveFileDialog();
+                            sfd.FileName = fileName;               
+                            sfd.Filter = "Všechny soubory|*.*";
 
                             if (sfd.ShowDialog() == true)
                             {
                                 File.WriteAllBytes(sfd.FileName, data);
-                                MessageBox.Show("Soubor uložen", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show("Soubor uložen", "Úspěch",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
                             }
                         }
                     }
@@ -475,6 +495,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 MessageBox.Show("Chyba při stahování: " + ex.Message);
             }
+
         }
 
         /// <summary>
