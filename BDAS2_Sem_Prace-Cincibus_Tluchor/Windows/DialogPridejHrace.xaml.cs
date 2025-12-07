@@ -107,8 +107,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 {
                     Validator.ValidujDatum(dpDatumOpatreni.SelectedDate, "Datum disciplinárního opatření");
                     Validator.ValidujCeleCislo(iudDelkaTrestu.Value.ToString(), "Délka trestu");
-
-                    
                 }
 
                 // Vytvoření objektu hráče
@@ -142,9 +140,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 }
 
                 // Uložení hráče do databáze
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                     // Kontrola UNIQUE rodného čísla
                     if (Validator.ExistujeRodneCislo(conn, rodneCislo))
@@ -157,7 +153,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     }
 
                     DatabaseHraci.AddHrac(conn, novyHrac);
-                }
+
 
                 // Přidání hráče do kolekce pro DataGrid
                 HraciData.Add(novyHrac);
@@ -172,7 +168,5 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 MessageBox.Show("Chyba při přidávání hráče:\n" + ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
     }
 }

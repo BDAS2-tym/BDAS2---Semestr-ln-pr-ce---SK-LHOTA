@@ -45,46 +45,42 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 UzivateleData.Clear();
 
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                OracleConnection conn = DatabaseManager.GetConnection();
 
-                using var cmd = new OracleCommand("SELECT * FROM PREHLED_UZIVATELSKE_UCTY", conn);
-                using var reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new OracleCommand("SELECT * FROM PREHLED_UZIVATELSKE_UCTY", conn))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    Uzivatel uzivatel = new Uzivatel();
+                    while (reader.Read())
+                    {
+                        Uzivatel uzivatel = new Uzivatel();
 
-                    // Uživatelské jméno
-                    if (reader["UZIVATELSKEJMENO"] != DBNull.Value)
-                        uzivatel.UzivatelskeJmeno = reader["UZIVATELSKEJMENO"].ToString();
-                    else
-                        uzivatel.UzivatelskeJmeno = "";
+                        if (reader["UZIVATELSKEJMENO"] != DBNull.Value)
+                            uzivatel.UzivatelskeJmeno = reader["UZIVATELSKEJMENO"].ToString();
+                        else
+                            uzivatel.UzivatelskeJmeno = "";
 
-                    // Role
-                    if (reader["ROLE"] != DBNull.Value)
-                        uzivatel.Role = reader["ROLE"].ToString();
-                    else
-                        uzivatel.Role = "";
+                        if (reader["ROLE"] != DBNull.Value)
+                            uzivatel.Role = reader["ROLE"].ToString();
+                        else
+                            uzivatel.Role = "";
 
-                    // Email
-                    if (reader["EMAIL"] != DBNull.Value)
-                        uzivatel.Email = reader["EMAIL"].ToString();
-                    else
-                        uzivatel.Email = "";
+                        if (reader["EMAIL"] != DBNull.Value)
+                            uzivatel.Email = reader["EMAIL"].ToString();
+                        else
+                            uzivatel.Email = "";
 
-                    if (reader["RODNE_CISLO"] != DBNull.Value)
-                        uzivatel.RodneCislo = reader["RODNE_CISLO"].ToString();
-                    else
-                        uzivatel.RodneCislo = "";
+                        if (reader["RODNE_CISLO"] != DBNull.Value)
+                            uzivatel.RodneCislo = reader["RODNE_CISLO"].ToString();
+                        else
+                            uzivatel.RodneCislo = "";
 
-                    // Poslední přihlášení
-                    if (reader["POSLEDNIPRIHLASENI"] != DBNull.Value)
-                        uzivatel.PosledniPrihlaseni = Convert.ToDateTime(reader["POSLEDNIPRIHLASENI"]);
-                    else
-                        uzivatel.PosledniPrihlaseni = DateTime.MinValue;
+                        if (reader["POSLEDNIPRIHLASENI"] != DBNull.Value)
+                            uzivatel.PosledniPrihlaseni = Convert.ToDateTime(reader["POSLEDNIPRIHLASENI"]);
+                        else
+                            uzivatel.PosledniPrihlaseni = DateTime.MinValue;
 
-                    UzivateleData.Add(uzivatel);
+                        UzivateleData.Add(uzivatel);
+                    }
                 }
 
                 dgUzivatele.ItemsSource = UzivateleData;
@@ -113,7 +109,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-            //Uložit emulovaného uživatele
             HlavniOkno.NastavPrihlaseneho(uzivatel);
 
             MessageBox.Show(
@@ -122,17 +117,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
 
-            // Otevřít nové hlavní okno
             HlavniOkno noveOkno = new HlavniOkno();
             noveOkno.Show();
 
-            // Zavřít staré hlavní okno – jen pokud existuje
             if (hlavniOkno != null)
             {
                 hlavniOkno.Close();
             }
 
-            // Zavřít toto okno
             zavrenoTlacitkem = true;
             this.Close();
         }
@@ -144,7 +136,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             RegistraceOkno registraceOkno = new RegistraceOkno();
             registraceOkno.ShowDialog();
-            NactiUzivatele(); // Obnoví seznam
+            NactiUzivatele();
         }
 
         /// <summary>
@@ -155,14 +147,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             Uzivatel vybranyUzivatel = dgUzivatele.SelectedItem as Uzivatel;
 
-            // Kontrola výběru
             if (vybranyUzivatel == null)
             {
                 MessageBox.Show("Vyberte uživatele, kterého chcete odebrat", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Kontrola, zda se nesnažíš smazat aktuálně emulovaný účet
             Uzivatel prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
 
             if (prihlaseny != null &&
@@ -175,7 +165,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-            // Potvrzení smazání
             var potvrzeni = MessageBox.Show(
                 $"Opravdu chcete odebrat uživatele {vybranyUzivatel.UzivatelskeJmeno}?",
                 "Potvrzení odstranění",
@@ -187,18 +176,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-            // Provedení smazání
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                OracleConnection conn = DatabaseManager.GetConnection();
 
-                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-                    DatabaseRegistrace.DeleteUzivatel(conn, vybranyUzivatel);
+                DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+                DatabaseRegistrace.DeleteUzivatel(conn, vybranyUzivatel);
 
-                    UzivateleData.Remove(vybranyUzivatel);
-                }
+                UzivateleData.Remove(vybranyUzivatel);
 
                 MessageBox.Show(
                     $"Uživatel {vybranyUzivatel.UzivatelskeJmeno} byl úspěšně odebrán.",
@@ -214,13 +199,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
-
-        /// <summary>
-        /// Metoda slouží k vrácení se na okno nastavení
-        /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">eventArgs</param>
-    
         private void BtnZpet_Click(object sender, System.EventArgs e)
         {
             zavrenoTlacitkem = true;
@@ -228,9 +206,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             this.Hide();
         }
 
-        /// <summary>
-        /// Otevře okno pro editaci vybraného uživatele
-        /// </summary>
         private void BtnEdituj_Click(object sender, RoutedEventArgs e)
         {
             Uzivatel vybrany = dgUzivatele.SelectedItem as Uzivatel;
@@ -246,43 +221,28 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             if (vysledek == true)
             {
-                NactiUzivatele(); // Obnoví DataGrid po úpravě
+                NactiUzivatele();
                 MessageBox.Show("Změny byly úspěšně uloženy.", "Aktualizace", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
-        /// <summary>
-        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
-        /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
-        /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">eventArgs</param>
         private void DgTreninky_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {
-                // Zrušení akce mazání
                 e.Handled = true;
                 MessageBox.Show("Smazání uživatele klávesou Delete není povoleno", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
-            // Zrušení výběru řádku při zmáčknutí klávesy Spacebar
             if (e.Key == Key.Space)
             {
                 dgUzivatele.UnselectAll();
-
-                // Odstranění Focus Rectangle na dané buňce
                 dgUzivatele.Focusable = false;
                 Keyboard.ClearFocus();
                 dgUzivatele.Focusable = true;
             }
         }
 
-        /// <summary>
-        /// Otevře dialogové okno pro vyhledávání uživatelských účtů
-        /// Pokud uživatel zadá filtry a dialog vrátí výsledky,
-        /// DataGrid přejde do vyhledávacího režimu,
-        /// </summary>
         private void BtnNajdi_Click(object sender, RoutedEventArgs e)
         {
             DialogNajdiUzivatelskeUcty dialog = new DialogNajdiUzivatelskeUcty(UzivateleData);
@@ -307,11 +267,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
-        /// <summary>
-        /// Zachytává stisk kláves v okně.
-        /// Pokud je aktivní vyhledávací režim a uživatel stiskne kombinaci
-        /// CTRL + X, vrátí se DataGrid zpět do normálního režimu
-        /// </summary>
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (jeVyhledavaniAktivni && Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X)
@@ -322,21 +277,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
-        /// <summary>
-        /// Při stistknutí tlačítka se otevře dialog ZpravaOkno
-        /// Pokud je aktivní vyhledávací režim a uživatel stiskne kombinaci
-        /// CTRL + X, vrátí se DataGrid zpět do normálního režimu
-        /// </summary>
         private void BtnNotifikace_Click(object sender, RoutedEventArgs e)
         {
             DialogZpravaOkno okno = new DialogZpravaOkno(UzivateleData);
             okno.ShowDialog();
         }
 
-        /// <summary>
-        /// Nastaví viditelnost sloupců a oprávnění přesně jako u TreneriOkno.
-        /// Admin má vše, trenér může pouze posílat notifikace.
-        /// </summary>
         private void NastavPrava()
         {
             Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
@@ -347,38 +293,32 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 role = uzivatel.Role.ToLower();
             }
-
             else
             {
                 role = "host";
             }
 
-            // Nejprve zobrazíme všechny sloupce (pro admina)
             foreach (var sloupec in dgUzivatele.Columns)
             {
                 sloupec.Visibility = Visibility.Visible;
             }
 
-            // ADMIN – plný přístup
             if (role == "admin")
             {
                 return;
-            }    
+            }
 
-            // Skrytí sloupce RODNÉ ČÍSLO + AKCE pro všechny kromě admina
             foreach (var sloupec in dgUzivatele.Columns)
             {
                 if (sloupec.Header != null)
                 {
                     string header = sloupec.Header.ToString().ToLower();
 
-                    // Skryje RODNÉ ČÍSLO
                     if (header.Contains("rodné") || header.Contains("rodne"))
                     {
                         sloupec.Visibility = Visibility.Collapsed;
                     }
 
-                    // Skryje AKCE (sloupec s tlačítkem Emulovat)
                     if (header.Contains("akce"))
                     {
                         sloupec.Visibility = Visibility.Collapsed;
@@ -386,7 +326,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 }
             }
 
-            // TRENÉR – smí pouze posílat notifikace
             if (role == "trener")
             {
                 btnPridej.IsEnabled = false;
@@ -403,7 +342,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-            // OSTATNÍ role – vše omezeno - nemají přístup
             btnPridej.IsEnabled = false;
             btnEdituj.IsEnabled = false;
             btnOdeber.IsEnabled = false;
@@ -417,17 +355,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             btnNotifikace.Opacity = 0.2;
         }
 
-        /// <summary>
-        /// Ukončí aplikaci stistknutím X
-        /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (!zavrenoTlacitkem)
             {
-                // zavřením přes X ukončit celou aplikaci
                 Application.Current.Shutdown();
             }
         }
-
     }
 }

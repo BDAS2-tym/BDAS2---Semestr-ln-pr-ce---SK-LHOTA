@@ -78,9 +78,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                 int praxe = (int)iudPraxe.Value;
 
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                     // Kontrola duplicity rodného čísla
                     if (Validator.ExistujeRodneCislo(conn, rodneCislo))
@@ -107,7 +105,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                     // Vložení do datagridu
                     TreneriData.Add(novyTrener);
-                }
 
                 MessageBox.Show("Trenér byl úspěšně přidán", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
 

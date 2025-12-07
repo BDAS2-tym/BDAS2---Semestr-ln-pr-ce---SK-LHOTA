@@ -48,16 +48,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         /// </summary>
         private void NastavViditelnostSloupcuProUzivatele()
         {
-            // Zjistíme, kdo je přihlášený
             Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
-
             string role = uzivatel.Role.ToLower();
 
-            // Nejdřív zobrazíme oba sloupce
             RodneCisloSloupec.Visibility = Visibility.Visible;
             TelefonniCisloSloupec.Visibility = Visibility.Visible;
 
-            // Pro dané role funkce tlačítek schováme
             if (role == "hrac" || role == "trener" || role == "host")
             {
                 RodneCisloSloupec.Visibility = Visibility.Collapsed;
@@ -93,7 +89,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 Application.Current.Shutdown();
             }
         }
-
 
         /// <summary>
         /// Otevře dialog pro přidání nového hráče
@@ -137,7 +132,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         /// <param name="e">eventArgs</param>
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
             if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
             {
                 jeVyhledavaniAktivni = false;
@@ -193,7 +187,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 return;
             }
 
-            // Potvrzení od uživatele
             var potvrzeni = MessageBox.Show(
                 $"Opravdu chcete odebrat hráče {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni}?",
                 "Potvrzení odebrání",
@@ -207,53 +200,36 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                    // Nastavení přihlášeného uživatele pro logování triggerem
-                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-
-                    // Hledání účtu podle rodného čísla přes pohled
-                    string sql = @"
+                string sql = @"
                                         SELECT UZIVATELSKEJMENO
                                         FROM PREHLED_UZIVATELSKE_UCTY
                                         WHERE RODNE_CISLO = :rodnecislo";
 
-                    // Sem se uloží nalezené uživatelské jméno
-                    string uzivatelskeJmeno = null;
+                string uzivatelskeJmeno = null;
+                var cmdFind = new OracleCommand(sql, conn);
+                cmdFind.Parameters.Add(":rodnecislo", OracleDbType.Varchar2).Value = vybranyHrac.RodneCislo;
 
-                    using (var cmdFind = new OracleCommand(sql, conn))
-                    {
-                        cmdFind.Parameters.Add(":rodnecislo", OracleDbType.Varchar2).Value = vybranyHrac.RodneCislo;
+                object result = cmdFind.ExecuteScalar();
 
-                        object result = cmdFind.ExecuteScalar();
-
-                        // Pokud dotaz něco našel, tak výsledek převedeme na string
-                        if (result != null)
-                        {
-                            uzivatelskeJmeno = result.ToString();
-                        }
-                           
-                    }
-
-                    // Pokud má hráč uživatelský účet, smažeme ho jako první
-                    if (!string.IsNullOrEmpty(uzivatelskeJmeno))
-                    {
-                        Uzivatel uzivatelHrac = new Uzivatel();
-                        uzivatelHrac.UzivatelskeJmeno = uzivatelskeJmeno;
-
-                        DatabaseRegistrace.DeleteUzivatel(conn, uzivatelHrac);
-                    }
-
-                    // Poté smažeme samotného hráče
-                    DatabaseHraci.OdeberHrace(conn, vybranyHrac);
-
-                    // Odebereme hráče z kolekce
-                    HraciData.Remove(vybranyHrac);
+                if (result != null)
+                {
+                    uzivatelskeJmeno = result.ToString();
                 }
 
-                // Úspěch
+                if (!string.IsNullOrEmpty(uzivatelskeJmeno))
+                {
+                    Uzivatel uzivatelHrac = new Uzivatel();
+                    uzivatelHrac.UzivatelskeJmeno = uzivatelskeJmeno;
+                    DatabaseRegistrace.DeleteUzivatel(conn, uzivatelHrac);
+                }
+
+                DatabaseHraci.OdeberHrace(conn, vybranyHrac);
+
+                HraciData.Remove(vybranyHrac);
+
                 MessageBox.Show(
                     $"Hráč {vybranyHrac.Jmeno} {vybranyHrac.Prijmeni} byl úspěšně odebrán.",
                     "Úspěch",
@@ -283,11 +259,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
-                using var cmd = new OracleCommand("SELECT * FROM HRACI_OPATRENI_VIEW", conn);
-                using var reader = cmd.ExecuteReader();
+                var cmd = new OracleCommand("SELECT * FROM HRACI_OPATRENI_VIEW", conn);
+                var reader = cmd.ExecuteReader();
 
                 HraciData.Clear();
 
@@ -295,55 +270,46 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 {
                     Hrac hrac = new Hrac();
 
-                    // RODNE_CISLO - NOT NULL
                     if (reader["RODNE_CISLO"] != DBNull.Value)
                         hrac.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
                         hrac.RodneCislo = "";
 
-                    // JMENO - NOT NULL
                     if (reader["JMENO"] != DBNull.Value)
                         hrac.Jmeno = reader["JMENO"].ToString();
                     else
                         hrac.Jmeno = "";
 
-                    // PRIJMENI - NOT NULL
                     if (reader["PRIJMENI"] != DBNull.Value)
                         hrac.Prijmeni = reader["PRIJMENI"].ToString();
                     else
                         hrac.Prijmeni = "";
 
-                    // TELEFONNICISLO - NOT NULL
                     if (reader["TELEFONNICISLO"] != DBNull.Value)
                         hrac.TelefonniCislo = reader["TELEFONNICISLO"].ToString();
                     else
                         hrac.TelefonniCislo = "000000000";
 
-                    // POCETVSTRELENYCHGOLU - NOT NULL
                     if (reader["POCETVSTRELENYCHGOLU"] != DBNull.Value)
                         hrac.PocetVstrelenychGolu = Convert.ToInt32(reader["POCETVSTRELENYCHGOLU"]);
                     else
                         hrac.PocetVstrelenychGolu = 0;
 
-                    // POCETZLUTYCHKARET - NOT NULL
                     if (reader["POCET_ZLUTYCH_KARET"] != DBNull.Value)
                         hrac.PocetZlutychKaret = Convert.ToInt32(reader["POCET_ZLUTYCH_KARET"]);
                     else
                         hrac.PocetZlutychKaret = 0;
 
-                    // POCETCERVENYCHKARET - NOT NULL
                     if (reader["POCET_CERVENYCH_KARET"] != DBNull.Value)
                         hrac.PocetCervenychKaret = Convert.ToInt32(reader["POCET_CERVENYCH_KARET"]);
                     else
                         hrac.PocetCervenychKaret = 0;
 
-                    // POZICE hráče z číselníku (text)
                     if (reader["POZICENAHRISTI"] != DBNull.Value)
                         hrac.PoziceNaHristi = reader["POZICENAHRISTI"].ToString();
                     else
                         hrac.PoziceNaHristi = "Neznámá";
 
-                    // DATUMOPATRENI
                     if (reader["DATUMOPATRENI"] != DBNull.Value)
                     {
                         DateTime datum = Convert.ToDateTime(reader["DATUMOPATRENI"]).Date;
@@ -357,13 +323,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                         hrac.DatumOpatreniText = "Bez opatření";
                     }
 
-                    // DELKATRESTU - NOT NULL
                     if (reader["DELKATRESTU"] != DBNull.Value)
                         hrac.DelkaTrestu = Convert.ToInt32(reader["DELKATRESTU"]);
                     else
                         hrac.DelkaTrestu = 0;
 
-                    // DUVODOPATRENI - může být NULL
                     if (reader["DUVOD"] != DBNull.Value)
                         hrac.DuvodOpatreni = reader["DUVOD"].ToString();
                     else
@@ -387,23 +351,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             if (e.Key == Key.Delete)
             {
-                // Zrušení akce mazání
                 e.Handled = true;
-
                 MessageBox.Show("Smazání hráče klávesou Delete není povoleno", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
-            // Zrušení výběru řádku při zmáčknutí klávesy Spacebar
             if (e.Key == Key.Space)
             {
                 dgHraci.UnselectAll();
-
-                // Odstranění Focus Rectangle na dané buňce
                 dgHraci.Focusable = false;
                 Keyboard.ClearFocus();
                 dgHraci.Focusable = true;
             }
         }
-
     }
 }

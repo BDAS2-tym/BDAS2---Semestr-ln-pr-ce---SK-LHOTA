@@ -94,12 +94,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 editovanyTrener.PocetLetPraxe = praxe;
 
                 // zápis do databáze
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
                     DatabaseTreneri.UpdateTrener(conn, editovanyTrener, puvodniRodneCislo);
-                }
 
                 // Aktualizace datagridu
                 treneriOkno.dgTreneri.Items.Refresh();

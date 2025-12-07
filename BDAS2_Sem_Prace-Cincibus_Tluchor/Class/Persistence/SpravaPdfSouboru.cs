@@ -217,9 +217,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Persistence
 
                 // Získáme ID uživatelského účtu podle role
                 int idUzivatelskyUcet = 0;
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
                     string sql = "SELECT IDUZIVATELSKYUCET FROM UZIVATELSKE_UCTY WHERE IDROLE = :idRole FETCH FIRST 1 ROWS ONLY";
                     using (var cmd = new OracleCommand(sql, conn))
                     {
@@ -231,8 +230,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Persistence
                         }
 
                         idUzivatelskyUcet = Convert.ToInt32(result);
-                    }
-                }
+                    }              
 
                 byte[] obsah = File.ReadAllBytes(cestaKSouboru);
 
@@ -295,9 +293,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Persistence
         {
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                    var conn = DatabaseManager.GetConnection();
+
                     string sql = "SELECT IDROLE FROM ROLE WHERE LOWER(NAZEVROLE) = LOWER(:nazevRole)";
                     using (var cmd = new OracleCommand(sql, conn))
                     {
@@ -306,7 +303,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Persistence
                         if (result != null)
                             return Convert.ToInt32(result);
                     }
-                }
+
             }
 
             catch (Exception ex)

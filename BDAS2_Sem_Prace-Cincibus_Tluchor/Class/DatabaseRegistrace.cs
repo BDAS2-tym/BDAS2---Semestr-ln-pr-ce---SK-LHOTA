@@ -329,8 +329,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <returns>True, pokud člen existuje, jinak False</returns>
         public static bool OverClenaPodleRodnehoCisla(string rodneCislo, string typClena)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
+            var conn = DatabaseManager.GetConnection();
 
             const string sql = @"
                 SELECT COUNT(*) 

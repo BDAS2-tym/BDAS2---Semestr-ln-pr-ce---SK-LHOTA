@@ -56,17 +56,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 string role = selectedItem.Content.ToString().ToLowerInvariant();
 
-                // rodné číslo se zobrazuje pouze u hráče a trenéra
                 if (role.Contains("hráč") || role.Contains("trenér"))
                 {
                     panelRodneCislo.Visibility = Visibility.Visible;
                 }
-
                 else
                 {
                     panelRodneCislo.Visibility = Visibility.Collapsed;
                 }
-                    
             }
         }
 
@@ -81,7 +78,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             string heslo2 = txtPass2.Password.Trim();
             string rodneCislo = txtRodneCislo.Text.Trim();
 
-            // Výběr role
             ComboBoxItem selectedItem = (ComboBoxItem)cmbRole.SelectedItem;
             if (selectedItem == null)
             {
@@ -91,7 +87,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             string role = selectedItem.Content.ToString();
 
-            // Validace základních polí
             if (string.IsNullOrEmpty(uzivatelskeJmeno) ||
                 string.IsNullOrEmpty(email) ||
                 string.IsNullOrEmpty(heslo))
@@ -136,7 +131,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-            // Normalizace role (bez diakritiky)
             string normalizovanaRole =
                 role.ToLowerInvariant()
                     .Replace("á", "a")
@@ -153,10 +147,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     .Replace("ý", "y")
                     .Replace("ž", "z");
 
-            // ověřuje, zda je role "hrac" nebo "trener"
             bool roleVyzadujeRodneCislo = normalizovanaRole == "hrac" || normalizovanaRole == "trener";
 
-            // Validace rodného čísla
             if (roleVyzadujeRodneCislo)
             {
                 if (string.IsNullOrWhiteSpace(rodneCislo))
@@ -178,17 +170,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
             else
             {
-                // role Admin / Host / Uzivatel rodné číslo nemá - ignorujeme
                 rodneCislo = null;
             }
 
             try
             {
-                // HASH + SALT
                 string salt = PasswordHasher.GenerateSalt();
                 string hash = PasswordHasher.HashPassword(heslo, salt);
 
-                // Vytvoření objektu uživatele
                 Uzivatel novyUzivatel = new Uzivatel();
                 novyUzivatel.UzivatelskeJmeno = uzivatelskeJmeno;
                 novyUzivatel.Email = email;
@@ -198,14 +187,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 novyUzivatel.PosledniPrihlaseni = DateTime.Now;
                 novyUzivatel.RodneCislo = rodneCislo;
 
-                // Uložení do DB
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                OracleConnection conn = DatabaseManager.GetConnection();
 
-                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-                    DatabaseRegistrace.AddUzivatel(conn, novyUzivatel);
-                }
+                DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+                DatabaseRegistrace.AddUzivatel(conn, novyUzivatel);
 
                 MessageBox.Show(
                     $"Uživatel '{uzivatelskeJmeno}' byl úspěšně registrován.",
@@ -247,25 +232,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
-        /// <summary>
-        /// Zavře registrační okno po kliknutí na tlačítko zavřít
-        /// </summary>
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        /// <summary>
-        /// Minimalizuje registrační okno
-        /// </summary>
         private void BtnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        /// <summary>
-        /// Umožní tažení okna podržením levého tlačítka myši
-        /// </summary>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
