@@ -82,8 +82,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 TypSouteze typSouteze = new TypSouteze(conn);
                 cbSoutez.ItemsSource = typSouteze.TypySoutezi;

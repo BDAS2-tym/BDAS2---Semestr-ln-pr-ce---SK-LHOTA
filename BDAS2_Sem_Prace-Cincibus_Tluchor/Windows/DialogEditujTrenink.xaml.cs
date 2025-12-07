@@ -103,13 +103,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 editovanyTrenink.Misto = misto;
                 editovanyTrenink.Popis = popis;
 
-                // Uložení do databáze
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                    // Uložení do databáze
+                    var conn = DatabaseManager.GetConnection();
+                
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
                     DatabaseTreninky.UpdateTrenink(conn, editovanyTrenink);
-                }
+                
 
                 treninkyOkno.dgTreninky.Items.Refresh();
 

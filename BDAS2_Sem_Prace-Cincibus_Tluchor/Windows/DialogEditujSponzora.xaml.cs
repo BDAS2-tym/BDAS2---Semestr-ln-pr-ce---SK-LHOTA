@@ -117,9 +117,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 editovanySponzor.SponzorovaniClenove = SponzorovaniClenove.ToList();
                 editovanySponzor.SponzorovaneSouteze = SponzorovaneSouteze.ToList();
 
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                     // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -149,7 +148,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             DatabaseSponzoriSouteze.AddSponzoriSouteze(conn, soutez, editovanySponzor);
                         }
                     }
-                }
                 
                 sponzoriOkno.dgSponzori.Items.Refresh();
                 MessageBox.Show("Sponzor byl úspěšně editován! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);

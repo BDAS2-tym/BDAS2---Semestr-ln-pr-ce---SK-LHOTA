@@ -61,8 +61,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                 using var cmd = new OracleCommand("SELECT * FROM SOUTEZE_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -102,8 +101,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                 using var cmd = new OracleCommand("SELECT * FROM STAV_ZAPASU_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -194,13 +192,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             throw new NonValidDataException("Nic nebylo přidáno, protože jste přerušili zadávání výsledku zápasu!");
                         }
 
-                        using (var conn = DatabaseManager.GetConnection())
-                        {
+                        var conn = DatabaseManager.GetConnection();
+                        
                             VysledekZapasu pridanyVysledek = dialogPridejVysledekZapasu.PridavanyVysledek;
 
                             pridanyZapas.Vysledek = pridanyVysledek.Vysledek;
 
-                            conn.Open();
+                            
 
                             // Nastavení přihlášeného uživatele pro logování
                             DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -227,16 +225,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             vysledkyData.Add(pridanyVysledek);
 
                             MessageBox.Show("Zápas a jeho výsledek byly úspěšně přidány!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
+                        
 
                         this.Close();
                     }
 
                     else
                     {
-                        using (var conn = DatabaseManager.GetConnection())
-                        {
-                            conn.Open();
+                        var conn = DatabaseManager.GetConnection();
+                        
+                            
 
                             // Nastavení přihlášeného uživatele pro logování
                             DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -256,7 +254,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                             zapasyData.Add(pridanyZapas);
 
                             MessageBox.Show("Zápas byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
+                        
 
                         this.Close();
                     }                      

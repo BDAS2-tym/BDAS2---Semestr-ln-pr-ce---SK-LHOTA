@@ -39,8 +39,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+
 
                 using var cmd = new OracleCommand("SELECT * FROM CASTKY_SPONZOROVANYCH_SOUTEZI_VIEW", conn);
                 using var reader = cmd.ExecuteReader();

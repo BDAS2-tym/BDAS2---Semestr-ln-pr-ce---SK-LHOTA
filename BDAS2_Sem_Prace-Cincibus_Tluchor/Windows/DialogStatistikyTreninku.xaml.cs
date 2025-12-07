@@ -64,8 +64,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 int maxPocet = 0;
                 int minPocet = int.MaxValue;
 
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                 using (var cmd = new OracleCommand("PKG_TRENINKY.SP_VYPOCITEJ_ZATEZ_TRENINK_DNU", conn))
                 {
