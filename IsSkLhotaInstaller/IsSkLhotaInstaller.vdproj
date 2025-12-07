@@ -21,19 +21,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_179C31B65BF44819B6BC688B00F13AB9"
+        "MsmKey" = "8:_18040BC6F3F4474AA45E1C0775355A0F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_33E7B20826754884816129A7122E4C2F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3B410209A1674045A5C37DE6EEEE4222"
+        "MsmKey" = "8:_3A608843772C49A591D964952F6FADCB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -45,31 +39,37 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5A98754E29B248A2BC23D3716116C338"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_713CD2032A5E46319137A6F05D82FF4D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8494CEA2D43143C2963ECA161C875166"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9723C7181AFF448D8A6F4EF2CB64EACE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D77A177E0AF14F3797E9632CF6CE4C48"
+        "MsmKey" = "8:_AE29DBAB410042C78BC922902697FB7F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B523E2CBA0004A5B91CF93C42908F9BD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D7FBDCD56B5F4CAA99580511C67F9277"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E2D68FBE3AD146C8B95E61EF6138CE88"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EC18D18D8E6043CC8BD0CAFC7E7041A6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -98,6 +98,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -172,10 +180,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_179C31B65BF44819B6BC688B00F13AB9"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_18040BC6F3F4474AA45E1C0775355A0F"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\BDAS2_Sem_Prace-Cincibus_Tluchor.pdb"
-            "TargetName" = "8:BDAS2_Sem_Prace-Cincibus_Tluchor.pdb"
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\Aplikace BDAS2\\D3DCompiler_47_cor3.dll"
+            "TargetName" = "8:D3DCompiler_47_cor3.dll"
             "Tag" = "8:"
             "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
             "Condition" = "8:"
@@ -192,30 +200,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_33E7B20826754884816129A7122E4C2F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3A608843772C49A591D964952F6FADCB"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\PenImc_cor3.dll"
-            "TargetName" = "8:PenImc_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B410209A1674045A5C37DE6EEEE4222"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\wpfgfx_cor3.dll"
-            "TargetName" = "8:wpfgfx_cor3.dll"
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\Aplikace BDAS2\\PresentationNative_cor3.dll"
+            "TargetName" = "8:PresentationNative_cor3.dll"
             "Tag" = "8:"
             "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
             "Condition" = "8:"
@@ -252,66 +240,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5A98754E29B248A2BC23D3716116C338"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\BDAS2_Sem_Prace-Cincibus_Tluchor.exe"
-            "TargetName" = "8:BDAS2_Sem_Prace-Cincibus_Tluchor.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_713CD2032A5E46319137A6F05D82FF4D"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\vcruntime140_cor3.dll"
-            "TargetName" = "8:vcruntime140_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8494CEA2D43143C2963ECA161C875166"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\D3DCompiler_47_cor3.dll"
-            "TargetName" = "8:D3DCompiler_47_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9723C7181AFF448D8A6F4EF2CB64EACE"
             {
             "SourcePath" = "8:..\\BDAS2_Sem_Prace-Cincibus_Tluchor\\Images\\Ikony\\Ikona_Programu.ico"
@@ -332,10 +260,90 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D77A177E0AF14F3797E9632CF6CE4C48"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AE29DBAB410042C78BC922902697FB7F"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\BDAS2 Tlučhoř + Cincibus projekt- IS sportovního klubu\\Spustitelná aplikace\\PresentationNative_cor3.dll"
-            "TargetName" = "8:PresentationNative_cor3.dll"
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\Aplikace BDAS2\\wpfgfx_cor3.dll"
+            "TargetName" = "8:wpfgfx_cor3.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B523E2CBA0004A5B91CF93C42908F9BD"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\Aplikace BDAS2\\BDAS2_Sem_Prace-Cincibus_Tluchor.pdb"
+            "TargetName" = "8:BDAS2_Sem_Prace-Cincibus_Tluchor.pdb"
+            "Tag" = "8:"
+            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D7FBDCD56B5F4CAA99580511C67F9277"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\Aplikace BDAS2\\vcruntime140_cor3.dll"
+            "TargetName" = "8:vcruntime140_cor3.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E2D68FBE3AD146C8B95E61EF6138CE88"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\Aplikace BDAS2\\PenImc_cor3.dll"
+            "TargetName" = "8:PenImc_cor3.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EC18D18D8E6043CC8BD0CAFC7E7041A6"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\Aplikace BDAS2\\BDAS2_Sem_Prace-Cincibus_Tluchor.exe"
+            "TargetName" = "8:BDAS2_Sem_Prace-Cincibus_Tluchor.exe"
             "Tag" = "8:"
             "Folder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
             "Condition" = "8:"
@@ -419,15 +427,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SK Lhota Installer"
-        "ProductCode" = "8:{BE141DE7-5C89-4EFD-BF62-D61ABD7B3735}"
-        "PackageCode" = "8:{3DD0E74D-662E-4E20-9601-A3195D1DE388}"
+        "ProductCode" = "8:{ED0122FF-6B9B-418A-B3A1-1AF607975AE1}"
+        "PackageCode" = "8:{E00A9839-491C-4900-8978-96D1AB90C665}"
         "UpgradeCode" = "8:{D671E4D2-0ED8-4300-9C19-37DE0D1191E0}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.1"
+        "ProductVersion" = "8:1.0.2"
         "Manufacturer" = "8:Cincibus & Tluchor"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -437,7 +445,7 @@
         "Keywords" = "8:SK Lhota"
         "ARPCOMMENTS" = "8:Instalátor pro informační systém klubu SK Lhota"
         "ARPURLINFOABOUT" = "8:https://github.com/BDAS2-tym/BDAS2---Semestr-ln-pr-ce---SK-LHOTA"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_9723C7181AFF448D8A6F4EF2CB64EACE"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -540,7 +548,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_294BCAAD49DE4C16A47BE0238F12DA51"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4114D61DE8D04CAC98FF418CC09092CB"
             {
             "Name" = "8:Informační Systém SK Lhota"
             "Arguments" = "8:"
@@ -548,13 +556,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_5A98754E29B248A2BC23D3716116C338"
-            "Folder" = "8:_5FF8F3CB6DAC4E48A1BF927DEFC8718B"
+            "Target" = "8:_EC18D18D8E6043CC8BD0CAFC7E7041A6"
+            "Folder" = "8:_9413A037F71A48A690512F276AFB1205"
             "WorkingFolder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
             "Icon" = "8:_9723C7181AFF448D8A6F4EF2CB64EACE"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_87D2BB34136641178C3ACCED96BEBB65"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BAD503E7DC954ED5BD2BD848FA621C6E"
             {
             "Name" = "8:Informační Systém SK Lhota"
             "Arguments" = "8:"
@@ -562,8 +570,8 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_5A98754E29B248A2BC23D3716116C338"
-            "Folder" = "8:_9413A037F71A48A690512F276AFB1205"
+            "Target" = "8:_EC18D18D8E6043CC8BD0CAFC7E7041A6"
+            "Folder" = "8:_5FF8F3CB6DAC4E48A1BF927DEFC8718B"
             "WorkingFolder" = "8:_19FD671B38CD4B8AA7C2FA31F2B2957D"
             "Icon" = "8:_9723C7181AFF448D8A6F4EF2CB64EACE"
             "Feature" = "8:"
