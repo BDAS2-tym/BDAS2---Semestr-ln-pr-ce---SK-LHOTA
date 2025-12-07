@@ -104,71 +104,63 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
-                // Připojení k databázi
-                using (OracleConnection conn = DatabaseManager.GetConnection())
+                OracleConnection conn = DatabaseManager.GetConnection();
+
+                // SQL dotaz pro získání dat uživatele
+                string sql = @"
+                    SELECT 
+                        UZIVATELSKEJMENO,
+                        HESLO,
+                        SALT,
+                        ROLE,
+                        EMAIL
+                    FROM PREHLED_UZIVATELSKE_UCTY
+                    WHERE LOWER(UZIVATELSKEJMENO) = LOWER(:uzivatelskejmeno)";
+
+                using (OracleCommand cmd = new OracleCommand(sql, conn))
                 {
-                    conn.Open();
+                    cmd.Parameters.Add("uzivatelskejmeno", OracleDbType.Varchar2).Value = txtUzivatelskeJmeno;
 
-                    // SQL dotaz pro získání dat uživatele
-                    string sql = @"
-                        SELECT 
-                            UZIVATELSKEJMENO,
-                            HESLO,
-                            SALT,
-                            ROLE,
-                            EMAIL
-                        FROM PREHLED_UZIVATELSKE_UCTY
-                        WHERE LOWER(UZIVATELSKEJMENO) = LOWER(:uzivatelskejmeno)";
-
-                    using (OracleCommand cmd = new OracleCommand(sql, conn))
+                    using (OracleDataReader reader = cmd.ExecuteReader())
                     {
-                        // Předání hodnoty parametru do SQL dotazu
-                        cmd.Parameters.Add("uzivatelskejmeno", OracleDbType.Varchar2).Value = txtUzivatelskeJmeno;
-
-                        // Spuštění dotazu a načtení výsledku
-                        using (OracleDataReader reader = cmd.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            string uzivatelskeJmeno = reader.GetString(0);
+                            string ulozenyHash = reader.GetString(1);
+                            string ulozenySalt = reader.GetString(2);
+                            string role = reader.GetString(3);
+                            string email = reader.GetString(4);
+
+                            bool hesloOK = PasswordHasher.VerifyPassword(txtHeslo, ulozenyHash, ulozenySalt);
+
+                            if (hesloOK)
                             {
-                                // Načtení hodnot z jednotlivých sloupců
-                                string uzivatelskeJmeno = reader.GetString(0);
-                                string ulozenyHash = reader.GetString(1);
-                                string ulozenySalt = reader.GetString(2);
-                                string role = reader.GetString(3);
-                                string email = reader.GetString(4);
+                                // Aktualizace posledního přihlášení
+                                DatabaseRegistrace.UpdatePosledniPrihlaseni(conn, uzivatelskeJmeno);
 
-                                // Ověření správnosti zadaného hesla (hash + salt)
-                                bool hesloOK = PasswordHasher.VerifyPassword(txtHeslo, ulozenyHash, ulozenySalt);
+                                MessageBox.Show("Přihlášení úspěšné (" + role + ")", "OK", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                                if (hesloOK)
+                                Uzivatel prihlasenyUzivatel = new Uzivatel
                                 {
+                                    UzivatelskeJmeno = uzivatelskeJmeno,
+                                    Role = role,
+                                    Email = email
+                                };
 
-                                    // Aktualizace posledního přihlášení přes proceduru
-                                    DatabaseRegistrace.UpdatePosledniPrihlaseni(conn, uzivatelskeJmeno);
+                                HlavniOkno.NastavPrihlaseneho(prihlasenyUzivatel);
 
-                                    // Přihlášení proběhlo úspěšně
-                                    MessageBox.Show("Přihlášení úspěšné (" + role + ")", "OK", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                                    Uzivatel prihlasenyUzivatel = new Uzivatel();
-                                    prihlasenyUzivatel.UzivatelskeJmeno = uzivatelskeJmeno;
-                                    prihlasenyUzivatel.Role = role;
-                                    prihlasenyUzivatel.Email = email;
-
-                                    HlavniOkno.NastavPrihlaseneho(prihlasenyUzivatel);
-
-                                    HlavniOkno hlavni = new HlavniOkno();
-                                    hlavni.Show();
-                                    this.Close();
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Nesprávné heslo!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                                }
+                                HlavniOkno hlavni = new HlavniOkno();
+                                hlavni.Show();
+                                this.Close();
                             }
                             else
                             {
-                                MessageBox.Show("Uživatel neexistuje!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("Nesprávné heslo!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Uživatel neexistuje!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                 }

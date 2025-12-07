@@ -77,30 +77,27 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Volání PL/SQL funkce pro každou pozici a načtení procentuálního podílu
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
+                var conn = DatabaseManager.GetConnection();
+
+                for (int i = 0; i < idPozic.Length; i++)
                 {
-                    conn.Open();
-
-                    for (int i = 0; i < idPozic.Length; i++)
+                    using (var cmd = new OracleCommand("PKG_HRACI.F_GOLY_PROCENTA_POZICE", conn))
                     {
-                        using (var cmd = new OracleCommand("PKG_HRACI.F_GOLY_PROCENTA_POZICE", conn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                            // Návratová hodnota funkce
-                            cmd.Parameters.Add("return_value", OracleDbType.Double, ParameterDirection.ReturnValue);
+                        // Návratová hodnota funkce
+                        cmd.Parameters.Add("return_value", OracleDbType.Double, ParameterDirection.ReturnValue);
 
-                            // Parametr funkce představující ID pozice
-                            cmd.Parameters.Add("p_pozice", OracleDbType.Int32).Value = idPozic[i];
+                        // Parametr funkce představující ID pozice
+                        cmd.Parameters.Add("p_pozice", OracleDbType.Int32).Value = idPozic[i];
 
-                            cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
 
-                            // Převod OracleDecimal na double
-                            double hodnota = ((Oracle.ManagedDataAccess.Types.OracleDecimal)
-                                cmd.Parameters["return_value"].Value).ToDouble();
+                        // Převod OracleDecimal na double
+                        double hodnota = ((Oracle.ManagedDataAccess.Types.OracleDecimal)
+                            cmd.Parameters["return_value"].Value).ToDouble();
 
-                            hodnotyPozic.Add(hodnota);
-                        }
+                        hodnotyPozic.Add(hodnota);
                     }
                 }
             }
@@ -144,9 +141,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (zavrenoTlacitkem == false)
+            if (!zavrenoTlacitkem)
             {
-                // zavřeno přes X → ukončit aplikaci
                 Application.Current.Shutdown();
             }
         }

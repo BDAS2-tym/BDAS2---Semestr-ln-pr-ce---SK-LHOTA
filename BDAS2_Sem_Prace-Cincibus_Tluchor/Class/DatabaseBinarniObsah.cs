@@ -12,6 +12,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Přidá nový binární obsah pomocí uložené procedury PKG_BINARNI_OBSAH.SP_ADD_OBSAH
         /// </summary>
+        /// <param name="nazevSouboru">Název souboru</param>
+        /// <param name="typSouboru">Typ souboru</param>
+        /// <param name="priponaSouboru">Přípona souboru</param>
+        /// <param name="obsah">Binární obsah souboru</param>
+        /// <param name="operace">Operace prováděná uživatelem</param>
+        /// <param name="idUzivatelskyUcet">ID uživatelského účtu</param>
         public static void AddBinarniObsah(
             string nazevSouboru,
             string typSouboru,
@@ -20,18 +26,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             string operace,
             int idUzivatelskyUcet)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
+            var conn = DatabaseManager.GetConnection();
 
-            // Nastavení přihlášeného uživatele pro logování do LOG_TABLE
             var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
             if (prihlaseny != null)
             {
                 DatabaseAppUser.SetAppUser(conn, prihlaseny);
             }
 
-            using var cmd = new OracleCommand("PKG_BINARNI_OBSAH.SP_ADD_OBSAH", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
+            using var cmd = new OracleCommand("PKG_BINARNI_OBSAH.SP_ADD_OBSAH", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
             cmd.Parameters.Add("v_nazev_souboru", OracleDbType.Varchar2).Value = nazevSouboru;
             cmd.Parameters.Add("v_typ_souboru", OracleDbType.Varchar2).Value = typSouboru;
@@ -53,20 +59,24 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Aktualizuje existující binární obsah podle ID pomocí procedury PKG_BINARNI_OBSAH.SP_UPDATE_OBSAH
         /// </summary>
+        /// <param name="idObsah">ID binárního obsahu</param>
+        /// <param name="obsah">Nový binární obsah</param>
+        /// <param name="operace">Operace prováděná uživatelem</param>
+        /// <param name="idUzivatelRole">ID uživatele provádějícího aktualizaci</param>
         public static void UpdateBinarniObsah(int idObsah, byte[] obsah, string operace, int idUzivatelRole)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
+            var conn = DatabaseManager.GetConnection();
 
-            //  Nastavení přihlášeného uživatele
             var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
             if (prihlaseny != null)
             {
                 DatabaseAppUser.SetAppUser(conn, prihlaseny);
             }
 
-            using var cmd = new OracleCommand("PKG_BINARNI_OBSAH.SP_UPDATE_OBSAH", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
+            using var cmd = new OracleCommand("PKG_BINARNI_OBSAH.SP_UPDATE_OBSAH", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
             cmd.Parameters.Add("v_id_obsah", OracleDbType.Int32).Value = idObsah;
             cmd.Parameters.Add("v_obsah", OracleDbType.Blob).Value = obsah;
@@ -86,20 +96,22 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Smaže binární obsah podle ID pomocí procedury PKG_BINARNI_OBSAH.SP_DELETE_OBSAH
         /// </summary>
+        /// <param name="idObsah">ID binárního obsahu, který má být smazán</param>
         public static void DeleteBinarniObsah(int idObsah)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
+            var conn = DatabaseManager.GetConnection();
 
-            // Nastavení přihlášeného uživatele
             var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
             if (prihlaseny != null)
             {
                 DatabaseAppUser.SetAppUser(conn, prihlaseny);
             }
 
-            using var cmd = new OracleCommand("PKG_BINARNI_OBSAH.SP_DELETE_OBSAH", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
+            using var cmd = new OracleCommand("PKG_BINARNI_OBSAH.SP_DELETE_OBSAH", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
             cmd.Parameters.Add("v_id_obsah", OracleDbType.Int32).Value = idObsah;
 
             try
@@ -118,13 +130,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// </summary>
         /// <param name="idObsah">ID existujícího záznamu v tabulce BINARNI_OBSAH, který má být přejmenován</param>
         /// <param name="novyNazev">Nový název souboru, který bude uložen do databáze</param>
-        /// <param name="idUzivatel">
-        /// ID uživatelského účtu, který operaci provádí
-        /// </param>
+        /// <param name="idUzivatel">ID uživatelského účtu, který operaci provádí</param>
         public static void RenameBinarniObsah(int idObsah, string novyNazev, int idUzivatel)
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
+            var conn = DatabaseManager.GetConnection();
 
             var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
             if (prihlaseny != null)
@@ -132,8 +141,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 DatabaseAppUser.SetAppUser(conn, prihlaseny);
             }
 
-            using var cmd = new OracleCommand("PKG_BINARNI_OBSAH.SP_RENAME_OBSAH", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
+            using var cmd = new OracleCommand("PKG_BINARNI_OBSAH.SP_RENAME_OBSAH", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
             cmd.Parameters.Add("v_id_obsah", OracleDbType.Int32).Value = idObsah;
             cmd.Parameters.Add("v_novy_nazev", OracleDbType.Varchar2).Value = novyNazev;
@@ -141,7 +152,5 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 
             cmd.ExecuteNonQuery();
         }
-
-
     }
 }

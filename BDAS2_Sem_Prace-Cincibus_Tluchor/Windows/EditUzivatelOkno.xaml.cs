@@ -47,25 +47,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
+                OracleConnection conn = DatabaseManager.GetConnection();
+
+                using (var cmd = new OracleCommand("SELECT IDROLE, NAZEVROLE FROM ROLE_VIEW ORDER BY IDROLE", conn))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    conn.Open();
-
-                    using (var cmd = new OracleCommand("SELECT IDROLE, NAZEVROLE FROM ROLE_VIEW ORDER BY IDROLE", conn))
-                    using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            ComboBoxItem item = new ComboBoxItem();
-
-                            // Nastavení textu zobrazovaného v ComboBoxu — název role
-                            item.Content = reader["NAZEVROLE"].ToString();
-
-                            // Uložení ID role do Tag (skrytá hodnota připojená k položce)
-                            item.Tag = Convert.ToInt32(reader["IDROLE"]);
-
-                            cmbRole.Items.Add(item);
-                        }
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Content = reader["NAZEVROLE"].ToString();
+                        item.Tag = Convert.ToInt32(reader["IDROLE"]);
+                        cmbRole.Items.Add(item);
                     }
                 }
             }
@@ -129,11 +121,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Uloží změny upravovaného uživatele. Nejprve provede základní
-        /// validace jména, e-mailu a hesla. Poté ověří roli – pokud je
-        /// vybrán hráč nebo trenér, musí být zadáno a platné rodné číslo
-        /// Po úspěšné validaci aktualizuje objekt uživatele a zavolá
-        /// databázový update. Chyby balíčku se zobrazují jako MessageBox
+        /// Uloží změny upravovaného uživatele
         /// </summary>
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
@@ -153,38 +141,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                 string novaRole = item.Content.ToString().ToLower();
 
-                // Validace jména
-                if (jmeno == "")
+                if (jmeno == "" || jmeno.Contains(" ") || jmeno.Length < 3)
                 {
-                    MessageBox.Show("Uživatelské jméno nesmí být prázdné", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                if (jmeno.Length < 3)
-                {
-                    MessageBox.Show("Uživatelské jméno musí mít alespoň 3 znaky", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                if (jmeno.Contains(" "))
-                {
-                    MessageBox.Show("Uživatelské jméno nesmí obsahovat mezery", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                foreach (char c in jmeno)
-                {
-                    if (!char.IsLetterOrDigit(c) && c != '_')
-                    {
-                        MessageBox.Show("Uživatelské jméno může obsahovat pouze písmena číslice a podtržítko", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                }
-
-                // validace e-mailu
-                if (email == "")
-                {
-                    MessageBox.Show("E-mail nesmí být prázdný", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Neplatné uživatelské jméno", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -197,18 +156,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     return;
                 }
 
-                // validace hesla (pokud se mění)
-                if (heslo != "")
-                {
-                    if (heslo.Length < 8)
-                    {
-                        MessageBox.Show("Heslo musí mít alespoň 8 znaků", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-
-                }
-
-                // role s povinným rodným číslem
                 bool roleMusiZadatRodneCislo = novaRole == "hrac" || novaRole == "trener";
 
                 if (roleMusiZadatRodneCislo)
@@ -219,29 +166,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         return;
                     }
 
-                    try
-                    {
-                        // Validace rodneho cisla
-                        Validator.ValidujRodneCislo(rodneCislo);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+                    Validator.ValidujRodneCislo(rodneCislo);
                 }
                 else
                 {
                     rodneCislo = null;
                 }
 
-                // uložení do objektu
                 uzivatel.UzivatelskeJmeno = jmeno;
                 uzivatel.Email = email;
                 uzivatel.RodneCislo = rodneCislo;
                 uzivatel.Role = novaRole;
 
-                // heslo pokud bylo změněno
                 if (heslo != "")
                 {
                     string salt = PasswordHasher.GenerateSalt();
@@ -251,17 +187,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     uzivatel.Salt = salt;
                 }
 
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
-                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+                OracleConnection conn = DatabaseManager.GetConnection();
+                DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
 
-                    // změna role
-                    int idRole = Convert.ToInt32(item.Tag);
+                int idRole = Convert.ToInt32(item.Tag);
 
-                    // UPDATE přes proceduru
-                    DatabaseRegistrace.UpdateUzivatel(conn, uzivatel, stareJmeno);
-                }
+                DatabaseRegistrace.UpdateUzivatel(conn, uzivatel, stareJmeno);
 
                 MessageBox.Show("Změny byly úspěšně uloženy", "Uloženo", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -270,7 +201,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
             catch (OracleException ex)
             {
-                // zde mapujeme chyby balíčku
                 if (ex.Number == 20100)
                 {
                     MessageBox.Show("Pro hráče/trenéra je rodné číslo povinné",
@@ -296,7 +226,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     MessageBox.Show("Databázová chyba\n" + ex.Message,
                         "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
             }
             catch (Exception ex)
             {

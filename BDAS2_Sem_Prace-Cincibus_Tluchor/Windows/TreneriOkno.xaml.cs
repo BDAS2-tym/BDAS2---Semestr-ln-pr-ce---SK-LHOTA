@@ -229,9 +229,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                     // Nastaví přihlášeného uživatele pro logování triggerem
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -272,7 +270,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
                     // Odebereme hráče z kolekce
                     TreneriData.Remove(vybranyTrener);
-                }
+                
 
                 MessageBox.Show(
                     $"Trenér {vybranyTrener.Jmeno} {vybranyTrener.Prijmeni} byl úspěšně odebrán.",
@@ -300,8 +298,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
                 using var cmd = new OracleCommand("SELECT * FROM TRENERI_VIEW", conn);
                 using var reader = cmd.ExecuteReader();

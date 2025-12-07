@@ -47,8 +47,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <summary>
         /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované záznamy zobrazí v Datagridu
         /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">eventArgs</param>
         private void BtnNajdi_Click(object sender, RoutedEventArgs e)
         {
             DialogNajdiBinarniObsah dialogNajdiBinarniObsah = new DialogNajdiBinarniObsah(ObsahData);
@@ -72,11 +70,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <summary>
         /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
         /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">eventArgs</param>
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
             if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
             {
                 jeVyhledavaniAktivni = false;
@@ -88,7 +83,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <summary>
         /// Tlačítko Zpět (vrátí se do Nastavení)
         /// </summary>
-        private void BtnZpet_Click(object sender, System.EventArgs e) 
+        private void BtnZpet_Click(object sender, System.EventArgs e)
         {
             zavrenoTlacitkem = true;
             NastaveniOkno.Instance.Show();
@@ -100,13 +95,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (zavrenoTlacitkem == false)
+            if (!zavrenoTlacitkem)
             {
-                // zavřeno přes X → ukončit aplikaci
                 Application.Current.Shutdown();
             }
         }
-
 
         /// <summary>
         /// Načte všechny soubory z pohledu BINARNI_OBSAH_ROLE_VIEW
@@ -117,83 +110,31 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
+                var conn = DatabaseManager.GetConnection();
+
+                string sql = "SELECT * FROM BINARNI_OBSAH_ROLE_VIEW ORDER BY DATUMNAHRANI DESC";
+
+                using (var cmd = new OracleCommand(sql, conn))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    conn.Open();
-
-                    // SQL dotaz na view, seřazené od nejnovějšího
-                    string sql = "SELECT * FROM BINARNI_OBSAH_ROLE_VIEW ORDER BY DATUMNAHRANI DESC";
-
-                    using (var cmd = new OracleCommand(sql, conn)) // Vytvoří SQL příkaz včetně připojení
-                    using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        string roleText = reader["ROLE"] == DBNull.Value ? "Neznámá role" : reader["ROLE"].ToString();
+
+                        BinarniObsah zaznam = new BinarniObsah
                         {
-                            string roleText;
+                            IdObsah = Convert.ToInt32(reader["IDBINARNIOBSAH"]),
+                            NazevSouboru = reader["NAZEVSOUBORU"] == DBNull.Value ? "" : reader["NAZEVSOUBORU"].ToString(),
+                            TypSouboru = reader["TYPSOUBORU"] == DBNull.Value ? "" : reader["TYPSOUBORU"].ToString(),
+                            PriponaSouboru = reader["PRIPONASOUBORU"] == DBNull.Value ? "" : reader["PRIPONASOUBORU"].ToString(),
+                            DatumNahrani = reader["DATUMNAHRANI"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["DATUMNAHRANI"]),
+                            DatumModifikace = reader["DATUMMODIFIKACE"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["DATUMMODIFIKACE"]),
+                            Operace = reader["OPERACE"] == DBNull.Value ? "" : reader["OPERACE"].ToString(),
+                            IdUzivatelskyUcet = reader["IDUZIVATELSKYUCET"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IDUZIVATELSKYUCET"]),
+                            Uzivatel = roleText
+                        };
 
-                            // ROLE
-                            if (reader["ROLE"] == DBNull.Value)
-                            {
-                                roleText = "Neznámá role";
-                            }
-                            else 
-                            {
-                                roleText = reader["ROLE"].ToString();
-                            }
-
-                            BinarniObsah zaznam = new BinarniObsah();
-
-                            zaznam.IdObsah = Convert.ToInt32(reader["IDBINARNIOBSAH"]);
-
-                            // NAZEV SOUBORU
-                            if (reader["NAZEVSOUBORU"] == DBNull.Value)
-                                zaznam.NazevSouboru = "";
-                            else
-                                zaznam.NazevSouboru = reader["NAZEVSOUBORU"].ToString();
-
-                            // TYP SOUBORU
-                            if (reader["TYPSOUBORU"] == DBNull.Value)
-                                zaznam.TypSouboru = "";
-                            else
-                                zaznam.TypSouboru = reader["TYPSOUBORU"].ToString();
-
-                            // PRIPONA
-                            if (reader["PRIPONASOUBORU"] == DBNull.Value)
-                                zaznam.PriponaSouboru = "";
-                            else
-                                zaznam.PriponaSouboru = reader["PRIPONASOUBORU"].ToString();
-
-                            // DATUM NAHRANI
-                            if (reader["DATUMNAHRANI"] == DBNull.Value)
-                                zaznam.DatumNahrani = DateTime.MinValue;
-                            else
-                                zaznam.DatumNahrani = Convert.ToDateTime(reader["DATUMNAHRANI"]);
-
-                            // DATUM MODIFIKACE
-                            if (reader["DATUMMODIFIKACE"] == DBNull.Value)
-                                zaznam.DatumModifikace = DateTime.MinValue;
-                            else
-                                zaznam.DatumModifikace = Convert.ToDateTime(reader["DATUMMODIFIKACE"]);
-
-                            // OPERACE
-                            if (reader["OPERACE"] == DBNull.Value)
-                                zaznam.Operace = "";
-                            else
-                                zaznam.Operace = reader["OPERACE"].ToString();
-
-                            // ID UZIVATELSKY UCET
-                            if (reader["IDUZIVATELSKYUCET"] == DBNull.Value)
-                                zaznam.IdUzivatelskyUcet = 0;
-                            else
-                                zaznam.IdUzivatelskyUcet = Convert.ToInt32(reader["IDUZIVATELSKYUCET"]);
-
-                            // ROLE 
-                            zaznam.Uzivatel = roleText;
-
-                            // Přidání do kolekce
-                            ObsahData.Add(zaznam);
-
-                        }
+                        ObsahData.Add(zaznam);
                     }
                 }
             }
@@ -214,13 +155,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 string cesta = dialog.FileName;
 
-                // Název souboru bez přípony
                 nazevSouboru = Path.GetFileNameWithoutExtension(cesta);
-
-                // Přípona bez tečky
                 priponaSouboru = Path.GetExtension(cesta).TrimStart('.').ToLower();
 
-                // Kontrola délek
                 if (nazevSouboru.Length > 50)
                 {
                     MessageBox.Show("Název souboru je příliš dlouhý (max. 50 znaků)");
@@ -233,16 +170,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     return;
                 }
 
-                // Určení MIME typu
                 string mimeType = GetMimeType(cesta);
                 tboxNazev.Text = nazevSouboru;
                 tboxPripona.Text = priponaSouboru;
                 tboxTyp.Text = mimeType;
 
-                // Načtení souboru do byte[]
                 obsahSouboru = File.ReadAllBytes(cesta);
 
-                // Zobrazení náhledu, pokud je to obrázek
                 if (mimeType.StartsWith("image"))
                 {
                     try
@@ -258,20 +192,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     {
                         imgNahled.Source = null;
                         MessageBox.Show("Obrázek se nepodařilo načíst", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-
                     }
                 }
                 else
                 {
-                    // Pokud to není obrázek, vyčistit náhled
                     imgNahled.Source = null;
                 }
 
-                // Stavová hláška
                 txtStatus.Text = "Soubor načten";
             }
         }
-
 
         /// <summary>
         /// Uloží vybraný soubor do databáze jako nový záznam
@@ -284,7 +214,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-            // Kontrola maximální délky textových polí podle omezení databáze
             if (tboxNazev.Text.Length > 50 || tboxTyp.Text.Length > 50 || tboxPripona.Text.Length > 10)
             {
                 MessageBox.Show("Některá pole přesahují maximální délku");
@@ -293,7 +222,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
-                // Získání přihlášeného uživatele z hlavního okna, vrací string
                 var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
                 if (prihlaseny == null)
                 {
@@ -301,38 +229,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     return;
                 }
 
-                // Získání ID role podle string (Admin, Host, ...) z databáze ROLE
-                int idRole = ZiskejIdRole(prihlaseny.Role);
+                int idUzivatelskyUcet = ZiskejIdUzivatelskyUcet(prihlaseny.Role);
 
-                int idUzivatelskyUcet = 0;
-
-                // Otevření připojení k databázi
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
-
-                    string sql = @"SELECT IDUZIVATELSKYUCET
-                                    FROM PREHLED_UZIVATELSKE_UCTY
-                                    WHERE ROLE = :role
-                                    FETCH FIRST 1 ROWS ONLY";
-
-                    using (var cmd = new OracleCommand(sql, conn))
-                    {
-                        cmd.Parameters.Add("role", OracleDbType.Varchar2).Value = prihlaseny.Role;
-
-                        object result = cmd.ExecuteScalar();
-                        if (result == null)
-                        {
-                            MessageBox.Show("Nebyl nalezen žádný účet pro danou roli");
-                            return;
-                        }
-
-                        idUzivatelskyUcet = Convert.ToInt32(result);
-                    }
-
-                }
-
-                // Uložíme soubor do databáze
                 DatabaseBinarniObsah.AddBinarniObsah(
                     tboxNazev.Text.Trim(),
                     tboxTyp.Text.Trim(),
@@ -352,41 +250,57 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
-
         /// <summary>
-        /// Vrátí ID role podle jejího názvu z tabulky ROLE
+        /// Vrací ID role podle jejího názvu z tabulky ROLE
         /// </summary>
         private int ZiskejIdRole(string nazevRole)
         {
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
+                var conn = DatabaseManager.GetConnection();
+                string sql = "SELECT IDROLE FROM ROLE_VIEW WHERE LOWER(NAZEVROLE) = LOWER(:nazevRole)";
+                using (var cmd = new OracleCommand(sql, conn))
                 {
-                    conn.Open();
-
-                    string sql = "SELECT IDROLE FROM ROLE_VIEW WHERE LOWER(NAZEVROLE) = LOWER(:nazevRole)";
-
-                    using (var cmd = new OracleCommand(sql, conn))
-                    {
-                        cmd.Parameters.Add("nazevRole", OracleDbType.Varchar2).Value = nazevRole;
-
-                        object result = cmd.ExecuteScalar();
-
-                        if (result != null)
-                        {
-                            return Convert.ToInt32(result);
-                        }
-                    }
+                    cmd.Parameters.Add("nazevRole", OracleDbType.Varchar2).Value = nazevRole;
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                        return Convert.ToInt32(result);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Chyba při zjišťování role: " + ex.Message);
             }
-
             return -1;
         }
 
+        /// <summary>
+        /// Vrátí ID uživatelského účtu podle role
+        /// </summary>
+        private int ZiskejIdUzivatelskyUcet(string role)
+        {
+            int idUzivatel = 0;
+            try
+            {
+                var conn = DatabaseManager.GetConnection();
+                string sql = @"SELECT IDUZIVATELSKYUCET
+                               FROM PREHLED_UZIVATELSKE_UCTY
+                               WHERE ROLE = :role
+                               FETCH FIRST 1 ROWS ONLY";
+                using (var cmd = new OracleCommand(sql, conn))
+                {
+                    cmd.Parameters.Add("role", OracleDbType.Varchar2).Value = role;
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                        idUzivatel = Convert.ToInt32(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Chyba při získávání ID uživatele: " + ex.Message);
+            }
+            return idUzivatel;
+        }
 
         /// <summary>
         /// Přejmenuje soubor po dvojkliku v Datagridu
@@ -415,7 +329,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
-                // Získat přihlášeného uživatele
                 var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
                 if (prihlaseny == null)
                 {
@@ -423,37 +336,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     return;
                 }
 
-                // Získat ID ROLE
                 int idRole = ZiskejIdRole(prihlaseny.Role);
+                int idRoleUzivatel = ZiskejIdUzivatelskyUcet(prihlaseny.Role);
 
-                // Získat ID účtu z view (podle role)
-                int idRoleUzivatel = 0;
-
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
-
-                    string sql = @"SELECT IDUZIVATELSKYUCET 
-                           FROM PREHLED_UCTY_ROLE_VIEW 
-                           WHERE IDROLE = :idRole 
-                           FETCH FIRST 1 ROWS ONLY";
-
-                    using (var cmd = new OracleCommand(sql, conn))
-                    {
-                        cmd.Parameters.Add("idRole", OracleDbType.Int32).Value = idRole;
-                        object result = cmd.ExecuteScalar();
-
-                        if (result == null)
-                        {
-                            MessageBox.Show("Nebyl nalezen účet pro tuto roli!");
-                            return;
-                        }
-
-                        idRoleUzivatel = Convert.ToInt32(result);
-                    }
-                }
-
-                // Zavolat uloženou proceduru s ID uživatele
                 DatabaseBinarniObsah.RenameBinarniObsah(
                     vybranyRadek.IdObsah,
                     novyNazev,
@@ -461,7 +346,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 );
 
                 MessageBox.Show("Název byl změněn", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-
                 NactiBinarniObsah();
             }
             catch (Exception ex)
@@ -469,7 +353,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 MessageBox.Show("Chyba při přejmenování: " + ex.Message);
             }
         }
-
 
         /// <summary>
         /// Nahrazení vybraného souboru jiným souborem
@@ -484,17 +367,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
-            // Potvrzovací dialog
-            var potvrzeni = MessageBox.Show("Opravdu chcete nahradit vybraný soubor novým?", "Nahrazení souboru", MessageBoxButton.YesNo,  MessageBoxImage.Question);
+            var potvrzeni = MessageBox.Show("Opravdu chcete nahradit vybraný soubor novým?", "Nahrazení souboru", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (potvrzeni != MessageBoxResult.Yes)
-            {
                 return;
-            }
 
             try
             {
-                // Otevře dialog pro výběr nového souboru
                 BtnVybratSoubor_Click(sender, e);
                 if (obsahSouboru == null)
                 {
@@ -502,26 +381,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     return;
                 }
 
-                // Získáme ID role pro uživatele 
                 var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
-                int idRole = ZiskejIdRole(prihlaseny.Role);
+                int idUzivatelskyUcet = ZiskejIdUzivatelskyUcet(prihlaseny.Role);
 
-                int idUzivatelskyUcet = 0;
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
-                    string sql = "SELECT IDUZIVATELSKYUCET FROM PREHLED_UCTY_ROLE_VIEW WHERE IDROLE = :idRole FETCH FIRST 1 ROWS ONLY";
-
-
-                    using (var cmd = new OracleCommand(sql, conn))
-                    {
-                        cmd.Parameters.Add("idRole", idRole);
-                        object result = cmd.ExecuteScalar();
-                        idUzivatelskyUcet = Convert.ToInt32(result);
-                    }
-                }
-
-                // UPDATE 
                 DatabaseBinarniObsah.UpdateBinarniObsah(
                     vybranyRadek.IdObsah,
                     obsahSouboru,
@@ -529,7 +391,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     idUzivatelskyUcet
                 );
 
-                MessageBox.Show("Soubor byl úspěšně nahrazen", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Soubor byl úspěšně nahrazen", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Information);
                 NactiBinarniObsah();
             }
             catch (Exception ex)
@@ -545,7 +407,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             var vybranyRadek = dgBinarniObsah.SelectedItem as BinarniObsah;
 
-            if (vybranyRadek  == null)
+            if (vybranyRadek == null)
             {
                 MessageBox.Show("Vyberte soubor ke smazání", "Chybějící výběr", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -553,16 +415,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             var potvrzeni = MessageBox.Show($"Opravdu chcete smazat soubor '{vybranyRadek.NazevSouboru}'?", "Potvrzení smazání", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-            if (potvrzeni != MessageBoxResult.Yes) 
-            {
+            if (potvrzeni != MessageBoxResult.Yes)
                 return;
-            }
 
             try
             {
                 DatabaseBinarniObsah.DeleteBinarniObsah(vybranyRadek.IdObsah);
                 MessageBox.Show("Soubor byl smazán", "Smazání úspěšné", MessageBoxButton.OK, MessageBoxImage.Information);
-
                 NactiBinarniObsah();
             }
             catch (Exception ex)
@@ -586,36 +445,27 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
+                var conn = DatabaseManager.GetConnection();
+                string sql = "SELECT OBSAH, PRIPONASOUBORU FROM BINARNI_OBSAH_ROLE_VIEW WHERE IDBINARNIOBSAH = :id";
+                using (var cmd = new OracleCommand(sql, conn))
                 {
-                    conn.Open();
-                    string sql = "SELECT OBSAH, PRIPONASOUBORU FROM BINARNI_OBSAH_ROLE_VIEW WHERE IDBINARNIOBSAH = :id";
-                    using (var cmd = new OracleCommand(sql, conn))
+                    cmd.Parameters.Add("id", OracleDbType.Int32).Value = vybranyRadek.IdObsah;
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.Add("id", vybranyRadek.IdObsah);
-                        using (var reader = cmd.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            byte[] data = reader["OBSAH"] as byte[];
+                            string pripona = reader["PRIPONASOUBORU"].ToString();
+                            SaveFileDialog sfd = new SaveFileDialog
                             {
-                                byte[] data = (byte[])reader["OBSAH"];
-                                string pripona = vybranyRadek.PriponaSouboru?.Trim().ToLower();
+                                FileName = vybranyRadek.NazevSouboru + "." + pripona,
+                                Filter = "Všechny soubory|*.*"
+                            };
 
-                                SaveFileDialog dialog = new SaveFileDialog
-                                {
-                                    FileName = $"{vybranyRadek.NazevSouboru}.{pripona}",
-                                    Filter = $"{pripona.ToUpper()} soubor (*.{pripona})|*.{pripona}|Všechny soubory (*.*)|*.*",
-                                    AddExtension = true,
-                                    DefaultExt = pripona
-                                };
-
-
-
-                                if (dialog.ShowDialog() == true)
-                                {
-                                    File.WriteAllBytes(dialog.FileName, data);
-                                    MessageBox.Show("Soubor byl uložen na disk", "Uložení souboru", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                                }
+                            if (sfd.ShowDialog() == true)
+                            {
+                                File.WriteAllBytes(sfd.FileName, data);
+                                MessageBox.Show("Soubor uložen", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                             }
                         }
                     }
@@ -628,72 +478,37 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Zobrazí náhled obrázku, pokud má vybraný soubor podporovanou příponu
+        /// Zobrazí obrázek vybraného souboru, pokud je to obrázek
         /// </summary>
         private void BtnZobrazitObrazek_Click(object sender, RoutedEventArgs e)
         {
-            // Získá vybraný řádek z DataGridu a pokusí se ho převést na objekt BinarniObsah
             var vybranyRadek = dgBinarniObsah.SelectedItem as BinarniObsah;
-
             if (vybranyRadek == null)
-            {
-                MessageBox.Show("Nejdříve vyberte soubor z tabulky", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
-            }
-
-            string pripona = vybranyRadek.PriponaSouboru.ToLower();
-
-            // Kontrola, zda soubor má příponu podporovaného typu obrázku
-            if (pripona != "jpg" && pripona != "jpeg" && pripona != "png" && pripona != "gif" && pripona != "bmp")
-            {
-                MessageBox.Show("Tento typ souboru nelze zobrazit jako obrázek", "Nepodporovaný formát", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                // Pokud typ není podporovaný - clear náhled obrázku
-                imgNahled.Source = null;
-                return;
-            }
 
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
+                var conn = DatabaseManager.GetConnection();
+                string sql = "SELECT OBSAH FROM BINARNI_OBSAH_ROLE_VIEW WHERE IDBINARNIOBSAH = :id";
+                using (var cmd = new OracleCommand(sql, conn))
                 {
-                    conn.Open();
-                    string sql = "SELECT OBSAH FROM BINARNI_OBSAH_ROLE_VIEW WHERE IDBINARNIOBSAH = :id";
-                    using (var cmd = new OracleCommand(sql, conn))
+                    cmd.Parameters.Add("id", OracleDbType.Int32).Value = vybranyRadek.IdObsah;
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.Add("id", vybranyRadek.IdObsah);
-
-                        // Spuštění a načtení výsledku s režimem pro čtení velkých dat
-                        using (var reader = cmd.ExecuteReader(System.Data.CommandBehavior.SequentialAccess))
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            byte[] data = reader["OBSAH"] as byte[];
+                            if (data != null && data.Length > 0)
                             {
-                                // Získá BLOB z databáze
-                                var blob = reader.GetOracleBlob(0);
-
-                                if (blob == null || blob.IsNull)
+                                BitmapImage img = new BitmapImage();
+                                using (var ms = new MemoryStream(data))
                                 {
-                                    MessageBox.Show("Soubor neobsahuje žádná data");
-                                    return;
-                                }
-
-                                // Vytvoří byte pole o velikosti BLOBu
-                                byte[] data = new byte[blob.Length];
-
-                                // Načte všechna data z BLOBu do pole byte[]
-                                blob.Read(data, 0, (int)blob.Length);
-
-                                // Pomocí MemoryStreamu zobrazí obrázek
-                                using (MemoryStream ms = new MemoryStream(data))
-                                {
-                                    BitmapImage img = new BitmapImage();
                                     img.BeginInit();
                                     img.CacheOption = BitmapCacheOption.OnLoad;
                                     img.StreamSource = ms;
                                     img.EndInit();
-                                    img.Freeze();
-                                    imgNahled.Source = img;
                                 }
+                                imgNahled.Source = img;
                             }
                         }
                     }
