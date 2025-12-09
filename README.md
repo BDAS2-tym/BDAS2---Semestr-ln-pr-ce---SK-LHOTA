@@ -104,7 +104,17 @@ _TODO ERD Doplnit!!_
 <br>
 
 ## Instalace a spuštění 🚀
-_TODO Instalace aplikace_ 
+
+
+1. krok- Rozklikněte odkaz níže pro stažení aplikace
+2. krok- Stáhněte si .zip soubor
+3. krok- Extrahujte .zip a spusťte soubor **_"IsSkLhotaInstaller.msi"_**
+4. krok- Průvodce vás následně provede dále instalačními kroky
+5. krok- Po dokončení instalace stačí na ploše spustit aplikaci **_"Informační systém SK Lhota"_**
+
+<br>
+
+**Aplikace:** https://drive.google.com/drive/folders/14x6L6Z5exETw_hBHPbkOatHS6WQjNiu9?usp=sharing
 
 ---
 <br>
