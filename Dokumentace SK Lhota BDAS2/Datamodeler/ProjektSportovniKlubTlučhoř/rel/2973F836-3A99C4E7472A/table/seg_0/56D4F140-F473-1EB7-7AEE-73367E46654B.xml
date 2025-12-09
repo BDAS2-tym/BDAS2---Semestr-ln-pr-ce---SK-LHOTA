@@ -1,0 +1,89 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="56D4F140-F473-1EB7-7AEE-73367E46654B" name="SPONZORI">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka SPONZORI, slouží k uchování ůdajů ohledně jednotlivých sponzorů. Je zde řešeno integritní omezení IO7]]></commentInRDBMS>
+<generatorID>506E6C06-7B77-FDF3-A3F8-98F311AA7321</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<ordsAlias>sponzor</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idSponzor" id="30102DFD-C506-FC78-1E01-964A8892EE9D">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idSponzor bude sloužit jako UID a bude nabývat čísel od 1 výše.]]></commentInRDBMS>
+<generatorID>94647599-9CBB-511F-6698-E5AFC0BE8D0F</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMinValue>1</autoIncrementMinValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>sekv_sponzor</autoIncrementSequenceName>
+<autoIncrementTriggerName>trig_sekv_sponzor</autoIncrementTriggerName>
+</Column>
+<Column name="jmeno" id="2290491E-2A13-60F6-B826-B24B483A4A6C">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>4A5CFD4A-DDD6-4C43-BFF7-868022C8E2C7</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sponzorovanaCastka" id="023DAEFC-3A20-5BE0-3E85-3CAD43F20F41">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>B7364BC3-BF98-FB7C-A368-BFB24BBEEE79</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="E4A08C32-E421-9E84-EC36-2470CBC75D3B" name="SPONZORI_PK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>3397968B-665D-0A44-E705-2702D1E13982</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="30102DFD-C506-FC78-1E01-964A8892EE9D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="87BCDA6D-F78A-BCDD-FFEC-2BAA43E9EEDD" name="SPONZORI_jmeno_UN">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>2272DE39-EDC6-FC71-9E4C-056E1B7FB6B4</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2290491E-2A13-60F6-B826-B24B483A4A6C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
+<tableCheckConstraint name="Check_sponzorovanaCastka" directorySegmentName="seg_0" id="2E1D590E-2AA0-6897-D033-C3EF42927787">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-04 08:28:04 UTC</createdTime>
+<comment><![CDATA[Sponzorovaná částka by měla být vetší než 0]]></comment>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<rule><![CDATA[sponzorovanaCastka > 0]]></rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

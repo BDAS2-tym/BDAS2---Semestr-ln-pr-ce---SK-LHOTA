@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_1" directorySegmentName="seg_0" id="69DC214A-07E5-0F06-D8B6-1B4A4C42A71A">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:48:22 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="4BA73FB3-FF67-5134-0D74-DA04D9DEF603" value="true"/>
+</engineerTo>
+<targetPk>3397968B-665D-0A44-E705-2702D1E13982</targetPk>
+<identifying>true</identifying>
+<nameOnSource> mít</nameOnSource>
+<nameOnTarget>sponzorovat</nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>A79D56B3-19F5-AC7C-F970-8C8FF642A333</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>506E6C06-7B77-FDF3-A3F8-98F311AA7321</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

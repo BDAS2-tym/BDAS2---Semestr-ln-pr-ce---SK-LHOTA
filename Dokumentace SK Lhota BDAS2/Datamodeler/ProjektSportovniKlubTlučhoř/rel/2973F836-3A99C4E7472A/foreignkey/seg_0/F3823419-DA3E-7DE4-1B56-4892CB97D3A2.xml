@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="F3823419-DA3E-7DE4-1B56-4892CB97D3A2" containerWithKeyObject="C9402661-B328-D882-BDFD-5C1323DB2918" localFKIndex="15F09368-02E5-DC81-66E3-93C82ABCA8E6" name="KONTRAKTY_HRACI_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>F8C925D6-741C-B340-894D-A351917108B8</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<referredTableLongName>HRACI</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>2D770294-E9A0-B27C-85BC-A0DD22EDD909</referredTableID>
+<keyObject>DDFDC068-95F5-621C-E475-D5BF8B53F2FC</keyObject>
+<referredKeyID>DDFDC068-95F5-621C-E475-D5BF8B53F2FC</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idClenKlubu</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

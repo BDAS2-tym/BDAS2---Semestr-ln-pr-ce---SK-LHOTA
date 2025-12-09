@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="047AEC26-3FE4-978D-089B-2D15A0A2D80E" name="ROLE">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-28 12:23:02 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka ROLE slouží jako číselník pro uživatelské role. Bude nabývat hodnot: ADMIN, UŽIVATEL, HRÁČ, TRENÉR, HOST]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idRole" id="CCC6D582-9D61-D659-600C-6C69B463259C">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-28 12:23:08 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idRole bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nazevRole" id="1274053B-6C6E-3C76-88D3-BE114AA2E793">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-28 12:23:57 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>6</dataTypeSize>
+<ownDataTypeParameters>6,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="C70DDD74-8BD4-3A42-6A48-4A8C16A3B7D5" name="ROLE PK">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-28 12:23:18 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>CCC6D582-9D61-D659-600C-6C69B463259C</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="CA1715B4-A589-7F59-DF45-5C14EE75A024" name="UNI_nazevRole">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-28 12:36:47 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<newElementsIDs>1274053B-6C6E-3C76-88D3-BE114AA2E793</newElementsIDs>
+<usedAttributes>
+<attributeRef>1274053B-6C6E-3C76-88D3-BE114AA2E793</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

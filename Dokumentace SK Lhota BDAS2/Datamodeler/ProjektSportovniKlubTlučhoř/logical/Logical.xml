@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="7DD96BFC-0134-7C84-F003-85C6F6328200" mainViewID="45F4F7A1-1968-BCE1-2949-DA6EDC6FD497">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:06:35 UTC</createdTime>
+<ownerDesignName>databazeProjektTluchor</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>

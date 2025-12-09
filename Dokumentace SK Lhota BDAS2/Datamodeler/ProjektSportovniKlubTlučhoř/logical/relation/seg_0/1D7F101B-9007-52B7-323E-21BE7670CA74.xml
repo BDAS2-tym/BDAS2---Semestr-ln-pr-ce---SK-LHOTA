@@ -1,0 +1,22 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_23" directorySegmentName="seg_0" id="1D7F101B-9007-52B7-323E-21BE7670CA74">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-09-30 15:06:30 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<sourcePk>64A63FDA-3CFE-918E-82F4-B766CFA5AAE9</sourcePk>
+<dominantRole>E35D6DF8-17FC-D482-9281-404A4148C46F</dominantRole>
+<identifying>false</identifying>
+<nameOnSource>je přiřazen</nameOnSource>
+<nameOnTarget>má</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>E35D6DF8-17FC-D482-9281-404A4148C46F</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>C4F5AD2C-0A2E-E91D-465D-A652AB452126</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

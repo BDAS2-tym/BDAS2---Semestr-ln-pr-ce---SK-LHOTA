@@ -1,0 +1,28 @@
+Přihlašovací údaje uživatelských účtů:
+1)	Admin
+E-mail: st72870@upce.cz
+Uživatelské jméno: atluchor
+Heslo: pardubice
+
+2)	Admin
+E-mail: st72496@upce.cz
+Uživatelské jméno: mcincibus
+Heslo: pardubice
+
+3)	Hráč
+E-mail: jannovak@sklhota.cz
+Uživatelské jméno: janNovak
+Heslo: pardubice
+
+4)	Trenér
+E-mail: martinkral@sklhota.cz
+Uživatelské jméno: martinKral
+Heslo: pardubice
+
+
+5)	Uživatel:
+E-mail: uzivatel@sklhota.cz
+Uživatelské jméno: uzivatel123
+Heslo: pardubice
+
+Další účet je v roli "Host" funguje bez přihlašování.

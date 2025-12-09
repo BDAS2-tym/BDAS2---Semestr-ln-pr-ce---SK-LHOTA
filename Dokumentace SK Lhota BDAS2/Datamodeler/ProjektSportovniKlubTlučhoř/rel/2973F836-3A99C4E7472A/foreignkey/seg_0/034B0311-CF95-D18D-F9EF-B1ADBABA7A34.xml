@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="034B0311-CF95-D18D-F9EF-B1ADBABA7A34" containerWithKeyObject="9E614084-5373-842A-1755-3DF05607D001" localFKIndex="C4E65914-AAB6-E9C3-4D01-00EF855BA379" name="TRENINKY_TRENERI_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>306E2F91-19A8-8BBD-0EB6-CD7B490960AE</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<referredTableLongName>TRENERI</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>6D3E90DE-DE30-2393-9C8F-AB40D4079086</referredTableID>
+<keyObject>29EF9C76-348B-A46C-F27C-E06515FB24B2</keyObject>
+<referredKeyID>29EF9C76-348B-A46C-F27C-E06515FB24B2</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idClenKlubu</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

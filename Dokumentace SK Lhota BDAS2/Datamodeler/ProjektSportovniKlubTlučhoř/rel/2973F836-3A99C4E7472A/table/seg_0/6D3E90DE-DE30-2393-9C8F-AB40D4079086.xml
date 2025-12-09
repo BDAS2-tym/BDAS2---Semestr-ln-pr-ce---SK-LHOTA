@@ -1,0 +1,104 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6D3E90DE-DE30-2393-9C8F-AB40D4079086" name="TRENERI">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka TRENERI je subtypem CLENOVE_KLUBU, slouží k uchování  specifických  údajů pro trenéry. Jsou zde řešena integritní omezení IO1, IO7]]></commentInRDBMS>
+<generatorID>DBD290AE-ADFC-4EE0-A642-E99AEA1337BC</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<ordsAlias>trener</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idClenKlubu" id="F8F3D4B0-C765-0B4E-3DC9-7928CD039836">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idClenKlubu bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<generatorID>D25EA75B-EE71-FDE3-1C90-EE01687B7BA0</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMinValue>1</autoIncrementMinValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>sekv_trener_clenklubu</autoIncrementSequenceName>
+<autoIncrementTriggerName>trig_sekv_trener_clenklubu</autoIncrementTriggerName>
+<associations>
+<colAssociation fkAssociation="EF87AF1E-7BD9-2215-A107-271514C6935E" referredColumn="62CC014B-49B6-01FE-89A8-6EF48D253636"/>
+</associations>
+</Column>
+<Column name="trenerskaLicence" id="734E2350-4548-56C9-8D07-7475D8D103E4">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>51A671A6-6D9F-499F-739B-BB865BB9CD0B</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pocetLetPraxe" id="E5EC17F6-4CEF-7748-296B-DDDEA6D3F811">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>C87149C5-F380-C903-5D05-7F21B898062A</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="specializace" id="ACFD0D8A-DF8F-1851-B133-1E50A799B379">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>BD3061C3-B7F4-AE05-658F-60C6482B1A5B</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="29EF9C76-348B-A46C-F27C-E06515FB24B2" name="TRENERI_PK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>64A63FDA-3CFE-918E-82F4-B766CFA5AAE9</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F8F3D4B0-C765-0B4E-3DC9-7928CD039836"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="70CA1789-1A7A-CE83-CCB2-FF18E8707418" name="TRENERI_CLENOVE_KLUBU_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>82181338-F472-B39D-A16E-C4CCD1366056</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F8F3D4B0-C765-0B4E-3DC9-7928CD039836"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
+<tableCheckConstraint name="Check_pocetLetPraxe" directorySegmentName="seg_0" id="6706C71A-779A-2422-5306-9DAB1E532974">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-04 08:24:47 UTC</createdTime>
+<comment><![CDATA[Počet let praxe bude kladné číslo, protože kdyby počet let praxe bylo záporné číslo, nedávalo by to smysl]]></comment>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<rule><![CDATA[pocetLetPraxe > 0]]></rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

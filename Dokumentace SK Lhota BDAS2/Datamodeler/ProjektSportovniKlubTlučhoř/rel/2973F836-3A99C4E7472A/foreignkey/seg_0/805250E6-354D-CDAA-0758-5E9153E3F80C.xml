@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="805250E6-354D-CDAA-0758-5E9153E3F80C" containerWithKeyObject="F0FE0C17-7D86-8321-DC54-6E1B3551B9E0" localFKIndex="C46DA4BB-21EF-5E2E-C2E0-A7CAD4F73887" name="SOUTEZ_TYP_SOUTEZ_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>FE09BB3E-05E8-5402-2C1E-D8ADE3A14303</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<referredTableLongName>TYP_SOUTEZ</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>4F1C267E-64B0-5A35-0DAD-AA9FE79455E7</referredTableID>
+<keyObject>2E097B33-597B-FDE7-6428-E41843E3A100</keyObject>
+<referredKeyID>2E097B33-597B-FDE7-6428-E41843E3A100</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idTypSouteze</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

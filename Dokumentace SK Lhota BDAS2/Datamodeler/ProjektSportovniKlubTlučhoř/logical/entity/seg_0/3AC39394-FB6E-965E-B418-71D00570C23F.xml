@@ -1,0 +1,115 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="3AC39394-FB6E-965E-B418-71D00570C23F" name="VYSLEDEK_ZAPASU">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:21:08 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka VYSLEDKY_ZAPASU slouží k uchování výsledků odehraných zápasů.
+Jsou zde řešena integritní omezení IO8, IO9.
+Je zde řešeno strukturální pravidlo SP3.
+Je zde řešeno procedurální pravidlo PP3]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="vysledek" id="603C41A2-7B9B-6BE5-9A98-A0AA741DCBB0">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:21:27 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5 CHAR</dataTypeSize>
+<ownDataTypeParameters>5 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="pocetZlutychKaret" id="BCF192C9-270D-543C-D021-814223CC22F4">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:21:41 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="pocetCervenychKaret" id="95DEEECC-C07F-C174-14DF-CFCBEE7B5B78">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:22:21 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="pocetGolyDomaciTym" id="F2C69912-D2DF-A5C4-1400-C8FFB02DCE72">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:22:35 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="pocetGolyHosteTym" id="39093151-C946-135B-DA24-3F57CA442735">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:22:54 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idZapas" id="1FAE1A55-3656-91FA-7BDA-D70D98A11F4E">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-05 13:30:19 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idZapas bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<generatorID>DD7E7315-EC88-40E6-946A-E07528D35479</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<referedAttribute>381D9BAF-4076-F607-6315-6DF3FE35D645</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="B8B69BC9-5E85-791E-560A-CE2D4332CB9E" name="VYSLEDEK_ZAPASU PK">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:57:35 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>1FAE1A55-3656-91FA-7BDA-D70D98A11F4E</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,140 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BFF9A241-E2AE-FD8F-81E9-D3B786DF1B4E" name="CLENOVE_KLUBU">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka CLENOVE_KLUBU slouží jako supertyp pro tabulky "HRACI"  a "TRENERI". Tabulka CLENOVE_KLUBU slouží k uchování osobních údajů o hráčích a trenérech.
+Jsou zde řešena integritní omezení IO7, IO10]]></commentInRDBMS>
+<generatorID>E35D6DF8-17FC-D482-9281-404A4148C46F</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<ordsAlias>clen_klubu</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idClenKlubu" id="62CC014B-49B6-01FE-89A8-6EF48D253636">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idClenKlubu bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<generatorID>D25EA75B-EE71-FDE3-1C90-EE01687B7BA0</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMinValue>1</autoIncrementMinValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>sekv_clenklubu</autoIncrementSequenceName>
+<autoIncrementTriggerName>trig_sekv_clenklubu</autoIncrementTriggerName>
+</Column>
+<Column name="rodneCislo" id="A71C7A4B-BA37-4555-774E-BAED221E380B">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>275C669C-1702-8206-B431-B94E8B131D6E</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 CHAR</dataTypeSize>
+<ownDataTypeParameters>10 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="jmeno" id="D2D45533-597F-3F67-24CA-C54CD6969221">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>7CF0691A-26F1-B70C-A6A9-F885EDF4F25F</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="prijmeni" id="EF6CCE57-1462-2B60-07E1-5ACE6BDF64BB">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>30DC3B8A-7957-1382-B397-E6247BF1787E</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="typClena" id="FB51B4F5-8E89-4FD2-6AC8-507F182286E6">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>4BBA9FBC-08E1-7FF1-0642-6B4D501DF8AA</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="telefonniCislo" id="21C09B9B-29A6-819A-D2F0-254F9EBEF7EF">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>797F9FEA-A74C-3A65-643D-D9A81876B4D3</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>12 CHAR</dataTypeSize>
+<ownDataTypeParameters>12 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="15683B98-2723-F694-CD4A-4D72C1709631" name="CLENOVE_KLUBU_PK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>64A63FDA-3CFE-918E-82F4-B766CFA5AAE9</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="62CC014B-49B6-01FE-89A8-6EF48D253636"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C9DC52CB-E38E-EE65-79CC-44B37351834F" name="CLEN_KLUBU_rodneCislo_UN">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>6E946405-E49B-581E-81C0-A073DC041152</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A71C7A4B-BA37-4555-774E-BAED221E380B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
+<tableCheckConstraint name="Check_telefonniCislo" directorySegmentName="seg_0" id="98F50E67-F39F-C37C-F6C1-BF988CC9CD54">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-04 08:25:24 UTC</createdTime>
+<comment><![CDATA[Telefonní číslo by mělo být v rozmezí 9-12 číslic]]></comment>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<rule><![CDATA[REGEXP_LIKE(telefonnicislo, '^[0-9]{9,12}$')]]></rule>
+</tableCheckConstraint>
+<tableCheckConstraint name="Check_typClena" directorySegmentName="seg_0" id="4374060C-2014-8B86-0C09-D47756EB8C54">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-04 08:26:14 UTC</createdTime>
+<comment><![CDATA[Vybíra typ člena klubu typu Hráč nebo Trenér]]></comment>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<rule><![CDATA[typClena = 'Hrac' OR typClena = 'Trener']]></rule>
+</tableCheckConstraint>
+<tableCheckConstraint name="Check_rodneCislo" directorySegmentName="seg_1" id="D19427EA-5F7B-A47E-8D91-4D4B6D715A5C">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-28 10:40:27 UTC</createdTime>
+<comment><![CDATA[Rodné číslo musí být 10-ciferné]]></comment>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<rule><![CDATA[LENGTH(rodne_cislo) = 10]]></rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKArc class="oracle.dbtools.crest.model.design.relational.FKArc" directorySegmentName="seg_0" id="5B798438-B3B8-A4E1-2C33-56AAD62446E3" name="Arc_ClenoveKlubu">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<mandatory>false</mandatory>
+<reverseArc>true</reverseArc>
+<table>BFF9A241-E2AE-FD8F-81E9-D3B786DF1B4E</table>
+<discriminatorColumn>FB51B4F5-8E89-4FD2-6AC8-507F182286E6</discriminatorColumn>
+<fkeys>
+<fkeyID>EF87AF1E-7BD9-2215-A107-271514C6935E</fkeyID>
+<fkeyID>F13688ED-0EFC-3F6F-2C67-83DFAF053A5F</fkeyID>
+</fkeys>
+</FKArc>

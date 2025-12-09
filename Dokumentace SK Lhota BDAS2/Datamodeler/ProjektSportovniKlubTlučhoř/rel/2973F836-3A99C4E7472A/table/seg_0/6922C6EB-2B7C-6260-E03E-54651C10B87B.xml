@@ -1,0 +1,67 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6922C6EB-2B7C-6260-E03E-54651C10B87B" name="POZICE_HRAC">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka POZICE_HRAC slouží jako číselník pro pozice hráčů na hřišti. Bude nabývat hodnot: BRANKÁŘ, OBRÁNCE, ZÁLOŽNÍK, ÚTOČNÍK. Je zde řešeno strukturální pravidlo SP6]]></commentInRDBMS>
+<generatorID>7C0352C9-5E85-0495-8FB5-367F89A5069E</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idPozice" id="2C42D45A-55FB-6F53-4E67-8F098B570F6E">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idPozice bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<generatorID>B690BA71-A799-EEFD-4E03-60DC89D9DF76</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMinValue>1</autoIncrementMinValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>sekv_pozice</autoIncrementSequenceName>
+<autoIncrementTriggerName>trig_sekv_pozice</autoIncrementTriggerName>
+</Column>
+<Column name="nazevPozice" id="72ED309C-4CA3-9BE5-700B-8B1529B50E4A">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>4E5DD906-7CB9-E2FE-7C5D-74194CFA4BA1</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8 CHAR</dataTypeSize>
+<ownDataTypeParameters>8 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A74CC627-0B28-03D0-3BC1-FB1E9AD0DCB1" name="POZICE_HRAC_PK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>DF16D61F-D14F-770F-4A7E-908DD814275D</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2C42D45A-55FB-6F53-4E67-8F098B570F6E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C68BA0D2-2A98-4D05-FE9C-9B11C49F21E8" name="POZICE_HRAC_nazevPozice_UN">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>699EF334-6800-8489-E755-FC24789E0FCB</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="72ED309C-4CA3-9BE5-700B-8B1529B50E4A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

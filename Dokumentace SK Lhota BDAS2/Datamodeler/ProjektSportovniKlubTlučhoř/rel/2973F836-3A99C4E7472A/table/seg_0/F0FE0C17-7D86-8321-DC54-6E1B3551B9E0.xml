@@ -1,0 +1,93 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F0FE0C17-7D86-8321-DC54-6E1B3551B9E0" name="SOUTEZE">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka SOUTEZE slouží k uchování údajů o soutěžích. Jsou zde řešena integritní omezení IO2, IO3]]></commentInRDBMS>
+<generatorID>1B9767D0-8876-3882-BACB-2EC5CAF04C4A</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<ordsAlias>soutez</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idSoutez" id="D9790BEA-61E8-5D87-67DC-85BA76438FFD">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idSoutez bude sloužit jako UID a bude nabývat čísel od 1 výše.]]></commentInRDBMS>
+<generatorID>C377A3D9-9B91-2A8F-8A77-533BD8038887</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMinValue>1</autoIncrementMinValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>sekv_soutez</autoIncrementSequenceName>
+<autoIncrementTriggerName>trig_sekv_soutez</autoIncrementTriggerName>
+</Column>
+<Column name="startDatum" id="AF587E43-AED9-9805-E549-E61E19DDAE98">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>F24854CE-FE3E-2A35-38BD-F02FBEEA80FF</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="konecDatum" id="1C860769-AA56-5703-0844-D78D0D1A3126">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>CDAF1C64-C3ED-D724-E5B7-2E98BAD0A75C</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idTypSouteze" id="740177E5-6475-B514-871B-9C0E027B6EED">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>6B88DC5D-8002-E57E-1316-E71104841290</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="805250E6-354D-CDAA-0758-5E9153E3F80C" referredColumn="3B03F510-3B9C-3BF9-B0E7-0DDE7CC8BF4B"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="EE6C0DC7-B559-E9C7-69F3-E5A1E1B03250" name="SOUTEZE_PK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>34A1014A-A53E-802D-A6F4-3686ADE8E6DB</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D9790BEA-61E8-5D87-67DC-85BA76438FFD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C46DA4BB-21EF-5E2E-C2E0-A7CAD4F73887" name="SOUTEZ_TYP_SOUTEZ_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>FE09BB3E-05E8-5402-2C1E-D8ADE3A14303</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="740177E5-6475-B514-871B-9C0E027B6EED"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

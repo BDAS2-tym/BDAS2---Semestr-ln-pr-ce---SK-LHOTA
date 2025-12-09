@@ -1,0 +1,151 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C31AC9B1-D820-6EA6-A211-C717011BA288" name="VYSLEDKY_ZAPASU">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka VYSLEDKY_ZAPASU slouží k uchování výsledků odehraných zápasů.
+Jsou zde řešena integritní omezení IO8, IO9.
+Je zde řešeno strukturální pravidlo SP3.
+Je zde řešeno procedurální pravidlo PP3]]></commentInRDBMS>
+<generatorID>3AC39394-FB6E-965E-B418-71D00570C23F</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<ordsAlias>vysledek_zapasu</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="vysledek" id="7C14FF69-D193-3065-712F-2E90AC4AADB7">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idZapas bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<generatorID>603C41A2-7B9B-6BE5-9A98-A0AA741DCBB0</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5 CHAR</dataTypeSize>
+<ownDataTypeParameters>5 CHAR,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMinValue>1</autoIncrementMinValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>sekv_vysledek_zapas</autoIncrementSequenceName>
+<autoIncrementTriggerName>trig_sekv_vysledek_zapas</autoIncrementTriggerName>
+</Column>
+<Column name="pocetZlutychKaret" id="0CBB6294-331F-E1E4-3EC4-2BC974308861">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>BCF192C9-270D-543C-D021-814223CC22F4</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pocetCervenychKaret" id="D9F0A62E-CF92-AB78-0520-87186A7FE131">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>95DEEECC-C07F-C174-14DF-CFCBEE7B5B78</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pocetGolyDomaciTym" id="A0E84EF1-8414-53AF-3CA3-A3B199188C24">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>F2C69912-D2DF-A5C4-1400-C8FFB02DCE72</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pocetGolyHosteTym" id="12AF544F-BEED-55B2-593A-B8AB883025D6">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>39093151-C946-135B-DA24-3F57CA442735</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idZapas" id="F4783D0A-0A04-B9F3-C3C9-AD70C5925647">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>5262E693-0BEE-8A19-1A09-209321901F49</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DD742AFE-5612-697B-EBFF-45E1A1F7F3A8" referredColumn="B316BE2A-1472-06DB-1E73-6DBB85D00FBC"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B2E6A980-C916-8434-AE1B-F8978E9D6EA8" name="VYSLEDKY_ZAPASU_PK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>B8B69BC9-5E85-791E-560A-CE2D4332CB9E</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F4783D0A-0A04-B9F3-C3C9-AD70C5925647"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="050338C8-2EB5-47C1-0363-F1BE8D7A2DD5" name="VYSLEDKY_ZAPASU_ZAPASY_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>DD7E7315-EC88-40E6-946A-E07528D35479</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F4783D0A-0A04-B9F3-C3C9-AD70C5925647"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
+<tableCheckConstraint name="Check_pocetZlutychKaret" directorySegmentName="seg_0" id="1D9D38E0-DAF2-7A4D-24FA-85ECA517E717">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-04 08:29:23 UTC</createdTime>
+<comment><![CDATA[Počet žlutých karet by měl být roven nebo větší než 0]]></comment>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<rule><![CDATA[pocetZlutychKaret >= 0]]></rule>
+</tableCheckConstraint>
+<tableCheckConstraint name="Check_pocetCervenychKaret" directorySegmentName="seg_0" id="7A820021-0E47-8E74-8EFE-1918160F0405">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-04 08:30:19 UTC</createdTime>
+<comment><![CDATA[Počet červených  karet by měl být roven nebo větší než 0]]></comment>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<rule><![CDATA[pocetCervenychKaret >= 0]]></rule>
+</tableCheckConstraint>
+<tableCheckConstraint name="Check_pocetGolyDomaciTym" directorySegmentName="seg_0" id="CDD2F878-D9C6-9CEA-5743-79E4B80D53CB">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-04 08:32:09 UTC</createdTime>
+<comment><![CDATA[Počet golu týmu domácích by měl být roven nebo větší než 0]]></comment>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<rule><![CDATA[pocetGolyDomaciTym >= 0]]></rule>
+</tableCheckConstraint>
+<tableCheckConstraint name="Check_pocetGolyHosteTym" directorySegmentName="seg_0" id="B6EF1791-14F3-4002-CDF6-C63BD423A61F">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-04 08:32:53 UTC</createdTime>
+<comment><![CDATA[Počet golu týmu hostů by měl být roven nebo větší než 0]]></comment>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<rule><![CDATA[pocetGolyHosteTym >= 0]]></rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

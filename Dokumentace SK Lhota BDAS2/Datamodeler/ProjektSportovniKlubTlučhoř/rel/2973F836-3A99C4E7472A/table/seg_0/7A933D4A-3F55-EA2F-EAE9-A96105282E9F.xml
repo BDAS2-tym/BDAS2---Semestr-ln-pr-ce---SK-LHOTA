@@ -1,0 +1,114 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7A933D4A-3F55-EA2F-EAE9-A96105282E9F" name="ZAPASY">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka ZAPASY slouží k uchování údajů o zápasech.
+Jsou zde řešena strukturální pravidla SP1, SP5.
+Je zde řešeno procedurální pravidlo PP6]]></commentInRDBMS>
+<generatorID>94023718-ABBF-35A6-14FE-D56A31D7B8C8</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<ordsAlias>zapas</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idZapas" id="B316BE2A-1472-06DB-1E73-6DBB85D00FBC">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idZapas bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<generatorID>381D9BAF-4076-F607-6315-6DF3FE35D645</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMinValue>1</autoIncrementMinValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>sekv_zapas</autoIncrementSequenceName>
+<autoIncrementTriggerName>trig_sekv_zapas</autoIncrementTriggerName>
+</Column>
+<Column name="datum" id="30CAEC05-7C8E-83D2-7D91-BC91BA45D84C">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>EEFE6095-3B40-0D8E-37C1-5A17E9605082</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idSoutez" id="7FE34B00-67A4-CCFD-7F51-52E85357A9C5">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>EBD729AF-73DB-8491-E578-23A64F59DC7A</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DBC94FA8-E9D5-1CDA-4787-677CA3937C62" referredColumn="D9790BEA-61E8-5D87-67DC-85BA76438FFD"/>
+</associations>
+</Column>
+<Column name="domaciTym" id="29AA3A34-08B2-C812-AC1E-354C1CFB27E2">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-05 13:26:56 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="hosteTym" id="6CD46D94-EBF9-0F8C-0CBC-F5BD2A95CFF5">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-05 13:28:22 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="04BA1DB3-9B88-EB5E-412D-F7DB685CC063" name="ZAPASY_PK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>7CCEB634-B15D-60DB-10C2-26F9C4134C81</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B316BE2A-1472-06DB-1E73-6DBB85D00FBC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7F732A35-FCBB-F4CE-BF10-C28C92522503" name="ZAPAS_STAV_ZAPASU_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>110BA5A5-2ED8-E696-F55E-32BE47708F52</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+</ind_PK_UK>
+<ind_PK_UK id="E7EB71FE-3A4A-6732-04D4-F035B14F361E" name="ZAPAS_SOUTEZ_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>7350F6F7-6130-1FAA-0D36-B81DE96C11A6</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7FE34B00-67A4-CCFD-7F51-52E85357A9C5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

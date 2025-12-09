@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="5C9150FB-ED52-B616-BB4F-1B744CDDEB93" name="SPONZOR_SOUTEZ">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:13:28 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka SPONZORI_SOUTEZE  slouží  jako vazební tabulka mezi SPONZORI a SOUTEZE. Je zde řešeno strukturální pravidlo SP7]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idSponzor" id="9C641F09-4BDA-2A4B-F875-812D27C964F3">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:50:31 UTC</createdTime>
+<generatorID>1BEF24CE-C124-8CB2-DCB8-6E82A2F57A5D</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<referedAttribute>94647599-9CBB-511F-6698-E5AFC0BE8D0F</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idSoutez" id="3D5B31D5-E846-58E3-361C-2CBEE80D50C7">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:51:37 UTC</createdTime>
+<generatorID>F02864C0-5F2B-3C49-B4F1-16D260DEEB33</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<referedAttribute>C377A3D9-9B91-2A8F-8A77-533BD8038887</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="10B1FAEB-D836-4391-DAAE-7B1D30E3D6C2" name="SPONZOR_SOUTEZ PK">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-18 13:24:10 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>3D5B31D5-E846-58E3-361C-2CBEE80D50C7</attributeRef>
+<attributeRef>9C641F09-4BDA-2A4B-F875-812D27C964F3</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
