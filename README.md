@@ -15,7 +15,7 @@
 
 **Obor:** IT (Informační technologie)
 
-**Rok:** 2025
+**Akademický Rok:** 2025/2026
 
 ---
 <br>
@@ -98,7 +98,18 @@ Cílem aplikace je usnadnit správu členské základny, sponzorů a sledování
 
 
 ### ERD diagram
-_TODO ERD Doplnit!!_
+
+![alt text][Erd]
+
+[Erd]: https://github.com/BDAS2-tym/BDAS2---Semestr-ln-pr-ce---SK-LHOTA/blob/main/Dokumentace%20SK%20Lhota%20BDAS2/SK%20Lhota-%20ERD%20diagram.png
+
+<br>
+
+### Relační diagram
+
+![alt text][Relacni]
+
+[Relacni]: https://github.com/BDAS2-tym/BDAS2---Semestr-ln-pr-ce---SK-LHOTA/blob/main/Dokumentace%20SK%20Lhota%20BDAS2/SK%20Lhota-%20Rela%C4%8Dn%C3%AD%20diagram.png
 
 ---
 <br>
@@ -123,7 +134,11 @@ _TODO ERD Doplnit!!_
 
 
 * Aleš Tlučhoř
+    * [![Discord](https://img.shields.io/badge/Discord-Profil-5865F2?logo=discord&logoColor=white)](https://discord.com/users/770358923612913736)
+<br>
+
 * Milan Cincibus
+    * [![Discord](https://img.shields.io/badge/Discord-Profil-5865F2?logo=discord&logoColor=white)](https://discord.com/users/848602466694201344)
 ---
 <br>
 
