@@ -39,7 +39,7 @@
 
                 <!-- Zde jméno přihlášeného -->
                 <TextBlock x:Name="txtPrihlasenUzivatel"
-                   Text="Nepřihlášen"
+                   Text="{Binding PrihlasenyUzivatelText}"
                    Foreground="White"
                    FontSize="16"
                    VerticalAlignment="Center"
@@ -88,7 +88,6 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-
                     </Grid.RowDefinitions>
 
                     <!-- Styl -->
@@ -107,12 +106,22 @@
                                     <Setter Property="Background" Value="#111827"/>
                                     <Setter Property="Foreground" Value="White"/>
                                 </Trigger>
+
+
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.2"/>
+                                </Trigger>
                             </Style.Triggers>
                         </Style>
                     </Grid.Resources>
 
                     <!-- Hráči -->
-                    <Button x:Name="btnHraci" Grid.Row="0" Click="BtnHraci_Click" Style="{StaticResource HoverFadeButtonStyle2}" Margin="-5,0,-5,0">
+                    <Button x:Name="btnHraci"
+                            Grid.Row="0"
+                            Command="{Binding OpenHraciCommand}"
+                            IsEnabled="{Binding CanHraci}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/player.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Hráči" VerticalAlignment="Center"/>
@@ -120,7 +129,13 @@
                     </Button>
 
                     <!-- Trenéři -->
-                    <Button x:Name="btnTreneri" Grid.Row="1" Click="BtnTreneri_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnTreneri"
+                            Grid.Row="1"
+                            Command="{Binding OpenTreneriCommand}"
+                            IsEnabled="{Binding CanTreneri}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="-5,4,3,4"
+                            Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/coach.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Trenéři" VerticalAlignment="Center"/>
@@ -128,7 +143,13 @@
                     </Button>
 
                     <!-- Tréninky -->
-                    <Button x:Name="btnTreninky" Grid.Row="2" Click="BtnTreninky_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnTreninky"
+                            Grid.Row="2"
+                            Command="{Binding OpenTreninkyCommand}"
+                            IsEnabled="{Binding CanTreninky}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="-5,4,3,4"
+                            Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/training.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Tréninky" VerticalAlignment="Center"/>
@@ -136,7 +157,13 @@
                     </Button>
 
                     <!-- Kontrakty -->
-                    <Button x:Name="btnKontrakty" Grid.Row="3" Click="BtnKontrakty_Click" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnKontrakty"
+                            Grid.Row="3"
+                            Command="{Binding OpenKontraktyCommand}"
+                            IsEnabled="{Binding CanKontrakty}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="-5,4,3,4"
+                            Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/contract.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Kontrakty" VerticalAlignment="Center"/>
@@ -144,7 +171,13 @@
                     </Button>
 
                     <!-- Opatření -->
-                    <Button x:Name="btnOpatreni" Click="BtnOpatreni_Click"  Grid.Row="4" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnOpatreni"
+                            Grid.Row="4"
+                            Command="{Binding OpenOpatreniCommand}"
+                            IsEnabled="{Binding CanOpatreni}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="-5,4,3,4"
+                            Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/red_card.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Opatření" VerticalAlignment="Center"/>
@@ -152,7 +185,13 @@
                     </Button>
 
                     <!-- Sponzoři -->
-                    <Button x:Name="btnSponzori" Click="BtnSponzori_Click" Grid.Row="5" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnSponzori"
+                            Grid.Row="5"
+                            Command="{Binding OpenSponzoriCommand}"
+                            IsEnabled="{Binding CanSponzori}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="-5,4,3,4"
+                            Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/dolar.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Sponzoři" VerticalAlignment="Center"/>
@@ -160,7 +199,13 @@
                     </Button>
 
                     <!-- Soutěže -->
-                    <Button x:Name="btnSouteze" Click="BtnSouteze_Click" Grid.Row="6" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnSouteze"
+                            Grid.Row="6"
+                            Command="{Binding OpenSoutezeCommand}"
+                            IsEnabled="{Binding CanSouteze}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="-5,4,3,4"
+                            Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/trophy.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Soutěže" VerticalAlignment="Center"/>
@@ -168,7 +213,13 @@
                     </Button>
 
                     <!-- Zápasy -->
-                    <Button x:Name="btnZapasy" Click="BtnZapasy_Click" Grid.Row="7" Padding="-5,0,3,0" Margin="-5,0,-5,-5" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnZapasy"
+                            Grid.Row="7"
+                            Command="{Binding OpenZapasyCommand}"
+                            IsEnabled="{Binding CanZapasy}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="-5,0,3,0"
+                            Margin="-5,0,-5,-5">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/match.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Zápasy" VerticalAlignment="Center"/>
@@ -176,7 +227,13 @@
                     </Button>
 
                     <!-- Grafy -->
-                    <Button x:Name="btnGrafy" Click="BtnGrafy_Click" Grid.Row="8" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnGrafy"
+                            Grid.Row="8"
+                            Command="{Binding OpenGrafyCommand}"
+                            IsEnabled="{Binding CanGrafy}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="-5,4,3,4"
+                            Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/graph.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Grafy" VerticalAlignment="Center"/>
@@ -184,7 +241,12 @@
                     </Button>
 
                     <!-- Nastavení -->
-                    <Button x:Name="btnNastaveni" Click="BtnNastaveni_Click" Grid.Row="9" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnNastaveni"
+                            Grid.Row="9"
+                            Command="{Binding OpenNastaveniCommand}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="-5,4,3,4"
+                            Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/settings.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Nastavení" VerticalAlignment="Center"/>
@@ -192,7 +254,12 @@
                     </Button>
 
                     <!-- Odhlášení -->
-                    <Button x:Name="btnOdhlaseni" Click="BtnOdhlaseni_Click" Grid.Row="10" Style="{StaticResource HoverFadeButtonStyle2}" Padding="-5,4,3,4" Margin="-5,0,-5,0">
+                    <Button x:Name="btnOdhlaseni"
+                            Grid.Row="10"
+                            Command="{Binding LogoutCommand}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            Padding="-5,4,3,4"
+                            Margin="-5,0,-5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="26" Height="26" Margin="0,0,10,0"/>
                             <TextBlock Text="Odhlášení" VerticalAlignment="Center"/>
@@ -223,7 +290,7 @@
                     <Image Source="/Images/Img/clock_icon.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Čas:" FontSize="20" FontWeight="Bold"/>
-                        <TextBlock x:Name="txtCas" Text="00:00:00" FontSize="22" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtCas" Text="{Binding CasText}" FontSize="22" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -238,7 +305,7 @@
                     <Image Source="/Images/Img/date.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold"/>
-                        <TextBlock x:Name="txtDatum" Text="00.00.2025" FontSize="22" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtDatum" Text="{Binding DatumText}" FontSize="22" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -253,7 +320,7 @@
                     <Image Source="/Images/Img/player.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Počet hráčů:" FontSize="20" FontWeight="Bold"/>
-                        <TextBlock x:Name="txtPocetHracu" Text="0" FontSize="22" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtPocetHracu" Text="{Binding PocetHracu}" FontSize="22" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -268,7 +335,7 @@
                     <Image Source="/Images/Img/coach.png" Width="50" Height="50" Margin="0,0,12,0"/>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Počet trenérů" FontSize="20" FontWeight="Bold"/>
-                        <TextBlock x:Name="txtPocetTreneru" Text="0" FontSize="22" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtPocetTreneru" Text="{Binding PocetTreneru}" FontSize="22" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
