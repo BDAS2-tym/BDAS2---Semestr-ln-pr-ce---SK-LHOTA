@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="961BFB02-36B6-44C3-F9EA-0DE3C53DBFFA" name="LOG_TABLE">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-16 09:24:30 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka LOG_TABLE slouží k logování změn dat v jednotlivých tabulkách v databázi.]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="73703F72-4E06-F77C-6E73-7463F75FC928" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idLog" id="741F166D-2378-C038-A53E-99017C97E010">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-16 09:52:28 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idLog  bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="73703F72-4E06-F77C-6E73-7463F75FC928" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="operace" id="32931BC2-0578-CB5E-530E-AA1761A8724C">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-16 09:25:52 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="73703F72-4E06-F77C-6E73-7463F75FC928" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="cas" id="4D76C93B-6F70-E860-B98A-14F3D666F795">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-16 09:26:15 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="73703F72-4E06-F77C-6E73-7463F75FC928" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="uzivatel" id="03ED90D5-A26E-7586-22CB-F892D4E0BEC5">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-16 09:26:28 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="73703F72-4E06-F77C-6E73-7463F75FC928" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="tabulka" id="996CE5F1-B775-FAC8-70D5-2FC063FE0A78">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-16 09:52:53 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="73703F72-4E06-F77C-6E73-7463F75FC928" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="336B51FB-829B-E2BA-601F-7515C9FBFA4C" name="LOG_TABLE PK">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-16 09:52:41 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="73703F72-4E06-F77C-6E73-7463F75FC928" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>741F166D-2378-C038-A53E-99017C97E010</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -41,7 +41,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             string heslo = txtPass.Password.Trim();
             string heslo2 = txtPass2.Password.Trim();
 
-            // --- Validace vstupů ---
+            // Validace vstupů 
             if (string.IsNullOrEmpty(uzivatelskeJmeno) ||
                 string.IsNullOrEmpty(heslo) || string.IsNullOrEmpty(email))
             {
@@ -73,6 +73,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
+            if (uzivatelskeJmeno.Contains(" "))
+            {
+                MessageBox.Show("Uživatelské jméno nesmí obsahovat mezery!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             try
             {
                 // Hash + Salt
@@ -88,18 +94,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 novyUzivatel.Role = "Host";
                 novyUzivatel.PosledniPrihlaseni = DateTime.Now;
 
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                OracleConnection conn = DatabaseManager.GetConnection();
 
-                    // Nastavení přihlášeného uživatele pro logování
-                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+                // Přidání uživatele
+                DatabaseRegistrace.AddUzivatel(conn, novyUzivatel);
 
-                    // Přidání uživatele
-                    DatabaseRegistrace.AddUzivatel(conn, novyUzivatel);
-                }
-
-                MessageBox.Show($"Uživatel '{uzivatelskeJmeno}' byl úspěšně registrován jako 'HOST' ", "Registrace úspěšná", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Uživatel '{uzivatelskeJmeno}' byl úspěšně registrován jako 'HOST' ",
+                    "Registrace úspěšná", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Nastavení přihlášeného uživatele a otevření hlavního okna
                 HlavniOkno.NastavPrihlaseneho(novyUzivatel);
@@ -110,9 +111,13 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             {
                 // Ošetření duplicity a chyb Oracle
                 if (ex.Number == 20002)
+                {
                     MessageBox.Show("Toto uživatelské jméno už existuje!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
                 else
+                {
                     MessageBox.Show("Chyba při registraci: " + ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             catch (Exception ex)
             {

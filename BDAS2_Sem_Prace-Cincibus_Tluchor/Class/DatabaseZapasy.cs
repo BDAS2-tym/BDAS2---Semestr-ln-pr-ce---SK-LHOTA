@@ -31,7 +31,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.Parameters.Add("v_datum", OracleDbType.Date).Value = zapas.Datum;
                 cmd.Parameters.Add("v_id_soutez", OracleDbType.Int32).Value = zapas.Soutez.IdSoutez;
 
-                StavZapasu stav = new StavZapasu();
+                StavZapasu stav = new StavZapasu(conn);
                 int indexStavu = stav.StavyZapasu.FirstOrDefault(st => st.Value == zapas.StavZapasu).Key;
 
                 cmd.Parameters.Add("v_id_stav", OracleDbType.Int32).Value = indexStavu;
@@ -94,7 +94,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 cmd.Parameters.Add("v_datum", OracleDbType.Date).Value = zapas.Datum;
                 cmd.Parameters.Add("v_id_soutez", OracleDbType.Int32).Value = zapas.Soutez.IdSoutez;
 
-                StavZapasu stav = new StavZapasu();
+                StavZapasu stav = new StavZapasu(conn);
                 int indexStavu = stav.StavyZapasu.FirstOrDefault(st => st.Value == zapas.StavZapasu).Key;
 
                 cmd.Parameters.Add("v_id_stav", OracleDbType.Int32).Value = indexStavu;
@@ -138,5 +138,35 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                 }
             }
         }
+
+        /// <summary>
+        /// Zavolá PL/SQL funkci <c>F_STAV_ZAPASU_SHRNUTI</c> v databázi
+        /// a vrátí její textový výstup
+        /// Funkce vrací shrnutí stavu všech zápasů (počet odehraných a bude se hrát)
+        /// </summary>
+        public static string GetShrnutiStavuZapasu(OracleConnection conn)
+        {
+            using (var cmd = new OracleCommand("PKG_ZAPASY.F_STAV_ZAPASU_SHRNUTI", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                // návratový parametr funkce
+                cmd.Parameters.Add("return_value", OracleDbType.Varchar2, 4000).Direction = ParameterDirection.ReturnValue;
+
+                try
+                {
+                    // Provedení volání PL/SQL funkce
+                    cmd.ExecuteNonQuery();
+
+                    // Vrácení textové hodnoty vrácené funkcí
+                    return cmd.Parameters["return_value"].Value.ToString();
+                }
+                catch (OracleException ex)
+                {
+                    throw new Exception($"Chyba při volání funkce F_STAV_ZAPASU_SHRNUTI: {ex.Message}", ex);
+                }
+            }
+        }
+
     }
 }

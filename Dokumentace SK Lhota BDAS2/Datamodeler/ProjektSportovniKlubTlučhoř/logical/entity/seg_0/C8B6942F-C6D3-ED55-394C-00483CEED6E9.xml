@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C8B6942F-C6D3-ED55-394C-00483CEED6E9" name="STAV_ZAPASU">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-07 08:58:32 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka STAV_ZAPASU slouží jako číselník pro definování stavu zápasu. Bude nabývat hodnot: ODEHRÁNO, BUDE SE HRÁT. Je zde řešeno strukturální pravidlo SP8]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idStav" id="F108264F-8A97-33BA-6324-594D6F39249E">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-07 09:16:58 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idStav bude sloužit jako UID a bude nabývat čísel od 1 výše.]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="stavZapasu" id="75EF50E8-9D60-5B08-49EA-D0D26CA99008">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-07 09:17:04 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>12 CHAR</dataTypeSize>
+<ownDataTypeParameters>12 CHAR,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="98365BBE-F89E-8D99-C186-1522C31967D3" name="STAV_ZAPASU PK">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-07 09:19:15 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>F108264F-8A97-33BA-6324-594D6F39249E</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="4D4A7D02-E625-F26F-20E1-4F5D43DA4B1A" name="UNI_stavZapasu">
+<createdBy>milan</createdBy>
+<createdTime>2025-10-16 14:18:29 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<newElementsIDs>75EF50E8-9D60-5B08-49EA-D0D26CA99008</newElementsIDs>
+<usedAttributes>
+<attributeRef>75EF50E8-9D60-5B08-49EA-D0D26CA99008</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

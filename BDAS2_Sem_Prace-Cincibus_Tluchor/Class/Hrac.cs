@@ -3,21 +3,31 @@ using System.Collections.ObjectModel;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
+
+    /// <summary>
+    /// Reprezentuje jednu pozici hráče z číselníku (např. Brankář, Obránce, Záložnik, Útočník)
+    /// Tato třída se používá do ComboBoxu při výběru pozice
+    /// </summary>
+    public class Pozice
+    {
+        public int Id { get; set; }
+        public string Nazev { get; set; }
+    }
+
     /// <summary>
     /// Reprezentuje hráče klubu
     /// </summary>
     public class Hrac : ClenKlubu
     {
-
         /// <summary>
-        /// Jedinečné ID člena klubu (hráče).
+        /// Cizí klíč – ID pozice z číselníku POZICE_HRACE
         /// </summary>
-       // public int IdClenKlubu { get; set; }
+        public int IdPozice { get; set; }
 
         /// <summary>
         /// Rodné číslo hráče
         /// </summary>
-        public long RodneCislo { get; set; }
+        public string RodneCislo { get; set; }
 
         /// <summary>
         /// Jméno hráče
@@ -45,7 +55,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         public int PocetVstrelenychGolu { get; set; }
 
         /// <summary>
-        /// Pozice hráče na hřišti
+        /// Text názvu pozice pro DataGrid (z view – Brankář/Obránce/Záložník/Útočník)
         /// </summary>
         public string PoziceNaHristi { get; set; }
 
@@ -58,6 +68,27 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Počet červených karet
         /// </summary>
         public int PocetCervenychKaret { get; set; }
+
+        /// <summary>
+        /// Datum, kdy bylo opatření uděleno
+        /// </summary>
+        public DateTime DatumOpatreni { get; set; }
+
+        /// <summary>
+        /// Délka disciplinárního trestu 
+        /// </summary>
+        public int DelkaTrestu { get; set; }
+
+        /// <summary>
+        /// Důvod disciplinárního opatření (může být null)
+        /// </summary>
+        public string? DuvodOpatreni { get; set; }
+
+        /// <summary>
+        /// Textová reprezentace data disciplinárního opatření pro DataGrid,
+        /// pokud hráč žádné opatření nemá
+        /// </summary>
+        public string DatumOpatreniText { get; set; } = "–";
 
         /// <summary>
         /// Výchozí konstruktor
@@ -75,8 +106,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <param name="pocetZlutychKaret">Počet žlutých karet</param>
         /// <param name="pocetCervenychKaret">Počet červených karet</param>
         /// <param name="poziceNaHristi">Pozice hráče na hřišti přes combobox v dialogu přidej</param>
-        public Hrac(long rodneCislo, string jmeno, string prijmeni, string telefonniCislo, int pocetVstrelenychGolu, 
-            int pocetZlutychKaret, int pocetCervenychKaret, string poziceNaHristi)
+        public Hrac(string rodneCislo, string jmeno, string prijmeni, string telefonniCislo, int pocetVstrelenychGolu, 
+            int pocetZlutychKaret, int pocetCervenychKaret, int idPozice)
         {
   
             this.RodneCislo = rodneCislo;
@@ -84,15 +115,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
             this.Prijmeni = prijmeni;
             this.TelefonniCislo = telefonniCislo;
             this.PocetVstrelenychGolu = pocetVstrelenychGolu;
-            this.PoziceNaHristi = poziceNaHristi;
+            
             this.PocetZlutychKaret = pocetZlutychKaret;
             this.PocetCervenychKaret = pocetCervenychKaret;
+            this.IdPozice = idPozice;     
             this.TypClena = "Hrac"; // Defaultně "Hrac"
         }
 
         public override string ToString()
         {
-            return $"{Jmeno} {Prijmeni} RČ: {RodneCislo}";
+            return $"{Jmeno} {Prijmeni}   RČ: {RodneCislo}";
         }
+
     }
 }

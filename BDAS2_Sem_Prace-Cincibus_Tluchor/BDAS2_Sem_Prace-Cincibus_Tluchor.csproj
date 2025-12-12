@@ -15,6 +15,7 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
     <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.8" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.26.0" />
+    <PackageReference Include="PDFsharp-MigraDoc" Version="6.1.1" />
   </ItemGroup>
 
   <!-- Ikona aplikace -->
@@ -82,6 +83,11 @@
     <Resource Update="Images\Ikony\Ikona_Grafy.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Class\Models\" />
+    <Folder Include="Windows\Views\" />
+    <Folder Include="Windows\ViewModels\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,191 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9D689A56-5DE8-B3F3-70D4-71D8B64EF81A" name="UZIVATELSKE_UCTY">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka UZIVATELSKE_UCTY uchovává v sobě údaje o uživatelských účtech jednotlivých členů.
+]]></commentInRDBMS>
+<generatorID>C4F5AD2C-0A2E-E91D-465D-A652AB452126</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<ordsAlias>uzivatelsky_ucet</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idUzivatelskyUcet" id="5DD3BC5D-13A3-5985-6285-2C9CEA3A3D60">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idUzivatelskyUcet bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<generatorID>F6F302B9-898F-5629-183A-61BB62DE766E</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMinValue>1</autoIncrementMinValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>sekv_uzivatelske_ucty</autoIncrementSequenceName>
+<autoIncrementTriggerName>trig_sekv_uzivatelske_ucty</autoIncrementTriggerName>
+</Column>
+<Column name="uzivatelskeJmeno" id="A06F20DA-3627-84F0-94E2-F3B1D272919C">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>93C67D72-D297-720E-F508-D832B034EC68</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="email" id="1D439B31-CFA5-53F4-3298-9EEAA291FDE3">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>26156D84-2865-4569-3E7F-69B4390E7227</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 CHAR</dataTypeSize>
+<ownDataTypeParameters>100 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="heslo" id="3F5C6214-D64E-A28D-6B80-3848EA2C1903">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>592E5E1E-0FFA-9029-2820-679CA64FBACF</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 CHAR</dataTypeSize>
+<ownDataTypeParameters>100 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="posledniPrihlaseni" id="FE26FFD6-CAB9-1004-E451-E0E39A218794">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>FAC4087F-291E-1565-E799-A5149F9C4CF8</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CLEN_KLUBU_idClenKlubu" id="DF0C7846-9167-56B8-A15F-048EE440FD0F">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>5B998A67-BFC8-EF47-F600-A528202B2198</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0F09703F-2B74-CF08-8704-F9E7ABC45842" referredColumn="62CC014B-49B6-01FE-89A8-6EF48D253636"/>
+</associations>
+</Column>
+<Column name="salt" id="BEB648C9-F9CD-AF47-D227-DD3CE4D7F3C4">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>F665391A-951E-137C-9B22-94C6BFFDD985</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64</dataTypeSize>
+<ownDataTypeParameters>64,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idRole" id="AA34C650-6894-DBBF-6B5F-4BB7F99DCC45">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>08649A7E-6BD1-543C-0356-21A7CF8A7CD1</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0A6B2B36-48DC-81A4-B12B-7084A20EE527" referredColumn="0C0F8DD0-A768-84E9-F3B3-E91B021C2451"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="88CCD587-59A8-3C37-6C91-C121C3B55A30" name="UZIVATELSKE_UCTY_PK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>C4B8CF60-C41F-BDD1-29D8-7A750B5C7A98</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5DD3BC5D-13A3-5985-6285-2C9CEA3A3D60"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9F589135-4AFA-76DB-B498-E9956481104F" name="UNI_UCET_UZIVJMENO">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>6DB8F8DB-841E-4E8B-F45D-EEE4ABD73EB6</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A06F20DA-3627-84F0-94E2-F3B1D272919C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E6BFC915-01F1-6174-FF57-4BCEE689EEDC" name="UNI_EMAIL">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>5676300F-08CA-0D37-1789-8D1933163360</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1D439B31-CFA5-53F4-3298-9EEAA291FDE3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A96152AC-882B-3102-3204-1985963BFA97" name="UZIVATELSKY_UCET__IDX">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>1D7F101B-9007-52B7-323E-21BE7670CA74</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="DF0C7846-9167-56B8-A15F-048EE440FD0F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1EE8D42A-0951-446E-1BE4-3F76639FB094" name="UZIVATELSKY_UCET_ROLE_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>858C1CE7-7E46-3011-9A5C-2B5107AD1287</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AA34C650-6894-DBBF-6B5F-4BB7F99DCC45"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1225AD92-7A1A-3E02-BB31-7523F6549D51" name="FK_UZIVATEL_CLEN">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>1D7F101B-9007-52B7-323E-21BE7670CA74</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DF0C7846-9167-56B8-A15F-048EE440FD0F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

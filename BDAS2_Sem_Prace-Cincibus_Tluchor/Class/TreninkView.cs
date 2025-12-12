@@ -11,7 +11,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Rodné číslo trenéra
         /// </summary>
-        public long RodneCislo { get; set; }
+        public string RodneCislo { get; set; }
 
         /// <summary>
         /// Příjmení trenéra
@@ -41,10 +41,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <summary>
         /// Přetížený konstruktor pro snadné vytvoření objektu s parametry.
         /// </summary>
-        /// <param name="datum">Datum a čas tréninku.</param>
-        /// <param name="misto">Místo konání tréninku.</param>
-        /// <param name="popis">Volitelný popis tréninku.</param>
-        public TreninkView(long rodneCislo, string prijmeni, DateTime datum, string misto, string? popis = null)
+        /// <param name="datum">Datum a čas tréninku</param>
+        /// <param name="misto">Místo konání tréninku</param>
+        /// <param name="popis">Volitelný popis tréninku</param>
+        public TreninkView(string rodneCislo, string prijmeni, DateTime datum, string misto, string? popis = null)
         {   
             this.RodneCislo = rodneCislo;
             this.Prijmeni = prijmeni;

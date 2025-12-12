@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="1B9767D0-8876-3882-BACB-2EC5CAF04C4A" name="SOUTEZ">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:13:49 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka SOUTEZE slouží k uchování údajů o soutěžích. Jsou zde řešena integritní omezení IO2, IO3]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idSoutez" id="C377A3D9-9B91-2A8F-8A77-533BD8038887">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:13:57 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idSoutez bude sloužit jako UID a bude nabývat čísel od 1 výše.]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="startDatum" id="F24854CE-FE3E-2A35-38BD-F02FBEEA80FF">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:14:03 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="konecDatum" id="CDAF1C64-C3ED-D724-E5B7-2E98BAD0A75C">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:14:17 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idTypSouteze" id="6B88DC5D-8002-E57E-1316-E71104841290">
+<createdBy>milan</createdBy>
+<createdTime>2025-10-16 14:13:45 UTC</createdTime>
+<generatorID>FE09BB3E-05E8-5402-2C1E-D8ADE3A14303</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<referedAttribute>3B1264EB-D941-AF88-E7B1-6B09E2338902</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="34A1014A-A53E-802D-A6F4-3686ADE8E6DB" name="SOUTEZ PK">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:14:08 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>C377A3D9-9B91-2A8F-8A77-533BD8038887</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

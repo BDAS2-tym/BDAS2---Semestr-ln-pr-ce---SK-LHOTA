@@ -42,7 +42,7 @@
 
             <!-- Soutěž -->
             <TextBlock x:Name="tblockSoutez" Grid.Row="0" Grid.Column="0" Text="Vyberte soutěž:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <ComboBox x:Name="cbSoutez" Grid.Column="1" Margin="50,63,50,63" TabIndex="4" FontFamily="Century Gothic" FontSize="12"/>
+            <ComboBox x:Name="cbSoutez" Grid.Column="1" Margin="50,63,50,63" TabIndex="1" FontFamily="Century Gothic" FontSize="12"/>
 
             <!-- Start soutěže -->
             <TextBlock x:Name="tblockStartSouteze" Grid.Row="1" Text="Start soutěže" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
@@ -50,7 +50,7 @@
 
             <!-- Konec soutěže -->
             <TextBlock x:Name="tblockKonecSouteze" Grid.Row="2" Text="Konec soutěže" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <DatePicker x:Name="dpDatumKonceSouteze" Grid.Row="2" Margin="50,63,50,63" FontFamily="Century Gothic" FontSize="12" TabIndex="2" Grid.Column="1"/>
+            <DatePicker x:Name="dpDatumKonceSouteze" Grid.Row="2" Margin="50,63,50,63" FontFamily="Century Gothic" FontSize="12" TabIndex="3" Grid.Column="1"/>
         </Grid>
 
         <!-- Tlačítka -->
@@ -59,10 +59,10 @@
                 <ImageBrush ImageSource="/Images/Img/pozadi_3_dialog_okna.png"/>
             </Border.Background>
             <StackPanel Orientation="Horizontal" UseLayoutRounding="False" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="btnPridej" Content="Přidej" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle}" Click="btnPridej_Click">
+                <Button x:Name="btnPridej" Content="Přidej" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle}" Click="btnPridej_Click">
 
                 </Button>
-                <Button x:Name="btnReset" Content="Reset" Width="100" Padding="5,5,5,5" Margin="100,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="7" Style="{StaticResource HoverFadeButtonStyle}" Click="btnReset_Click">
+                <Button x:Name="btnReset" Content="Reset" Width="100" Padding="5,5,5,5" Margin="100,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle}" Click="btnReset_Click">
                     <Button.Background>
                         <SolidColorBrush Color="#DDC5D709" Opacity="0.85"/>
                     </Button.Background>

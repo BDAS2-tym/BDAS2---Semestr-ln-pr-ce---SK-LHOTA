@@ -1,8 +1,10 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class ZapasyOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
+        private bool zavrenoTlacitkem = false;
 
         // Kolekce zápasů pro DataGrid (binding v XAML)
         public ObservableCollection<Zapas> ZapasyData { get; set; } = new ObservableCollection<Zapas>();
@@ -40,6 +44,30 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             NactiZapasy();
             NactiVysledky();
+
+            NastavViditelnostSloupcuProUzivatele();
+        }
+
+        /// <summary>
+        /// Skryje rodné číslo a telefon trenérům a hráčům
+        /// Uživatelům bez oprávnění zakáže přidávání, mazání a vyhledávání
+        /// </summary>
+        private void NastavViditelnostSloupcuProUzivatele()
+        {
+            // Zjistíme, kdo je přihlášený
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+
+            string role = uzivatel.Role.ToLower();
+
+            // Pokud je to hráč nebo trenér tyto sloupce a funkce tlačítek schováme
+            if (role == "hrac" || role == "host" || role == "trener" || role == "uzivatel")
+            {
+                
+                btnPridej.IsEnabled = false;
+                btnOdeber.IsEnabled = false;
+                btnPridej.Opacity = 0.2;
+                btnOdeber.Opacity = 0.2;
+            }
         }
 
         /// <summary>
@@ -49,8 +77,21 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
             hlavniOkno.Show();
             this.Close();
+        }
+
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
         }
 
         /// <summary>
@@ -60,8 +101,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using var cmd = new OracleCommand("SELECT * FROM ZAPASY_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -131,8 +172,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using var cmd = new OracleCommand("SELECT * FROM VYSLEDKY_ZAPASU_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -195,12 +236,36 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
+        /// Obsluha tlačítka "Info"
+        /// Zavolá PL/SQL funkci F_STAV_ZAPASU_SHRNUTI a zobrazí její výsledek
+        /// </summary>
+        /// <param name="sender">Odesílatel události (tlačítko Info)</param>
+        /// <param name="e">Argumenty události click</param>
+        private void BtnInfo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var conn = DatabaseManager.GetConnection();
+                
+
+                string vysledekFunkce = DatabaseZapasy.GetShrnutiStavuZapasu(conn);
+
+                MessageBox.Show(vysledekFunkce, "Přehled stavu zápasů", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Chyba při získání shrnutí zápasů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
         /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
         /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgZapasy_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void DgZapasy_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {
@@ -228,7 +293,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnPridej_Click(object sender, RoutedEventArgs e)
+        private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejZapas dialogPridejZapas = new DialogPridejZapas(ZapasyData, VysledkyData);
             dialogPridejZapas.ShowDialog();
@@ -239,7 +304,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnOdeber_Click(object sender, RoutedEventArgs e)
+        private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
             Zapas? vybranyZapas = dgZapasy.SelectedItem as Zapas;
             if (vybranyZapas == null)
@@ -263,9 +328,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Smazání z databáze
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
+                    
 
                     // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -280,7 +345,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     {
                         VysledkyData.Remove(vybranyVysledek);
                     }
-                }
+                
 
                 // Úspěch
                 MessageBox.Show(
@@ -301,8 +366,38 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu o podrobnostech ohledně výsledku zápasu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
         private void Vysledek_Click(object sender, MouseButtonEventArgs e)
         {
+            if (jeVyhledavaniAktivni)
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // Zjištění role přihlášeného uživatele
+            var prihlaseny = HlavniOkno.GetPrihlasenyUzivatel();
+            if (prihlaseny == null) return;
+
+            string role = prihlaseny.Role.ToLower();
+
+            // Role, které NEMAJÍ povoleno editovat výsledek zápasu
+            if (role == "host" || role == "uzivatel" || role == "trener" || role == "hrac")
+            {
+                MessageBox.Show(
+                    "Vaše role nemá oprávnění editovat výsledek zápasu.",
+                    "Přístup zakázán",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+                return; // Ukončit metodu
+            }
+
+            // Dále pokračuje jen v roli Admin
             // Získání vybraného zápasu z TextBlocku
             if (sender is TextBlock tb && tb.DataContext is Zapas vybranyZapas)
             {
@@ -327,7 +422,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgZapasy_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DgZapasy_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
@@ -335,6 +430,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             while (dep != null && !(dep is DataGridRow))
             {
                 dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" ||  role == "host" || role == "trener" || role == "uzivatel")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat zápasy",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
             }
 
             if (dep is DataGridRow row)
@@ -348,6 +455,50 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                 DialogEditujZapas dialogEditujZapas = new DialogEditujZapas(vybranyZapas, VysledkyData, this);
                 dialogEditujZapas.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované zápasy zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiZapas dialogNajdiZapas = new DialogNajdiZapas(ZapasyData);
+            bool? vysledekDiaOkna = dialogNajdiZapas.ShowDialog();
+
+            if (vysledekDiaOkna == true)
+            {
+                if (dialogNajdiZapas.VyfiltrovaneZapasy.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádné zápasy se zadanými filtry.", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat ani odebírat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgZapasy.ItemsSource = new ObservableCollection<Zapas>(dialogNajdiZapas.VyfiltrovaneZapasy);
+                jeVyhledavaniAktivni = true;
+
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgZapasy.ItemsSource = ZapasyData;
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = true;
+                e.Handled = true;
             }
         }
     }

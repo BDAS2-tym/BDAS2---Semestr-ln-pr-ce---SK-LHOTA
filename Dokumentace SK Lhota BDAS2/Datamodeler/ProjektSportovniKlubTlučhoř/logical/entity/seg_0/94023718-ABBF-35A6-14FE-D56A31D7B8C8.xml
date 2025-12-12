@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="94023718-ABBF-35A6-14FE-D56A31D7B8C8" name="ZAPAS">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:18:42 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka ZAPASY slouží k uchování údajů o zápasech.
+Jsou zde řešena strukturální pravidla SP1, SP5.
+Je zde řešeno procedurální pravidlo PP6]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idZapas" id="381D9BAF-4076-F607-6315-6DF3FE35D645">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:18:49 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idZapas bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="datum" id="EEFE6095-3B40-0D8E-37C1-5A17E9605082">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:18:59 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idSoutez" id="EBD729AF-73DB-8491-E578-23A64F59DC7A">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:52:53 UTC</createdTime>
+<generatorID>7350F6F7-6130-1FAA-0D36-B81DE96C11A6</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<referedAttribute>C377A3D9-9B91-2A8F-8A77-533BD8038887</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="domaciTym" id="1B134EE8-00E0-D99D-3AC0-65C1DD2AF7AA">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-05 13:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[
+
+
+
+
+
+					]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="hosteTym" id="C6063462-7FD2-1868-374A-94289387BAE5">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-05 13:30:25 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="7CCEB634-B15D-60DB-10C2-26F9C4134C81" name="ZAPAS PK">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:18:56 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>381D9BAF-4076-F607-6315-6DF3FE35D645</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

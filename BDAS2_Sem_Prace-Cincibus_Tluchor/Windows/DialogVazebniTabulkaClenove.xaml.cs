@@ -87,8 +87,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using var cmd = new OracleCommand("SELECT * FROM CLENOVE_KLUBU_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -103,6 +103,12 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     if (reader["IDCLENKLUBU"] != DBNull.Value)
                         clenKlubu.IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]);
 
+                    // RODNE_CISLO - NOT NULL
+                    if (reader["RODNE_CISLO"] != DBNull.Value)
+                        clenKlubu.RodneCislo = reader["RODNE_CISLO"].ToString();
+                    else
+                        clenKlubu.RodneCislo = "";
+
                     // JMENO - NOT NULL
                     if (reader["JMENO"] != DBNull.Value)
                         clenKlubu.Jmeno = reader["JMENO"].ToString();
@@ -113,13 +119,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     if (reader["PRIJMENI"] != DBNull.Value)
                         clenKlubu.Prijmeni = reader["PRIJMENI"].ToString();
                     else
-                        clenKlubu.Prijmeni = "";
-
-                    // RODNE_CISLO - NOT NULL
-                    if (reader["RODNE_CISLO"] != DBNull.Value)
-                        clenKlubu.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
-                    else
-                        clenKlubu.RodneCislo = 0L;
+                        clenKlubu.Prijmeni = "";                   
 
                     VsichniClenove.Add(clenKlubu);
                 }

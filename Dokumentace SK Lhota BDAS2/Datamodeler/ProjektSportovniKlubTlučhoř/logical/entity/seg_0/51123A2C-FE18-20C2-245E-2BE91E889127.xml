@@ -1,0 +1,100 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="51123A2C-FE18-20C2-245E-2BE91E889127" name="TRENINK">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:35:39 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka TRENERI je subtypem CLENOVE_KLUBU, slouží k uchování  specifických  údajů pro trenéry. Jsou zde řešena integritní omezení IO1, IO7]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idTrenink" id="FF58813D-79D1-0629-EBFD-B83DDD290C7D">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:35:57 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idTrenink bude sloužit jako UID a bude nabývat čísel od 1 výše.]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="datum" id="6C566D5A-572D-C19E-B431-A21ECACE782A">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:36:08 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="misto" id="AB6426D5-5A34-DDF4-051F-14926DF83858">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:38:12 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="popis" id="AE261522-B9C8-5902-CA2C-A41DC5D75E2D">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:38:33 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idClenKlubu" id="97059646-5A74-35CF-2DA5-777503A1AACF">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-18 13:22:39 UTC</createdTime>
+<generatorID>306E2F91-19A8-8BBD-0EB6-CD7B490960AE</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<referedAttribute>D25EA75B-EE71-FDE3-1C90-EE01687B7BA0</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="77052385-CCA5-BC5B-974F-92DE3BA24A78" name="TRENINK PK">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:36:06 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>FF58813D-79D1-0629-EBFD-B83DDD290C7D</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

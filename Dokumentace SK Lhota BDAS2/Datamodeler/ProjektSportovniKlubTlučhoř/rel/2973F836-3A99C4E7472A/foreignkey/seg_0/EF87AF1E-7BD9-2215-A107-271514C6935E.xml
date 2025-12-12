@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="EF87AF1E-7BD9-2215-A107-271514C6935E" containerWithKeyObject="6D3E90DE-DE30-2393-9C8F-AB40D4079086" localFKIndex="70CA1789-1A7A-CE83-CCB2-FF18E8707418" name="TRENERI_CLENOVE_KLUBU_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>82181338-F472-B39D-A16E-C4CCD1366056</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<referredTableLongName>CLENOVE_KLUBU</referredTableLongName>
+<arc>5B798438-B3B8-A4E1-2C33-56AAD62446E3</arc>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>BFF9A241-E2AE-FD8F-81E9-D3B786DF1B4E</referredTableID>
+<keyObject>15683B98-2723-F694-CD4A-4D72C1709631</keyObject>
+<referredKeyID>15683B98-2723-F694-CD4A-4D72C1709631</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idClenKlubu</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<discriminatorValue>Trener</discriminatorValue>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

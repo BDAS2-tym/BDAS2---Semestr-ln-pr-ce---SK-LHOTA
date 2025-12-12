@@ -91,9 +91,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     editovanyKontrakt.VystupniKlauzule = Convert.ToInt32(tboxVystupniKlauzule.Text);
                     editovanyKontrakt.KontraktHrace = vybranyHrac;
 
-                    using (var conn = DatabaseManager.GetConnection())
-                    {
-                        conn.Open();
+                    var conn = DatabaseManager.GetConnection();
 
                         // Nastavení přihlášeného uživatele pro logování
                         DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -104,7 +102,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         kontraktyOkno.dgKontrakty.Items.Refresh();
 
                         MessageBox.Show("Kontrakt byl úspěšně editován!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
+                    
                 }
 
                 this.Close();
@@ -175,10 +173,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
 
-                using var cmd = new OracleCommand("SELECT * FROM HRACI_VIEW", conn);
+                using var cmd = new OracleCommand("SELECT * FROM HRACI_OPATRENI_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
 
                 hraci.Clear();
@@ -193,9 +190,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
                     // RODNE_CISLO - NOT NULL
                     if (reader["RODNE_CISLO"] != DBNull.Value)
-                        hrac.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                        hrac.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
-                        hrac.RodneCislo = 0L;
+                        hrac.RodneCislo = "";
 
                     // JMENO - NOT NULL
                     if (reader["JMENO"] != DBNull.Value)

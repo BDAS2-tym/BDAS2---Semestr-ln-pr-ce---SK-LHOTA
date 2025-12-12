@@ -1,0 +1,131 @@
+﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs.DialogNajdiHrace"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Vyhledávání hráče"
+        Height="600" Width="600"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Icon="/Images/Ikony/Ikona_Hledani.ico">
+
+    <Grid>
+
+        <!-- POZADÍ -->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/Img/pozadi_2_dialog_okna.png" Stretch="Fill"/>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <!-- FORMULÁŘ -->
+        <Grid Margin="40" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+            </Grid.RowDefinitions>
+
+            <!-- RODNÉ ČÍSLO -->
+            <TextBlock Text="Rodné číslo:" Grid.Row="0" Grid.Column="0"
+                       VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="tRodneCislo" Grid.Row="0" Height="26" MaxLength="10" Grid.ColumnSpan="2" Margin="100,4,30,4" TabIndex="1"/>
+
+            <!-- JMÉNO -->
+            <TextBlock Text="Jméno:" Grid.Row="1" Grid.Column="0"
+                       VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="tJmeno" Grid.Row="1" Height="26" Grid.ColumnSpan="2" Margin="100,4,30,4" MaxLength="20" TabIndex="2"/>
+
+            <!-- PŘÍJMENÍ -->
+            <TextBlock Text="Příjmení:" Grid.Row="2" Grid.Column="0"
+                       VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="tPrijmeni" Grid.Row="2" Height="26" Grid.ColumnSpan="2" Margin="100,4,30,4" MaxLength="20" TabIndex="3"/>
+
+            <!-- TELEFONNÍ ČÍSLO -->
+            <TextBlock Text="Telefon:" Grid.Row="3" Grid.Column="0"
+                       VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="tTelefon" Grid.Row="3" Height="26" MaxLength="12" Grid.ColumnSpan="2" Margin="100,4,30,4" TabIndex="4"/>
+
+            <!-- GOLY -->
+            <TextBlock Text="Počet gólů:" Grid.Row="4" Grid.Column="0"
+                       VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="tGoly" Grid.Row="4" Height="26" Grid.ColumnSpan="2" Margin="100,4,30,4" MaxLength="3" TabIndex="5"/>
+
+            <!-- ŽLUTÉ KARTY -->
+            <TextBlock Text="Žluté karty:" Grid.Row="5" Grid.Column="0"
+                       VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="tZlute" Grid.Row="5" Height="26" Grid.ColumnSpan="2" Margin="100,4,30,4" MaxLength="3" TabIndex="6"/>
+
+            <!-- ČERVENÉ KARTY -->
+            <TextBlock Text="Červené karty:" Grid.Row="6" Grid.Column="0"
+                       VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="tCervene" Grid.Row="6" Height="26" Grid.ColumnSpan="2" Margin="100,4,30,4" MaxLength="3" TabIndex="7"/>
+
+            <!-- POZICE -->
+            <TextBlock Text="Pozice:" Grid.Row="7" Grid.Column="0"
+                       VerticalAlignment="Center" FontWeight="Bold"/>
+            <ComboBox x:Name="cbPozice" Grid.Row="7" Height="26"
+                      VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="100,4,30,4" TabIndex="8"/>
+
+            <!-- DATUM OPATŘENÍ -->
+            <TextBlock Text="Datum opatření:" Grid.Row="8" Grid.Column="0"
+           VerticalAlignment="Center" FontWeight="Bold"/>
+
+            <DatePicker x:Name="dpOpatreni"
+            Grid.Row="8"
+            Height="26"
+            Grid.ColumnSpan="2"
+            Margin="100,4,30,4" TabIndex="9"/>
+
+            <!-- DŮVOD -->
+            <TextBlock Text="Důvod opatření:" Grid.Row="9" Grid.Column="0"
+           VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="tDuvod" Grid.Row="9" Height="26" Grid.ColumnSpan="2" Margin="100,4,30,4" MaxLength="20" TabIndex="10"/>
+
+            <!-- DÉLKA TRESTU -->
+            <TextBlock Text="Délka trestu:" Grid.Row="10" Grid.Column="0"
+           VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="tDelkaTrestu" Grid.Row="10" Height="26" Grid.ColumnSpan="2" Margin="100,9,30,-1" MaxLength="3" TabIndex="11"/>
+
+        </Grid>
+
+        <!-- TLAČÍTKA -->
+        <Border Grid.Row="1">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/Img/pozadi_3_dialog_okna.png"/>
+            </Border.Background>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                <Button Content="Najdi" Width="130" Height="40"
+                        Margin="20"
+                        Style="{StaticResource HoverFadeButtonStyle}"
+                        Click="BtnNajdi_Click" TabIndex="12"/>
+
+                <Button Content="Reset" Width="130" Height="40"
+                        Style="{StaticResource HoverFadeButtonStyle}"
+                        Background="#DDC5D709"
+                        Click="BtnReset_Click" TabIndex="13"/>
+
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>

@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="B6DD1548-9514-54D1-4C75-05536EACE612" containerWithKeyObject="F193CA16-8D21-B49E-79A6-FDAFA9BAF879" localFKIndex="9D62C02D-E01A-7E16-1E22-213D4C0CCFD3" name="SPONZOR_CLEN_CLEN_KLUBU_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>2BFEF321-F664-54A3-B06E-D77A37514F69</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<referredTableLongName>CLENOVE_KLUBU</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>BFF9A241-E2AE-FD8F-81E9-D3B786DF1B4E</referredTableID>
+<keyObject>15683B98-2723-F694-CD4A-4D72C1709631</keyObject>
+<referredKeyID>15683B98-2723-F694-CD4A-4D72C1709631</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idClenKlubu</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

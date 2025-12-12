@@ -1,0 +1,141 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CACB259C-50D9-93D3-236D-96B7A41AEA8A" name="BINARNI_OBSAH">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:19:12 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka BINARNI_OBSAH slouží  k ukládání binárních souborů v databázi]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<ordsAlias>table_19</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idBinarniObsah" id="695AFB99-566D-E7A0-8261-50FA6C675C18">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:19:44 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idBinarniObsah bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMinValue>1</autoIncrementMinValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>sekv_obsah</autoIncrementSequenceName>
+<autoIncrementTriggerName>trig_sekv_obsah</autoIncrementTriggerName>
+</Column>
+<Column name="nazevSouboru" id="6FC0D2FA-CC60-2DA5-915A-0A79C032DBCA">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:20:04 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<ownDataTypeParameters>50 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="typSouboru" id="D2378CCE-78F1-0840-DD4E-C3357AB948E2">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:20:29 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<ownDataTypeParameters>50 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="priponaSouboru" id="4C9ADEF3-0F8F-A772-C20A-30023956102F">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:20:42 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 CHAR</dataTypeSize>
+<ownDataTypeParameters>10 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="obsah" id="8E7913D1-535A-3AAE-8358-7B66DDDB765B">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:21:12 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumNahrani" id="E75217A4-713B-4A91-F9B6-B40434F9F4E8">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:21:21 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumModifikace" id="FA2B2573-9C7E-3050-B35D-76C066581318">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:21:31 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="operace" id="0A459A0E-04E6-F65E-0075-3B8E63FED07C">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:21:44 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<ownDataTypeParameters>50 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idUzivatelskyUcet" id="249FC33F-75B3-CD8C-0D49-2268A0EF1CE5">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:25:33 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6DD15F23-5624-D266-39D1-05C0AD8D0F1F" referredColumn="5DD3BC5D-13A3-5985-6285-2C9CEA3A3D60"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="4B3F778F-2B65-3657-139A-45771EBFC56A" name="Binarni_Obsah_PK">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:19:44 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="695AFB99-566D-E7A0-8261-50FA6C675C18"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D29EA83E-0136-3DAD-169D-108141028928" name="Bin_ObsahUZIVATELSKE_UCTY_FK">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:25:33 UTC</createdTime>
+<generatorID>C4B8CF60-C41F-BDD1-29D8-7A750B5C7A98</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="249FC33F-75B3-CD8C-0D49-2268A0EF1CE5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

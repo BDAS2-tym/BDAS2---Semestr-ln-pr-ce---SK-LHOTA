@@ -1,10 +1,9 @@
 ﻿using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
 {
@@ -14,18 +13,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
     /// </summary>
     internal static class DatabaseTreneri
     {
-
         /// <summary>
         /// Vrátí počet trenérů v databázi
         /// </summary>
         /// <returns>Počet trenérů jako celé číslo</returns>
         public static int GetPocetTreneru()
         {
-            using var conn = DatabaseManager.GetConnection();
-            conn.Open();
+            OracleConnection conn = DatabaseManager.GetConnection();
 
-            using var cmd = new OracleCommand("SELECT COUNT(*) FROM TRENERI", conn);
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            using (var cmd = new OracleCommand("SELECT COUNT(*) FROM TRENERI_VIEW", conn))
+            {
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
         }
 
         /// <summary>
@@ -36,22 +35,22 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void AddTrener(OracleConnection conn, Trener trener)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             using (var cmd = new OracleCommand("PKG_TRENERI.SP_ADD_TRENERI", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                // Naplníme všechny parametry procedury
-                cmd.Parameters.Add("p_rodne_cislo", OracleDbType.Decimal).Value = trener.RodneCislo;
-                cmd.Parameters.Add("p_jmeno", OracleDbType.Varchar2).Value = trener.Jmeno;
-                cmd.Parameters.Add("p_prijmeni", OracleDbType.Varchar2).Value = trener.Prijmeni;
-                cmd.Parameters.Add("p_telefonni_cislo", OracleDbType.Varchar2).Value = trener.TelefonniCislo;
-                cmd.Parameters.Add("p_trenerska_licence", OracleDbType.Varchar2).Value = trener.TrenerskaLicence;
-                cmd.Parameters.Add("p_specializace", OracleDbType.Varchar2).Value = trener.Specializace;
-                cmd.Parameters.Add("p_pocet_let_praxe", OracleDbType.Int32).Value = trener.PocetLetPraxe;
+                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Varchar2).Value = trener.RodneCislo;
+                cmd.Parameters.Add("v_jmeno", OracleDbType.Varchar2).Value = trener.Jmeno;
+                cmd.Parameters.Add("v_prijmeni", OracleDbType.Varchar2).Value = trener.Prijmeni;
+                cmd.Parameters.Add("v_telefonni_cislo", OracleDbType.Varchar2).Value = trener.TelefonniCislo;
+                cmd.Parameters.Add("v_trenerska_licence", OracleDbType.Varchar2).Value = trener.TrenerskaLicence;
+                cmd.Parameters.Add("v_specializace", OracleDbType.Varchar2).Value = trener.Specializace;
+                cmd.Parameters.Add("v_pocet_let_praxe", OracleDbType.Int32).Value = trener.PocetLetPraxe;
 
                 try
                 {
-                    // Provede volání uložené procedury v databázi
                     cmd.ExecuteNonQuery();
                 }
                 catch (OracleException ex)
@@ -59,7 +58,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
                     throw new Exception($"Chyba při volání procedury SP_ADD_TRENERI v balíčku PKG_TRENERI: {ex.Message}", ex);
                 }
             }
-
         }
 
         /// <summary>
@@ -68,24 +66,25 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <param name="trener">Objekt trenéra s novými údaji (např. změna jména nebo praxe)</param>
         /// <param name="conn">Připojení do Oracle databáze</param>
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
-        public static void UpdateTrener(OracleConnection conn, Trener trener)
+        public static void UpdateTrener(OracleConnection conn, Trener trener, string puvodniRodneCislo)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             using (var cmd = new OracleCommand("PKG_TRENERI.SP_UPDATE_TRENERI", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                // Naplníme všechny parametry procedury
-                cmd.Parameters.Add("p_rodne_cislo", OracleDbType.Decimal).Value = trener.RodneCislo;
-                cmd.Parameters.Add("p_jmeno", OracleDbType.Varchar2).Value = trener.Jmeno;
-                cmd.Parameters.Add("p_prijmeni", OracleDbType.Varchar2).Value = trener.Prijmeni;
-                cmd.Parameters.Add("p_telefonni_cislo", OracleDbType.Varchar2).Value = trener.TelefonniCislo;
-                cmd.Parameters.Add("p_trenerska_licence", OracleDbType.Varchar2).Value = trener.TrenerskaLicence;
-                cmd.Parameters.Add("p_specializace", OracleDbType.Varchar2).Value = trener.Specializace;
-                cmd.Parameters.Add("p_pocet_let_praxe", OracleDbType.Int32).Value = trener.PocetLetPraxe;
+                cmd.Parameters.Add("v_rodne_cislo_puvodni", OracleDbType.Varchar2).Value = puvodniRodneCislo;
+                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Varchar2).Value = trener.RodneCislo;
+                cmd.Parameters.Add("v_jmeno", OracleDbType.Varchar2).Value = trener.Jmeno;
+                cmd.Parameters.Add("v_prijmeni", OracleDbType.Varchar2).Value = trener.Prijmeni;
+                cmd.Parameters.Add("v_telefonni_cislo", OracleDbType.Varchar2).Value = trener.TelefonniCislo;
+                cmd.Parameters.Add("v_trenerska_licence", OracleDbType.Varchar2).Value = trener.TrenerskaLicence;
+                cmd.Parameters.Add("v_specializace", OracleDbType.Varchar2).Value = trener.Specializace;
+                cmd.Parameters.Add("v_pocet_let_praxe", OracleDbType.Int32).Value = trener.PocetLetPraxe;
 
                 try
                 {
-                    // Provede volání uložené procedury v databázi
                     cmd.ExecuteNonQuery();
                 }
                 catch (OracleException ex)
@@ -103,13 +102,49 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void OdeberTrenera(OracleConnection conn, Trener trener)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             using (var cmd = new OracleCommand("PKG_TRENERI.SP_ODEBER_TRENERI", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Decimal).Value = trener.RodneCislo;
+                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Varchar2).Value = trener.RodneCislo;
                 cmd.ExecuteNonQuery();
             }
         }
 
+        /// <summary>
+        /// Zavolá PL/SQL funkci F_TOP3_TRENERI_BLOB a uloží výsledek do souboru.
+        /// </summary>
+        /// <param name="cestaSouboru">Cesta k výstupnímu souboru</param>
+        public static void ExportTop3TreneriDoSouboru(string cestaSouboru, Uzivatel uzivatel)
+        {
+            OracleConnection conn = DatabaseManager.GetConnection();
+
+            // Nastavení přihlášeného uživatele (logování)
+            DatabaseAppUser.SetAppUser(conn, uzivatel);
+
+            using (var cmd = new OracleCommand("PKG_TRENERI.F_TOP3_TRENERI_BLOB", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("return_value",
+                    OracleDbType.Blob,
+                    System.Data.ParameterDirection.ReturnValue);
+
+                cmd.ExecuteNonQuery();
+
+                OracleBlob blob = cmd.Parameters["return_value"].Value as OracleBlob;
+
+                if (blob == null || blob.Length == 0)
+                {
+                    throw new Exception("Funkce F_TOP3_TRENERI_BLOB nevrátila žádná data!");
+                }
+
+                using (var fs = new FileStream(cestaSouboru, FileMode.Create, FileAccess.Write))
+                {
+                    blob.CopyTo(fs);
+                }
+            }
+        }
     }
 }

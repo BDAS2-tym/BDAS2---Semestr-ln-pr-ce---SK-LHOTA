@@ -47,5 +47,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// Vyplňuje se pouze u rolí "hráč" a "trenér"
         /// </summary>
         public string RodneCislo { get; set; }
+
+        /// <summary>
+        /// Pro Notifikace/zprávy potřebné, jestli je vybrán uživatel v checkboxu nebo ne
+        /// </summary>
+        public bool JeVybran { get; set; }
+
     }
 }

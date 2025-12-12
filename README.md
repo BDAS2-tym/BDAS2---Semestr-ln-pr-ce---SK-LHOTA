@@ -57,6 +57,8 @@ Cílem aplikace je usnadnit správu členské základny, sponzorů a sledování
 - 🟨 Evidence hračských kontraktů
 - 🟨 Zobrazení zápasů a jejich výsledků
 - 🟨 Vyhledávání a filtrování údajů
+- 🟨 Export/Import kontraktů do formátu PDF
+- 🟨 Správa binárních souborů
 
 ---
 <br>
@@ -65,20 +67,21 @@ Cílem aplikace je usnadnit správu členské základny, sponzorů a sledování
 
 
 ### Hlavní entity
-| Entita                   | Atributy                                                                                          |
-|---------------------------|---------------------------------------------------------------------------------------------------|
-| **_Clen_Klubu_**            | IdClenKlubu, RodneCislo, Jmeno, Prijmeni, TypClena, TelefonniCislo                              |
-| **_Trener_**                | TrenerskaLicence, PocetLetPraxe, Specializace                                                    |
-| **_Hrac_**                  | PoziceNaHristi, PocetVstrelenychGolu, PocetZlutychKaret, PocetCervenychKaret                     |
-| **_Trenink_**               | IdTrenink, Datum, Misto, Popis                                                                   |
-| **_Disclipinarni_Opatreni_**| IdDisclipinarniOpatreni, DatumOpatreni, DelkaTrestu, Duvod                                       |
-| **_Kontrakt_**              | DatumZacatku, DatumKonce, Plat, CisloNaAgenta, VystupniKlazule                                   |
-| **_Uzivatelsky_Ucet_**      | IdUzivatelskyUcet, UzivatelskeJmeno, Email, Heslo, PosledniPrihlaseni                            |
-| **_Log_Table_**             | IdLog, Operace, Cas, Uzivatel, Tabulka                                                           |
-| **_Sponzor_**               | IdSponzor, Jmeno, SponzorovanaCastka                                                             |
-| **_Soutez_**                | IdSoutez, StartDatum, KonecDatum                                                                 |
-| **_Zapas_**                 | IdZapas, Datum                                                                                    |
-| **_Vysledek_Zapasu_**       | Vysledek, PocetZlutychKaret, PocetCervenychKaret, PocetGolyDomaciTym, PocetGolyHosteTym         |
+| Entita                   | Atributy                                                                                                           |
+|---------------------------|---------------------------------------------------------------------------------------------------                |
+| **_Clen_Klubu_**            | IdClenKlubu, RodneCislo, Jmeno, Prijmeni, TypClena, TelefonniCislo                                              |
+| **_Trener_**                | TrenerskaLicence, PocetLetPraxe, Specializace                                                                   |
+| **_Hrac_**                  | PoziceNaHristi, PocetVstrelenychGolu, PocetZlutychKaret, PocetCervenychKaret                                    |
+| **_Trenink_**               | IdTrenink, Datum, Misto, Popis                                                                                  |
+| **_Disclipinarni_Opatreni_**| IdDisclipinarniOpatreni, DatumOpatreni, DelkaTrestu, Duvod                                                      |
+| **_Kontrakt_**              | DatumZacatku, DatumKonce, Plat, CisloNaAgenta, VystupniKlazule                                                  |
+| **_Uzivatelsky_Ucet_**      | IdUzivatelskyUcet, UzivatelskeJmeno, Email, Heslo, PosledniPrihlaseni                                           |
+| **_Log_Table_**             | IdLog, Operace, Cas, Uzivatel, Tabulka                                                                          |
+| **_Sponzor_**               | IdSponzor, Jmeno, SponzorovanaCastka                                                                            |
+| **_Soutez_**                | IdSoutez, StartDatum, KonecDatum                                                                                |
+| **_Zapas_**                 | IdZapas, Datum                                                                                                  |
+| **_Vysledek_Zapasu_**       | Vysledek, PocetZlutychKaret, PocetCervenychKaret, PocetGolyDomaciTym, PocetGolyHosteTym                         |
+| **_Binarni_Obsah_**         | IdBinarniObsah, NazevSouboru, TypSouboru, PriponaSouboru, Obsah, DatumNahrani, DatumModifikace, Operace         |
 
 <br>
 
@@ -101,7 +104,17 @@ _TODO ERD Doplnit!!_
 <br>
 
 ## Instalace a spuštění 🚀
-_TODO Instalace aplikace_ 
+
+
+1. krok- Rozklikněte odkaz níže pro stažení aplikace
+2. krok- Stáhněte si .zip soubor
+3. krok- Extrahujte .zip a spusťte soubor **_"IsSkLhotaInstaller.msi"_**
+4. krok- Průvodce vás následně provede dále instalačními kroky
+5. krok- Po dokončení instalace stačí na ploše spustit aplikaci **_"Informační systém SK Lhota"_**
+
+<br>
+
+**Aplikace:** https://drive.google.com/drive/folders/14x6L6Z5exETw_hBHPbkOatHS6WQjNiu9?usp=sharing
 
 ---
 <br>

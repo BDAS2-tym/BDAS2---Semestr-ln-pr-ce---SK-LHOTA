@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="7C0352C9-5E85-0495-8FB5-367F89A5069E" name="POZICE_HRAC">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-09-25 15:25:52 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka POZICE_HRAC slouží jako číselník pro pozice hráčů na hřišti. Bude nabývat hodnot: BRANKÁŘ, OBRÁNCE, ZÁLOŽNÍK, ÚTOČNÍK. Je zde řešeno strukturální pravidlo SP6]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idPozice" id="B690BA71-A799-EEFD-4E03-60DC89D9DF76">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-16 11:07:34 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idPozice bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nazevPozice" id="4E5DD906-7CB9-E2FE-7C5D-74194CFA4BA1">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-09-25 15:40:20 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8 CHAR</dataTypeSize>
+<ownDataTypeParameters>8 CHAR,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="DF16D61F-D14F-770F-4A7E-908DD814275D" name="POZICE PK">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-09-25 15:34:51 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>B690BA71-A799-EEFD-4E03-60DC89D9DF76</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="699EF334-6800-8489-E755-FC24789E0FCB" name="UNI_nazevPozice">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-09-30 15:03:41 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<newElementsIDs>4E5DD906-7CB9-E2FE-7C5D-74194CFA4BA1</newElementsIDs>
+<usedAttributes>
+<attributeRef>4E5DD906-7CB9-E2FE-7C5D-74194CFA4BA1</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

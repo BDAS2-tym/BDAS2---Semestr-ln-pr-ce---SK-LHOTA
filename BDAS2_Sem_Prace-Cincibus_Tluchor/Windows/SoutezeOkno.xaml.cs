@@ -1,4 +1,5 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     public partial class SoutezeOkno : Window
     {
         private readonly HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
+        private bool zavrenoTlacitkem = false;
 
         // Kolekce soutěží pro DataGrid (binding v XAML)
         public ObservableCollection<Soutez> SoutezeData {  get; set; } = new ObservableCollection<Soutez>();
@@ -36,6 +39,29 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             DataContext = this;
 
             NactiSouteze();
+            NastavViditelnostSloupcuProUzivatele();
+        }
+
+        /// <summary>
+        /// Uživatelům bez oprávnění zakáže přidávání, mazání a vyhledávání
+        /// </summary>
+        private void NastavViditelnostSloupcuProUzivatele()
+        {
+            // Zjistíme, kdo je přihlášený
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "host" || role == "trener")
+            {
+
+                btnPridej.IsEnabled = false;
+                btnOdeber.IsEnabled = false;
+                btnNajdi.IsEnabled = false;
+                btnPridej.Opacity = 0.2;
+                btnOdeber.Opacity = 0.2;
+                btnNajdi.Opacity = 0.2;
+            }
         }
 
         /// <summary>
@@ -45,8 +71,21 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
             this.Close();
             hlavniOkno.Show();           
+        }
+
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
         }
 
         /// <summary>
@@ -56,8 +95,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using var cmd = new OracleCommand("SELECT * FROM SOUTEZE_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -102,7 +141,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgSouteze_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void DgSouteze_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {
@@ -130,7 +169,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnPridej_Click(object sender, RoutedEventArgs e)
+        private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejSoutez dialogPridejSoutez = new DialogPridejSoutez(SoutezeData);
             dialogPridejSoutez.ShowDialog();
@@ -141,7 +180,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnOdeber_Click(object sender, RoutedEventArgs e)
+        private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
             Soutez? vybranaSoutez = dgSouteze.SelectedItem as Soutez;
             if (vybranaSoutez == null)
@@ -165,9 +204,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Smazání z databáze
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
+                    
 
                     // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -176,7 +215,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     DatabaseSouteze.OdeberSoutez(conn, vybranaSoutez);
 
                     SoutezeData.Remove(vybranaSoutez);
-                }
+                
 
                 // Úspěch
                 MessageBox.Show(
@@ -202,7 +241,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgSouteze_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DgSouteze_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
@@ -210,6 +249,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             while (dep != null && !(dep is DataGridRow))
             {
                 dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "host" || role == "trener")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
             }
 
             if (dep is DataGridRow row)
@@ -231,10 +282,65 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void btnCastkySoutezi_Click(object sender, RoutedEventArgs e)
+        private void BtnCastkySoutezi_Click(object sender, RoutedEventArgs e)
         {
             DialogSponzorovaneCastkySoutezi castky = new DialogSponzorovaneCastkySoutezi();
             castky.ShowDialog();
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgSouteze.ItemsSource = SoutezeData;
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = true;
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované soutěže zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiSoutez dialogNajdiSoutez = new DialogNajdiSoutez(SoutezeData);
+            bool? vysledekDiaOkna = dialogNajdiSoutez.ShowDialog();
+
+            if (vysledekDiaOkna == true)
+            {
+                if (dialogNajdiSoutez.VyfiltrovaneSouteze.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádné soutěže se zadanými filtry.", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat ani odebírat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgSouteze.ItemsSource = new ObservableCollection<Soutez>(dialogNajdiSoutez.VyfiltrovaneSouteze);
+                jeVyhledavaniAktivni = true;
+
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu, který zobrazuje hierarchii Soutěží --> Zápasů --> Výsledků zápasů z databáze
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnHierarchieSoutezi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogHierarchieSoutezi dialogHierarchieSoutezi = new DialogHierarchieSoutezi();
+            dialogHierarchieSoutezi.ShowDialog();
         }
     }
 }

@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="17900FB4-E04B-2E7C-49E0-472BA8510309" name="DISCIPLINARNI_OPATRENI">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:39:43 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka DISCIPLINARNI_OPATRENI slouží pro uchování disciplinárních opatření, která jsou udělována hráčům. Je zde řešeno integritní omezení IO7]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idOpatreni" id="8FE4F0ED-3776-D27F-2D90-89844519FA23">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:39:53 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idOpatreni bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="datumOpatreni" id="7DEEEA31-BBEF-1A1F-EF20-BC47FFFF9794">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:40:15 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="delkaTrestu" id="B546993B-BB74-E6E9-0111-C7B4831F81DF">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:40:35 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="duvod" id="61B42EA9-B29B-84E1-87FD-C9D8D56B5328">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:40:54 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="D6FBF1D7-534E-7DA6-2760-482D150A8C3B" name="DISCIPLINARNI_OPATRENI PK">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:40:13 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>8FE4F0ED-3776-D27F-2D90-89844519FA23</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

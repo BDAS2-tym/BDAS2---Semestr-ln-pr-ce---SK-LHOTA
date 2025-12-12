@@ -3,10 +3,17 @@ using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
+    /// <summary>
+    /// Dialogové okno pro přidání nového hráče
+    /// Umožňuje vyplnit osobní údaje, statistiky, pozici a případné disciplinární opatření
+    /// Po potvrzení vloží hráče do databáze a přidá ho do kolekce zobrazené v DataGridu
+    /// </summary>
     public partial class DialogPridejHrace : Window
     {
         private ObservableCollection<Hrac> HraciData;
@@ -16,11 +23,41 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             InitializeComponent();
             this.HraciData = HraciData;
 
-            // Naplnění ComboBoxu pro pozice hráčů
-            cbPozice.ItemsSource = new List<string> { "Brankář", "Obránce", "Záložník", "Útočník" };
-            cbPozice.SelectedIndex = 0; // Výchozí hodnota "Brankář"
+            cbPozice.ItemsSource = new List<Pozice>
+            {
+                new Pozice { Id = 1, Nazev = "Brankář" },
+                new Pozice { Id = 2, Nazev = "Obránce" },
+                new Pozice { Id = 3, Nazev = "Záložník" },
+                new Pozice { Id = 4, Nazev = "Útočník" }
+            };
+
+            cbPozice.DisplayMemberPath = "Nazev";
+            cbPozice.SelectedValuePath = "Id";
+            cbPozice.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Po zaškrtnutí zobrazí panel s disciplinárním opatřením
+        /// </summary>
+        private void chkMaOpatreni_Checked(object sender, RoutedEventArgs e)
+        {
+            spOpatreni.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Po odškrtnutí skryje panel opatření a smaže vyplněné hodnoty
+        /// </summary>
+        private void chkMaOpatreni_Unchecked(object sender, RoutedEventArgs e)
+        {
+            spOpatreni.Visibility = Visibility.Collapsed;
+            dpDatumOpatreni.SelectedDate = null;
+            iudDelkaTrestu.Value = 1;
+            tboxDuvodOpatreni.Clear();
+        }
+
+        /// <summary>
+        /// Resetuje celý formulář na výchozí stav
+        /// </summary>
         private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
             tboxRodneCislo.Clear();
@@ -28,90 +65,107 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             tboxPrijmeni.Clear();
             tboxTelCislo.Clear();
             cbPozice.SelectedIndex = 0;
-            iudPocetCervenychKaret.Value =
-            iudPocetGolu.Value =
+            iudPocetCervenychKaret.Value = 0;
+            iudPocetGolu.Value = 0;
             iudPocetZlutychKaret.Value = 0;
+            chkMaOpatreni.IsChecked = false;
         }
 
-        // Button přidání hráče přes dialog do datagridu a databáze
+        /// <summary>
+        /// Zpracuje přidání nového hráče – provádí validaci vstupů, vytvoření objektu hráče,
+        /// doplnění disciplinárního opatření, uložení do DB a následné přidání do kolekce
+        /// </summary>
         private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // --- VALIDACE VSTUPŮ ---
-                if (!long.TryParse(tboxRodneCislo.Text, out long rodneCislo))
+                // Načtení hodnot z formuláře
+                string rodneCislo = tboxRodneCislo.Text.Trim();
+                string jmeno = tboxJmeno.Text.Trim();
+                string prijmeni = tboxPrijmeni.Text.Trim();
+                string telCislo = tboxTelCislo.Text.Trim();
+
+                // Získání pozice hráče
+                int idPozice = (int)cbPozice.SelectedValue;
+
+                // Validace základních údajů
+                Validator.ValidujRodneCislo(rodneCislo);
+                Validator.ValidujJmeno(jmeno);
+                Validator.ValidujPrijmeni(prijmeni);
+                Validator.ValidujTelefon(telCislo);
+
+                // Validace statistických hodnot
+                Validator.ValidujCeleCislo(iudPocetGolu.Value.ToString(), "Počet gólů");
+                Validator.ValidujCeleCislo(iudPocetZlutychKaret.Value.ToString(), "Počet žlutých karet");
+                Validator.ValidujCeleCislo(iudPocetCervenychKaret.Value.ToString(), "Počet červených karet");
+
+                // Zjištění, zda má hráč disciplinární opatření
+                bool maOpatreni = chkMaOpatreni.IsChecked == true;
+
+                // Validace disciplinárního opatření
+                if (maOpatreni)
                 {
-                    MessageBox.Show("Rodné číslo může obsahovat pouze číslice.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error
-                    );
-                    return;
+                    Validator.ValidujDatum(dpDatumOpatreni.SelectedDate, "Datum disciplinárního opatření");
+                    Validator.ValidujCeleCislo(iudDelkaTrestu.Value.ToString(), "Délka trestu");
                 }
 
-                string jmeno = tboxJmeno.Text;
-                string prijmeni = tboxPrijmeni.Text;
-                string telCislo = tboxTelCislo.Text;
-                string pozice = cbPozice.SelectedItem.ToString();
-                int pocetGolu = (int)iudPocetGolu.Value;
-                int pocetZlutychKaret = (int)iudPocetZlutychKaret.Value;
-                int pocetCervenychKaret = (int)iudPocetCervenychKaret.Value;
-
-                if (string.IsNullOrWhiteSpace(jmeno) ||string.IsNullOrWhiteSpace(prijmeni) ||
-                    string.IsNullOrWhiteSpace(telCislo) || string.IsNullOrWhiteSpace(pozice))
-                {
-                    MessageBox.Show("Prosím vyplňte všechna pole správně ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                if (!telCislo.All(char.IsDigit))
-                {
-                    MessageBox.Show("Telefonní číslo může obsahovat pouze číslice! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-
-                // Délka rodného čísla (10 číslic)
-                if (rodneCislo.ToString().Length != 10)
-                {
-                    MessageBox.Show("Rodné číslo musí mít 10 číslic bez lomítka! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // Kontrola záporných hodnot počtů gólů a karet
-                if (pocetGolu < 0 || pocetZlutychKaret < 0 || pocetCervenychKaret < 0)
-                {
-                    MessageBox.Show("Počet gólů a karet nesmí být záporné hodnoty!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error
-                    );
-                    return;
-                }
-
-                // Vytvoření nového hráče
+                // Vytvoření objektu hráče
                 Hrac novyHrac = new Hrac(
-                    rodneCislo, jmeno, prijmeni, telCislo,
-                    pocetGolu, pocetZlutychKaret, pocetCervenychKaret, pozice
+                    rodneCislo,
+                    jmeno,
+                    prijmeni,
+                    telCislo,
+                    (int)iudPocetGolu.Value,
+                    (int)iudPocetZlutychKaret.Value,
+                    (int)iudPocetCervenychKaret.Value,
+                    idPozice
                 );
 
-                using (var conn = DatabaseManager.GetConnection())
+                novyHrac.PoziceNaHristi = ((Pozice)cbPozice.SelectedItem).Nazev;
+
+                // Uložení disciplinárního opatření do objektu
+                if (maOpatreni)
                 {
-                    conn.Open();
-
-                    // Nastavení přihlášeného uživatele pro logování
-                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-
-                    // Přidání hráče
-                    DatabaseHraci.AddHrac(conn, novyHrac);
-
-                    HraciData.Add(novyHrac);
+                    novyHrac.DatumOpatreni = dpDatumOpatreni.SelectedDate.Value;
+                    novyHrac.DelkaTrestu = (int)iudDelkaTrestu.Value;
+                    novyHrac.DuvodOpatreni = tboxDuvodOpatreni.Text.Trim();
+                    novyHrac.DatumOpatreniText = novyHrac.DatumOpatreni.ToString("dd.MM.yyyy");
+                }
+                else
+                {
+                    novyHrac.DatumOpatreni = DateTime.MinValue;
+                    novyHrac.DelkaTrestu = 0;
+                    novyHrac.DuvodOpatreni = null;
+                    novyHrac.DatumOpatreniText = "Bez opatření";
                 }
 
-                MessageBox.Show("Hráč byl úspěšně přidán!", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Uložení hráče do databáze
+                var conn = DatabaseManager.GetConnection();
+
+                    // Kontrola UNIQUE rodného čísla
+                    if (Validator.ExistujeRodneCislo(conn, rodneCislo))
+                    {
+                        MessageBox.Show("Hráč s tímto rodným číslem již existuje!",
+                                        "Duplicitní rodné číslo",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    DatabaseHraci.AddHrac(conn, novyHrac);
+
+
+                // Přidání hráče do kolekce pro DataGrid
+                HraciData.Add(novyHrac);
+
+                MessageBox.Show("Hráč byl úspěšně přidán", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Zavření dialogu
                 this.Close();
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Chybný formát vstupu!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Nastala chyba:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Chyba při přidávání hráče:\n" + ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

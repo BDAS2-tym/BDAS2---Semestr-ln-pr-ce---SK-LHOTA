@@ -150,7 +150,7 @@
                              Height="28"
                              VerticalContentAlignment="Center"
                              Margin="0,5,0,0"
-                             Padding="25,0,0,0">
+                             Padding="25,0,0,0" TabIndex="1">
                         <TextBox.Background>
                             <ImageBrush ImageSource="/Images/Ikony/user-icon.png"
                                         Stretch="None"
@@ -178,7 +178,7 @@
                                  Height="28"
                                  VerticalContentAlignment="Center"
                                  Margin="0,5,0,0"
-                                 Padding="25,0,0,0">
+                                 Padding="25,0,0,0" TabIndex="2">
                         <PasswordBox.Background>
                             <ImageBrush ImageSource="/Images/Ikony/key1-icon.png"
                                         Stretch="None"
@@ -195,7 +195,7 @@
                             FontFamily="Montserrat"
                             Cursor="Hand"
                             Margin="0,30,0,10"
-                            Click="BtnLogin_Click">
+                            Click="BtnLogin_Click" TabIndex="3">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#462AD8"/>

@@ -1,9 +1,11 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,6 +26,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     {
 
         private HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
+        private bool zavrenoTlacitkem = false;
 
         // Kolekce tréninků pro DataGrid
         public static ObservableCollection<TreninkView> TreninkyData { get; set; } = new ObservableCollection<TreninkView>();
@@ -38,6 +42,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             NastavViditelnostSloupcuProUzivatele();
         }
 
+        /// <summary>
+        /// Nastaví viditelnost datových sloupců a možnost úprav podle role přihlášeného uživatele
+        /// </summary>
         private void NastavViditelnostSloupcuProUzivatele()
         {
             // Zjistíme, kdo je přihlášený
@@ -48,8 +55,14 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Nejdřív zobrazíme
             RodneCisloSloupec.Visibility = Visibility.Visible;
 
-            // Pokud je to hráč, uživatel nebo trenér tyto sloupce a funkce tlačítek schováme
-            if (role == "hrac" || role == "trener" || role == "uzivatel")
+            // Pokud je role trener, skryjeme rodné číslo ostatních trenérů
+            if (role == "trener")
+            {
+                RodneCisloSloupec.Visibility = Visibility.Collapsed;
+            }
+
+            // Pokud je to hráč, uživatel host tyto sloupce a funkce tlačítek schováme
+            if (role == "hrac" || role == "host" || role == "uzivatel")
             {
                 RodneCisloSloupec.Visibility = Visibility.Collapsed;
 
@@ -60,12 +73,72 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované záznamy zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiTrenink dialogNajdiTrenink = new DialogNajdiTrenink(TreninkyData);
+            bool? vysledekDiaOkna = dialogNajdiTrenink.ShowDialog();
+
+            if (vysledekDiaOkna == true)
+            {
+                if (dialogNajdiTrenink.VyfiltrovaneTreninky.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádné záznamy se zadanými filtry", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat, odebírat ani upravovat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgTreninky.ItemsSource = new ObservableCollection<TreninkView>(dialogNajdiTrenink.VyfiltrovaneTreninky);
+                jeVyhledavaniAktivni = true;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgTreninky.ItemsSource = TreninkyData;
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Zavře okno a vrátí uživatele do hlavního menu
+        /// </summary>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
             this.Close();
             hlavniOkno.Show();
         }
 
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
+        }
+
+        /// <summary>
+        /// Otevře dialog pro úpravu vybraného tréninku
+        /// </summary>
         private void DgTreninky_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
@@ -77,17 +150,35 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 return;
             }
 
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "host" || role == "uzivatel")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat tréninky",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
+
             DialogEditujTrenink dialogEditujTrenink = new DialogEditujTrenink(vybranyTrenink, this);
             dialogEditujTrenink.ShowDialog();   
 
         }
 
+        /// <summary>
+        /// Otevře dialog pro přidání nového tréninku
+        /// </summary>
         private void BtnPridej_Click(object sender, RoutedEventArgs e)
         {
             DialogPridejTrenink dialogPridejTrenink = new DialogPridejTrenink(TreneriOkno.TreneriData);
             dialogPridejTrenink.ShowDialog();
         }
 
+        /// <summary>
+        /// Smaže vybraný trénink po potvrzení uživatele
+        /// </summary>
         private void BtnOdeber_Click(object sender, RoutedEventArgs e)
         {
             TreninkView vybranyTrenink = dgTreninky.SelectedItem as TreninkView;
@@ -108,9 +199,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
+                    
 
                     // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -119,7 +210,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     DatabaseTreninky.DeleteTrenink(conn, vybranyTrenink);
 
                     TreninkyData.Remove(vybranyTrenink);
-                }
+                
 
                 // Úspěch
                 MessageBox.Show(
@@ -139,12 +230,16 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             }
         }
 
+        /// <summary>
+        /// Načte všechny tréninky z databázového pohledu TRENINKY_VIEW
+        /// Ukládá je do kolekce TreninkyData pro zobrazení v DataGridu
+        /// </summary>
         private void NactiTreninky()
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using var cmd = new OracleCommand("SELECT * FROM TRENINKY_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -156,11 +251,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 {
                     TreninkView trenink = new TreninkView();
 
-                    // Rodné číslo (NOT NULL) 
+                    // RODNE_CISLO - NOT NULL
                     if (reader["RODNE_CISLO"] != DBNull.Value)
-                        trenink.RodneCislo = Convert.ToInt64(reader["RODNE_CISLO"]);
+                        trenink.RodneCislo = reader["RODNE_CISLO"].ToString();
                     else
-                        trenink.RodneCislo = 0L;
+                        trenink.RodneCislo = "";
 
                     // Příjmení (NOT NULL) 
                     if (reader["PRIJMENI"] != DBNull.Value)
@@ -168,7 +263,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     else
                         trenink.Prijmeni = "";
 
-                    // Trénink -> Popis (volitelný sloupec) 
+                    // Trénink - Popis (volitelný sloupec) 
                     if (reader["POPIS"] != DBNull.Value)
                         trenink.Popis = reader["POPIS"].ToString();
                     else
@@ -197,8 +292,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         }
 
         /// <summary>
-        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu.
-        /// Také slouží k zrušení výběru při zmáčknutí klávesy Spacebar
+        /// Metoda slouží k zamezení zmáčknutí klávesy DELETE, aby nešel smazat záznam z datagridu
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
@@ -223,6 +317,17 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 Keyboard.ClearFocus();
                 dgTreninky.Focusable = true;
             }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu pro zjištění statistik tréninků
+        /// </summary>
+        /// <param name="sender">param</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnStatistikyTreninku_Click(object sender, RoutedEventArgs e)
+        {
+            DialogStatistikyTreninku dialogStatistikyTreninku = new DialogStatistikyTreninku();
+            dialogStatistikyTreninku.ShowDialog();
         }
     }
 }

@@ -1,0 +1,67 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1F7640BD-9468-C6EF-1B59-6E6A398FE261" name="ROLE">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka ROLE slouží jako číselník pro uživatelské role. Bude nabývat hodnot: ADMIN, UŽIVATEL, HRÁČ, TRENÉR, HOST]]></commentInRDBMS>
+<generatorID>047AEC26-3FE4-978D-089B-2D15A0A2D80E</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idRole" id="0C0F8DD0-A768-84E9-F3B3-E91B021C2451">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idRole bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<generatorID>CCC6D582-9D61-D659-600C-6C69B463259C</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMinValue>1</autoIncrementMinValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>sekv_role</autoIncrementSequenceName>
+<autoIncrementTriggerName>trig_sekv_role</autoIncrementTriggerName>
+</Column>
+<Column name="nazevRole" id="16B8335B-CFB4-13EC-48C1-15BDC49FD86E">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>1274053B-6C6E-3C76-88D3-BE114AA2E793</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>6</dataTypeSize>
+<ownDataTypeParameters>6,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C470F752-C72F-AA3A-808A-C25902A61CA4" name="ROLE_PK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>C70DDD74-8BD4-3A42-6A48-4A8C16A3B7D5</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0C0F8DD0-A768-84E9-F3B3-E91B021C2451"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="036ACFAB-B8E4-5076-E37F-E2D03D3B7CFE" name="ROLE_nazevRole_UN">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>CA1715B4-A589-7F59-DF45-5C14EE75A024</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="16B8335B-CFB4-13EC-48C1-15BDC49FD86E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

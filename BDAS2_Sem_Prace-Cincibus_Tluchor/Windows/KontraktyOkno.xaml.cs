@@ -1,8 +1,13 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Persistence;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.Search_Dialogs;
+using Microsoft.Win32;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +27,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
     /// </summary>
     public partial class KontraktyOkno : Window
     {
-
         private readonly HlavniOkno hlavniOkno;
+        private bool jeVyhledavaniAktivni = false;
+        private bool zavrenoTlacitkem = false;
 
         // Kolekce kontraktů pro DataGrid (binding v XAML)
         public ObservableCollection<Kontrakt> KontraktyData { get; set; } = new ObservableCollection<Kontrakt>();
@@ -36,9 +42,37 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Propojení kolekce s DataGridem
             DataContext = this;
 
+            NastavViditelnostSloupcuProUzivatele();
             NactiKontrakty();
         }
 
+        /// <summary>
+        /// Skryje rodné číslo a telefon trenérům a hráčům
+        /// Uživatelům bez oprávnění zakáže přidávání, mazání a vyhledávání
+        /// </summary>
+        private void NastavViditelnostSloupcuProUzivatele()
+        {
+            // Zjistíme, kdo je přihlášený
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+
+            string role = uzivatel.Role.ToLower();
+
+            // Pokud je to hráč nebo trenér tyto funkce tlačítek schováme
+            if (role == "hrac" || role == "uzivatel" || role == "host")
+            {
+
+                btnPridej.IsEnabled = false;
+                btnOdeber.IsEnabled = false;
+                btnNajdi.IsEnabled = false;
+                btnZvysPlat.IsEnabled = false;
+
+                btnPridej.Opacity = 0.2;
+                btnOdeber.Opacity = 0.2;
+                btnNajdi.Opacity = 0.2;
+                btnZvysPlat.Opacity = 0.2;
+            }
+        }
+            
         /// <summary>
         /// Metoda slouží k vrácení se na hlavní okno aplikace
         /// </summary>
@@ -46,8 +80,21 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// <param name="e">eventArgs</param>
         private void BtnZpet_Click(object sender, RoutedEventArgs e)
         {
+            zavrenoTlacitkem = true;    // označíme, že zavírání je úmyslné
             this.Close();
             hlavniOkno.Show();
+        }
+
+        /// <summary>
+        /// Ukončí aplikaci stistknutím X
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (zavrenoTlacitkem == false)
+            {
+                // zavřeno přes X → ukončit aplikaci
+                Application.Current.Shutdown();
+            }
         }
 
         /// <summary>
@@ -57,8 +104,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         {
             try
             {
-                using var conn = DatabaseManager.GetConnection();
-                conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
 
                 using var cmd = new OracleCommand("SELECT * FROM KONTRAKTY_VIEW", conn);
                 using var reader = cmd.ExecuteReader();
@@ -106,7 +153,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                         {
                             IdClenKlubu = Convert.ToInt32(reader["IDCLENKLUBU"]),
                             Jmeno = reader["JMENO"].ToString(),
-                            Prijmeni = reader["PRIJMENI"].ToString()
+                            Prijmeni = reader["PRIJMENI"].ToString(),
+                            RodneCislo = reader["RODNE_CISLO"].ToString()
                         };
                     }
 
@@ -160,9 +208,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             // Smazání z databáze
             try
             {
-                using (var conn = DatabaseManager.GetConnection())
-                {
-                    conn.Open();
+                var conn = DatabaseManager.GetConnection();
+                
+
 
                     // Nastavení přihlášeného uživatele pro logování
                     DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
@@ -171,7 +219,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                     DatabaseKontrakty.OdeberKontrakt(conn, vybranyKontrakt);
 
                     KontraktyData.Remove(vybranyKontrakt);
-                }
+                
 
                 // Úspěch
                 MessageBox.Show(
@@ -197,7 +245,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgKontrakty_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        private void DgKontrakty_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
@@ -205,6 +253,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             while (dep != null && !(dep is DataGridRow))
             {
                 dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            Uzivatel uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
+            string role = uzivatel.Role.ToLower();
+
+            if (role == "hrac" || role == "uzivatel" || role == "host")
+            {
+                MessageBox.Show("Nemáte oprávnění upravovat kontrakty",
+                                "Omezení přístupu",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
             }
 
             if (dep is DataGridRow row)
@@ -227,7 +287,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">eventArgs</param>
-        private void dgKontrakty_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void DgKontrakty_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {
@@ -248,6 +308,202 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
                 Keyboard.ClearFocus();
                 dgKontrakty.Focusable = true;
             }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu k filtrování a následně vyfiltrované kontrakty zobrazí v Datagridu
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnNajdi_Click(object sender, RoutedEventArgs e)
+        {
+            DialogNajdiKontrakt dialogNajdiKontrakt = new DialogNajdiKontrakt(KontraktyData);
+            bool? vysledekDiaOkna = dialogNajdiKontrakt.ShowDialog();
+
+            if (vysledekDiaOkna == true)
+            {
+                if (dialogNajdiKontrakt.VyfiltrovaneKontrakty.Count() == 0)
+                {
+                    MessageBox.Show("Nenašly se žádné kontrakty se zadanými filtry.", "Not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                MessageBox.Show("Pokud je vyhledávací mód aktivní nemůžete přidávat ani odebírat vyhledaná data. " +
+                                "Pro ukončení vyhledávacího módu stiskněte klávesy CTRL X", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                dgKontrakty.ItemsSource = new ObservableCollection<Kontrakt>(dialogNajdiKontrakt.VyfiltrovaneKontrakty);
+                jeVyhledavaniAktivni = true;
+
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zrušení vyhledávacího módu, pokud se zmáčkne klávesa CTRL + X
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Zrušení vyhledávacího módu při zmáčknutí klávesy CTRL + X
+            if (jeVyhledavaniAktivni && (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X))
+            {
+                jeVyhledavaniAktivni = false;
+                dgKontrakty.ItemsSource = KontraktyData;
+                btnPridej.IsEnabled = btnOdeber.IsEnabled = true;
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení dialogu pro zjištění kontraktů, které končí v určitém časovém období
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnKonciciKontrakty_Click(object sender, RoutedEventArgs e)
+        {
+            DialogKonciciKontrakty dialogKonciciKontrakty = new DialogKonciciKontrakty();
+            dialogKonciciKontrakty.ShowDialog();
+        }
+
+        /// <summary>
+        /// Metoda slouží k zobrazení kontextové nabídky
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnExportImport_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnExportImport.ContextMenu != null)
+            {
+                btnExportImport.ContextMenu.MinWidth = btnExportImport.ActualWidth;
+                btnExportImport.ContextMenu.PlacementTarget = btnExportImport;
+                btnExportImport.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+                btnExportImport.ContextMenu.IsOpen = true;
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží exportu vybraného kontraktu do formátu PDF
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuitExportPdf_Click(object sender, RoutedEventArgs e)
+        {
+            Kontrakt? vybranyKontrakt = dgKontrakty.SelectedItem as Kontrakt;
+            if (vybranyKontrakt == null)
+            {
+                MessageBox.Show(
+                    "Prosím, vyberte kontrakt, který chcete exportovat", "Info", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "PDF soubory (*.pdf)|*.pdf",
+                FileName = $"Kontrakt- {vybranyKontrakt.KontraktHrace.Jmeno}_{vybranyKontrakt.KontraktHrace.Prijmeni}.pdf",
+                Title = "Exportování kontraktu"
+            };
+
+            bool? result = saveFileDialog.ShowDialog();
+            if (result != true)
+            {
+                return;
+            }
+
+            try
+            {
+                SpravaPdfSouboru.UlozHracuvKontrakt(saveFileDialog.FileName, vybranyKontrakt);
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Nastala neočekávaná chyba při exportování kontraktu:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k importu vybraného kontraktu z počítače do databáze
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void MenuitImportPdf_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    Filter = "PDF soubory (*.pdf)|*.pdf|" +
+                             "PNG soubory (*.png)|*.png|" +
+                             "JPG soubory (*.jpg)|*.jpg|" +
+                             "JPEG soubory (*.jpeg)|*.jpeg|" +
+                             "BMP soubory (*.bmp)|*.bmp|" +
+                             "Word dokumenty (*.doc;*.docx)|*.doc;*.docx",
+                    Title = "Importování kontraktu"
+                };
+
+                bool? result = openFileDialog.ShowDialog();
+                if (result != true)
+                {
+                    return;
+                }
+
+                SpravaPdfSouboru.NahrajHracuvKontrakt(openFileDialog.FileName);
+
+                MessageBox.Show("Kontrakt byl úspěšně nahrát do databáze", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Nastala neočekávaná chyba při importování kontraktu:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zvýšení platu hráčů, kteří mají 3 a více sponzorů
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">eventArgs</param>
+        private void BtnZvysPlat_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult? result = MessageBox.Show("Opravdu chcete zvýšit plat hráčům, kteří mají 3 a více sponzorů?", "Zvýšení platu", MessageBoxButton.YesNoCancel, MessageBoxImage.Question); ;
+            if (result == MessageBoxResult.Yes)
+            {
+                ZvysPlatHrace();
+            }
+        }
+
+        /// <summary>
+        /// Metoda slouží k zvýšení platu hráčů, kteří mají 3 a více sponzorů
+        /// </summary>
+        private void ZvysPlatHrace()
+        {
+            try
+            {
+                var conn = DatabaseManager.GetConnection();
+                
+
+                using (var cmd = new OracleCommand("PKG_KONTRAKTY.SP_ZVYS_PLAT_HRACE", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    catch (OracleException ex)
+                    {
+                        throw new Exception($"Chyba při volání procedury SP_ZVYS_PLAT_HRACE: {ex.Message}", ex);
+                    }
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Chyba při zvyšování platů:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            NactiKontrakty();
         }
     }
 }

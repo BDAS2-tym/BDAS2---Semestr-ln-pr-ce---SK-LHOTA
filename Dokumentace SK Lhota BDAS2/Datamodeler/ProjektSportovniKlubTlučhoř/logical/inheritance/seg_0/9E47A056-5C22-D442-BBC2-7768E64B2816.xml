@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<InheritanceRelation class="oracle.dbtools.crest.model.design.logical.InheritanceRelation" name="Hierarchy_4" directorySegmentName="seg_0" id="9E47A056-5C22-D442-BBC2-7768E64B2816">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-20 12:45:37 UTC</createdTime>
+<ownerDesignName>databazeProjektTluchor</ownerDesignName>
+<engineerTo>
+<item key="4BA73FB3-FF67-5134-0D74-DA04D9DEF603" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>Super Type</nameOnSource>
+<nameOnTarget>Sub Type</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceEntity>E35D6DF8-17FC-D482-9281-404A4148C46F</sourceEntity>
+<targetEntity>A2D7D43A-0C17-7B3B-CE89-EDE64A7E73CE</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</InheritanceRelation>

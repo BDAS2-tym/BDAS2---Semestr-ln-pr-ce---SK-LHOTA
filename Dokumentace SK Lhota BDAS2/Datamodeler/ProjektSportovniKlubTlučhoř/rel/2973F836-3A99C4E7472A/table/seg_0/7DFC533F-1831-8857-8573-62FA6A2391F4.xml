@@ -1,0 +1,81 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7DFC533F-1831-8857-8573-62FA6A2391F4" name="SPONZORI_SOUTEZE">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka SPONZORI_SOUTEZE  slouží  jako vazební tabulka mezi SPONZORI a SOUTEZE. Je zde řešeno strukturální pravidlo SP7]]></commentInRDBMS>
+<generatorID>5C9150FB-ED52-B616-BB4F-1B744CDDEB93</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<ordsAlias>sponzor_soutez</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idSponzor" id="934B6538-F957-807B-BCDC-543E65EEDF26">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>9C641F09-4BDA-2A4B-F875-812D27C964F3</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C359773D-DBB8-C181-5EBB-5E12FA1331F5" referredColumn="30102DFD-C506-FC78-1E01-964A8892EE9D"/>
+</associations>
+</Column>
+<Column name="idSoutez" id="4CD0FEB3-1ACE-EE7E-E4CD-79E5925BC40E">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>3D5B31D5-E846-58E3-361C-2CBEE80D50C7</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2DB7E7B6-59B3-D7B3-CAA8-E7E522575E81" referredColumn="D9790BEA-61E8-5D87-67DC-85BA76438FFD"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="91CA9B15-8579-1B03-62AC-4CA35ABBF66A" name="SPONZORI_SOUTEZE_PK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>10B1FAEB-D836-4391-DAAE-7B1D30E3D6C2</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4CD0FEB3-1ACE-EE7E-E4CD-79E5925BC40E"/>
+<colUsage columnID="934B6538-F957-807B-BCDC-543E65EEDF26"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8EDB87A4-3DC2-1E68-C2F0-B05078F0A29D" name="SPONZORI_SOUTEZE_SPONZORI_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>1BEF24CE-C124-8CB2-DCB8-6E82A2F57A5D</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="934B6538-F957-807B-BCDC-543E65EEDF26"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F1E37DFD-0C01-7F81-35D2-3F286DF594CC" name="SPONZORI_SOUTEZE_SOUTEZE_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>F02864C0-5F2B-3C49-B4F1-16D260DEEB33</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4CD0FEB3-1ACE-EE7E-E4CD-79E5925BC40E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

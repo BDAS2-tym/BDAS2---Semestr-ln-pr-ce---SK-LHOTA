@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="506E6C06-7B77-FDF3-A3F8-98F311AA7321" name="SPONZOR">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:10:46 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka SPONZORI, slouží k uchování ůdajů ohledně jednotlivých sponzorů. Je zde řešeno integritní omezení IO7]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idSponzor" id="94647599-9CBB-511F-6698-E5AFC0BE8D0F">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:10:56 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idSponzor bude sloužit jako UID a bude nabývat čísel od 1 výše.]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="jmeno" id="4A5CFD4A-DDD6-4C43-BFF7-868022C8E2C7">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:11:10 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="sponzorovanaCastka" id="B7364BC3-BF98-FB7C-A368-BFB24BBEEE79">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:11:44 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="3397968B-665D-0A44-E705-2702D1E13982" name="SPONZOR PK">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:11:07 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>94647599-9CBB-511F-6698-E5AFC0BE8D0F</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="2272DE39-EDC6-FC71-9E4C-056E1B7FB6B4" name="UNI_jmeno">
+<createdBy>atluc</createdBy>
+<createdTime>2024-12-11 12:12:58 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<newElementsIDs>4A5CFD4A-DDD6-4C43-BFF7-868022C8E2C7</newElementsIDs>
+<usedAttributes>
+<attributeRef>4A5CFD4A-DDD6-4C43-BFF7-868022C8E2C7</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

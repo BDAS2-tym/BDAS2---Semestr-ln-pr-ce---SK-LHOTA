@@ -1,7 +1,9 @@
 ﻿using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,17 +24,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void AddTrenink(OracleConnection conn, TreninkView trenink)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             // voláme proceduru z balíčku
             using (var cmd = new OracleCommand("PKG_TRENINKY.SP_ADD_TRENINK", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 // Parametry procedury
-                cmd.Parameters.Add("p_prijmeni", OracleDbType.Varchar2).Value = trenink.Prijmeni;
-                cmd.Parameters.Add("p_rodne_cislo", OracleDbType.Decimal).Value = trenink.RodneCislo;
-                cmd.Parameters.Add("p_datum", OracleDbType.Date).Value = trenink.Datum;
-                cmd.Parameters.Add("p_misto", OracleDbType.Varchar2).Value = trenink.Misto;
-                cmd.Parameters.Add("p_popis", OracleDbType.Varchar2).Value = trenink.Popis;
+                cmd.Parameters.Add("v_prijmeni", OracleDbType.Varchar2).Value = trenink.Prijmeni;
+                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Varchar2).Value = trenink.RodneCislo;
+                cmd.Parameters.Add("v_datum", OracleDbType.Date).Value = trenink.Datum;
+                cmd.Parameters.Add("v_misto", OracleDbType.Varchar2).Value = trenink.Misto;
+                cmd.Parameters.Add("v_popis", OracleDbType.Varchar2).Value = trenink.Popis;
                     
                 try
                 {
@@ -53,17 +57,19 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void UpdateTrenink(OracleConnection conn, TreninkView trenink)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             // voláme proceduru z balíčku
             using (var cmd = new OracleCommand("PKG_TRENINKY.SP_UPDATE_TRENINK", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 // Parametry procedury
-                cmd.Parameters.Add("p_prijmeni", OracleDbType.Varchar2).Value = trenink.Prijmeni;
-                cmd.Parameters.Add("p_rodne_cislo", OracleDbType.Decimal).Value = trenink.RodneCislo;
-                cmd.Parameters.Add("p_datum", OracleDbType.Date).Value = trenink.Datum;
-                cmd.Parameters.Add("p_misto", OracleDbType.Varchar2).Value = trenink.Misto;
-                cmd.Parameters.Add("p_popis", OracleDbType.Varchar2).Value = trenink.Popis;
+                cmd.Parameters.Add("v_prijmeni", OracleDbType.Varchar2).Value = trenink.Prijmeni;
+                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Varchar2).Value = trenink.RodneCislo;
+                cmd.Parameters.Add("v_datum", OracleDbType.Date).Value = trenink.Datum;
+                cmd.Parameters.Add("v_misto", OracleDbType.Varchar2).Value = trenink.Misto;
+                cmd.Parameters.Add("v_popis", OracleDbType.Varchar2).Value = trenink.Popis;
 
                 try
                 {
@@ -84,13 +90,15 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Class
         /// <exception cref="OracleException">Výjimka se vystaví, pokud nastane chyba při volání procedury</exception>
         public static void DeleteTrenink(OracleConnection conn, TreninkView trenink)
         {
+            DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+
             // voláme proceduru z balíčku
             using (var cmd = new OracleCommand("PKG_TRENINKY.SP_DELETE_TRENINK", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 // Parametry procedury
-                cmd.Parameters.Add("p_rodne_cislo", OracleDbType.Decimal).Value = trenink.RodneCislo;
+                cmd.Parameters.Add("v_rodne_cislo", OracleDbType.Varchar2).Value = trenink.RodneCislo;
 
                 try
                 {

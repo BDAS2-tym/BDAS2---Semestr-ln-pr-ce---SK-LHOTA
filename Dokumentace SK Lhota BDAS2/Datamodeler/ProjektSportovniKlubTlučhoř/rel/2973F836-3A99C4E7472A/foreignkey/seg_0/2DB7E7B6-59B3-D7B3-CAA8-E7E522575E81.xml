@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="2DB7E7B6-59B3-D7B3-CAA8-E7E522575E81" containerWithKeyObject="7DFC533F-1831-8857-8573-62FA6A2391F4" localFKIndex="F1E37DFD-0C01-7F81-35D2-3F286DF594CC" name="SPONZORI_SOUTEZE_SOUTEZE_FK">
+<createdBy>milan</createdBy>
+<createdTime>2025-11-03 18:06:11 UTC</createdTime>
+<generatorID>F02864C0-5F2B-3C49-B4F1-16D260DEEB33</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<referredTableLongName>SOUTEZE</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>F0FE0C17-7D86-8321-DC54-6E1B3551B9E0</referredTableID>
+<keyObject>EE6C0DC7-B559-E9C7-69F3-E5A1E1B03250</keyObject>
+<referredKeyID>EE6C0DC7-B559-E9C7-69F3-E5A1E1B03250</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idSoutez</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

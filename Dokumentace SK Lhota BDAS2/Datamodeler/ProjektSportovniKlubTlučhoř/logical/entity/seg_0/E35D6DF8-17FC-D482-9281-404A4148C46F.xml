@@ -1,0 +1,125 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="E35D6DF8-17FC-D482-9281-404A4148C46F" name="CLEN_KLUBU">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:25:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tabulka CLENOVE_KLUBU slouží jako supertyp pro tabulky "HRACI"  a "TRENERI". Tabulka CLENOVE_KLUBU slouží k uchování osobních údajů o hráčích a trenérech.
+Jsou zde řešena integritní omezení IO7, IO10]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idClenKlubu" id="D25EA75B-EE71-FDE3-1C90-EE01687B7BA0">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:25:33 UTC</createdTime>
+<commentInRDBMS><![CDATA[Atribut idClenKlubu bude sloužit jako UID a bude nabývat čísel od 1 výše]]></commentInRDBMS>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="rodneCislo" id="275C669C-1702-8206-B431-B94E8B131D6E">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-07 11:19:44 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 CHAR</dataTypeSize>
+<ownDataTypeParameters>10 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="jmeno" id="7CF0691A-26F1-B70C-A6A9-F885EDF4F25F">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:25:48 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="prijmeni" id="30DC3B8A-7957-1382-B397-E6247BF1787E">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:27:05 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="typClena" id="4BBA9FBC-08E1-7FF1-0642-6B4D501DF8AA">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:27:42 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="telefonniCislo" id="797F9FEA-A74C-3A65-643D-D9A81876B4D3">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:28:57 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>12 CHAR</dataTypeSize>
+<ownDataTypeParameters>12 CHAR,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="64A63FDA-3CFE-918E-82F4-B766CFA5AAE9" name="CLEN_KLUBU PK">
+<createdBy>atluc</createdBy>
+<createdTime>2024-11-17 14:26:20 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>D25EA75B-EE71-FDE3-1C90-EE01687B7BA0</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="6E946405-E49B-581E-81C0-A073DC041152" name="UNI_rodneCislo">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-10-07 11:19:55 UTC</createdTime>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<engineerTo>
+<item key="2973F836-5CA1-EAF0-6347-3A99C4E7472A" value="true"/>
+</engineerTo>
+<newElementsIDs>275C669C-1702-8206-B431-B94E8B131D6E</newElementsIDs>
+<usedAttributes>
+<attributeRef>275C669C-1702-8206-B431-B94E8B131D6E</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

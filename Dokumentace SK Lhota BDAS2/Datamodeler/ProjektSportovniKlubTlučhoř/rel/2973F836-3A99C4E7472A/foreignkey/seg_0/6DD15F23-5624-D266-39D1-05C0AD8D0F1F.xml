@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="6DD15F23-5624-D266-39D1-05C0AD8D0F1F" containerWithKeyObject="CACB259C-50D9-93D3-236D-96B7A41AEA8A" localFKIndex="D29EA83E-0136-3DAD-169D-108141028928" name="Bin_ObsahUZIVATELSKE_UCTY_FK">
+<createdBy>Aleš Tlučhoř</createdBy>
+<createdTime>2025-11-13 10:25:33 UTC</createdTime>
+<generatorID>C4B8CF60-C41F-BDD1-29D8-7A750B5C7A98</generatorID>
+<ownerDesignName>ProjektSportovniKlubTlučhoř</ownerDesignName>
+<referredTableLongName>UZIVATELSKE_UCTY</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>9D689A56-5DE8-B3F3-70D4-71D8B64EF81A</referredTableID>
+<keyObject>88CCD587-59A8-3C37-6C91-C121C3B55A30</keyObject>
+<referredKeyID>88CCD587-59A8-3C37-6C91-C121C3B55A30</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idUzivatelskyUcet</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

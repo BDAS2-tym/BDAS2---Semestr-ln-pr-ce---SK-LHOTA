@@ -1,29 +1,17 @@
 ﻿using BDAS2_Sem_Prace_Cincibus_Tluchor.Class;
-using Oracle.ManagedDataAccess.Client;
+using BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Custom_Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
 {
-    /// <summary>
-    /// Interakční logika pro DialogEditujHrace.xaml
-    /// </summary>
     public partial class DialogEditujHrace : Window
     {
         private Hrac editovanyHrac;
-        private HraciOkno hraciOkno;    
+        private HraciOkno hraciOkno;
+        private string puvodniRodneCislo;
 
         public DialogEditujHrace(Hrac editovanyHrac, HraciOkno hraciOkno)
         {
@@ -31,95 +19,131 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.Windows
             this.editovanyHrac = editovanyHrac;
             this.hraciOkno = hraciOkno;
 
+            List<Pozice> poziceList = new List<Pozice>
+            {
+                new Pozice { Id = 1, Nazev = "Brankář" },
+                new Pozice { Id = 2, Nazev = "Obránce" },
+                new Pozice { Id = 3, Nazev = "Záložník" },
+                new Pozice { Id = 4, Nazev = "Útočník" }
+            };
 
-            cbPozice.ItemsSource = new List<string> { "Brankář", "Obránce", "Záložník", "Útočník" };
+            cbPozice.ItemsSource = poziceList;
+            cbPozice.DisplayMemberPath = "Nazev";
+            cbPozice.SelectedValuePath = "Id";
+            cbPozice.SelectedIndex = 0;
 
-            tboxRodneCislo.Text = editovanyHrac.RodneCislo.ToString();
+            tboxRodneCislo.Text = editovanyHrac.RodneCislo;
             tboxJmeno.Text = editovanyHrac.Jmeno;
             tboxPrijmeni.Text = editovanyHrac.Prijmeni;
             tboxTelCislo.Text = editovanyHrac.TelefonniCislo;
-            cbPozice.SelectedItem = editovanyHrac.PoziceNaHristi.ToString();
+
             iudPocetGolu.Value = editovanyHrac.PocetVstrelenychGolu;
             iudPocetZlutychKaret.Value = editovanyHrac.PocetZlutychKaret;
             iudPocetCervenychKaret.Value = editovanyHrac.PocetCervenychKaret;
 
+            foreach (Pozice p in poziceList)
+            {
+                if (p.Nazev == editovanyHrac.PoziceNaHristi)
+                {
+                    cbPozice.SelectedItem = p;
+                    break;
+                }
+            }
+
+            puvodniRodneCislo = editovanyHrac.RodneCislo;
+
+            bool maOpatreni = editovanyHrac.DelkaTrestu > 0 || !string.IsNullOrEmpty(editovanyHrac.DuvodOpatreni);
+            if (maOpatreni)
+            {
+                chkMaOpatreni.IsChecked = true;
+                spOpatreni.Visibility = Visibility.Visible;
+                dpDatumOpatreni.SelectedDate = editovanyHrac.DatumOpatreni == DateTime.MinValue ? DateTime.Today : editovanyHrac.DatumOpatreni;
+                iudDelkaTrestu.Value = editovanyHrac.DelkaTrestu > 0 ? editovanyHrac.DelkaTrestu : 1;
+                tboxDuvodOpatreni.Text = editovanyHrac.DuvodOpatreni;
+            }
+            else
+            {
+                chkMaOpatreni.IsChecked = false;
+                spOpatreni.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void chkMaOpatreni_Checked(object sender, RoutedEventArgs e)
+        {
+            spOpatreni.Visibility = Visibility.Visible;
+        }
+
+        private void chkMaOpatreni_Unchecked(object sender, RoutedEventArgs e)
+        {
+            spOpatreni.Visibility = Visibility.Collapsed;
+            dpDatumOpatreni.SelectedDate = null;
+            iudDelkaTrestu.Value = 1;
+            tboxDuvodOpatreni.Clear();
         }
 
         private void BtnEdituj_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // --- VALIDACE RODNÉHO ČÍSLA ---
-                if (!long.TryParse(tboxRodneCislo.Text.Trim(), out long rodneCislo))
-                {
-                    MessageBox.Show("Rodné číslo může obsahovat pouze číslice! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // Délka rodného čísla (10 číslic)
-                if (rodneCislo.ToString().Length != 10)
-                {
-                    MessageBox.Show("Rodné číslo musí mít 10 číslic bez lomítka! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // --- VALIDACE TEXTOVÝCH POLÍ ---
+                string rodneCislo = tboxRodneCislo.Text.Trim();
                 string jmeno = tboxJmeno.Text.Trim();
                 string prijmeni = tboxPrijmeni.Text.Trim();
                 string telCislo = tboxTelCislo.Text.Trim();
-                string pozice = cbPozice.SelectedItem.ToString();
 
-                if (string.IsNullOrWhiteSpace(jmeno) || string.IsNullOrWhiteSpace(prijmeni) || 
-                    string.IsNullOrWhiteSpace(telCislo) || string.IsNullOrWhiteSpace(pozice))
+                editovanyHrac.IdPozice = (int)cbPozice.SelectedValue;
+                editovanyHrac.PoziceNaHristi = ((Pozice)cbPozice.SelectedItem).Nazev;
+
+                Validator.ValidujRodneCislo(rodneCislo);
+                Validator.ValidujJmeno(jmeno);
+                Validator.ValidujPrijmeni(prijmeni);
+                Validator.ValidujTelefon(telCislo);
+                Validator.ValidujCeleCislo(iudPocetGolu.Value.ToString(), "Počet gólů");
+                Validator.ValidujCeleCislo(iudPocetZlutychKaret.Value.ToString(), "Počet žlutých karet");
+                Validator.ValidujCeleCislo(iudPocetCervenychKaret.Value.ToString(), "Počet červených karet");
+
+                bool maOpatreni = chkMaOpatreni.IsChecked == true;
+                if (maOpatreni)
                 {
-                    MessageBox.Show("Prosím vyplňte všechna pole! ", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    Validator.ValidujDatum(dpDatumOpatreni.SelectedDate, "Datum opatření");
+                    Validator.ValidujCeleCislo(iudDelkaTrestu.Value.ToString(), "Délka trestu");
                 }
 
-                // --- VALIDACE ČÍSELNÝCH HODNOT ---
-                int pocetGolu = (int)iudPocetGolu.Value;
-                int pocetZlutychKaret = (int)iudPocetZlutychKaret.Value;
-                int pocetCervenychKaret = (int)iudPocetCervenychKaret.Value;
-
-                if (pocetGolu < 0 || pocetZlutychKaret < 0 || pocetCervenychKaret < 0)
-                {
-                    MessageBox.Show("Počet gólů a karet nesmí být záporný !", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // --- NASTAVENÍ HODNOT DO EDITOVANEHO HRACE ---
                 editovanyHrac.RodneCislo = rodneCislo;
                 editovanyHrac.Jmeno = jmeno;
                 editovanyHrac.Prijmeni = prijmeni;
                 editovanyHrac.TelefonniCislo = telCislo;
-                editovanyHrac.PoziceNaHristi = pozice;
-                editovanyHrac.PocetVstrelenychGolu = pocetGolu;
-                editovanyHrac.PocetZlutychKaret = pocetZlutychKaret;
-                editovanyHrac.PocetCervenychKaret = pocetCervenychKaret;
+                editovanyHrac.PocetVstrelenychGolu = (int)iudPocetGolu.Value;
+                editovanyHrac.PocetZlutychKaret = (int)iudPocetZlutychKaret.Value;
+                editovanyHrac.PocetCervenychKaret = (int)iudPocetCervenychKaret.Value;
 
-                using (var conn = DatabaseManager.GetConnection())
+                if (maOpatreni)
                 {
-                    conn.Open();
-
-                    // Nastavení přihlášeného uživatele pro logování
-                    DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
-
-                    // Editování hráče
-                    DatabaseHraci.UpdateHrac(conn, editovanyHrac);
-
-                    hraciOkno.dgHraci.Items.Refresh();
+                    editovanyHrac.DatumOpatreni = dpDatumOpatreni.SelectedDate.Value;
+                    editovanyHrac.DelkaTrestu = (int)iudDelkaTrestu.Value;
+                    editovanyHrac.DuvodOpatreni = tboxDuvodOpatreni.Text.Trim();
+                    editovanyHrac.DatumOpatreniText = editovanyHrac.DatumOpatreni.ToString("dd.MM.yyyy");
+                }
+                else
+                {
+                    editovanyHrac.DatumOpatreni = DateTime.MinValue;
+                    editovanyHrac.DelkaTrestu = 0;
+                    editovanyHrac.DuvodOpatreni = null;
+                    editovanyHrac.DatumOpatreniText = "Bez opatření";
                 }
 
-                MessageBox.Show("Hráč byl úspěšně editován! ", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.DialogResult = true;
+                var conn = DatabaseManager.GetConnection();
+                DatabaseAppUser.SetAppUser(conn, HlavniOkno.GetPrihlasenyUzivatel());
+                DatabaseHraci.UpdateHrac(conn, editovanyHrac, puvodniRodneCislo);
+
+                hraciOkno.dgHraci.Items.Refresh();
+                MessageBox.Show("Změny byly úspěšně uloženy", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Chyba při ukládání hráče:\n{ex.Message}", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Chyba při ukládání hráče:\n" + ex.Message, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
         private void BtnUkonci_Click(object sender, RoutedEventArgs e)
         {

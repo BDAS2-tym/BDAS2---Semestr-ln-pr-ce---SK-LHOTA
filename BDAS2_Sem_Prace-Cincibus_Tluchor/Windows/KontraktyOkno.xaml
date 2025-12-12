@@ -7,7 +7,8 @@
         xmlns:conv="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Class.Text_Converters"
         mc:Ignorable="d"
         Title="Kontrakty"         
-        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Kontrakty.ico" >
+        Height="600" Width="1300" Icon="/Images/Ikony/Ikona_Kontrakty.ico" PreviewKeyDown="Window_PreviewKeyDown" WindowState="Maximized" 
+        Closing="Window_Closing">
 
     <Window.Resources>
         <conv:KontraktyHraceConverter x:Key="KontraktyHraceConverter"/>
@@ -41,7 +42,7 @@
                   CanUserAddRows="False"
                   FontFamily="Century Gothic"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single" MouseDoubleClick="dgKontrakty_MouseDoubleClick_1" PreviewKeyDown="dgKontrakty_PreviewKeyDown">
+                  VerticalAlignment="Stretch" BorderBrush="#125C64" AlternatingRowBackground="#FFE0E0E0" AutomationProperties.IsColumnHeader="True" RowBackground="#FFF3F3F3" RowHeight="30" HeadersVisibility="Column" ColumnHeaderHeight="28" FontSize="11" GridLinesVisibility="None" SelectionMode="Single" MouseDoubleClick="DgKontrakty_MouseDoubleClick_1" PreviewKeyDown="DgKontrakty_PreviewKeyDown">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <!-- Pozadí -->
@@ -187,16 +188,47 @@
                     </Button>
 
                     <!-- Button Najdi -->
-                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="3" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <Button x:Name="btnNajdi" Grid.Row="2" Margin="0,8,0,5" TabIndex="3" Style="{StaticResource HoverFadeButtonStyle2}" Click="BtnNajdi_Click">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Najdi" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
+                    <!-- Button Končící kontrakty -->
+                    <Button x:Name="btnKonciciKontrakty" Grid.Row="3" Margin="0,8,0,5" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}" Click="BtnKonciciKontrakty_Click">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/clock_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Končící kontrakty" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    
+                    <!-- Button Import/Export PDF -->
+                    <Button x:Name="btnExportImport" Grid.Row="5" Margin="0,8,0,5" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalAlignment="Stretch" Click="BtnExportImport_Click">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                                <Image Source="/Images/Img/export_import.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                                <TextBlock Text="Export/Import" VerticalAlignment="Center" FontSize="20"/>
+                            </StackPanel>
+                        </Button.Content>
+                        <Button.ContextMenu>
+                            <ContextMenu Background="Transparent" BorderThickness="2" Padding="0" BorderBrush="#FF5194E5">
+                                <MenuItem x:Name="menuitExportPdf" Header="Exportovat kontrakt" Style="{StaticResource MenuItemButtonStyle}" Click="MenuitExportPdf_Click"/>
+                                <MenuItem x:Name="menuitImportPdf" Header="Importovat kontrakt" Style="{StaticResource MenuItemButtonStyle}" Click="MenuitImportPdf_Click"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
 
-                    <!-- Exit -->
-                    <Button x:Name="btnZpet" Grid.Row="7" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="4" Style="{StaticResource HoverFadeButtonStyle2}">
+                    <!-- Button Zvýšení platu -->
+                    <Button x:Name="btnZvysPlat" Grid.Row="6" Margin="0,8,0,5" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle2}" Click="BtnZvysPlat_Click">
+                        <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
+                            <Image Source="/Images/Img/higher_salary.png" Width="40" Height="40" Margin="0,0,10,0"/>
+                            <TextBlock Text="Zvyšení platu" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Button Exit -->
+                    <Button x:Name="btnZpet" Grid.Row="7" Margin="0,8,0,5" Click="BtnZpet_Click" TabIndex="6" Style="{StaticResource HoverFadeButtonStyle2}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Zpět" VerticalAlignment="Center"/>
