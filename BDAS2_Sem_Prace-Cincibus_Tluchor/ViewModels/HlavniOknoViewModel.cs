@@ -29,18 +29,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
 
             ApplyRights();
 
-            OpenHraciCommand = new RelayCommand(() => RequestNavigate?.Invoke(MainNavigationTarget.Hraci), () => CanHraci);
-            OpenTreneriCommand = new RelayCommand(() => RequestNavigate?.Invoke(MainNavigationTarget.Treneri), () => CanTreneri);
-            OpenTreninkyCommand = new RelayCommand(() => RequestNavigate?.Invoke(MainNavigationTarget.Treninky), () => CanTreninky);
-            OpenKontraktyCommand = new RelayCommand(() => RequestNavigate?.Invoke(MainNavigationTarget.Kontrakty), () => CanKontrakty);
-            OpenOpatreniCommand = new RelayCommand(() => RequestNavigate?.Invoke(MainNavigationTarget.Opatreni), () => CanOpatreni);
-            OpenSponzoriCommand = new RelayCommand(() => RequestNavigate?.Invoke(MainNavigationTarget.Sponzori), () => CanSponzori);
-            OpenGrafyCommand = new RelayCommand(() => RequestNavigate?.Invoke(MainNavigationTarget.Grafy), () => CanGrafy);
-            OpenSoutezeCommand = new RelayCommand(() => RequestNavigate?.Invoke(MainNavigationTarget.Souteze), () => CanSouteze);
-            OpenZapasyCommand = new RelayCommand(() => RequestNavigate?.Invoke(MainNavigationTarget.Zapasy), () => CanZapasy);
-            OpenNastaveniCommand = new RelayCommand(() => RequestNavigate?.Invoke(MainNavigationTarget.Nastaveni));
 
-            LogoutCommand = new RelayCommand(() => RequestLogout?.Invoke());
         }
 
         // texty nahoře + boxy

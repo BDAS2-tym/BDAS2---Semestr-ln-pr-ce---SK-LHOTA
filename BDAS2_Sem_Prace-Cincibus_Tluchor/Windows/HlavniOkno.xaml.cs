@@ -36,7 +36,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 MainNavigationTarget.Treneri => new TreneriOkno(this),
                 MainNavigationTarget.Treninky => new TreninkyOkno(this),
                 MainNavigationTarget.Kontrakty => new KontraktyOkno(this),
-                MainNavigationTarget.Opatreni => new OpatreniOkno(this),
                 MainNavigationTarget.Sponzori => new SponzoriOkno(this),
                 MainNavigationTarget.Grafy => new GrafyOkno(this),
                 MainNavigationTarget.Souteze => new SoutezeOkno(this),

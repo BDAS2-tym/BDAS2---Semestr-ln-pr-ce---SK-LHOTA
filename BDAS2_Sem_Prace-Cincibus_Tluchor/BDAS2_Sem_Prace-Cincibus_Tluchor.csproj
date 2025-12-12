@@ -40,6 +40,16 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Windows\ViewModels\**" />
+    <Compile Remove="Windows\Views\**" />
+    <EmbeddedResource Remove="Windows\ViewModels\**" />
+    <EmbeddedResource Remove="Windows\Views\**" />
+    <None Remove="Windows\ViewModels\**" />
+    <None Remove="Windows\Views\**" />
+    <Page Remove="Windows\ViewModels\**" />
+    <Page Remove="Windows\Views\**" />
+  </ItemGroup>
 
   <!-- Odstranění z ItemGroup -->
   <ItemGroup>
@@ -86,8 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Class\Models\" />
-    <Folder Include="Windows\Views\" />
-    <Folder Include="Windows\ViewModels\" />
   </ItemGroup>
 
 </Project>
