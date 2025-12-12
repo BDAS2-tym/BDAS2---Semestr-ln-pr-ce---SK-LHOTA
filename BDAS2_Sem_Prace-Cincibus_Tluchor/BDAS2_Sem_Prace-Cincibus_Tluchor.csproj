@@ -84,5 +84,10 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Class\Models\" />
+    <Folder Include="Windows\Views\" />
+    <Folder Include="Windows\ViewModels\" />
+  </ItemGroup>
 
 </Project>
