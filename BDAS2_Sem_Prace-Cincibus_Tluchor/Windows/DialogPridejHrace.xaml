@@ -1,4 +1,4 @@
-﻿<Window x:Name="DialogPridaniHrace" 
+﻿<Window x:Name="DialogPridaniHrace"
         x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.DialogPridejHrace"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,9 +6,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Přidání hráče" Height="672" Width="562" 
+        Title="Přidání hráče" Height="672" Width="562"
         MinWidth="562" MinHeight="672" MaxWidth="620" MaxHeight="730"
         Icon="/Images/Ikony/Ikona_Okna_Pridani.ico">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -60,6 +64,7 @@
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
                 <TextBox x:Name="tboxRodneCislo" Grid.Row="0" Grid.Column="1"
+                         Text="{Binding RodneCislo, UpdateSourceTrigger=PropertyChanged}"
                          Margin="50,18,50,18" MaxLength="10" VerticalContentAlignment="Center"
                          FontFamily="Century Gothic" FontSize="12" TabIndex="1"/>
 
@@ -68,6 +73,7 @@
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <TextBox x:Name="tboxJmeno" Grid.Row="1" Grid.Column="1"
+                         Text="{Binding Jmeno, UpdateSourceTrigger=PropertyChanged}"
                          Margin="50,18,50,18" MaxLength="20"
                          FontFamily="Century Gothic" FontSize="12" TabIndex="2"/>
 
@@ -76,6 +82,7 @@
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <TextBox x:Name="tboxPrijmeni" Grid.Row="2" Grid.Column="1"
+                         Text="{Binding Prijmeni, UpdateSourceTrigger=PropertyChanged}"
                          Margin="50,18,50,18" MaxLength="20"
                          FontFamily="Century Gothic" FontSize="12" TabIndex="3"/>
 
@@ -84,27 +91,31 @@
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <TextBox x:Name="tboxTelCislo" Grid.Row="3" Grid.Column="1"
-                           Margin="50,18,50,18" MaxLength="12"
-                           FontFamily="Century Gothic" FontSize="12" TabIndex="4"/>
+                         Text="{Binding TelefonniCislo, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="50,18,50,18" MaxLength="12"
+                         FontFamily="Century Gothic" FontSize="12" TabIndex="4"/>
 
                 <!-- Pozice -->
                 <TextBlock Text="Pozice na hřišti:" Grid.Row="4" Grid.Column="0"
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
                 <ComboBox x:Name="cbPozice"
-                            Grid.Row="4" Grid.Column="1"
-                            Margin="50,18,50,18"
-                            MaxDropDownHeight="230"
-                            FontFamily="Century Gothic"
-                            FontSize="12" TabIndex="5"
-                            />
-
+                          ItemsSource="{Binding PoziceList}"
+                          SelectedItem="{Binding SelectedPozice}"
+                          DisplayMemberPath="Nazev"
+                          Grid.Row="4" Grid.Column="1"
+                          Margin="50,18,50,18"
+                          MaxDropDownHeight="230"
+                          FontFamily="Century Gothic"
+                          FontSize="12" TabIndex="5"/>
 
                 <!-- Góly -->
                 <TextBlock Text="Počet vstřelených gólů:" Grid.Row="5" Grid.Column="0"
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-                <xctk:IntegerUpDown x:Name="iudPocetGolu" Value="0" Grid.Row="5" Grid.Column="1"
+                <xctk:IntegerUpDown x:Name="iudPocetGolu"
+                                    Value="{Binding PocetGolu}"
+                                    Grid.Row="5" Grid.Column="1"
                                     Margin="50,18,50,18"
                                     Minimum="0" Maximum="100"
                                     FontFamily="Century Gothic" FontSize="12" TabIndex="6"/>
@@ -113,7 +124,9 @@
                 <TextBlock Text="Počet žlutých karet:" Grid.Row="6" Grid.Column="0"
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-                <xctk:IntegerUpDown x:Name="iudPocetZlutychKaret" Value="0" Grid.Row="6" Grid.Column="1"
+                <xctk:IntegerUpDown x:Name="iudPocetZlutychKaret"
+                                    Value="{Binding PocetZlutychKaret}"
+                                    Grid.Row="6" Grid.Column="1"
                                     Margin="50,18,50,18"
                                     Minimum="0" Maximum="100"
                                     FontFamily="Century Gothic" FontSize="12" TabIndex="7"/>
@@ -122,34 +135,39 @@
                 <TextBlock Text="Počet červených karet:" Grid.Row="7" Grid.Column="0"
                            Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-                <xctk:IntegerUpDown x:Name="iudPocetCervenychKaret" Value="0" Grid.Row="7" Grid.Column="1"
+                <xctk:IntegerUpDown x:Name="iudPocetCervenychKaret"
+                                    Value="{Binding PocetCervenychKaret}"
+                                    Grid.Row="7" Grid.Column="1"
                                     Margin="50,17,50,17"
                                     Minimum="0" Maximum="100"
                                     FontFamily="Century Gothic" FontSize="12" TabIndex="8"/>
 
                 <!-- Checkbox disciplinární opatření -->
-                <CheckBox x:Name="chkMaOpatreni" Grid.Row="8" Grid.ColumnSpan="2"
+                <CheckBox x:Name="chkMaOpatreni"
+                          IsChecked="{Binding MaOpatreni}"
+                          Grid.Row="8" Grid.ColumnSpan="2"
                           Content="Hráč má disciplinární opatření"
                           Margin="50,5,0,5"
                           FontFamily="Century Gothic"
                           FontSize="14"
                           FontWeight="Bold"
-                          Checked="chkMaOpatreni_Checked"
-                          Unchecked="chkMaOpatreni_Unchecked" TabIndex="9"/>
+                          TabIndex="9"/>
 
                 <!-- Panel s opatřením -->
-                <StackPanel x:Name="spOpatreni" Grid.Row="9" Grid.ColumnSpan="2"
+                <StackPanel x:Name="spOpatreni"
+                            Grid.Row="9" Grid.ColumnSpan="2"
                             Orientation="Vertical"
                             Margin="80,5,80,20"
-                            Visibility="Collapsed">
+                            Visibility="{Binding MaOpatreni, Converter={StaticResource BoolToVis}}">
 
-                    <TextBlock Text="Datum opatření:" 
+                    <TextBlock Text="Datum opatření:"
                                Margin="0,5,0,0"
                                FontFamily="Century Gothic"
                                FontSize="13"
                                FontWeight="Bold"/>
 
                     <DatePicker x:Name="dpDatumOpatreni"
+                                SelectedDate="{Binding DatumOpatreni}"
                                 Margin="0,5,0,10"
                                 FontFamily="Century Gothic"
                                 FontSize="12"/>
@@ -160,10 +178,10 @@
                                FontWeight="Bold"/>
 
                     <xctk:IntegerUpDown x:Name="iudDelkaTrestu"
+                                        Value="{Binding DelkaTrestu}"
                                         Margin="0,5,0,10"
                                         Minimum="1"
                                         Maximum="365"
-                                        Value="1"
                                         FontFamily="Century Gothic"
                                         FontSize="12"
                                         HorizontalAlignment="Left"
@@ -175,6 +193,7 @@
                                FontWeight="Bold"/>
 
                     <TextBox x:Name="tboxDuvodOpatreni"
+                             Text="{Binding DuvodOpatreni, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0,5,0,10"
                              Width="250"
                              FontFamily="Century Gothic"
@@ -191,16 +210,20 @@
                 <ImageBrush ImageSource="/Images/Img/pozadi_3_dialog_okna.png"/>
             </Border.Background>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="BtnPridej" Click="BtnPridej_Click" Content="Přidej"
+                <Button x:Name="BtnPridej"
+                        Command="{Binding PridejCommand}"
+                        Content="Přidej"
                         Width="100" Padding="5" Margin="0,5,0,5"
                         FontFamily="Century Gothic" FontSize="14"
                         Style="{StaticResource HoverFadeButtonStyle}" TabIndex="10"/>
 
-                <Button x:Name="BtnReset" Content="Reset"
+                <Button x:Name="BtnReset"
+                        Command="{Binding ResetCommand}"
+                        Content="Reset"
                         Width="100" Padding="5" Margin="100,5,0,5"
                         FontFamily="Century Gothic" FontSize="14"
                         Style="{StaticResource HoverFadeButtonStyle}"
-                        Click="BtnReset_Click" TabIndex="11">
+                        TabIndex="11">
                     <Button.Background>
                         <SolidColorBrush Color="#DDC5D709" Opacity="0.85"/>
                     </Button.Background>

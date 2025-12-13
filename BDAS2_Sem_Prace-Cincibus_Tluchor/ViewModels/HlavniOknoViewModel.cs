@@ -29,7 +29,18 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
 
             ApplyRights();
 
+            OpenHraciCommand = new RelayCommand(_ => RequestNavigate?.Invoke(MainNavigationTarget.Hraci), _ => CanHraci);
+            OpenTreneriCommand = new RelayCommand(_ => RequestNavigate?.Invoke(MainNavigationTarget.Treneri), _ => CanTreneri);
+            OpenTreninkyCommand = new RelayCommand(_ => RequestNavigate?.Invoke(MainNavigationTarget.Treninky), _ => CanTreninky);
+            OpenKontraktyCommand = new RelayCommand(_ => RequestNavigate?.Invoke(MainNavigationTarget.Kontrakty), _ => CanKontrakty);
+            OpenOpatreniCommand = new RelayCommand(_ => RequestNavigate?.Invoke(MainNavigationTarget.Opatreni), _ => CanOpatreni);
+            OpenSponzoriCommand = new RelayCommand(_ => RequestNavigate?.Invoke(MainNavigationTarget.Sponzori), _ => CanSponzori);
+            OpenGrafyCommand = new RelayCommand(_ => RequestNavigate?.Invoke(MainNavigationTarget.Grafy), _ => CanGrafy);
+            OpenSoutezeCommand = new RelayCommand(_ => RequestNavigate?.Invoke(MainNavigationTarget.Souteze), _ => CanSouteze);
+            OpenZapasyCommand = new RelayCommand(_ => RequestNavigate?.Invoke(MainNavigationTarget.Zapasy), _ => CanZapasy);
+            OpenNastaveniCommand = new RelayCommand(_ => RequestNavigate?.Invoke(MainNavigationTarget.Nastaveni), _ => true);
 
+            LogoutCommand = new RelayCommand(_ => RequestLogout?.Invoke());
         }
 
         // texty nahoře + boxy

@@ -41,12 +41,16 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Class\Models\**" />
     <Compile Remove="Windows\ViewModels\**" />
     <Compile Remove="Windows\Views\**" />
+    <EmbeddedResource Remove="Class\Models\**" />
     <EmbeddedResource Remove="Windows\ViewModels\**" />
     <EmbeddedResource Remove="Windows\Views\**" />
+    <None Remove="Class\Models\**" />
     <None Remove="Windows\ViewModels\**" />
     <None Remove="Windows\Views\**" />
+    <Page Remove="Class\Models\**" />
     <Page Remove="Windows\ViewModels\**" />
     <Page Remove="Windows\Views\**" />
   </ItemGroup>
@@ -93,9 +97,6 @@
     <Resource Update="Images\Ikony\Ikona_Grafy.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Class\Models\" />
   </ItemGroup>
 
 </Project>
