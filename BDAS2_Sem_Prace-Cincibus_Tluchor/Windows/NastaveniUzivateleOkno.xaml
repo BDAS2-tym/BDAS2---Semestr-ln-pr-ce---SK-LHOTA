@@ -8,11 +8,16 @@
         Height="600" Width="1300"
         WindowStartupLocation="CenterScreen"
         Icon="/Images/Ikony/Ikona_Uzivatele.ico"
-        PreviewKeyDown="Window_PreviewKeyDown"
-        Closing="Window_Closing" WindowState="Maximized">
+        Closing="Window_Closing"
+        WindowState="Maximized">
+
+    <Window.InputBindings>
+        <KeyBinding Key="X"
+                    Modifiers="Control"
+                    Command="{Binding CancelSearchCommand}"/>
+    </Window.InputBindings>
 
     <Grid>
-
         <Grid.Background>
             <ImageBrush ImageSource="/Images/Img/pozadi_2_dialog_okna.png"/>
         </Grid.Background>
@@ -29,7 +34,8 @@
                 CornerRadius="6">
 
             <DataGrid x:Name="dgUzivatele"
-                      ItemsSource="{Binding UzivateleData}"
+                      ItemsSource="{Binding ZobrazovaniUzivatele}"
+                      SelectedItem="{Binding SelectedUzivatel, Mode=TwoWay}"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       IsReadOnly="True"
@@ -42,7 +48,8 @@
                       ColumnHeaderHeight="28"
                       GridLinesVisibility="None"
                       HorizontalScrollBarVisibility="Auto"
-                      VerticalScrollBarVisibility="Auto">
+                      VerticalScrollBarVisibility="Auto"
+                      PreviewKeyDown="DgUzivatele_PreviewKeyDown">
 
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
@@ -96,13 +103,14 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Emulovat"
-                                        Click="BtnPrepnout_Click"
                                         Cursor="Hand"
                                         Padding="6,3"
                                         Margin="3"
                                         FontFamily="Century Gothic"
                                         FontSize="14"
-                                        Style="{StaticResource HoverFadeButtonStyle4}"/>
+                                        Style="{StaticResource HoverFadeButtonStyle4}"
+                                        Command="{Binding DataContext.EmulovatCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -120,7 +128,6 @@
 
         <Border Grid.Column="1" Background="#77B3FB">
             <Grid>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -135,7 +142,6 @@
                            FontFamily="Century Gothic"/>
 
                 <Grid Grid.Row="1" Margin="0,0,0,15">
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -145,72 +151,82 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Button Přidej -->
                     <Button x:Name="btnPridej"
                             Grid.Row="0"
                             Margin="0,5"
-                            Click="BtnPridej_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="1">
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            TabIndex="1"
+                            Command="{Binding PridejCommand}"
+                            IsEnabled="{Binding CanPridej}"
+                            Opacity="{Binding PridejOpacity}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/add_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Přidej" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Button Odeber -->
                     <Button x:Name="btnOdeber"
                             Grid.Row="1"
                             Margin="0,8,0,5"
-                            Click="BtnOdeber_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="2">
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            TabIndex="2"
+                            Command="{Binding OdeberCommand}"
+                            IsEnabled="{Binding CanOdeber}"
+                            Opacity="{Binding OdeberOpacity}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/remove_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Odeber" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Button Edituj -->
                     <Button x:Name="btnEdituj"
                             Grid.Row="2"
                             Margin="0,8,0,5"
-                            Click="BtnEdituj_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="3">
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            TabIndex="3"
+                            Command="{Binding EditujCommand}"
+                            IsEnabled="{Binding CanEdituj}"
+                            Opacity="{Binding EditujOpacity}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/edit_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Edituj" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Button Najdi -->
                     <Button x:Name="btnNajdi"
-                              Grid.Row="3"
-                              Margin="0,8,0,5"
-                              Click="BtnNajdi_Click"
-                              Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="4">
+                            Grid.Row="3"
+                            Margin="0,8,0,5"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            TabIndex="4"
+                            Command="{Binding NajdiCommand}"
+                            IsEnabled="{Binding CanNajdi}"
+                            Opacity="{Binding NajdiOpacity}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/lupa_icon.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Najdi" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Button Notifikace/Zpráva-->
                     <Button x:Name="btnNotifikace"
                             Grid.Row="4"
                             Margin="0,8,0,5"
-                            Click="BtnNotifikace_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="5">
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            TabIndex="5"
+                            Command="{Binding NotifikaceCommand}"
+                            IsEnabled="{Binding CanNotifikace}"
+                            Opacity="{Binding NotifikaceOpacity}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/notification.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Notifikace" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Button Zpět -->
                     <Button x:Name="btnZpet"
                             Grid.Row="5"
                             Margin="0,8,0,5"
-                            Click="BtnZpet_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="6">
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            TabIndex="6"
+                            Command="{Binding ZpetCommand}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Zpět" VerticalAlignment="Center"/>
@@ -218,10 +234,7 @@
                     </Button>
 
                 </Grid>
-
-
             </Grid>
         </Border>
-
     </Grid>
 </Window>

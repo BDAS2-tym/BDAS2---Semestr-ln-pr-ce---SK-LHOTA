@@ -7,8 +7,18 @@
         ResizeMode="NoResize"
         Icon="/Images/Ikony/Ikona_Hledani.ico">
 
-    <Grid>
+    <Window.Resources>
+        <Style x:Key="AdminOnlyTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Opacity" Value="1"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
+    <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Images/Img/pozadi_2_dialog_okna.png" Stretch="Fill"/>
         </Grid.Background>
@@ -20,7 +30,6 @@
 
         <!-- FORMULÁŘ -->
         <Grid Margin="40" Grid.Row="0">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="330"/>
@@ -36,29 +45,78 @@
             </Grid.RowDefinitions>
 
             <!-- Rodné číslo -->
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Rodné číslo trenéra:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox x:Name="tRodneCislo" Grid.Row="0" Grid.Column="1" Height="26" MaxLength="10" TabIndex="1"/>
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Text="Rodné číslo trenéra:"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+
+            <TextBox Grid.Row="0" Grid.Column="1"
+                     Height="26"
+                     MaxLength="10"
+                     TabIndex="1"
+                     Style="{StaticResource AdminOnlyTextBoxStyle}"
+                     IsEnabled="{Binding CanFilterRodneCislo}"
+                     ToolTip="{Binding RodneCisloToolTip}"
+                     Text="{Binding RodneCislo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Příjmení -->
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Příjmení trenéra:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox x:Name="tPrijmeni" Grid.Row="1" Grid.Column="1" Height="26" MaxLength="20" TabIndex="2"/>
+            <TextBlock Grid.Row="1" Grid.Column="0"
+                       Text="Příjmení trenéra:"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+
+            <TextBox Grid.Row="1" Grid.Column="1"
+                     Height="26"
+                     MaxLength="20"
+                     TabIndex="2"
+                     Text="{Binding Prijmeni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Datum -->
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Datum:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <DatePicker x:Name="dpDatum" Grid.Row="2" Grid.Column="1" Height="26" TabIndex="3"/>
+            <TextBlock Grid.Row="2" Grid.Column="0"
+                       Text="Datum:"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+
+            <DatePicker Grid.Row="2" Grid.Column="1"
+                        Height="26"
+                        TabIndex="3"
+                        SelectedDate="{Binding Datum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Čas -->
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="Čas (HH:mm):" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox x:Name="tCas" Grid.Row="3" Grid.Column="1" Height="26" MaxLength="5" TabIndex="4"/>
+            <TextBlock Grid.Row="3" Grid.Column="0"
+                       Text="Čas (HH:mm):"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+
+            <TextBox Grid.Row="3" Grid.Column="1"
+                     Height="26"
+                     MaxLength="5"
+                     TabIndex="4"
+                     Text="{Binding CasText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Místo -->
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Místo:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox x:Name="tMisto" Grid.Row="4" Grid.Column="1" Height="26" MaxLength="30" TabIndex="5"/>
+            <TextBlock Grid.Row="4" Grid.Column="0"
+                       Text="Místo:"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+
+            <TextBox Grid.Row="4" Grid.Column="1"
+                     Height="26"
+                     MaxLength="30"
+                     TabIndex="5"
+                     Text="{Binding Misto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Popis -->
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Popis:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox x:Name="tPopis" Grid.Row="5" Grid.Column="1" Height="26" MaxLength="30" TabIndex="6"/>
+            <TextBlock Grid.Row="5" Grid.Column="0"
+                       Text="Popis:"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
 
+            <TextBox Grid.Row="5" Grid.Column="1"
+                     Height="26"
+                     MaxLength="30"
+                     TabIndex="6"
+                     Text="{Binding Popis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <!-- TLAČÍTKA -->
@@ -71,18 +129,20 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
 
-                <Button Content="Najdi" Width="130" Height="40"
+                <Button Content="Najdi"
+                        Width="130" Height="40"
                         Style="{StaticResource HoverFadeButtonStyle}"
                         Margin="20"
-                        Click="BtnNajdi_Click" TabIndex="7"/>
+                        Command="{Binding NajdiCommand}"
+                        TabIndex="7"/>
 
-                <Button Content="Reset" Width="130" Height="40"
+                <Button Content="Reset"
+                        Width="130" Height="40"
                         Background="#DDC5D709"
                         Style="{StaticResource HoverFadeButtonStyle}"
-                        Click="BtnReset_Click" TabIndex="8"/>
-
+                        Command="{Binding ResetCommand}"
+                        TabIndex="8"/>
             </StackPanel>
         </Border>
-
     </Grid>
 </Window>

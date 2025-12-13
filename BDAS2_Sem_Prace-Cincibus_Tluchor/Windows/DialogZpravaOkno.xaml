@@ -1,10 +1,10 @@
 ﻿<Window x:Class="BDAS2_Sem_Prace_Cincibus_Tluchor.Windows.DialogZpravaOkno"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Zpráva uživatelům" 
+        Title="Zpráva uživatelům"
         Height="600" Width="1100"
-        WindowStartupLocation="CenterScreen" Icon="/Images/Ikony/Ikona_Notifikace.ico"
->
+        WindowStartupLocation="CenterScreen"
+        Icon="/Images/Ikony/Ikona_Notifikace.ico">
 
     <Grid>
 
@@ -13,18 +13,17 @@
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
-            <!-- Levá strana (výběr příjemců + text) -->
             <ColumnDefinition Width="*" />
-            <!-- Pravý panel s tlačítky -->
             <ColumnDefinition Width="250" />
         </Grid.ColumnDefinitions>
 
-        <!-- LEVÝ BLOK S OBSAHEM -->
+        <!-- LEVÝ BLOK -->
         <Border Grid.Column="0"
                 Margin="15"
                 BorderBrush="#125C64"
                 BorderThickness="2"
-                CornerRadius="6" Background="#66D1F9FF">
+                CornerRadius="6"
+                Background="#66D1F9FF">
 
             <Grid Margin="15">
                 <Grid.RowDefinitions>
@@ -32,7 +31,6 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!-- NADPIS -->
                 <TextBlock Text="Odeslat zprávu uživatelům"
                            FontSize="28"
                            FontWeight="Bold"
@@ -41,37 +39,34 @@
                            HorizontalAlignment="Center"
                            Margin="0 10"/>
 
-                <!-- OBSAH -->
                 <Grid Grid.Row="1" Margin="0 10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2.3*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
 
-                    <!-- SEZNAM UŽIVATELŮ -->
+                    <!-- PŘÍJEMCI -->
                     <StackPanel Grid.Column="0" Margin="0 0 15 0">
-                        <TextBlock Text="Příjemci:" 
+                        <TextBlock Text="Příjemci:"
                                    FontWeight="Bold"
                                    FontSize="16"
                                    Margin="0 0 5 5"
                                    FontFamily="Century Gothic"/>
 
                         <ListBox x:Name="lbPrijemci"
+                                 ItemsSource="{Binding Uzivatele}"
                                  BorderBrush="#125C64"
                                  BorderThickness="1"
                                  Height="380"
                                  FontFamily="Century Gothic"
-                                 ScrollViewer.VerticalScrollBarVisibility="Auto" TabIndex="1">
-
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 TabIndex="1">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <CheckBox Content="{Binding UzivatelskeJmeno}"
-                                              IsChecked="{Binding JeVybran, Mode=TwoWay}"
-                                              Tag="{Binding}" />
+                                              IsChecked="{Binding JeVybran, Mode=TwoWay}" />
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
-
-
                         </ListBox>
                     </StackPanel>
 
@@ -84,6 +79,7 @@
                                    FontFamily="Century Gothic"/>
 
                         <TextBox x:Name="txtZprava"
+                                 Text="{Binding Zprava, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  AcceptsReturn="True"
                                  TextWrapping="Wrap"
                                  BorderBrush="#125C64"
@@ -91,7 +87,8 @@
                                  VerticalScrollBarVisibility="Auto"
                                  FontFamily="Century Gothic"
                                  FontSize="14"
-                                 Height="380" TabIndex="2"/>
+                                 Height="380"
+                                 TabIndex="2"/>
                     </StackPanel>
 
                 </Grid>
@@ -99,7 +96,7 @@
 
         </Border>
 
-        <!-- PRAVÝ PANEL S TLAČÍTKY -->
+        <!-- PRAVÝ PANEL -->
         <Border Grid.Column="1" Background="#77B3FB">
             <Grid>
 
@@ -108,7 +105,6 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!-- NADPIS V PANELU -->
                 <TextBlock Text="Zpráva"
                            Foreground="Black"
                            FontSize="25"
@@ -117,9 +113,7 @@
                            Margin="0,15"
                            FontFamily="Century Gothic"/>
 
-                <!-- TLAČÍTKA -->
                 <Grid Grid.Row="1" Margin="0,0,0,15">
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -129,15 +123,14 @@
                     <Button x:Name="btnOdeslat"
                             Grid.Row="0"
                             Margin="0,8,0,5"
-                            Click="BtnOdeslat_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="3">
-
+                            Command="{Binding OdeslatCommand}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            TabIndex="3">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
-                            <Image Source="/Images/Img/send.png" 
+                            <Image Source="/Images/Img/send.png"
                                    Width="40" Height="40"
                                    Margin="0,0,10,0"/>
-                            <TextBlock Text="Odeslat"
-                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="Odeslat" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
@@ -145,15 +138,14 @@
                     <Button x:Name="btnZrusit"
                             Grid.Row="1"
                             Margin="0,8,0,5"
-                            Click="BtnZrusit_Click"
-                            Style="{StaticResource HoverFadeButtonStyle2}" TabIndex="4">
-
+                            Command="{Binding ZrusitCommand}"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            TabIndex="4">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
-                            <Image Source="/Images/Img/left.png" 
+                            <Image Source="/Images/Img/left.png"
                                    Width="40" Height="40"
                                    Margin="0,0,10,0"/>
-                            <TextBlock Text="Zpět"
-                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="Zpět" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 

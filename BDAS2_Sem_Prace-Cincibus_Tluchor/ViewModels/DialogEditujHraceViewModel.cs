@@ -14,7 +14,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
     public class DialogEditujHraceViewModel : ViewModelBase
     {
         /// <summary>
-        /// Instance editovaného hráče – stejný objekt, který je zobrazený v DataGridu
+        /// editovaný hráč – stejný objekt, který je zobrazený v DataGridu
         /// </summary>
         private readonly Hrac _editovanyHrac;
 
@@ -209,7 +209,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
             _puvodniRodneCislo = editovanyHrac.RodneCislo;
             _requestRefreshGrid = requestRefreshGrid;
 
-            // naplnění polí z hráče (bez ??)
+            // naplnění polí z hráče 
             if (editovanyHrac.RodneCislo != null)
                 RodneCislo = editovanyHrac.RodneCislo;
             else
@@ -288,8 +288,8 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
         }
 
         /// <summary>
-        /// Provede validaci, naplní zpět vlastnosti do instance hráče,
-        /// uloží změny do DB a zavře dialog s výsledkem OK.
+        /// Provede validaci, naplní zpět vlastnosti do editovaného hráče,
+        /// uloží změny do DB a zavře dialog s výsledkem OK
         /// </summary>
         private void Edituj()
         {

@@ -3,26 +3,31 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BDAS2_Sem_Prace_Cincibus_Tluchor.Windows"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Editování tréninku" Height="672" Width="562" MinWidth="562" MinHeight="672" MaxWidth="620" MaxHeight="730" Icon="/Images/Ikony/Ikona_Okna_Pridani.ico">
+        Title="Editování tréninku"
+        Height="672" Width="562"
+        MinWidth="562" MinHeight="672"
+        MaxWidth="620" MaxHeight="730"
+        Icon="/Images/Ikony/Ikona_Okna_Pridani.ico">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Logo -->
             <RowDefinition Height="*"/>
-            <!-- Formulář -->
             <RowDefinition Height="60"/>
-            <!-- Tlačítka -->
         </Grid.RowDefinitions>
 
         <!-- Logo sekce -->
         <Border x:Name="borderLogo" Grid.Row="0" Padding="10">
             <Border.Background>
-                <ImageBrush ImageSource="/Images/Img/pozadi_1_dialog_okna.png" Stretch="UniformToFill" TileMode="None"/>
+                <ImageBrush ImageSource="/Images/Img/pozadi_1_dialog_okna.png"
+                            Stretch="UniformToFill" TileMode="None"/>
             </Border.Background>
-            <Image x:Name="imgLogo" Source="/Images/Img/Logo_SK_Lhota.png" HorizontalAlignment="Center" Height="100"/>
+            <Image x:Name="imgLogo"
+                   Source="/Images/Img/Logo_SK_Lhota.png"
+                   HorizontalAlignment="Center"
+                   Height="100"/>
         </Border>
 
         <!-- Formulář -->
@@ -30,41 +35,105 @@
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="/Images/Img/pozadi_2_dialog_okna.png"/>
             </Grid.Background>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Popis tréninku -->
-            <TextBlock x:Name="tblockPopis" Grid.Row="0" Grid.Column="0" Text="Náplň tréninku:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <RichTextBox x:Name="rtboxPopisTreninku" Grid.Column="1" Margin="50,12,50,12" TabIndex="1" FontFamily="Century Gothic" TextChanged="rtboxPopisTreninku_TextChanged">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text=""/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <!-- Popis tréninku (TextBox místo RichTextBox) -->
+            <TextBlock x:Name="tblockPopis"
+                       Grid.Row="0" Grid.Column="0"
+                       Text="Náplň tréninku:"
+                       Margin="5"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontFamily="Century Gothic"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       TextWrapping="Wrap"/>
 
-            <!-- Datum a čas tréninku -->
-            <TextBlock x:Name="tblockDatumTreninku" Grid.Row="1" Grid.Column="0" Text="Datum a čas tréninku:" Margin="5" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <xctk:DateTimePicker x:Name="dtpDatumTreninku" Grid.Row="1" Grid.Column="1"
-                
-                FormatString="yyyy-dd-MM HH:mm"
-                ShowButtonSpinner="False" Margin="50,43,50,43" TabIndex="2"/>
+            <TextBox x:Name="tboxPopisTreninku"
+                     Grid.Row="0" Grid.Column="1"
+                     Margin="50,12,50,12"
+                     TabIndex="1"
+                     FontFamily="Century Gothic"
+                     FontSize="12"
+                     MaxLength="30"
+                     TextWrapping="Wrap"
+                     VerticalContentAlignment="Center"
+                     Text="{Binding Popis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <!-- Místo konání -->
-            <TextBlock x:Name="tblockMistoTreniku" Grid.Row="2" Grid.Column="0" Text="Místo tréninku:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBox x:Name="tboxMistoTreninku" Grid.Row="2" Grid.Column="1" Margin="50,43,50,43" TextWrapping="Wrap" MaxLength="30" MaxLines="5" AutoWordSelection="True" VerticalContentAlignment="Center" TabIndex="3" FontFamily="Century Gothic" FontSize="12"/>
+            <!-- Datum a čas -->
+            <TextBlock x:Name="tblockDatumTreninku"
+                       Grid.Row="1" Grid.Column="0"
+                       Text="Datum a čas tréninku:"
+                       Margin="5"
+                       FontFamily="Century Gothic"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       TextWrapping="Wrap"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
 
-            <!-- Výběr trenéra -->
-            <TextBlock x:Name="tblockVyberTrenera" Grid.Row="5" Grid.Column="0" Text="Vyberte trenéra:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"/>
-            <ComboBox x:Name="cbTrener" Grid.Column="1" Grid.Row="5" Margin="50,43,50,43" TabIndex="4" FontFamily="Century Gothic" FontSize="12"/>
+            <xctk:DateTimePicker x:Name="dtpDatumTreninku"
+                                 Grid.Row="1" Grid.Column="1"
+                                 FormatString="yyyy-dd-MM HH:mm"
+                                 ShowButtonSpinner="False"
+                                 Margin="50,43,50,43"
+                                 TabIndex="2"
+                                 Value="{Binding DatumTreninku, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!-- Místo -->
+            <TextBlock x:Name="tblockMistoTreniku"
+                       Grid.Row="2" Grid.Column="0"
+                       Text="Místo tréninku:"
+                       Margin="5"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontFamily="Century Gothic"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       TextWrapping="Wrap"/>
+
+            <TextBox x:Name="tboxMistoTreninku"
+                     Grid.Row="2" Grid.Column="1"
+                     Margin="50,43,50,43"
+                     TextWrapping="Wrap"
+                     MaxLength="30"
+                     VerticalContentAlignment="Center"
+                     TabIndex="3"
+                     FontFamily="Century Gothic"
+                     FontSize="12"
+                     Text="{Binding Misto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!-- Trenér -->
+            <TextBlock x:Name="tblockVyberTrenera"
+                       Grid.Row="3" Grid.Column="0"
+                       Text="Vyberte trenéra:"
+                       Margin="5"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontFamily="Century Gothic"
+                       FontSize="14"
+                       FontWeight="Bold"/>
+
+            <ComboBox x:Name="cbTrener"
+                      Grid.Row="3" Grid.Column="1"
+                      Margin="50,43,50,43"
+                      TabIndex="4"
+                      FontFamily="Century Gothic"
+                      FontSize="12"
+                      ItemsSource="{Binding Treneri}"
+                      SelectedItem="{Binding SelectedTrener, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Display"/>
         </Grid>
 
         <!-- Tlačítka -->
@@ -72,9 +141,30 @@
             <Border.Background>
                 <ImageBrush ImageSource="/Images/Img/pozadi_3_dialog_okna.png"/>
             </Border.Background>
-            <StackPanel Orientation="Horizontal" UseLayoutRounding="False" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="btnEdituj" Click="BtnEdituj_Click" Content="Edituj" Width="100" Padding="5,5,5,5" Margin="0,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="5" Style="{StaticResource HoverFadeButtonStyle}"/>
-                <Button x:Name="btnUkonci" Content="Ukonči" Width="100" Padding="5,5,5,5" Margin="100,5,0,5" UseLayoutRounding="True" FontFamily="Century Gothic" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="6" Style="{StaticResource HoverFadeButtonStyle}" Click="BtnUkonci_Click">
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                <Button x:Name="btnEdituj"
+                        Content="Edituj"
+                        Width="100"
+                        Margin="0,5,0,5"
+                        FontFamily="Century Gothic"
+                        FontSize="14"
+                        TabIndex="5"
+                        Style="{StaticResource HoverFadeButtonStyle}"
+                        Command="{Binding EditujCommand}"/>
+
+                <Button x:Name="btnUkonci"
+                        Content="Ukonči"
+                        Width="100"
+                        Margin="100,5,0,5"
+                        FontFamily="Century Gothic"
+                        FontSize="14"
+                        TabIndex="6"
+                        Style="{StaticResource HoverFadeButtonStyle}"
+                        Command="{Binding UkonciCommand}">
                     <Button.Background>
                         <SolidColorBrush Color="#DDC5D709" Opacity="0.85"/>
                     </Button.Background>
@@ -85,8 +175,8 @@
                         </LinearGradientBrush>
                     </Button.BorderBrush>
                 </Button>
+
             </StackPanel>
         </Border>
-
     </Grid>
 </Window>

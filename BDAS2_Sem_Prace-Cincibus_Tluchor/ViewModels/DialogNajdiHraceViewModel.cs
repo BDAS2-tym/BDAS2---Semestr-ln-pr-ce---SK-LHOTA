@@ -9,10 +9,19 @@ using System.Windows;
 
 namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
 {
+    /// <summary>
+    /// ViewModel dialogu pro vyhledávání hráčů (filtrace podle více kritérií)
+    /// </summary>
     public class DialogNajdiHraceViewModel : ViewModelBase
     {
+        /// <summary>
+        /// kolekce hráčů, nad kterou se provádí filtrace
+        /// </summary>
         private readonly ObservableCollection<Hrac> _hraciData;
 
+        /// <summary>
+        /// Seznam pozic pro výběr v ComboBoxu
+        /// </summary>
         public List<string> PoziceList { get; } = new()
         {
             "Brankář",
@@ -21,59 +30,170 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
             "Útočník"
         };
 
-        // výsledek filtru 
+        /// <summary>
+        /// Výsledek filtrace hráčů (nastaví se po stisku Najdi)
+        /// </summary>
         public IEnumerable<Hrac> VyfiltrovaniHraci { get; private set; } = Enumerable.Empty<Hrac>();
 
-        // role-based práva
+        /// <summary>
+        /// Povolení filtru rodného čísla dle role uživatele
+        /// </summary>
         public bool IsRodneCisloEnabled { get; private set; } = true;
+
+        /// <summary>
+        /// Opacity prvku rodného čísla (pro vizuální zablokování)
+        /// </summary>
         public double RodneCisloOpacity { get; private set; } = 1.0;
+
+        /// <summary>
+        /// Tooltip pro pole rodného čísla při omezení práv
+        /// </summary>
         public string RodneCisloToolTip { get; private set; } = "";
 
+        /// <summary>
+        /// Povolení filtru telefonu dle role uživatele
+        /// </summary>
         public bool IsTelefonEnabled { get; private set; } = true;
+
+        /// <summary>
+        /// Opacity prvku telefonu (pro vizuální zablokování)
+        /// </summary>
         public double TelefonOpacity { get; private set; } = 1.0;
+
+        /// <summary>
+        /// Tooltip pro pole telefonu při omezení práv
+        /// </summary>
         public string TelefonToolTip { get; private set; } = "";
 
-        // hodnoty z formuláře
+        /// <summary>
+        /// Rodné číslo (filtr)
+        /// </summary>
         private string _rodneCislo = "";
+
+        /// <summary>
+        /// Rodné číslo hráče pro filtraci
+        /// </summary>
         public string RodneCislo { get => _rodneCislo; set { _rodneCislo = value; OnPropertyChanged(); } }
 
+        /// <summary>
+        /// Jméno (filtr)
+        /// </summary>
         private string _jmeno = "";
+
+        /// <summary>
+        /// Jméno hráče pro filtraci
+        /// </summary>
         public string Jmeno { get => _jmeno; set { _jmeno = value; OnPropertyChanged(); } }
 
+        /// <summary>
+        /// Příjmení (filtr)
+        /// </summary>
         private string _prijmeni = "";
+
+        /// <summary>
+        /// Příjmení hráče pro filtraci
+        /// </summary>
         public string Prijmeni { get => _prijmeni; set { _prijmeni = value; OnPropertyChanged(); } }
 
+        /// <summary>
+        /// Telefon (filtr)
+        /// </summary>
         private string _telefon = "";
+
+        /// <summary>
+        /// Telefonní číslo hráče pro filtraci
+        /// </summary>
         public string Telefon { get => _telefon; set { _telefon = value; OnPropertyChanged(); } }
 
+        /// <summary>
+        /// Goly (filtr)
+        /// </summary>
         private string _goly = "";
+
+        /// <summary>
+        /// Počet vstřelených gólů pro filtraci 
+        /// </summary>
         public string Goly { get => _goly; set { _goly = value; OnPropertyChanged(); } }
 
+        /// <summary>
+        /// Žluté karty (filtr)
+        /// </summary>
         private string _zlute = "";
+
+        /// <summary>
+        /// Počet žlutých karet pro filtraci 
+        /// </summary>
         public string Zlute { get => _zlute; set { _zlute = value; OnPropertyChanged(); } }
 
+        /// <summary>
+        /// Červené karty (filtr)
+        /// </summary>
         private string _cervene = "";
+
+        /// <summary>
+        /// Počet červených karet pro filtraci 
+        /// </summary>
         public string Cervene { get => _cervene; set { _cervene = value; OnPropertyChanged(); } }
 
+        /// <summary>
+        /// Vybraná pozice (filtr)
+        /// </summary>
         private string? _selectedPozice = null;
+
+        /// <summary>
+        /// Vybraná pozice hráče pro filtraci
+        /// </summary>
         public string? SelectedPozice { get => _selectedPozice; set { _selectedPozice = value; OnPropertyChanged(); } }
 
+        /// <summary>
+        /// Datum opatření (filtr)
+        /// </summary>
         private DateTime? _datumOpatreni = null;
+
+        /// <summary>
+        /// Datum opatření pro filtraci 
+        /// </summary>
         public DateTime? DatumOpatreni { get => _datumOpatreni; set { _datumOpatreni = value; OnPropertyChanged(); } }
 
+        /// <summary>
+        /// Důvod opatření (filtr)
+        /// </summary>
         private string _duvod = "";
+
+        /// <summary>
+        /// Důvod opatření pro filtraci 
+        /// </summary>
         public string Duvod { get => _duvod; set { _duvod = value; OnPropertyChanged(); } }
 
+        /// <summary>
+        /// Délka trestu (filtr)
+        /// </summary>
         private string _delkaTrestu = "";
+
+        /// <summary>
+        /// Délka trestu pro filtraci 
+        /// </summary>
         public string DelkaTrestu { get => _delkaTrestu; set { _delkaTrestu = value; OnPropertyChanged(); } }
 
-        // Commands
+        /// <summary>
+        /// Command pro spuštění filtrace
+        /// </summary>
         public RelayCommand NajdiCommand { get; }
+
+        /// <summary>
+        /// Command pro reset filtrů
+        /// </summary>
         public RelayCommand ResetCommand { get; }
 
-        // zavření dialogu z VM
+        /// <summary>
+        /// Událost pro zavření dialogu z ViewModelu (true = potvrdit, false = zrušit)
+        /// </summary>
         public event Action<bool>? RequestClose;
 
+        /// <summary>
+        /// Inicializuje ViewModel a nastaví role-based práva a příkazy
+        /// </summary>
+        /// <param name="hraciData">Kolekce hráčů pro filtrování.</param>
         public DialogNajdiHraceViewModel(ObservableCollection<Hrac> hraciData)
         {
             _hraciData = hraciData;
@@ -82,9 +202,11 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
 
             NajdiCommand = new RelayCommand(_ => Najdi());
             ResetCommand = new RelayCommand(_ => Reset());
-
         }
 
+        /// <summary>
+        /// Nastaví dostupnost filtrů podle role přihlášeného uživatele
+        /// </summary>
         private void ApplyRoleRights()
         {
             Uzivatel? uzivatel = HlavniOkno.GetPrihlasenyUzivatel();
@@ -110,6 +232,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
             OnPropertyChanged(nameof(TelefonToolTip));
         }
 
+        /// <summary>
+        /// Vynuluje všechny filtry do výchozího stavu
+        /// </summary>
         private void Reset()
         {
             SelectedPozice = null;
@@ -125,6 +250,9 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
             DelkaTrestu = "";
         }
 
+        /// <summary>
+        /// Spustí filtrování, uloží výsledek a požádá o zavření dialogu
+        /// </summary>
         private void Najdi()
         {
             try
@@ -142,6 +270,10 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Provede filtraci hráčů podle vyplněných kritérií
+        /// </summary>
+        /// <returns>Kolekce hráčů odpovídající filtrům.</returns>
         private IEnumerable<Hrac> FiltrujHrace()
         {
             IEnumerable<Hrac> vysledek = _hraciData;
@@ -169,7 +301,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
             if (!string.IsNullOrWhiteSpace(prijmeni))
             {
                 Validator.ValidujPrijmeni(prijmeni);
-                vysledek = vysledek.Where(h => h.Prijmeni != null && h.Prijmeni.Contains(prijmeni, StringComparison.OrdinalIgnoreCase));
+                vysledek = vysl﻿edek = vysledek.Where(h => h.Prijmeni != null && h.Prijmeni.Contains(prijmeni, StringComparison.OrdinalIgnoreCase));
             }
 
             // Telefonní číslo

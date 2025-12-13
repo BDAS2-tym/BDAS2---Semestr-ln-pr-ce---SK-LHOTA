@@ -14,11 +14,9 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
-    <!-- Vnější rámeček -->
     <Border CornerRadius="12">
         <Border CornerRadius="10" BorderThickness="2" Opacity="0.95">
 
-            <!-- Okraj -->
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Aqua" Offset="0"/>
@@ -27,7 +25,6 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
 
-            <!-- Pozadí -->
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                     <GradientStop Color="#5D1FA3" Offset="0"/>
@@ -61,7 +58,8 @@
                     <!-- Minimize -->
                     <Button x:Name="btnMinimize" BorderThickness="0" Content="-" Foreground="White"
                             FontSize="16" FontFamily="Montserrat"
-                            Cursor="Hand" Grid.Column="1" Click="BtnMinimize_Click">
+                            Cursor="Hand" Grid.Column="1"
+                            Command="{Binding MinimizeCommand}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="Gray"/>
@@ -84,7 +82,8 @@
                     <!-- Close -->
                     <Button x:Name="btnClose" BorderThickness="0" Content="X" Foreground="White"
                             FontSize="12" FontFamily="Montserrat"
-                            Cursor="Hand" Grid.Column="2" Click="BtnClose_Click">
+                            Cursor="Hand" Grid.Column="2"
+                            Command="{Binding CloseCommand}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="Gray"/>
@@ -114,6 +113,7 @@
                     <TextBlock Text="Uživatelské jméno" Foreground="DarkGray" FontSize="13"
                                FontFamily="Montserrat" Margin="0,5,0,0"/>
                     <TextBox x:Name="txtUser"
+                             Text="{Binding UzivatelskeJmeno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              FontSize="13" FontFamily="Montserrat" Foreground="White"
                              CaretBrush="LightGray" BorderBrush="DarkGray"
                              BorderThickness="0,0,0,2" Height="28"
@@ -127,6 +127,7 @@
                     <TextBlock Text="E-mail" Foreground="DarkGray" FontSize="13"
                                FontFamily="Montserrat" Margin="0,15,0,0"/>
                     <TextBox x:Name="txtEmail"
+                             Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              FontSize="13" FontFamily="Montserrat" Foreground="White"
                              CaretBrush="LightGray" BorderBrush="DarkGray"
                              BorderThickness="0,0,0,2" Height="28"
@@ -138,7 +139,10 @@
                     </TextBox>
 
                     <TextBlock Text="Heslo" Foreground="DarkGray" FontSize="13" FontFamily="Montserrat" Margin="0,15,0,0"/>
-                    <PasswordBox x:Name="txtPass" FontSize="13" FontFamily="Montserrat" Foreground="White"
+                    <!-- PasswordBox nejde bindnout přímo -> předává se v code-behind -->
+                    <PasswordBox x:Name="txtPass"
+                                 PasswordChanged="TxtPass_PasswordChanged"
+                                 FontSize="13" FontFamily="Montserrat" Foreground="White"
                                  CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,2"
                                  Height="28" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="20,0,0,0" TabIndex="3">
                         <PasswordBox.Background>
@@ -148,7 +152,9 @@
                     </PasswordBox>
 
                     <TextBlock Text="Znovu heslo" Foreground="DarkGray" FontSize="13" FontFamily="Montserrat" Margin="0,15,0,0"/>
-                    <PasswordBox x:Name="txtPass2" FontSize="13" FontFamily="Montserrat" Foreground="White"
+                    <PasswordBox x:Name="txtPass2"
+                                 PasswordChanged="TxtPass2_PasswordChanged"
+                                 FontSize="13" FontFamily="Montserrat" Foreground="White"
                                  CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,2"
                                  Height="28" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="20,0,0,0" TabIndex="4">
                         <PasswordBox.Background>
@@ -157,12 +163,13 @@
                         </PasswordBox.Background>
                     </PasswordBox>
 
-                    <!-- ComboBox Role – světlejší a přehledný -->
+                    <!-- Role -->
                     <TextBlock Text="Role" Foreground="DarkGray" FontSize="13" FontFamily="Montserrat" Margin="0,15,0,3"/>
                     <ComboBox x:Name="cmbRole"
+                              ItemsSource="{Binding RoleList}"
+                              SelectedItem="{Binding SelectedRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Height="40"
                               Margin="0,5,0,0"
-                              SelectionChanged="CmbRole_SelectionChanged"
                               FontSize="15"
                               FontWeight="SemiBold"
                               FontFamily="Montserrat"
@@ -195,45 +202,43 @@
                                 </Style.Triggers>
                             </Style>
                         </ComboBox.ItemContainerStyle>
-
-                        <ComboBoxItem Content="Uživatel"/>
-                        <ComboBoxItem Content="Hráč"/>
-                        <ComboBoxItem Content="Trenér"/>
-                        <ComboBoxItem Content="Admin"/>
                     </ComboBox>
 
+                    <!-- Rodné číslo (viditelné jen pro Hráč/Trenér) -->
                     <StackPanel x:Name="panelRodneCislo"
                                 Margin="0,15,0,0"
-                                Visibility="Collapsed">
+                                Visibility="{Binding RodneCisloVisibility}">
                         <TextBlock Text="Rodné číslo"
-                               Foreground="DarkGray"
-                               FontSize="15"
-                               FontWeight="Bold"
-                               FontFamily="Montserrat"
-                               Margin="0,0,0,6"/>
+                                   Foreground="DarkGray"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   FontFamily="Montserrat"
+                                   Margin="0,0,0,6"/>
                         <Border Background="White"
-                            CornerRadius="6"
-                            BorderBrush="#999"
-                            BorderThickness="1.5"
-                            Padding="6,4">
+                                CornerRadius="6"
+                                BorderBrush="#999"
+                                BorderThickness="1.5"
+                                Padding="6,4">
                             <TextBox x:Name="txtRodneCislo"
-                             Height="38"
-                             FontSize="16"
-                             FontWeight="Bold"
-                             FontFamily="Montserrat"
-                             Foreground="Black"
-                             Background="White"
-                             BorderThickness="0"
-                             CaretBrush="#444"
-                             VerticalContentAlignment="Center"
-                             PreviewTextInput="TxtRodneCislo_PreviewTextInput"
-                             TextChanged="TxtRodneCislo_TextChanged"/>
+                                     Text="{Binding RodneCislo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Height="38"
+                                     MaxLength="10"
+                                     FontSize="16"
+                                     FontWeight="Bold"
+                                     FontFamily="Montserrat"
+                                     Foreground="Black"
+                                     Background="White"
+                                     BorderThickness="0"
+                                     CaretBrush="#444"
+                                     VerticalContentAlignment="Center"/>
                         </Border>
                     </StackPanel>
 
+                    <!-- Registrovat -->
                     <Button x:Name="btnRegister" Content="Registrovat"
                             Foreground="White" FontSize="12" FontFamily="Montserrat"
-                            Cursor="Hand" Margin="0,30,0,0" Click="BtnRegister_Click" TabIndex="6">
+                            Cursor="Hand" Margin="0,30,0,0"
+                            Command="{Binding RegisterCommand}" TabIndex="6">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#462AD8"/>
@@ -254,7 +259,8 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBlock x:Name="lblStatus" Text=""
+                    <TextBlock x:Name="lblStatus"
+                               Text="{Binding StatusText}"
                                Foreground="White" FontSize="12" FontFamily="Montserrat"
                                TextAlignment="Center" Margin="0,10,0,0"/>
                 </StackPanel>

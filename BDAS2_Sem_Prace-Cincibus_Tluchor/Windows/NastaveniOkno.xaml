@@ -10,7 +10,6 @@
         AllowsTransparency="False"
         MouseDown="Window_MouseDown">
 
-
     <Grid>
         <!-- Pozadí -->
         <Grid.Background>
@@ -18,9 +17,7 @@
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
-            <!-- Levý panel -->
             <ColumnDefinition Width="250"/>
-            <!-- Pravý panel -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -32,7 +29,6 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Nadpis -->
                 <TextBlock Text="Nastavení"
                            Foreground="Black"
                            FontSize="26"
@@ -41,7 +37,6 @@
                            Margin="0,20"
                            FontFamily="Century Gothic"/>
 
-                <!-- Tlačítka -->
                 <Grid Grid.Row="1" Margin="0,0,0,15">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -51,62 +46,88 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Styl tlačítek -->
-                    <Grid.Resources>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#77B3FB"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Foreground" Value="Black"/>
-                            <Setter Property="FontFamily" Value="Century Gothic"/>
-                            <Setter Property="FontSize" Value="20"/>
-                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                            <Setter Property="Padding" Value="20,8"/>
-                            <Setter Property="Margin" Value="10,6"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#111827"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Resources>
-
-                    <!-- Button Binární obsah -->
-                    <Button x:Name="btnBinarniObsah" Grid.Row="0" Margin="0,5,0,10" TabIndex="1" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="BtnBinarniObsah_Click">
+                    <!-- Binární obsah -->
+                    <Button x:Name="btnBinarniObsah"
+                            Grid.Row="0"
+                            Margin="0,5,0,10"
+                            TabIndex="1"
+                            Padding="12,4,12,4"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Top"
+                            Command="{Binding OpenBinarniObsahCommand}"
+                            IsEnabled="{Binding CanBinarniObsah}"
+                            Opacity="{Binding BinarniObsahOpacity}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/binary_file.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Binární obsah" VerticalAlignment="Center" FontSize="18"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Button Uživatelské účty -->
-                    <Button x:Name="btnUzivatele" Grid.Row="1" Margin="0,10,0,10" TabIndex="2" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="BtnUzivatele_Click">
+                    <!-- Uživatelské účty -->
+                    <Button x:Name="btnUzivatele"
+                            Grid.Row="1"
+                            Margin="0,10,0,10"
+                            TabIndex="2"
+                            Padding="12,4,12,4"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Top"
+                            Command="{Binding OpenUzivateleCommand}"
+                            IsEnabled="{Binding CanUzivatele}"
+                            Opacity="{Binding UzivateleOpacity}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/user.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Uživatelské účty" VerticalAlignment="Center" FontSize="18"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Button Systémový katalog -->
-                    <Button x:Name="btnSystemovyKatalog" Grid.Row="2" Margin="0,10,0,10" TabIndex="3" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="BtnSystemovyKatalog_Click">
+                    <!-- Systémový katalog -->
+                    <Button x:Name="btnSystemovyKatalog"
+                            Grid.Row="2"
+                            Margin="0,10,0,10"
+                            TabIndex="3"
+                            Padding="12,4,12,4"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Top"
+                            Command="{Binding OpenSystemovyKatalogCommand}"
+                            IsEnabled="{Binding CanSystemovyKatalog}"
+                            Opacity="{Binding SystemovyKatalogOpacity}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/sys_catalog.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Systémový katalog" VerticalAlignment="Center" FontSize="18"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Button Záznamy změn -->
-                    <Button x:Name="btnZmeny" Grid.Row="3" Margin="0,10,0,10" TabIndex="3" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="BtnZmeny_Click">
+                    <!-- Záznamy změn -->
+                    <Button x:Name="btnZmeny"
+                            Grid.Row="3"
+                            Margin="0,10,0,10"
+                            TabIndex="4"
+                            Padding="12,4,12,4"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Top"
+                            Command="{Binding OpenZmenyCommand}"
+                            IsEnabled="{Binding CanZmeny}"
+                            Opacity="{Binding ZmenyOpacity}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/log_table.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Záznamy změn" VerticalAlignment="Center" FontSize="18"/>
                         </StackPanel>
                     </Button>
 
-                    <!-- Button Zpět -->
-                    <Button x:Name="btnZpet" Grid.Row="4" Margin="0,5,0,10" TabIndex="5" Padding="12,4,12,4" Style="{StaticResource HoverFadeButtonStyle2}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Click="BtnZpet_Click">
+                    <!-- Zpět -->
+                    <Button x:Name="btnZpet"
+                            Grid.Row="4"
+                            Margin="0,5,0,10"
+                            TabIndex="5"
+                            Padding="12,4,12,4"
+                            Style="{StaticResource HoverFadeButtonStyle2}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Top"
+                            Command="{Binding BackCommand}">
                         <StackPanel Orientation="Horizontal" Margin="22,0,0,0">
                             <Image Source="/Images/Img/left.png" Width="40" Height="40" Margin="0,0,10,0"/>
                             <TextBlock Text="Zpět" VerticalAlignment="Center" FontSize="18"/>

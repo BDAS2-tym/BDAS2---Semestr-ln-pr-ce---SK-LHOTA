@@ -44,7 +44,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             vm.RequestOpenEditDialog += (hrac) =>
             {
-                // zachovávám tvoje existující okno + logiku
                 var dialog = new DialogEditujHrace(hrac, this);
                 dialog.ShowDialog();
             };
@@ -59,7 +58,6 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
 
             DataContext = vm;
 
-            // zachováme původní chování viditelnosti sloupců podle role
             NastavViditelnostSloupcuProUzivatele();
         }
 
@@ -84,7 +82,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
                 Application.Current.Shutdown();
         }
 
-        // CTRL + X ukončí hledání (stejné jako dřív)
+        // CTRL + X ukončí hledání 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (Vm.JeVyhledavaniAktivni && Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.X)
@@ -100,7 +98,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor
             Vm.EditCommand.Execute(null);
         }
 
-        // blok DELETE + SPACE chování (stejné jako dřív)
+        // blok DELETE 
         private void DgHraci_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)

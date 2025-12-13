@@ -7,8 +7,19 @@
         ResizeMode="NoResize"
         Icon="/Images/Ikony/Ikona_Hledani.ico">
 
+    <Window.Resources>
+        <!-- jen pro admin-only textboxy -->
+        <Style x:Key="AdminOnlyTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Opacity" Value="1"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        <!-- POZADÍ -->
         <Grid.Background>
             <ImageBrush ImageSource="/Images/Img/pozadi_2_dialog_okna.png" Stretch="Fill"/>
         </Grid.Background>
@@ -38,37 +49,57 @@
             <!-- RODNÉ ČÍSLO -->
             <TextBlock Text="Rodné číslo:" Grid.Row="0" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tRodneCislo" Grid.Row="0" Grid.Column="1" Height="26" MaxLength="10" Margin="0,5,0,5" TabIndex="1"/>
+
+            <TextBox Grid.Row="0" Grid.Column="1" Height="26" MaxLength="10" Margin="0,5,0,5" TabIndex="1"
+                     Style="{StaticResource AdminOnlyTextBoxStyle}"
+                     IsEnabled="{Binding CanFilterSensitive}"
+                     ToolTip="{Binding RodneCisloToolTip}"
+                     Text="{Binding RodneCislo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- JMÉNO -->
             <TextBlock Text="Jméno:" Grid.Row="1" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tJmeno" Grid.Row="1" Grid.Column="1" Height="26" MaxLength="20" Margin="0,5,0,5" TabIndex="2"/>
+
+            <TextBox Grid.Row="1" Grid.Column="1" Height="26" MaxLength="20" Margin="0,5,0,5" TabIndex="2"
+                     Text="{Binding Jmeno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- PŘÍJMENÍ -->
             <TextBlock Text="Příjmení:" Grid.Row="2" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tPrijmeni" Grid.Row="2" Grid.Column="1" Height="26" MaxLength="20" Margin="0,5,0,5" TabIndex="3"/>
+
+            <TextBox Grid.Row="2" Grid.Column="1" Height="26" MaxLength="20" Margin="0,5,0,5" TabIndex="3"
+                     Text="{Binding Prijmeni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- TELEFON -->
             <TextBlock Text="Telefon:" Grid.Row="3" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tTelefon" Grid.Row="3" Grid.Column="1" Height="26" MaxLength="12" Margin="0,5,0,5" TabIndex="4"/>
+
+            <TextBox Grid.Row="3" Grid.Column="1" Height="26" MaxLength="12" Margin="0,5,0,5" TabIndex="4"
+                     Style="{StaticResource AdminOnlyTextBoxStyle}"
+                     IsEnabled="{Binding CanFilterSensitive}"
+                     ToolTip="{Binding TelefonToolTip}"
+                     Text="{Binding Telefon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- LICENCE -->
             <TextBlock Text="Trenérská licence:" Grid.Row="4" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tLicence" Grid.Row="4" Grid.Column="1" Height="26" MaxLength="20" Margin="0,5,0,5" TabIndex="5"/>
+
+            <TextBox Grid.Row="4" Grid.Column="1" Height="26" MaxLength="20" Margin="0,5,0,5" TabIndex="5"
+                     Text="{Binding Licence, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- SPECIALIZACE -->
             <TextBlock Text="Specializace:" Grid.Row="5" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tSpecializace" Grid.Row="5" Grid.Column="1" Height="26" MaxLength="30" Margin="0,5,0,5" TabIndex="6"/>
+
+            <TextBox Grid.Row="5" Grid.Column="1" Height="26" MaxLength="30" Margin="0,5,0,5" TabIndex="6"
+                     Text="{Binding Specializace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- PRAXE -->
             <TextBlock Text="Počet let praxe:" Grid.Row="6" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tPraxe" Grid.Row="6" Grid.Column="1" Height="26" MaxLength="3" Margin="0,5,0,5" TabIndex="7"/>
+
+            <TextBox Grid.Row="6" Grid.Column="1" Height="26" MaxLength="3" Margin="0,5,0,5" TabIndex="7"
+                     Text="{Binding Praxe, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         </Grid>
 
@@ -85,12 +116,14 @@
                 <Button Content="Najdi" Width="130" Height="40"
                         Margin="20"
                         Style="{StaticResource HoverFadeButtonStyle}"
-                        Click="BtnNajdi_Click" TabIndex="8"/>
+                        Command="{Binding NajdiCommand}"
+                        TabIndex="8"/>
 
                 <Button Content="Reset" Width="130" Height="40"
                         Style="{StaticResource HoverFadeButtonStyle}"
                         Background="#DDC5D709"
-                        Click="BtnReset_Click" TabIndex="9"/>
+                        Command="{Binding ResetCommand}"
+                        TabIndex="9"/>
 
             </StackPanel>
         </Border>

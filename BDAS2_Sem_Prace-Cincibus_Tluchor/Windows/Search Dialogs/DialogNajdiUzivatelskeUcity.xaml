@@ -37,41 +37,39 @@
             <!-- UŽIVATELSKÉ JMÉNO -->
             <TextBlock Text="Uživatelské jméno:" Grid.Row="0" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tJmeno" Grid.Row="0" Grid.Column="1" Height="26" TabIndex="1"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Height="26" TabIndex="1"
+                     Text="{Binding Jmeno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- EMAIL -->
             <TextBlock Text="E-mail:" Grid.Row="1" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tEmail" Grid.Row="1" Grid.Column="1" Height="26" TabIndex="2"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Height="26" TabIndex="2"
+                     Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <!-- ROLE COMBOBOX -->
+            <!-- ROLE -->
             <TextBlock Text="Role:" Grid.Row="2" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
 
-            <ComboBox x:Name="cbRole"
-                      Grid.Row="2" Grid.Column="1"
-                      Height="26"
-                      SelectedIndex="-1" TabIndex="3">
-                <ComboBoxItem Content="Hrac"/>
-                <ComboBoxItem Content="Trener"/>
-                <ComboBoxItem Content="Admin"/>
-                <ComboBoxItem Content="Uživatel"/>
-                <ComboBoxItem Content="Host"/>
-            </ComboBox>
+            <ComboBox Grid.Row="2" Grid.Column="1"
+                      Height="26" TabIndex="3"
+                      ItemsSource="{Binding RoleList}"
+                      SelectedItem="{Binding SelectedRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- RODNÉ ČÍSLO -->
             <TextBlock Text="Rodné číslo:" Grid.Row="3" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="tRodneCislo" Grid.Row="3" Grid.Column="1" Height="26" MaxLength="10" TabIndex="4"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Height="26" MaxLength="10" TabIndex="4"
+                     Text="{Binding RodneCislo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- POSLEDNÍ PŘIHLÁŠENÍ JEN DATUM -->
             <TextBlock Text="Poslední přihlášení:" Grid.Row="4" Grid.Column="0"
                        VerticalAlignment="Center" FontWeight="Bold"/>
 
-            <DatePicker x:Name="dpPrihlaseniDatum"
-                        Grid.Row="4" Grid.Column="1"
-                        Height="26" TabIndex="5" IsHitTestVisible="False" Margin="0,0,30,0"/>
-
+            <DatePicker Grid.Row="4" Grid.Column="1"
+                        Height="26" TabIndex="5"
+                        SelectedDate="{Binding DatumPrihlaseni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsHitTestVisible="False"
+                        Margin="0,0,30,0"/>
         </Grid>
 
         <!-- TLAČÍTKA -->
@@ -87,12 +85,12 @@
                 <Button Content="Najdi" Width="130" Height="40"
                         Margin="20"
                         Style="{StaticResource HoverFadeButtonStyle}"
-                        Click="BtnNajdi_Click" TabIndex="6"/>
+                        Command="{Binding NajdiCommand}" TabIndex="6"/>
 
                 <Button Content="Reset" Width="130" Height="40"
                         Style="{StaticResource HoverFadeButtonStyle}"
                         Background="#DDC5D709"
-                        Click="BtnReset_Click" TabIndex="7"/>
+                        Command="{Binding ResetCommand}" TabIndex="7"/>
 
             </StackPanel>
         </Border>

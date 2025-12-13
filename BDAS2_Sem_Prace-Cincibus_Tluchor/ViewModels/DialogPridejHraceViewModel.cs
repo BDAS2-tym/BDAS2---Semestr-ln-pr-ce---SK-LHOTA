@@ -14,7 +14,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
     public class DialogPridejHraceViewModel : ViewModelBase
     {
         /// <summary>
-        /// Reference na kolekci hráčů z hlavního okna (DataGrid)
+        ///  kolekce hráčů z hlavního okna (DataGrid)
         /// Po úspěšném vložení do DB se nový hráč přidá i sem, aby se UI ihned aktualizovalo
         /// </summary>
         private readonly ObservableCollection<Hrac> _hraciData;

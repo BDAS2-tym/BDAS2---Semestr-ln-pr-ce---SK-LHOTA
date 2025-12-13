@@ -15,7 +15,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
     public class HraciOknoViewModel : ViewModelBase
     {
         /// <summary>
-        /// Kompletní seznam hráčů načtený z databáze
+        /// seznam hráčů načtený z databáze
         /// </summary>
         public ObservableCollection<Hrac> HraciData { get; } = new ObservableCollection<Hrac>();
 
@@ -23,7 +23,7 @@ namespace BDAS2_Sem_Prace_Cincibus_Tluchor.ViewModels
 
         /// <summary>
         /// Kolekce, která je přímo navázaná na DataGrid
-        /// Při filtrování se sem nastaví filtrovaná kolekce, jinak se ukazuje HraciData
+        /// Při filtrování se  nastaví filtrovaná kolekce, jinak se ukazuje HraciData
         /// </summary>
         public ObservableCollection<Hrac> ZobrazovaniHraci
         {
